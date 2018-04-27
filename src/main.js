@@ -1,12 +1,18 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+
+// Apollo
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
+
+// Vue instance
 import App from './App'
+
+// Router
 import router from './router'
+
+// Vuetify
 import {
   Vuetify,
   VApp,
@@ -26,6 +32,10 @@ import {
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
+// i18n
+import { i18n } from './i18n'
+
+// Apollo
 const httpLink = new HttpLink({
   uri: 'http://stage.do.linkitox.com/public/graphql/account'
 })
@@ -42,6 +52,7 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 })
 
+// Vuetify
 Vue.use(Vuetify, {
   components: {
     VApp,
@@ -76,6 +87,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  i18n,
   provide: apolloProvider.provide(),
   components: { App },
   template: '<App/>'
