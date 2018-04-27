@@ -32,6 +32,9 @@ export default {
         .catch(e => {
           console.log(e)
         })
+  },
+  mounted () {
+    this.$store.dispatch('getWords')
   }
 }
 </script>
