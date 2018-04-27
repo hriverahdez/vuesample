@@ -37,6 +37,7 @@
         v-model="lang"
         label="Select"
         single-line
+        @change="selectedLanguage($event)"
       )
       v-btn(icon)
         v-icon apps
@@ -122,12 +123,21 @@
       ],
       lang: 'English',
       items_select: [
-        { text: 'English' },
-        { text: 'Spanish' }
+        'English', 'Spanish'
       ]
     }),
     props: {
       source: String
+    },
+    methods: {
+      selectedLanguage (lang) {
+        if (lang === 'Spanish') {
+          this.$store.dispatch('browserLangUpdate', 'es')
+        } else {
+          this.$store.dispatch('browserLangUpdate', 'en')
+        }
+        this.$store.dispatch('getWords')
+      }
     }
   }
 </script>
