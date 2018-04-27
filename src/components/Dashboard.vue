@@ -3,6 +3,8 @@
     h1 Dashboard
     p {{ $t("links.home") }}
     button(@click="cambiarIdioma") Cambiar idioma
+    p {{ this.$store.getters.browserLangGetter }}
+    button(@click="actualizarIdioma") Actualizar idioma
 </template>
 
 <script>
@@ -17,6 +19,9 @@ export default {
       } else {
         this.$i18n.locale = 'en'
       }
+    },
+    actualizarIdioma () {
+      this.$store.dispatch('browserLangUpdate', 'por')
     }
   },
   created () {

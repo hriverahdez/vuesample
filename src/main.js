@@ -1,18 +1,19 @@
+// Vue instance import
 import Vue from 'vue'
 
-// Apollo
+// Apollo import
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
 
-// Vue instance
+// Main component import
 import App from './App'
 
-// Router
+// Router import
 import router from './router'
 
-// Vuetify
+// Vuetify import
 import {
   Vuetify,
   VApp,
@@ -32,10 +33,13 @@ import {
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
-// i18n
+// i18n import
 import { i18n } from './i18n'
 
-// Apollo
+// Store import
+import { store } from './store.js'
+
+// Apollo config
 const httpLink = new HttpLink({
   uri: 'http://stage.do.linkitox.com/public/graphql/account'
 })
@@ -52,7 +56,7 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 })
 
-// Vuetify
+// Vuetify config
 Vue.use(Vuetify, {
   components: {
     VApp,
@@ -84,10 +88,12 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
   i18n,
+  store,
   provide: apolloProvider.provide(),
   components: { App },
   template: '<App/>'
