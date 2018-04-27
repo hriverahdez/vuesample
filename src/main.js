@@ -26,15 +26,13 @@ import {
   VIcon,
   VList,
   VNavigationDrawer,
+  VSelect,
   VTextField,
   VToolbar,
   VTooltip,
   transitions
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
-
-// i18n import
-import { i18n } from './i18n'
 
 // Store import
 import { store } from './store.js'
@@ -69,6 +67,7 @@ Vue.use(Vuetify, {
     VIcon,
     VList,
     VNavigationDrawer,
+    VSelect,
     VTextField,
     VToolbar,
     VTooltip,
@@ -92,7 +91,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  i18n,
   store,
   provide: apolloProvider.provide(),
   components: { App },
