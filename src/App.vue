@@ -32,6 +32,12 @@
         span.hidden-sm-and-down Mobusi mediation
       v-text-field.hidden-sm-and-down(flat, solo-inverted, prepend-icon='search', label='Search')
       v-spacer
+      v-select(
+        :items="items_select"
+        v-model="lang"
+        label="Select"
+        single-line
+      )
       v-btn(icon)
         v-icon apps
       v-btn(icon)
@@ -113,6 +119,11 @@
         { icon: 'help', text: 'Help' },
         { icon: 'phonelink', text: 'App downloads' },
         { icon: 'keyboard', text: 'Go to the old version' }
+      ],
+      lang: 'English',
+      items_select: [
+        { text: 'English' },
+        { text: 'Spanish' }
       ]
     }),
     props: {
