@@ -1,0 +1,16 @@
+{
+    "links": {
+      "home": "Inicio",
+      "about": "Sobre nosotros",
+      "english": "Versión inglés",
+      "french": "Versión español"
+    },
+    "home": {
+      "title": "Bienvenido",
+      "introduction": "Esta es una introducción en español"
+    },
+    "about": {
+      "title": "SObre nosotros",
+      "introduction": "Esta es una introducción sobre nosotros."
+    }
+  }
