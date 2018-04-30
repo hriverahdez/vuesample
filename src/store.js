@@ -10,7 +10,10 @@ export const ADD_WORDS = 'ADD_WORDS'
 export const store = new Vuex.Store({
   state: {
     browserLang: 'en',
-    words: []
+    words: [],
+    pepe: {
+      name: {'hola': 'popo'}
+    }
   },
   getters: {
     browserLangGetter (state) {

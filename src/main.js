@@ -37,6 +37,9 @@ import '../node_modules/vuetify/src/stylus/app.styl'
 // Store import
 import { store } from './store.js'
 
+// vue-i18n import
+import {i18n} from './i18n'
+
 // Apollo config
 const httpLink = new HttpLink({
   uri: 'http://stage.do.linkitox.com/public/graphql/account'
@@ -92,6 +95,7 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   provide: apolloProvider.provide(),
   components: { App },
   template: '<App/>'
