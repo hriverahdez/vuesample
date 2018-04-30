@@ -20,12 +20,12 @@
               v-list-tile-content
                 v-list-tile-title
                   | {{ child.text }}
-          v-list-tile(v-else, :key='item.text')
+          v-list-tile(v-else, :key='item.text' router :to="item.action")
             v-list-tile-action
               v-icon {{ item.icon }}
             v-list-tile-content
               v-list-tile-title
-                | {{ item.text }}
+                  | {{ item.text }}
     v-toolbar(color='blue darken-3', dark, app, :clipped-left='$vuetify.breakpoint.lgAndUp', fixed)
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
@@ -90,7 +90,7 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'contacts', text: 'Cuentas' },
+        { icon: 'contacts', text: 'Accounts', action: 'info' },
         { icon: 'history', text: 'Frequently contacted' },
         { icon: 'content_copy', text: 'Duplicates' },
         {
