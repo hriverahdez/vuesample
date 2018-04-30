@@ -32,6 +32,13 @@
         span.hidden-sm-and-down Mobusi mediation
       v-text-field.hidden-sm-and-down(flat, solo-inverted, prepend-icon='search', label='Search')
       v-spacer
+      v-select(
+        :items="items_select"
+        v-model="lang"
+        label="Select"
+        single-line
+        @change="selectedLanguage($event)"
+      )
       v-btn(icon)
         v-icon apps
       v-btn(icon)
@@ -83,7 +90,7 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'contacts', text: 'Contacts' },
+        { icon: 'contacts', text: 'Cuentas' },
         { icon: 'history', text: 'Frequently contacted' },
         { icon: 'content_copy', text: 'Duplicates' },
         {
@@ -113,10 +120,24 @@
         { icon: 'help', text: 'Help' },
         { icon: 'phonelink', text: 'App downloads' },
         { icon: 'keyboard', text: 'Go to the old version' }
+      ],
+      lang: 'English',
+      items_select: [
+        'English', 'Spanish'
       ]
     }),
     props: {
       source: String
+    },
+    methods: {
+      selectedLanguage (lang) {
+        if (lang === 'Spanish') {
+          this.$store.dispatch('browserLangUpdate', 'es')
+        } else {
+          this.$store.dispatch('browserLangUpdate', 'en')
+        }
+        this.$store.dispatch('getWords')
+      }
     }
   }
 </script>

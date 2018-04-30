@@ -1,12 +1,19 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+// Vue instance import
 import Vue from 'vue'
+
+// Apollo import
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
+
+// Main component import
 import App from './App'
+
+// Router import
 import router from './router'
+
+// Vuetify import
 import {
   Vuetify,
   VApp,
@@ -19,6 +26,7 @@ import {
   VIcon,
   VList,
   VNavigationDrawer,
+  VSelect,
   VTextField,
   VToolbar,
   VTooltip,
@@ -26,6 +34,13 @@ import {
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
+// Store import
+import { store } from './store.js'
+
+// vue-i18n import
+import {i18n} from './i18n'
+
+// Apollo config
 const httpLink = new HttpLink({
   uri: 'http://stage.do.linkitox.com/public/graphql/account'
 })
@@ -42,6 +57,7 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 })
 
+// Vuetify config
 Vue.use(Vuetify, {
   components: {
     VApp,
@@ -54,6 +70,7 @@ Vue.use(Vuetify, {
     VIcon,
     VList,
     VNavigationDrawer,
+    VSelect,
     VTextField,
     VToolbar,
     VTooltip,
@@ -73,9 +90,12 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
+  store,
+  i18n,
   provide: apolloProvider.provide(),
   components: { App },
   template: '<App/>'
