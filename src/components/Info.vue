@@ -1,7 +1,7 @@
 <template lang="pug">
   section
     h1 Info
-    pre {{ $data.accounts }}
+    //- pre {{ $data.accounts }}
     // New account dialog
     v-dialog(v-model="dialog" max-width="500px")
       v-btn(color="blue darken-1" dark slot="activator").mb-2 New account
@@ -12,11 +12,11 @@
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-                v-text-field(label="id" v-model="newAccount._id")
-              v-flex(xs12)
                 v-text-field(label="Account name" v-model="newAccount.name")
               v-flex(xs12)
-                v-text-field(label="Status" v-model="newAccount.status")
+                v-text-field(label="Description" v-model="newAccount.description")
+              v-flex(xs12)
+                v-text-field(label="Status" v-model="newAccount.disabled")
         v-card-actions
           v-spacer
           v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
@@ -42,12 +42,12 @@
 </template>
 
 <script>
-  import { ACCOUNTS } from '../graphql'
+  import { GET_ACCOUNTS, CREATE_NEW_ACCOUNT } from '../graphql'
 
   export default {
     apollo: {
       accounts: {
-        query: ACCOUNTS,
+        query: GET_ACCOUNTS,
         loadingKey: 'loading'
       }
     },
@@ -60,9 +60,13 @@
       return {
         formTitle: 'New Account',
         newAccount: {
-          name: '',
-          status: null
+          _id: null,
+          name: null,
+          description: null,
+          disabled: true
         },
+        name: 'Name',
+        description: 'Description',
         defaultItem: {
           name: '',
           status: null
@@ -97,8 +101,21 @@
         // } else {
         //   this.items.push(this.editedItem)
         // }
-        // this.closeDialog()
         console.log('Entra')
+        const {newAccount} = this.$data
+        this.$apollo.mutate({
+          mutation: CREATE_NEW_ACCOUNT,
+          variables: {
+            input: {
+              name: newAccount.name,
+              description: newAccount.description
+            }
+          },
+          update: (store, { data: { createAccount } }) => {
+            console.log('Vamooooos')
+          }
+        })
+        // this.closeDialog()
       }
     }
   }
