@@ -90,7 +90,7 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'contacts', text: 'Contacts' },
+        { icon: 'contacts', text: 'Cuentas' },
         { icon: 'history', text: 'Frequently contacted' },
         { icon: 'content_copy', text: 'Duplicates' },
         {
