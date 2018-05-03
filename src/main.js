@@ -1,4 +1,4 @@
-// Vue instance import
+// Vue import
 import Vue from 'vue'
 
 // Apollo import
@@ -13,32 +13,14 @@ import App from './App'
 // Router import
 import router from './router'
 
-// Vuetify import
-import {
-  Vuetify,
-  VApp,
-  VAvatar,
-  VBtn,
-  VCard,
-  VDataTable,
-  VDialog,
-  VGrid,
-  VIcon,
-  VList,
-  VNavigationDrawer,
-  VSelect,
-  VTextField,
-  VToolbar,
-  VTooltip,
-  transitions
-} from 'vuetify'
-import '../node_modules/vuetify/src/stylus/app.styl'
-
 // Store import
 import { store } from './store.js'
 
 // vue-i18n import
 import {i18n} from './i18n'
+
+// Vuetify import
+import './vuetify.js'
 
 // Apollo config
 const httpLink = new HttpLink({
@@ -55,36 +37,6 @@ Vue.use(VueApollo)
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient
-})
-
-// Vuetify config
-Vue.use(Vuetify, {
-  components: {
-    VApp,
-    VAvatar,
-    VBtn,
-    VCard,
-    VDataTable,
-    VDialog,
-    VGrid,
-    VIcon,
-    VList,
-    VNavigationDrawer,
-    VSelect,
-    VTextField,
-    VToolbar,
-    VTooltip,
-    transitions
-  },
-  theme: {
-    primary: '#ee44aa',
-    secondary: '#424242',
-    accent: '#82B1FF',
-    error: '#FF5252',
-    info: '#2196F3',
-    success: '#4CAF50',
-    warning: '#FFC107'
-  }
 })
 
 Vue.config.productionTip = false
