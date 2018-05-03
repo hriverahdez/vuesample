@@ -1,7 +1,6 @@
 <template lang="pug">
   section
     h1 Info
-    //- pre {{ $data.accounts }}
     // New account dialog
     v-dialog(v-model="dialog" max-width="500px")
       v-btn(color="blue darken-1" dark slot="activator").mb-2 New account
@@ -21,7 +20,7 @@
           v-spacer
           v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
           v-btn(color="blue darken-1" flat @click.native="createAccount") Create
-    // Acconts data table
+    // Accounts data table
     v-data-table(
       :headers="headers"
       :items="accounts"
@@ -48,6 +47,7 @@
     apollo: {
       accounts: {
         query: GET_ACCOUNTS,
+        pollInterval: 100,
         loadingKey: 'loading'
       }
     },
@@ -60,13 +60,9 @@
       return {
         formTitle: 'New Account',
         newAccount: {
-          _id: null,
           name: null,
-          description: null,
-          disabled: true
+          description: null
         },
-        name: 'Name',
-        description: 'Description',
         defaultItem: {
           name: '',
           status: null
@@ -90,18 +86,9 @@
     methods: {
       closeDialog () {
         this.dialog = false
-        setTimeout(() => {
-          this.newAccount = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        }, 300)
       },
+      // Create new account Apollo mutation
       createAccount () {
-        // if (this.editedIndex > -1) {
-        //   Object.assign(this.items[this.editedIndex], this.editedItem)
-        // } else {
-        //   this.items.push(this.editedItem)
-        // }
-        console.log('Entra')
         const {newAccount} = this.$data
         this.$apollo.mutate({
           mutation: CREATE_NEW_ACCOUNT,
@@ -112,10 +99,16 @@
             }
           },
           update: (store, { data: { createAccount } }) => {
-            console.log('Vamooooos')
+            const data = store.readQuery({
+              query: GET_ACCOUNTS
+            })
+            data.accounts.push(createAccount)
+            store.writeQuery({
+              query: GET_ACCOUNTS,
+              data })
           }
         })
-        // this.closeDialog()
+        this.closeDialog()
       }
     }
   }
