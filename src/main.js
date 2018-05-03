@@ -20,7 +20,10 @@ import { store } from './store.js'
 import {i18n} from './i18n'
 
 // Vuetify import
-import './vuetify.js'
+import '@/libs/vuetify'
+
+// Chartkick import
+import '@/libs/chartkick'
 
 // Apollo config
 const httpLink = new HttpLink({

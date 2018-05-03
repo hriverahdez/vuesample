@@ -13,13 +13,15 @@
                 v-tab(href="#tab-1") Global
                 v-tab(href="#tab-2") Days
                 v-tab(href="#tab-3") Countries
-                v-tab-item(
-                v-for="i in 3"
-                :key="i"
-                :id="'tab-' + i"
-                )
+                v-tab-item(id="tab-1")
                     v-card(flat)
-                        v-card-text {{ text }}
+                        line-chart(:data="{'2017-05-13': 2, '2017-05-14': 5}")
+                v-tab-item(id="tab-2")
+                    v-card(flat)
+                        pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
+                v-tab-item(id="tab-3")
+                    v-card(flat)
+                        column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
 </template>
 
 

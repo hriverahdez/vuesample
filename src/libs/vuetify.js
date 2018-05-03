@@ -23,7 +23,7 @@ import {
     VTooltip,
     transitions
   } from 'vuetify'
-import '../node_modules/vuetify/src/stylus/app.styl'
+import '../../node_modules/vuetify/src/stylus/app.styl'
 
   // Vuetify config
 Vue.use(Vuetify, {
