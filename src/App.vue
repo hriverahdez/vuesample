@@ -47,8 +47,8 @@
         v-avatar(size='32px', tile)
           img(src='https://vuetifyjs.com/static/doc-images/logo.svg', alt='Vuetify')
     v-content
-      v-container(fluid, fill-height)
-        v-layout(justify-center, align-center)
+      v-container(grid-list-md text-xs-center align-content-start).dashboard__container
+          v-layout(row wrap align-content-start)
           router-view
           //- v-tooltip(right)
           //-   v-btn(icon, large, :href='source', target='_blank', slot='activator')
@@ -82,6 +82,7 @@
           v-spacer
           v-btn(flat, color='primary', @click='dialog = false') Cancel
           v-btn(flat, @click='dialog = false') Save
+    v-footer(app)
 </template>
 
 <script>
