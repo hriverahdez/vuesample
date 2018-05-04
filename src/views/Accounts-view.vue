@@ -37,7 +37,7 @@
         td.text-xs-left {{ props.item.name}}
         td.text-xs-left {{ props.item.disabled }}
         td.justify-center
-          v-btn(icon @click="").mx-0
+          v-btn(icon @click="editAccount(props.item)").mx-0
             v-icon(color="teal") edit
           v-btn(icon @click="").mx-0
             v-icon(color="blue") clear
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import { GET_ACCOUNTS, CREATE_NEW_ACCOUNT } from '../graphql'
+  import { GET_ACCOUNTS, CREATE_NEW_ACCOUNT, DELETE_ACCOUNT } from '../graphql'
 
   export default {
     apollo: {
@@ -118,8 +118,18 @@
       closeDialog () {
         this.dialog = false
       },
+      // Edit account
+      editAccount (account) {
+        console.log(account)
+      },
+      // Delete account
       deleteAccount (account) {
-        console.log(account._id)
+        this.$apollo.mutate({
+          mutation: DELETE_ACCOUNT,
+          variables: {
+            ids: account._id
+          }
+        })
       },
       // Create new account Apollo mutation
       createAccount () {
@@ -131,16 +141,16 @@
               name: newAccount.name,
               description: newAccount.description
             }
-          },
-          update: (store, { data: { createAccount } }) => {
-            const data = store.readQuery({
-              query: GET_ACCOUNTS
-            })
-            data.accounts.push(createAccount)
-            store.writeQuery({
-              query: GET_ACCOUNTS,
-              data })
           }
+        //   update: (store, { data: { createAccount } }) => {
+        //     const data = store.readQuery({
+        //       query: GET_ACCOUNTS
+        //     })
+        //     data.accounts.push(createAccount)
+        //     store.writeQuery({
+        //       query: GET_ACCOUNTS,
+        //       data })
+        //   }
         })
         this.closeDialog()
       }
