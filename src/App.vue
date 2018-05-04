@@ -91,8 +91,8 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'contacts', text: 'Accounts', action: 'info' },
-        { icon: 'history', text: 'Frequently contacted' },
+        { icon: 'history', text: 'Dashboard', action: '/' },
+        { icon: 'contacts', text: 'Accounts', action: 'accounts' },
         { icon: 'content_copy', text: 'Duplicates' },
         {
           icon: 'keyboard_arrow_up',
