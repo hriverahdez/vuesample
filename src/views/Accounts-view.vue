@@ -9,7 +9,6 @@
             ) {{ breadcrumb.text }}
     // New account dialog
     v-dialog(v-model="dialog" max-width="500px")
-      v-btn(color="blue darken-1" dark slot="activator").mb-2 New account
       v-card
         v-card-title
           span.headline {{ formTitle }}
@@ -35,15 +34,18 @@
           v-btn(color="blue darken-1" flat @click.native="accountEventHandler") {{ formButtonTitle }}
     // Accounts data table
     v-card
-        v-card-title Accounts list
+        v-card-title(color="blue darken-1") Accounts list
             v-spacer
-            v-text-field(
-            append-icon="search"
-            label="Search"
-            single-line
-            hide-details
-            v-model="search"
-            )
+            v-btn(color="blue darken-1" dark @click="activeDialog").mb-2 New account
+        v-layout(wrap).card__row2
+            v-flex(xs3 offset-xs9)
+                v-text-field(
+                append-icon="search"
+                label="Search"
+                single-line
+                hide-details
+                v-model="search"
+                )
     v-data-table(
       :headers="headers"
       :items="accounts"
@@ -157,6 +159,10 @@
           this.editAccount()
         }
       },
+      // Active dialog layer
+      activeDialog () {
+        this.dialog = true
+      },
       // Close dialog layer
       closeDialog () {
         this.dialog = false
@@ -228,7 +234,14 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.card__title {
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    text-transform: uppercase;
+}
+.card__row2 {
+    padding: 15px;
+}
 .accounts-form__status {
     align-items: center;
     display: flex;
@@ -237,10 +250,6 @@
 
     &__span {
           padding-right: 18px;
-    }
-
-    label.green {
-        color: red;
     }
 }
 </style>

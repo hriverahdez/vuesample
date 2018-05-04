@@ -38,6 +38,7 @@
         label="Select"
         single-line
         @change="selectedLanguage($event)"
+        hide-details
       )
       v-btn(icon)
         v-icon apps
