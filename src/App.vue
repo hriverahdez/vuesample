@@ -145,7 +145,7 @@
 
 <style lang="scss" scoped>
 .container {
-  padding: 0;
+  padding: 30px;
 }
 </style>
 
