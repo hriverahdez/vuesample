@@ -1,5 +1,5 @@
 <template lang="pug">
-    section
+    section.dashboard__section
         v-flex(xs12)
             v-breadcrumbs(divider="-")
                 v-breadcrumbs-item(
@@ -47,10 +47,4 @@
   }
 </script>
 
-<style lang="scss">
-.dashboard__container {
-    padding: 0;
-    width: 100%;
-}
-</style>
 
