@@ -17,19 +17,37 @@
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-                v-text-field(label="Account name" v-model="newAccount.name")
-              v-flex(xs12)
-                v-text-field(label="Description" v-model="newAccount.description")
-              v-flex(xs12)
-                v-text-field(label="Status" v-model="newAccount.disabled")
+                v-form.accounts__form
+                    v-text-field(label="Account name" v-model="newAccount.name")
+                    v-text-field(label="Description" v-model="newAccount.description")
+                    div.accounts-form__status
+                        Span.accounts-form__status__span Status:
+                        v-switch(
+                            v-model="newAccount.status"
+                            :label="check"
+                            color="teal"
+                            value="true"
+                            hide-details
+                        )
         v-card-actions
           v-spacer
           v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
           v-btn(color="blue darken-1" flat @click.native="accountEventHandler") {{ formButtonTitle }}
     // Accounts data table
+    v-card
+        v-card-title Accounts list
+            v-spacer
+            v-text-field(
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+            v-model="search"
+            )
     v-data-table(
       :headers="headers"
       :items="accounts"
+      :search="search"
       hide-actions
       class="elevation-1"
     )
@@ -49,28 +67,10 @@
   import { GET_ACCOUNTS, CREATE_NEW_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '../graphql'
 
   export default {
+
     data () {
       return {
-        newAccount: {
-          name: null,
-          description: null
-        },
-        editedIndex: -1,
-        dialog: false,
         accounts: [],
-        headers: [
-          {
-            text: 'Name',
-            align: 'left',
-            sortable: false,
-            value: 'name'
-          },
-          { text: 'Active', value: 'active' },
-          { text: 'Actions',
-            align: 'center',
-            value: 'actions'
-          }
-        ],
         breadcrumbs: [
           {
             text: 'Accounts',
@@ -84,10 +84,40 @@
             text: 'Link 2',
             disabled: true
           }
-        ]
+        ],
+        dialog: false,
+        editedIndex: -1,
+        headers: [
+          {
+            text: 'Name',
+            align: 'left',
+            sortable: false,
+            value: 'name'
+          },
+          { text: 'Active', value: 'active' },
+          { text: 'Actions',
+            align: 'center',
+            value: 'actions'
+          }
+        ],
+        newAccount: {
+          name: null,
+          description: null,
+          status: false
+        },
+        search: ''
       }
     },
+
     computed: {
+      // Temporal pruebas cambiar texto del switch
+      check () {
+        if (this.newAccount.status) {
+          return 'Active'
+        } else {
+          return 'Inactive'
+        }
+      },
       // Temporal para eliminar cuentas
       cuentas () {
         let ids = []
@@ -103,6 +133,7 @@
         return this.editedIndex === -1 ? 'New account' : 'Edit account'
       }
     },
+
     apollo: {
       accounts: {
         query: GET_ACCOUNTS,
@@ -110,11 +141,13 @@
         loadingKey: 'loading'
       }
     },
-    watch: {
-      dialog (val) {
-        val || this.closeDialog()
-      }
-    },
+
+    // watch: {
+    //   dialog (val) {
+    //     val || this.closeDialog()
+    //   }
+    // },
+
     methods: {
       // Choose between create or edit account
       accountEventHandler () {
@@ -153,6 +186,7 @@
         //   }
         }).then(() => {
           this.newAccount = {}
+          this.search = ''
           this.closeDialog()
         })
       },
@@ -186,7 +220,6 @@
       },
       // Show edit account dialog
       editAccountDialog (account) {
-        console.log(account._id)
         this.editedIndex = this.accounts.indexOf(account)
         this.newAccount = Object.assign({}, account)
         this.dialog = true
@@ -194,3 +227,20 @@
     }
   }
 </script>
+
+<style lang="scss">
+.accounts-form__status {
+    align-items: center;
+    display: flex;
+    color: rgba(0,0,0,0.54);
+    font-size: 16px;
+
+    &__span {
+          padding-right: 18px;
+    }
+
+    label.green {
+        color: red;
+    }
+}
+</style>
