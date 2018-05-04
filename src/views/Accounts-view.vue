@@ -25,7 +25,7 @@
         v-card-actions
           v-spacer
           v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
-          v-btn(color="blue darken-1" flat @click.native="createAccount") Create
+          v-btn(color="blue darken-1" flat @click.native="accountEventHandler") {{ formButtonTitle }}
     // Accounts data table
     v-data-table(
       :headers="headers"
@@ -37,7 +37,7 @@
         td.text-xs-left {{ props.item.name}}
         td.text-xs-left {{ props.item.disabled }}
         td.justify-center
-          v-btn(icon @click="editAccount(props.item)").mx-0
+          v-btn(icon @click="editAccountDialog(props.item)").mx-0
             v-icon(color="teal") edit
           v-btn(icon @click="").mx-0
             v-icon(color="blue") clear
@@ -46,31 +46,14 @@
 </template>
 
 <script>
-  import { GET_ACCOUNTS, CREATE_NEW_ACCOUNT, DELETE_ACCOUNT } from '../graphql'
+  import { GET_ACCOUNTS, CREATE_NEW_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '../graphql'
 
   export default {
-    apollo: {
-      accounts: {
-        query: GET_ACCOUNTS,
-        pollInterval: 100,
-        loadingKey: 'loading'
-      }
-    },
-    watch: {
-      dialog (val) {
-        val || this.closeDialog()
-      }
-    },
     data () {
       return {
-        formTitle: 'New Account',
         newAccount: {
           name: null,
           description: null
-        },
-        defaultItem: {
-          name: '',
-          status: null
         },
         editedIndex: -1,
         dialog: false,
@@ -112,24 +95,41 @@
           ids.push(id._id)
         })
         return ids.join()
+      },
+      formButtonTitle () {
+        return this.editedIndex === -1 ? 'Create' : 'Edit'
+      },
+      formTitle () {
+        return this.editedIndex === -1 ? 'New account' : 'Edit account'
+      }
+    },
+    apollo: {
+      accounts: {
+        query: GET_ACCOUNTS,
+        pollInterval: 100,
+        loadingKey: 'loading'
+      }
+    },
+    watch: {
+      dialog (val) {
+        val || this.closeDialog()
       }
     },
     methods: {
+      // Choose between create or edit account
+      accountEventHandler () {
+        if (this.editedIndex === -1) {
+          this.createAccount()
+        } else {
+          this.editAccount()
+        }
+      },
+      // Close dialog layer
       closeDialog () {
         this.dialog = false
-      },
-      // Edit account
-      editAccount (account) {
-        console.log(account)
-      },
-      // Delete account
-      deleteAccount (account) {
-        this.$apollo.mutate({
-          mutation: DELETE_ACCOUNT,
-          variables: {
-            ids: account._id
-          }
-        })
+        setTimeout(() => {
+          this.editedIndex = -1
+        }, 300)
       },
       // Create new account Apollo mutation
       createAccount () {
@@ -151,8 +151,45 @@
         //       query: GET_ACCOUNTS,
         //       data })
         //   }
+        }).then(() => {
+          this.newAccount = {}
+          this.closeDialog()
         })
-        this.closeDialog()
+      },
+      // Delete account
+      deleteAccount (account) {
+        this.$apollo.mutate({
+          mutation: DELETE_ACCOUNT,
+          variables: {
+            ids: account._id
+          }
+        }).then(() => {
+          this.newAccount = {}
+        })
+      },
+      // Edit account
+      editAccount () {
+        const {newAccount} = this.$data
+        this.$apollo.mutate({
+          mutation: UPDATE_ACCOUNT,
+          variables: {
+            id: newAccount._id,
+            input: {
+              name: newAccount.name,
+              description: newAccount.description
+            }
+          }
+        }).then(() => {
+          this.newAccount = {}
+          this.closeDialog()
+        })
+      },
+      // Show edit account dialog
+      editAccountDialog (account) {
+        console.log(account._id)
+        this.editedIndex = this.accounts.indexOf(account)
+        this.newAccount = Object.assign({}, account)
+        this.dialog = true
       }
     }
   }
