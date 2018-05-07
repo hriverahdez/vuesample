@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+// Routes
+import AccountsView from '../views/Accounts-view'
 import Contacto from '@/components/Contacto'
-import Info from '@/components/Info'
-import Dashboard from '@/components/Dashboard'
+import DashboardView from '../views/Dashboard-view'
+import DashboardPrueba from '@/components/Dashboard'
 
 Vue.use(Router)
 
@@ -11,12 +14,17 @@ export default new Router({
     {
       path: '/',
       name: 'dashboard',
-      component: Dashboard
+      component: DashboardView
     },
     {
-      path: '/info',
-      name: 'info',
-      component: Info
+      path: '/accounts',
+      name: 'accounts',
+      component: AccountsView
+    },
+    {
+      path: '/dashboard',
+      name: 'prueba',
+      component: DashboardPrueba
     },
     {
       path: '/contacto',
