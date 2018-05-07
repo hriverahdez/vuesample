@@ -3,34 +3,28 @@
     v-navigation-drawer(fixed, :clipped='$vuetify.breakpoint.lgAndUp', app, v-model='drawer')
       v-list(dense)
         template(v-for='item in items')
-          v-layout(row, v-if='item.heading', align-center, :key='item.heading')
-            v-flex(xs6)
-              v-subheader(v-if='item.heading')
-                | {{ item.heading }}
-            v-flex.text-xs-center(xs6)
-              a.body-2.black--text(href='#!') EDIT
-          v-list-group(v-else-if='item.children', v-model='item.model', :key='item.text', :prepend-icon="item.model ? item.icon : item['icon-alt']", append-icon)
+          v-list-group(v-if='item.children', v-model='item.model', :key='item.text', :prepend-icon="item.model ? item.icon : item['icon-alt']", append-icon)
             v-list-tile(slot='activator')
               v-list-tile-content
                 v-list-tile-title
-                  | {{ item.text }}
-            v-list-tile(v-for='(child, i) in item.children', :key='i')
+                  | {{ $t(item.text) }}
+            v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
               v-list-tile-action(v-if='child.icon')
                 v-icon {{ child.icon }}
               v-list-tile-content
                 v-list-tile-title
-                  | {{ child.text }}
+                  | {{ $t(child.text) }}
           v-list-tile(v-else, :key='item.text' router :to="item.action")
             v-list-tile-action
               v-icon {{ item.icon }}
             v-list-tile-content
               v-list-tile-title
-                  | {{ item.text }}
+                  | {{ $t(item.text) }}
     v-toolbar(color='blue darken-3', dark, app, :clipped-left='$vuetify.breakpoint.lgAndUp', fixed)
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
         span.hidden-sm-and-down Mobusi mediation
-      v-text-field.hidden-sm-and-down(flat, solo-inverted, prepend-icon='search', label='Search')
+      //- v-text-field.hidden-sm-and-down(flat, solo-inverted, prepend-icon='search', label='Search')
       v-spacer
       v-select(
         :items="items_select"
@@ -92,36 +86,36 @@
       dialog: false,
       drawer: null,
       items: [
-        { icon: 'history', text: 'Dashboard', action: '/' },
-        { icon: 'contacts', text: 'Accounts', action: 'accounts' },
-        { icon: 'content_copy', text: 'Duplicates' },
+        { icon: 'poll', text: 'navigation.dashboard', action: '/' },
+        { icon: 'assignment', text: 'navigation.reporting_status', action: 'accounts' },
+        { icon: 'language', text: 'navigation.networks_integration', action: '#' },
+        { icon: 'stay_current_portrait', text: 'navigation.apps', action: '#' },
+        { icon: 'create', text: 'navigation.custom_campaign', action: '#' },
+        { icon: 'filter_list', text: 'navigation.waterfall_management', action: '#' },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          text: 'Labels',
+          text: 'navigation.account_management',
           model: true,
           children: [
-            { icon: 'add', text: 'Create label' }
+            { icon: 'group', text: 'navigation.account_users', action: '#' },
+            { icon: 'group_add', text: 'navigation.create_account', action: '#' },
+            { icon: 'label', text: 'navigation.placement_tags', action: '#' },
+            { icon: 'public', text: 'navigation.country_groups', action: '#' }
           ]
         },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          text: 'More',
-          model: false,
+          text: 'navigation.admin',
+          model: true,
           children: [
-            { text: 'Import' },
-            { text: 'Export' },
-            { text: 'Print' },
-            { text: 'Undo changes' },
-            { text: 'Other contacts' }
+            { text: 'navigation.accounts', action: '#' },
+            { text: 'navigation.apps', action: '#' },
+            { text: 'navigation.roles', action: '#' },
+            { text: 'navigation.users', action: '#' }
           ]
-        },
-        { icon: 'settings', text: 'Settings' },
-        { icon: 'chat_bubble', text: 'Send feedback' },
-        { icon: 'help', text: 'Help' },
-        { icon: 'phonelink', text: 'App downloads' },
-        { icon: 'keyboard', text: 'Go to the old version' }
+        }
       ],
       lang: 'English',
       items_select: [
@@ -135,8 +129,10 @@
       selectedLanguage (lang) {
         if (lang === 'Spanish') {
           this.$store.dispatch('browserLangUpdate', 'es')
+          this.$i18n.locale = 'es'
         } else {
           this.$store.dispatch('browserLangUpdate', 'en')
+          this.$i18n.locale = 'en'
         }
         this.$store.dispatch('getWords')
       }
