@@ -17,19 +17,15 @@
             v-layout(wrap)
               v-flex(xs12)
                 v-form.accounts__form
-                    v-text-field(
-                      label="Account name"
-                      v-model="newAccount.name"
-                      :rules="accountNameRules"
-                      )
+                    v-text-field(label="Account name" v-model="newAccount.name")
                     v-text-field(label="Description" v-model="newAccount.description")
                     div.accounts-form__status
                         Span.accounts-form__status__span Status:
                         v-switch(
-                            v-model="newAccount.status"
+                            v-model="newAccount.disabled"
                             :label="check"
                             color="teal"
-                            value="true"
+                            :value="!newAccount"
                             hide-details
                         )
         v-card-actions
@@ -55,6 +51,7 @@
       :items="accounts"
       :search="search"
       class="elevation-1"
+      hide-actions
     )
       template(slot="items" slot-scope="props")
         td.text-xs-left {{ props.item.name}}
@@ -81,10 +78,6 @@
     data () {
       return {
         accounts: [],
-        accountNameRules: [
-          (v) => !!v || this.$t('validations.required'),
-          (v) => v.length >= 5 || this.$t('validations.errorLength', {minLength: 5, maxLengt: 30})
-        ],
         breadcrumbs: [
           {
             text: 'Accounts',
@@ -117,7 +110,7 @@
         newAccount: {
           name: null,
           description: null,
-          status: false
+          disabled: false
         },
         search: ''
       }
@@ -126,7 +119,7 @@
     computed: {
       // Temporal pruebas cambiar texto del switch
       check () {
-        if (this.newAccount.status) {
+        if (this.newAccount.disabled) {
           return 'Active'
         } else {
           return 'Inactive'
@@ -177,6 +170,7 @@
       },
       // Close dialog layer
       closeDialog () {
+        this.newAccount = {}
         this.dialog = false
         setTimeout(() => {
           this.editedIndex = -1
@@ -190,7 +184,8 @@
           variables: {
             input: {
               name: newAccount.name,
-              description: newAccount.description
+              description: newAccount.description,
+              disabled: newAccount.disabled
             }
           }
         //   update: (store, { data: { createAccount } }) => {
@@ -207,6 +202,9 @@
           this.search = ''
           this.closeDialog()
         })
+      },
+      checkValue () {
+        return 'lololo'
       },
       // Delete account
       deleteAccount (account) {
@@ -228,7 +226,8 @@
             id: newAccount._id,
             input: {
               name: newAccount.name,
-              description: newAccount.description
+              description: newAccount.description,
+              disabled: newAccount.disabled
             }
           }
         }).then(() => {
