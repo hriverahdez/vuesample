@@ -23,7 +23,7 @@
     v-toolbar(color='blue darken-3', dark, app, :clipped-left='$vuetify.breakpoint.lgAndUp', fixed)
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
-        span.hidden-sm-and-down Mobusi mediation
+        span.hidden-sm-and-down {{ $t('navigation.enterprise') }}
       //- v-text-field.hidden-sm-and-down(flat, solo-inverted, prepend-icon='search', label='Search')
       v-spacer
       v-select(
@@ -87,7 +87,7 @@
       drawer: null,
       items: [
         { icon: 'poll', text: 'navigation.dashboard', action: '/' },
-        { icon: 'assignment', text: 'navigation.reporting_status', action: 'accounts' },
+        { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
         { icon: 'language', text: 'navigation.networks_integration', action: '#' },
         { icon: 'stay_current_portrait', text: 'navigation.apps', action: '#' },
         { icon: 'create', text: 'navigation.custom_campaign', action: '#' },
@@ -110,7 +110,7 @@
           text: 'navigation.admin',
           model: true,
           children: [
-            { text: 'navigation.accounts', action: '#' },
+            { text: 'navigation.accounts', action: 'accounts' },
             { text: 'navigation.apps', action: '#' },
             { text: 'navigation.roles', action: '#' },
             { text: 'navigation.users', action: '#' }

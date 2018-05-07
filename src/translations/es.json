@@ -18,6 +18,15 @@
       "admin": "Administrador",
       "accounts": "Cuentas",
       "roles": "Roles",
-      "users": "Usuarios"
+      "users": "Usuarios",
+      "enterprise": "Mobusi mediación",
+      "english": "English"
+    },
+    "accounts_view": {
+      "alert_message": "Ninguna cuenta disponible"
+    },
+    "validations": {
+      "required": "Campo obligatorio",
+      "errorLength": "El campo debe tener entre {minLength} y {maxLength} caracteres"
     }
   }

@@ -17,7 +17,11 @@
             v-layout(wrap)
               v-flex(xs12)
                 v-form.accounts__form
-                    v-text-field(label="Account name" v-model="newAccount.name")
+                    v-text-field(
+                      label="Account name"
+                      v-model="newAccount.name"
+                      :rules="accountNameRules"
+                      )
                     v-text-field(label="Description" v-model="newAccount.description")
                     div.accounts-form__status
                         Span.accounts-form__status__span Status:
@@ -50,7 +54,6 @@
       :headers="headers"
       :items="accounts"
       :search="search"
-      hide-actions
       class="elevation-1"
     )
       template(slot="items" slot-scope="props")
@@ -63,6 +66,11 @@
             v-icon(color="blue") clear
           v-btn(icon @click="deleteAccount(props.item)").mx-0
             v-icon(color="pink") delete
+      template(slot="no-data")
+        v-alert(
+         :value="true"
+         color="error"
+         icon="warning") {{ $t('accounts_view.alert_message')}}
 </template>
 
 <script>
@@ -73,6 +81,10 @@
     data () {
       return {
         accounts: [],
+        accountNameRules: [
+          (v) => !!v || this.$t('validations.required'),
+          (v) => v.length >= 5 || this.$t('validations.errorLength', {minLength: 5, maxLengt: 30})
+        ],
         breadcrumbs: [
           {
             text: 'Accounts',
@@ -93,11 +105,11 @@
           {
             text: 'Name',
             align: 'left',
-            sortable: false,
             value: 'name'
           },
           { text: 'Active', value: 'active' },
           { text: 'Actions',
+            sortable: false,
             align: 'center',
             value: 'actions'
           }

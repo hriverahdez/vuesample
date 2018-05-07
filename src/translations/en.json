@@ -18,6 +18,15 @@
       "admin": "Admin",
       "accounts": "Accounts",
       "roles": "Roles",
-      "users": "Users"
+      "users": "Users",
+      "enterprise": "Mobusi mediation",
+      "english": "Inglés"
+    },
+    "accounts_view": {
+      "alert_message": "No accounts available"
+    },
+    "validations": {
+      "required": "Required field",
+      "errorLength": "The field must have between {minLength} and {maxLength} characters"
     }
 }
