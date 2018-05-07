@@ -8,16 +8,16 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
 
 // Main component import
-import App from './App'
+import App from '@/App'
 
 // Router import
-import router from './router'
+import router from '@/router'
 
 // Store import
-import { store } from './store.js'
+import { store } from '@/store.js'
 
 // vue-i18n import
-import {i18n} from './i18n'
+import {i18n} from '@/config/i18n'
 
 // Vuetify import
 import '@/libs/vuetify'
