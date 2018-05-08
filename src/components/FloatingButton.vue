@@ -19,11 +19,11 @@
             v-icon add
             v-icon close
 
-        v-btn(dark color="blue darken-1" @click="showAccountDialog").speed-dial__button
+        v-btn(dark color="blue darken-1").speed-dial__button
             //- v-icon(dark pink) remove_circle
             span.speed-dial_label New app
 
-        v-btn(dark color="blue darken-1").speed-dial__button
+        v-btn(dark color="blue darken-1"  @click="showAccountDialog").speed-dial__button
             //- v-icon(dark pink) remove_circle
             span.speed-dial__label New account
 </template>
