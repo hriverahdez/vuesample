@@ -51,7 +51,6 @@
       :items="accounts"
       :search="search"
       class="elevation-1"
-      hide-actions
     )
       template(slot="items" slot-scope="props")
         td.text-xs-left {{ props.item.name}}

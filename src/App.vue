@@ -49,9 +49,7 @@
           //-   v-btn(icon, large, :href='source', target='_blank', slot='activator')
           //-     v-icon(large) code
           //-   span Source
-    v-btn(fab, bottom, right, color='pink', dark, fixed, @click.stop='dialog = !dialog')
-      v-icon add
-    v-dialog(v-model='dialog', width='800px')
+    v-dialog(v-model='accountDialog', width='800px')
       v-card
         v-card-title.grey.lighten-4.py-4.title
           | Create contact
@@ -75,16 +73,82 @@
         v-card-actions
           v-btn(flat, color='primary') More
           v-spacer
-          v-btn(flat, color='primary', @click='dialog = false') Cancel
-          v-btn(flat, @click='dialog = false') Save
-    v-footer(app)
+          v-btn(flat, color='primary') Cancel
+          v-btn(flat) Save
+    //- v-footer(app)
+    //- v-bottom-nav(:value="e31" :active.sync="e3" absolute light color="white" height="100px" app)
+    //-   v-btn(flat color="red")
+    //-     span New app
+    //-   v-btn(flat color="red")
+    //-     span New account
+    //-   v-btn(flat color="red")
+    //-     span New waterfall rules
+    //-   v-btn(flat color="red")
+    //-     span New custom campaign
+    //-   v-btn(flat color="red")
+    //-     span New user
+    //- template
+    //-   div.text-xs-center
+    //-     v-menu(open-on-click top offset-y)
+    //-       //- v-btn(slot="activator" color="primary" dark) Dropdown
+    //-       v-btn(fab, bottom, right, color='pink', dark, fixed slot="activator")
+    //-         v-icon add
+    //-       v-list
+    //-         v-list-tile(v-for="item in tiles" :key="item.title" @click="")
+    //-           v-list-tile-title {{ item.title }}
+    v-card
+      v-speed-dial(
+      v-model="fab"
+      :top="top"
+      :bottom="bottom"
+      :right="right"
+      :left="left"
+      :direction="direction"
+      :open-on-hover="hover"
+      :transition="transition"
+      )
+        v-btn(
+        slot="activator"
+        v-model="fab"
+        color="pink"
+        dark
+        fab
+        hover)
+          v-icon add
+          v-icon close
+
+        v-btn(dark color="blue darken-1" @click="accountDialog = true").speed-dial__button
+          //- v-icon(dark pink) remove_circle
+          span.speed-dial_label New app
+
+        v-btn(dark color="blue darken-1").speed-dial__button
+          //- v-icon(dark pink) remove_circle
+          span.speed-dial__label New account
+
 </template>
 
 <script>
   export default {
     data: () => ({
-      dialog: false,
+      top: false,
+      right: true,
+      bottom: true,
+      left: false,
+      transition: 'slide-y-reverse-transition',
+      direction: 'top',
+      fab: false,
+      fling: false,
+      hover: false,
+      e3: null,
+      e31: true,
+      accountDialog: false,
       drawer: null,
+      items_nav: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' }
+      ],
       items: [
         { icon: 'poll', text: 'navigation.dashboard', action: '/' },
         { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
@@ -143,6 +207,24 @@
 <style lang="scss" scoped>
 .container {
   padding: 30px;
+}
+.bottom-nav  {
+  width: 40%;
+}
+.btn--floating {
+  z-index: 7;
+}
+.speed-dial {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  width: 130px;
+}
+.speed-dial__label {
+  padding: 0 8px;
+}
+.speed-dial__button {
+  width: 130px;
 }
 </style>
 
