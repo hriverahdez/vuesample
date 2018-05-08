@@ -77,9 +77,10 @@ export default {
     // Show edit account dialog
     editAccountDialog (account) {
       this.editedIndex = this.accounts.indexOf(account)
-      this.editAccount = Object.assign({}, account)
-      this.$emit('receiveVAccountalues', this.editAccount)
+      this.editedAccount = Object.assign({}, account)
+      this.$store.commit('dataAccountMutation', this.editedAccount)
       this.$store.dispatch('accountDialogStatusAction', true)
+      this.$store.dispatch('editedIndexAction', this.editedIndex)
     },
     // Delete account
     deleteAccount (account) {

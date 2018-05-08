@@ -7,15 +7,15 @@
             v-layout(wrap)
               v-flex(xs12)
                 v-form.accounts__form
-                    v-text-field(label="Account name" v-model="newAccount.name")
-                    v-text-field(label="Description" v-model="newAccount.description")
+                    v-text-field(label="Account name" v-model="dataAccount.name")
+                    v-text-field(label="Description" v-model="dataAccount.description")
                     div.accounts-form__status
                         Span.accounts-form__status__span Status:
                         v-switch(
-                            v-model="newAccount.disabled"
+                            v-model="dataAccount.disabled"
                             :label="check"
                             color="teal"
-                            :value="!newAccount"
+                            :value="!dataAccount"
                             hide-details
                         )
         v-card-actions
@@ -25,24 +25,14 @@
 </template>
 
 <script>
-import { CREATE_NEW_ACCOUNT } from '@/graphql/accounts'
+import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/accounts'
 
 export default {
   name: 'account-dialog',
-  data () {
-    return {
-      editedIndex: -1,
-      newAccount: {
-        name: null,
-        description: null,
-        disabled: false
-      }
-    }
-  },
   computed: {
     // Temporal pruebas cambiar texto del switch
     check () {
-      if (this.newAccount.disabled) {
+      if (this.dataAccount.disabled) {
         return 'Active'
       } else {
         return 'Inactive'
@@ -55,6 +45,13 @@ export default {
     // Form title
     formTitle () {
       return this.editedIndex === -1 ? 'New account' : 'Edit account'
+    },
+    //
+    dataAccount () {
+      return this.$store.state.accountsModule.dataAccount
+    },
+    editedIndex () {
+      return this.$store.state.accountsModule.editedIndex
     }
   },
   methods: {
@@ -70,26 +67,48 @@ export default {
     closeDialog () {
       this.$store.dispatch('accountDialogStatusAction', false)
       setTimeout(() => {
-        this.newAccount = {}
-        this.editedIndex = -1
+        this.$store.dispatch('editedIndexAction', -1)
+            this.$store.dispatch('dataAccountAction', {
+              name: null,
+              description: null,
+              disabled: false})
       }, 300)
     },
     // Create new account Apollo mutation
     createAccount () {
-      const {newAccount} = this.$data
       this.$apollo.mutate({
         mutation: CREATE_NEW_ACCOUNT,
         variables: {
           input: {
-            name: newAccount.name,
-            description: newAccount.description,
-            disabled: newAccount.disabled
+            name: this.dataAccount.name,
+            description: this.dataAccount.description,
+            disabled: this.dataAccount.disabled
           }
         }
       }).then(() => {
         this.closeDialog()
       })
-    }
+    },
+    // Edit account
+    editAccount () {
+        this.$apollo.mutate({
+            mutation: UPDATE_ACCOUNT,
+            variables: {
+            id: this.dataAccount._id,
+            input: {
+                name: this.dataAccount.name,
+                description: this.dataAccount.description,
+                disabled: this.dataAccount.disabled
+            }
+            }
+        }).then(() => {
+            this.$store.dispatch('dataAccountAction', {
+              name: null,
+              description: null,
+              disabled: false})
+            this.closeDialog()
+        })
+    },
   }
 }
 </script>
