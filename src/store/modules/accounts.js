@@ -5,8 +5,8 @@ export default {
     accountDialogStatus: false,
     // Comunicate account data between components
     dataAccount: {
-      name: null,
-      description: null,
+      name: '',
+      description: '',
       disabled: false
     },
     // editedIndex: -1

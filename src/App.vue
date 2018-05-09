@@ -13,8 +13,8 @@
 </template>
 
 <script>
-  import AccountDialog from '@/forms/AccountDialog'
-  import AdminNavigation from '@/navigation/AdminNavigation'
+  import AccountDialog from '@/components/forms/AccountDialog'
+  import AdminNavigation from '@/components/navigation/AdminNavigation'
   import FloatingButton from '@/components/FloatingButton'
 
   export default {

@@ -47,7 +47,7 @@
 
 <script>
   import { UPDATE_ACCOUNT } from '@/graphql/accounts'
-  import AccountsDataTable from '@/datatables/AccountsDataTable'
+  import AccountsDataTable from '@/components/datatables/AccountsDataTable'
 
   export default {
 

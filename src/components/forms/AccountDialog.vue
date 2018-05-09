@@ -6,8 +6,17 @@
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-                v-form.accounts__form
-                    v-text-field(label="Account name" v-model="dataAccount.name")
+                v-form(
+                  lazy-validation
+                  v-model="valid"
+                  ).accounts__form
+                    v-text-field(
+                      label="Account name"
+                      v-model="dataAccount.name"
+                      :rules="accountNameRules"
+                      :counter="30"
+                      required
+                      )
                     v-text-field(label="Description" v-model="dataAccount.description")
                     div.accounts-form__status
                         Span.accounts-form__status__span Status:
@@ -20,8 +29,14 @@
                         )
         v-card-actions
           v-spacer
+          v-btn(color="blue darken-1" flat @click.native="clear") Reset
           v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
-          v-btn(color="blue darken-1" flat @click.native="accountEventHandler") {{ formButtonTitle }}
+          v-btn(
+            color="blue darken-1"
+            flat
+            @click.native="accountEventHandler"
+            :disabled="!valid"
+            ) {{ formButtonTitle }}
 </template>
 
 <script>
@@ -29,6 +44,16 @@ import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/accounts'
 
 export default {
   name: 'account-dialog',
+  data () {
+    return {
+      name: '',
+      accountNameRules: [
+        (v) => !!v || this.$t('validations.required'),
+        (v) => (v.length > 4 && v.length <= 30) || this.$t('validations.length', {minLength: 5, maxLength: 30})
+      ],
+      valid: false
+    }
+  },
   computed: {
     // Temporal pruebas cambiar texto del switch
     check () {
@@ -55,6 +80,9 @@ export default {
     }
   },
   methods: {
+    clear () {
+      this.$refs.accountForm.reset()
+    },
     // Choose between create or edit account
     accountEventHandler () {
       if (this.editedIndex === -1) {
@@ -69,8 +97,8 @@ export default {
       setTimeout(() => {
         this.$store.dispatch('editedIndexAction', -1)
         this.$store.dispatch('dataAccountAction', {
-          name: null,
-          description: null,
+          name: '',
+          description: '',
           disabled: false})
       }, 300)
     },

@@ -27,6 +27,6 @@
     },
     "validations": {
       "required": "Campo obligatorio",
-      "errorLength": "El campo debe tener entre {minLength} y {maxLength} caracteres"
+      "length": "El campo debe tener entre {minLength} y {maxLength} caracteres"
     }
   }
