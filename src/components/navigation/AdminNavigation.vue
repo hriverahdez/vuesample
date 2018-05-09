@@ -1,9 +1,14 @@
 <template lang="pug">
   div
-    v-navigation-drawer(fixed, :clipped='$vuetify.breakpoint.lgAndUp', app, v-model='drawer')
+    v-navigation-drawer(fixed, :clipped='$vuetify.breakpoint.lgAndUp', app, dark, v-model='drawer')
       v-list(dense)
         template(v-for='item in items')
-          v-list-group(v-if='item.children', v-model='item.model', :key='item.text', :prepend-icon="item.model ? item.icon : item['icon-alt']", append-icon)
+          v-list-group(
+            v-if='item.children',
+            v-model='item.model',
+            :key='item.text',
+            :prepend-icon="item.model ? item.icon : item['icon-alt']",
+            append-icon)
             v-list-tile(slot='activator')
               v-list-tile-content
                 v-list-tile-title
@@ -20,7 +25,14 @@
             v-list-tile-content
               v-list-tile-title
                   | {{ $t(item.text) }}
-    v-toolbar(color='blue darken-3', dark, app, :clipped-left='$vuetify.breakpoint.lgAndUp', fixed)
+    v-toolbar(
+      color='deep-orange darken-2',
+      dark,
+      app,
+      :clipped-left='$vuetify.breakpoint.lgAndUp',
+      fixed
+      height="54"
+      )
       v-toolbar-title.ml-0.pl-3(style='width: 300px')
         v-toolbar-side-icon(@click.stop='drawer = !drawer')
         span.hidden-sm-and-down {{ $t('navigation.enterprise') }}
@@ -101,7 +113,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+.list__group__items {
+  background-color: #333;
+}
 </style>
 

@@ -12,18 +12,18 @@
         v-btn(
         slot="activator"
         v-model="fab"
-        color="pink"
+        color="green darken-2"
         dark
         fab
         hover)
             v-icon add
             v-icon close
 
-        v-btn(dark color="blue darken-1").speed-dial__button
+        v-btn(dark color="primary").speed-dial__button
             //- v-icon(dark pink) remove_circle
             span.speed-dial_label New app
 
-        v-btn(dark color="blue darken-1"  @click="showAccountDialog").speed-dial__button
+        v-btn(dark color="primary"  @click="showAccountDialog").speed-dial__button
             //- v-icon(dark pink) remove_circle
             span.speed-dial__label New account
 </template>
@@ -68,6 +68,8 @@ export default {
 }
 .speed-dial__button {
   width: 130px;
+  height: 32px;
+  border-radius: 4px;
 }
 </style>
 
