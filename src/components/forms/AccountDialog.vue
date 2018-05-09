@@ -29,7 +29,7 @@
                         )
         v-card-actions
           v-spacer
-          v-btn(color="blue darken-1" flat @click.native="clear") Reset
+          //- v-btn(color="blue darken-1" flat @click.native="clear") Reset
           v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
           v-btn(
             color="blue darken-1"
@@ -80,9 +80,6 @@ export default {
     }
   },
   methods: {
-    clear () {
-      this.$refs.accountForm.reset()
-    },
     // Choose between create or edit account
     accountEventHandler () {
       if (this.editedIndex === -1) {
@@ -131,9 +128,9 @@ export default {
         }
       }).then(() => {
         this.$store.dispatch('dataAccountAction', {
-          name: null,
-          description: null,
-          disabled: false})
+          name: '',
+          description: '',
+          disabled: ''})
         this.closeDialog()
       })
     }
