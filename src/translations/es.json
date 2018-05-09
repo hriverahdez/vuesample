@@ -1,16 +1,32 @@
+
 {
     "links": {
-      "home": "Inicio",
-      "about": "Sobre nosotros",
-      "english": "Versión inglés",
-      "french": "Versión español"
+      "home": "Inicio"
     },
-    "home": {
-      "title": "Bienvenido",
-      "introduction": "Esta es una introducción en español"
+    "navigation": {
+      "dashboard": "Panel",
+      "reporting_status": "Estado de informe",
+      "networks_integration": "Integración de redes",
+      "apps": "Aplicaciones",
+      "custom_campaign": "Campaña personalizada",
+      "waterfall_management": "Gestión de cascada",
+      "account_management": "Administración de cuentas",
+      "account_users": "Usuarios de la cuenta",
+      "create_account": "Crear cuenta",
+      "placement_tags": "Ubicación de etiquetas",
+      "country_groups": "Grupos de paises",
+      "admin": "Administrador",
+      "accounts": "Cuentas",
+      "roles": "Roles",
+      "users": "Usuarios",
+      "enterprise": "Mobusi mediación",
+      "english": "English"
     },
-    "about": {
-      "title": "SObre nosotros",
-      "introduction": "Esta es una introducción sobre nosotros."
+    "accounts_view": {
+      "alert_message": "Ninguna cuenta disponible"
+    },
+    "validations": {
+      "required": "Campo obligatorio",
+      "length": "El campo debe tener entre {minLength} y {maxLength} caracteres"
     }
   }

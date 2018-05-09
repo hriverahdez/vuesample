@@ -7,31 +7,31 @@
                 :key="breadcrumb.text"
                 :disabled="breadcrumb.disabled"
             ) {{ breadcrumb.text }}
-    // New account dialog
-    v-dialog(v-model="dialog" max-width="500px")
-      v-card
-        v-card-title
-          span.headline {{ formTitle }}
-        v-card-text
-          v-container(grid-list-md)
-            v-layout(wrap)
-              v-flex(xs12)
-                v-form.accounts__form
-                    v-text-field(label="Account name" v-model="newAccount.name")
-                    v-text-field(label="Description" v-model="newAccount.description")
-                    div.accounts-form__status
-                        Span.accounts-form__status__span Status:
-                        v-switch(
-                            v-model="newAccount.status"
-                            :label="check"
-                            color="teal"
-                            value="true"
-                            hide-details
-                        )
-        v-card-actions
-          v-spacer
-          v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
-          v-btn(color="blue darken-1" flat @click.native="accountEventHandler") {{ formButtonTitle }}
+    // New account dialog - Esta preparado para que
+    //- v-dialog(v-model="dialog" max-width="500px")
+    //-   v-card
+    //-     v-card-title
+    //-       span.headline {{ formTitle }}
+    //-     v-card-text
+    //-       v-container(grid-list-md)
+    //-         v-layout(wrap)
+    //-           v-flex(xs12)
+    //-             v-form.accounts__form
+    //-                 v-text-field(label="Account name" v-model="newAccount.name")
+    //-                 v-text-field(label="Description" v-model="newAccount.description")
+    //-                 div.accounts-form__status
+    //-                     Span.accounts-form__status__span Status:
+    //-                     v-switch(
+    //-                         v-model="newAccount.disabled"
+    //-                         :label="check"
+    //-                         color="teal"
+    //-                         :value="!newAccount"
+    //-                         hide-details
+    //-                     )
+    //-     v-card-actions
+    //-       v-spacer
+    //-       v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
+    //-       v-btn(color="blue darken-1" flat @click.native="accountEventHandler") {{ formButtonTitle }}
     // Accounts data table
     v-card
         v-card-title(color="blue darken-1") Accounts list
@@ -50,7 +50,6 @@
       :headers="headers"
       :items="accounts"
       :search="search"
-      hide-actions
       class="elevation-1"
     )
       template(slot="items" slot-scope="props")
@@ -63,10 +62,15 @@
             v-icon(color="blue") clear
           v-btn(icon @click="deleteAccount(props.item)").mx-0
             v-icon(color="pink") delete
+      template(slot="no-data")
+        v-alert(
+         :value="true"
+         color="error"
+         icon="warning") {{ $t('accounts_view.alert_message')}}
 </template>
 
 <script>
-  import { GET_ACCOUNTS, CREATE_NEW_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '../graphql'
+  import { GET_ACCOUNTS, CREATE_NEW_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/accounts'
 
   export default {
 
@@ -93,11 +97,11 @@
           {
             text: 'Name',
             align: 'left',
-            sortable: false,
             value: 'name'
           },
           { text: 'Active', value: 'active' },
           { text: 'Actions',
+            sortable: false,
             align: 'center',
             value: 'actions'
           }
@@ -105,7 +109,7 @@
         newAccount: {
           name: null,
           description: null,
-          status: false
+          disabled: false
         },
         search: ''
       }
@@ -114,7 +118,7 @@
     computed: {
       // Temporal pruebas cambiar texto del switch
       check () {
-        if (this.newAccount.status) {
+        if (this.newAccount.disabled) {
           return 'Active'
         } else {
           return 'Inactive'
@@ -165,6 +169,7 @@
       },
       // Close dialog layer
       closeDialog () {
+        this.newAccount = {}
         this.dialog = false
         setTimeout(() => {
           this.editedIndex = -1
@@ -178,7 +183,8 @@
           variables: {
             input: {
               name: newAccount.name,
-              description: newAccount.description
+              description: newAccount.description,
+              disabled: newAccount.disabled
             }
           }
         //   update: (store, { data: { createAccount } }) => {
@@ -195,6 +201,9 @@
           this.search = ''
           this.closeDialog()
         })
+      },
+      checkValue () {
+        return 'lololo'
       },
       // Delete account
       deleteAccount (account) {
@@ -216,7 +225,8 @@
             id: newAccount._id,
             input: {
               name: newAccount.name,
-              description: newAccount.description
+              description: newAccount.description,
+              disabled: newAccount.disabled
             }
           }
         }).then(() => {

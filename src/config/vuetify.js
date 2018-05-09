@@ -4,6 +4,7 @@ import Vue from 'vue'
 // Vuetify import
 import {
     Vuetify,
+    VAlert,
     VApp,
     VAvatar,
     VBreadcrumbs,
@@ -18,6 +19,7 @@ import {
     VList,
     VNavigationDrawer,
     VSelect,
+    VSpeedDial,
     VSubheader,
     VSwitch,
     VTabs,
@@ -31,6 +33,7 @@ import '../../node_modules/vuetify/src/stylus/app.styl'
   // Vuetify config
 Vue.use(Vuetify, {
   components: {
+    VAlert,
     VApp,
     VAvatar,
     VBreadcrumbs,
@@ -45,6 +48,7 @@ Vue.use(Vuetify, {
     VList,
     VNavigationDrawer,
     VSelect,
+    VSpeedDial,
     VSubheader,
     VSwitch,
     VTabs,

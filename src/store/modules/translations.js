@@ -1,19 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import axios from 'axios'
-
-// Vuex
-Vue.use(Vuex)
 
 export const ADD_WORDS = 'ADD_WORDS'
 
-export const store = new Vuex.Store({
+export default {
   state: {
     browserLang: 'en',
-    words: [],
-    pepe: {
-      name: {'hola': 'popo'}
-    }
+    words: []
   },
   getters: {
     browserLangGetter (state) {
@@ -45,4 +37,4 @@ export const store = new Vuex.Store({
         })
     }
   }
-})
+}

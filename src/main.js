@@ -11,10 +11,10 @@ import VueApollo from 'vue-apollo'
 import App from '@/App'
 
 // Router import
-import router from '@/router'
+import router from '@/router/routes'
 
 // Store import
-import { store } from '@/store.js'
+import { store } from '@/store/store'
 
 // vue-i18n import
 import {i18n} from '@/config/i18n'

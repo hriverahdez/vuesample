@@ -1,17 +1,32 @@
 
 {
     "links": {
-      "home": "Home",
-      "about": "About",
-      "english": "English version",
-      "french": "French version"
+      "home": "Home"
     },
-    "home": {
-      "title": "Welcome",
-      "introduction": "This is an introduction in English."
+    "navigation": {
+      "dashboard": "Dashboard",
+      "reporting_status": "Reporting status",
+      "networks_integration": "Networks integration",
+      "apps": "Apps",
+      "custom_campaign": "Custom campaign",
+      "waterfall_management": "Waterfall management",
+      "account_management": "Account management",
+      "account_users": "Account users",
+      "create_account": "Create account",
+      "placement_tags": "Placement tags",
+      "country_groups": "Country groups",
+      "admin": "Admin",
+      "accounts": "Accounts",
+      "roles": "Roles",
+      "users": "Users",
+      "enterprise": "Mobusi mediation",
+      "english": "Inglés"
     },
-    "about": {
-      "title": "About",
-      "introduction": "This page is made to give you more informations."
+    "accounts_view": {
+      "alert_message": "No accounts available"
+    },
+    "validations": {
+      "required": "Required field",
+      "length": "The field must have between {minLength} and {maxLength} characters"
     }
 }
