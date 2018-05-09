@@ -68,10 +68,10 @@ export default {
       this.$store.dispatch('accountDialogStatusAction', false)
       setTimeout(() => {
         this.$store.dispatch('editedIndexAction', -1)
-            this.$store.dispatch('dataAccountAction', {
-              name: null,
-              description: null,
-              disabled: false})
+        this.$store.dispatch('dataAccountAction', {
+          name: null,
+          description: null,
+          disabled: false})
       }, 300)
     },
     // Create new account Apollo mutation
@@ -91,24 +91,24 @@ export default {
     },
     // Edit account
     editAccount () {
-        this.$apollo.mutate({
-            mutation: UPDATE_ACCOUNT,
-            variables: {
-            id: this.dataAccount._id,
-            input: {
-                name: this.dataAccount.name,
-                description: this.dataAccount.description,
-                disabled: this.dataAccount.disabled
-            }
-            }
-        }).then(() => {
-            this.$store.dispatch('dataAccountAction', {
-              name: null,
-              description: null,
-              disabled: false})
-            this.closeDialog()
-        })
-    },
+      this.$apollo.mutate({
+        mutation: UPDATE_ACCOUNT,
+        variables: {
+          id: this.dataAccount._id,
+          input: {
+            name: this.dataAccount.name,
+            description: this.dataAccount.description,
+            disabled: this.dataAccount.disabled
+          }
+        }
+      }).then(() => {
+        this.$store.dispatch('dataAccountAction', {
+          name: null,
+          description: null,
+          disabled: false})
+        this.closeDialog()
+      })
+    }
   }
 }
 </script>
