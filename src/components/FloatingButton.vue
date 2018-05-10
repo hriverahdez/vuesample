@@ -12,7 +12,7 @@
         v-btn(
         slot="activator"
         v-model="fab"
-        color="deep-orange"
+        color="floatingButton"
         dark
         fab
         hover)

@@ -6,15 +6,7 @@
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-
                 <dialog-alert />
-                //- div.alert__container
-                //-   v-alert(
-                //-       :value="$store.state.alert.show"
-                //-       :type="$store.state.alert.type"
-                //-       transition="fade-transition"
-                //-   ) {{ $store.state.alert.message }}
-
                 v-form(
                   lazy-validation
                   v-model="valid"
