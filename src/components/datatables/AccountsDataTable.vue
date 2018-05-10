@@ -1,10 +1,12 @@
 <template lang="pug">
     section
         v-card
-            v-card-title.grey.lighten-4.py-4.title Accounts list
-                v-spacer
+            //- v-card-title.grey.lighten-4.py-4.title Accounts list
+            //-     v-spacer
             v-layout(wrap).card__row2
-                v-flex(xs3 offset-xs9)
+                v-flex(xs8) 
+                    v-card-title.title Accounts list
+                v-flex(xs4)
                     v-text-field(
                     append-icon="search"
                     label="Search"
@@ -17,6 +19,7 @@
             :items="accounts"
             :search="search"
             class="elevation-1"
+            :rows-per-page-items="[10,20, 30]"
             )
             template(slot="items" slot-scope="props")
                 td.text-xs-left {{ props.item.name}}
@@ -99,7 +102,6 @@ export default {
 
 <style lang="scss" scoped>
 .card__title {
-    border-bottom: 1px solid rgba(0,0,0,0.12);
     text-transform: uppercase;
 }
 .card__row2 {
