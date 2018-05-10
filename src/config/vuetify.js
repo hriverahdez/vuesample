@@ -61,14 +61,15 @@ Vue.use(Vuetify, {
     transitions
   },
   theme: {
-    primary: '#00838F',
+    primary: '#039BE5',
     secondary: '#FF5722',
     accent: '#FF8A65',
-    error: '#e04d4d',
+    error: '#D81B60',
     info: '#2196F3',
     success: '#4CAF50',
-    warning: '#FFC107',
-    floatingButton: '#FF5722'
+    warning: '#D32F2F',
+    floatingButton: '#FF5722',
+    toolBar: '#00838F'
   }
   // theme: {
   //   primary: '#ee44aa', #004daf
