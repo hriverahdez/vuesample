@@ -1,5 +1,17 @@
 
 {
+    "accounts_view": {
+      "alert_message": "No accounts available",
+      "new_account": "New account",
+      "edit_account": "Edit account",
+      "new_success": "New account created",
+      "edit_success": "Edited account"
+    },
+    "buttons": {
+      "cancel": "cancel",
+      "create": "create",
+      "edit": "edit"
+    },
     "links": {
       "home": "Home"
     },
@@ -21,9 +33,6 @@
       "users": "Users",
       "enterprise": "Mobusi mediation",
       "english": "Inglés"
-    },
-    "accounts_view": {
-      "alert_message": "No accounts available"
     },
     "validations": {
       "required": "Required field",

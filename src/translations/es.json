@@ -1,5 +1,17 @@
 
 {
+    "accounts_view": {
+      "alert_message": "Ninguna cuenta disponible",
+      "new_account": "Nueva cuenta",
+      "edit_account": "Editar cuenta",
+      "new_success": "Nueva cuenta creada",
+      "edit_success": "Cuenta editada"
+    },
+    "buttons": {
+      "cancel": "cancelar",
+      "create": "crear",
+      "edit": "edit"
+    },
     "links": {
       "home": "Inicio"
     },
@@ -21,9 +33,6 @@
       "users": "Usuarios",
       "enterprise": "Mobusi mediación",
       "english": "English"
-    },
-    "accounts_view": {
-      "alert_message": "Ninguna cuenta disponible"
     },
     "validations": {
       "required": "Campo obligatorio",
