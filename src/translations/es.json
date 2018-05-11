@@ -9,6 +9,7 @@
     },
     "buttons": {
       "cancel": "Cancelar",
+      "close": "Salir",
       "create": "Crear",
       "edit": "Editar"
     },
