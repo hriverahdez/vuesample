@@ -132,8 +132,7 @@ export default {
           show: true,
           type: 'success',
           message: this.$t('accounts_view.new_success'),
-          buttonText: this.$t('buttons.close'),
-          formToClear: 'dataAccountAction'
+          buttonText: this.$t('buttons.close')
         })
       })
       this.$store.dispatch('accountDialogStatusAction', false)
@@ -161,8 +160,13 @@ export default {
           show: true,
           type: 'success',
           message: this.$t('accounts_view.edit_success'),
-          timeout: 1000,
-          dialog: 'accountDialogStatusAction'
+          buttonText: this.$t('buttons.close')
+        })
+        this.$store.dispatch('accountDialogStatusAction', false)
+        this.$store.dispatch('dataAccountAction', {
+          name: '',
+          description: '',
+          disabled: ''
         })
       })
     }
