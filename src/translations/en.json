@@ -27,6 +27,8 @@
       "create_account": "Create account",
       "placement_tags": "Placement tags",
       "country_groups": "Country groups",
+      "user": "User",
+      "account": "Account",
       "admin": "Admin",
       "accounts": "Accounts",
       "roles": "Roles",
