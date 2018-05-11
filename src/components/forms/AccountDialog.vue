@@ -1,7 +1,7 @@
 <template lang="pug">
-    v-dialog(v-model="$store.state.accountsModule.accountDialogStatus" max-width="500px")
+    v-dialog(v-model="$store.state.accountsModule.accountDialogStatus" max-width="500px" light)
       v-card
-        v-card-title.grey.lighten-4.py-4.title {{ formTitle }}
+        v-card-title.form_elements_color.py-4.title.white--text {{ formTitle }}
         v-card-text.card__text__form
           v-container(grid-list-md)
             v-layout(wrap)
@@ -12,29 +12,37 @@
                   v-model="valid"
                   ).accounts__form
                     v-text-field(
+                      :disabled="this.editedIndex !== -1"
                       label="Account name"
                       v-model="dataAccount.name"
                       :rules="accountNameRules"
                       :counter="30"
                       required
-                      )
-                    v-text-field(label="Description" v-model="dataAccount.description")
+                      ).form_elements_color--text
+                    v-text-field(
+                      label="Description"
+                      v-model="dataAccount.description"
+                      ).form_elements_color--text
                     div.accounts-form__status
-                        Span.accounts-form__status__span Status:
+                        div.accounts-form__status__span Status:
                         v-switch(
+                            light
                             v-model="dataAccount.disabled"
                             :label="check"
-                            color="teal"
+                            color="success"
                             :value="!dataAccount"
                             hide-details
                         )
         v-card-actions
           v-spacer
-          //- v-btn(color="blue darken-1" flat @click.native="clear") Reset
-          v-btn(color="blue darken-1" flat @click.native="closeDialog") Cancel
           v-btn(
-            color="blue darken-1"
+            color="form_elements_color"
             flat
+            @click.native="closeDialog"
+            ) {{ $t('buttons.cancel') }}
+          v-btn(
+            class="white--text"
+            color="form_elements_color"
             @click.native="accountEventHandler"
             :disabled="!valid"
             ) {{ formButtonTitle }}
@@ -57,11 +65,12 @@ export default {
         (v) => !!v || this.$t('validations.required'),
         (v) => (v.length > 4 && v.length <= 30) || this.$t('validations.length', {minLength: 5, maxLength: 30})
       ],
-      valid: false
+      valid: false,
+      editMode: false
     }
   },
   computed: {
-    // Temporal pruebas cambiar texto del switch
+    // Change switch text label
     check () {
       if (this.dataAccount.disabled) {
         return 'Active'
@@ -71,11 +80,11 @@ export default {
     },
     // Form button title
     formButtonTitle () {
-      return this.editedIndex === -1 ? 'Create' : 'Edit'
+      return this.editedIndex === -1 ? this.$t('buttons.create') : this.$t('buttons.edit')
     },
     // Form title
     formTitle () {
-      return this.editedIndex === -1 ? 'New account' : 'Edit account'
+      return this.editedIndex === -1 ? this.$t('accounts_view.new_account') : this.$t('accounts_view.edit_account')
     },
     //
     dataAccount () {
@@ -120,8 +129,8 @@ export default {
         this.$store.commit('setAlertMessage', {
           show: true,
           type: 'success',
-          message: 'lololololololollolo',
-          timeout: 1800,
+          message: this.$t('accounts_view.new_success'),
+          timeout: 1000,
           dialog: 'accountDialogStatusAction'
         })
       })
@@ -139,11 +148,14 @@ export default {
           }
         }
       }).then(() => {
-        this.$store.dispatch('dataAccountAction', {
-          name: '',
-          description: '',
-          disabled: ''})
-        this.closeDialog()
+        this.$store.dispatch('editedIndexAction', -1)
+        this.$store.commit('setAlertMessage', {
+          show: true,
+          type: 'success',
+          message: this.$t('accounts_view.edit_success'),
+          timeout: 1000,
+          dialog: 'accountDialogStatusAction'
+        })
       })
     }
   }
@@ -156,6 +168,19 @@ export default {
 }
 .card__text.card__text__form {
   padding: 0 20px 20px 20px;
+}
+.card__actions {
+  padding: 20px;
+}
+.accounts-form__status {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  font-size: 16px;
+
+  &__span {
+    margin-right: 14px;
+  }
 }
 </style>
 

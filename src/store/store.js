@@ -31,6 +31,10 @@ export const store = new Vuex.Store({
         state.alert.show = false
         state.alert.message = ''
         store.dispatch(data.dialog, false)
+        store.dispatch('dataAccountAction', {
+          name: '',
+          description: '',
+          disabled: ''})
       }, data.timeout)
     }
   }
