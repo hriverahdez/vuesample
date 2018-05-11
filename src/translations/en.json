@@ -1,32 +1,47 @@
 
 {
+    "accounts_view": {
+      "alert_message": "No accounts available",
+      "edit_account": "Edit account",
+      "edit_success": "Edited account",
+      "new_account": "New account",
+      "new_success": "New account created"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create",
+      "edit": "Edit"
+    },
     "links": {
       "home": "Home"
     },
     "navigation": {
-      "dashboard": "Dashboard",
-      "reporting_status": "Reporting status",
-      "networks_integration": "Networks integration",
-      "apps": "Apps",
-      "custom_campaign": "Custom campaign",
-      "waterfall_management": "Waterfall management",
+      "account": "Account",
+      "accounts": "Accounts",
       "account_management": "Account management",
       "account_users": "Account users",
-      "create_account": "Create account",
-      "placement_tags": "Placement tags",
-      "country_groups": "Country groups",
       "admin": "Admin",
-      "accounts": "Accounts",
-      "roles": "Roles",
-      "users": "Users",
+      "apps": "Apps",
+      "change_account": "Change account",
+      "change_user": "Change user",
+      "country_groups": "Country groups",
+      "create_account": "Create account",
+      "custom_campaign": "Custom campaign",
+      "dashboard": "Dashboard",
+      "english": "English",
       "enterprise": "Mobusi mediation",
-      "english": "Inglés"
-    },
-    "accounts_view": {
-      "alert_message": "No accounts available"
+      "logout": "Logout",
+      "networks_integration": "Networks integration",
+      "placement_tags": "Placement tags",
+      "profile": "Profile",
+      "reporting_status": "Reporting status",
+      "roles": "Roles",
+      "user": "User",
+      "users": "Users",
+      "waterfall_management": "Waterfall management"
     },
     "validations": {
-      "required": "Required field",
-      "length": "The field must have between {minLength} and {maxLength} characters"
+      "length": "The field must have between {minLength} and {maxLength} characters",
+      "required": "Required field"
     }
 }

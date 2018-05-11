@@ -1,9 +1,14 @@
 <template lang="pug">
   div
-    v-navigation-drawer(fixed, :clipped='$vuetify.breakpoint.lgAndUp', app, v-model='drawer')
+    v-navigation-drawer(fixed, :clipped='$vuetify.breakpoint.lgAndUp', app, dark, v-model='drawer')
       v-list(dense)
         template(v-for='item in items')
-          v-list-group(v-if='item.children', v-model='item.model', :key='item.text', :prepend-icon="item.model ? item.icon : item['icon-alt']", append-icon)
+          v-list-group(
+            v-if='item.children',
+            v-model='item.model',
+            :key='item.text',
+            :prepend-icon="item.model ? item.icon : item['icon-alt']",
+            append-icon)
             v-list-tile(slot='activator')
               v-list-tile-content
                 v-list-tile-title
@@ -20,27 +25,36 @@
             v-list-tile-content
               v-list-tile-title
                   | {{ $t(item.text) }}
-    v-toolbar(color='blue darken-3', dark, app, :clipped-left='$vuetify.breakpoint.lgAndUp', fixed)
-      v-toolbar-title.ml-0.pl-3(style='width: 300px')
-        v-toolbar-side-icon(@click.stop='drawer = !drawer')
-        span.hidden-sm-and-down {{ $t('navigation.enterprise') }}
-      //- v-text-field.hidden-sm-and-down(flat, solo-inverted, prepend-icon='search', label='Search')
-      v-spacer
-      v-select(
-        :items="items_select"
-        v-model="lang"
-        label="Select"
-        single-line
-        @change="selectedLanguage($event)"
-        hide-details
+    v-toolbar(
+      color='toolBar',
+      dark,
+      app,
+      :clipped-left='$vuetify.breakpoint.lgAndUp',
+      fixed
+      height="54"
       )
-      v-btn(icon)
-        v-icon apps
-      v-btn(icon)
-        v-icon notifications
-      v-btn(icon, large)
-        v-avatar(size='32px', tile)
-          img(src='https://vuetifyjs.com/static/doc-images/logo.svg', alt='Vuetify')
+      v-toolbar-side-icon(@click.stop='drawer = !drawer')
+      div.logo__container
+        img(src='@/assets/logo.png', alt='Labcave logo').logo
+      v-spacer
+      v-toolbar-items
+        v-avatar(slot="activator" size="32")
+          img(src='@/assets/spiderman.png' alt="User")
+        div.user__info
+          div.user__info__user  {{ $t('navigation.user') }}:
+            span.user__info__label Spiderman
+          div.user__info__account {{ $t('navigation.account') }}:
+            span.user__info__label Marvel group
+      v-menu(bottom left dark offset-y)
+        v-btn(icon slot="activator" dark)
+          v-icon more_vert
+        v-list.options__list
+          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" @click="").option
+            v-list-tile-action
+              v-icon {{ item.icon }}
+            v-list-tile-content {{ $t(item.text) }}
+
+
 </template>
 
 <script>
@@ -80,6 +94,12 @@ export default {
           ]
         }
       ],
+      user_menu_options: [
+        { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
+        { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
+        { icon: 'face', text: 'navigation.profile', action: '#' },
+        { icon: 'exit_to_app', text: 'navigation.logout', action: '#' }
+      ],
       items_select: [
         'English', 'Spanish'
       ],
@@ -101,7 +121,47 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  .list__group__items {
+    background-color: #333;
+  }
+
+  .toolbar__title {
+    display: flex;
+  }
+
+  .logo__container {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  .logo {
+    width: 65%;
+  }
+
+  .toolbar__items {
+    display: flex;
+    align-items: center
+  }
+
+  .user__info {
+    padding: 12px 0 12px 12px;
+    font-size: 12px;
+
+    &__label {
+      display: inline-block;
+      margin-left: 4px;
+      font-weight: bold;
+    }
+  }
+
+  .options__list {
+
+    .list__tile__content {
+        font-size: 12px;
+    }
+  }
 
 </style>
 

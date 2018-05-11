@@ -1,12 +1,12 @@
 <template lang="pug">
   section.accounts__section
     v-flex(xs12)
-        v-breadcrumbs(divider="-")
-            v-breadcrumbs-item(
-                v-for="breadcrumb in breadcrumbs"
-                :key="breadcrumb.text"
-                :disabled="breadcrumb.disabled"
-            ) {{ breadcrumb.text }}
+        //- v-breadcrumbs(divider="-")
+        //-     v-breadcrumbs-item(
+        //-         v-for="breadcrumb in breadcrumbs"
+        //-         :key="breadcrumb.text"
+        //-         :disabled="breadcrumb.disabled"
+        //-     ) {{ breadcrumb.text }}
     accounts-data-table
     // Accounts data table
     //- v-card

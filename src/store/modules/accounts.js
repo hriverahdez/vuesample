@@ -9,7 +9,6 @@ export default {
       description: '',
       disabled: false
     },
-    // editedIndex: -1
     editedIndex: -1
   },
   getters: {
