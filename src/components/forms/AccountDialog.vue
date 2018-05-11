@@ -1,12 +1,13 @@
 <template lang="pug">
     v-dialog(v-model="$store.state.accountsModule.accountDialogStatus" max-width="500px" light)
+      dialog-alert
       v-card
         v-card-title.form_elements_color.py-4.title.white--text {{ formTitle }}
         v-card-text.card__text__form
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-                <dialog-alert />
+                dialog-alert
                 v-form(
                   lazy-validation
                   v-model="valid"
@@ -59,6 +60,7 @@ export default {
   },
   data () {
     return {
+      inner: false,
       alert: true,
       name: '',
       accountNameRules: [
@@ -130,9 +132,15 @@ export default {
           show: true,
           type: 'success',
           message: this.$t('accounts_view.new_success'),
-          timeout: 1000,
-          dialog: 'accountDialogStatusAction'
+          buttonText: this.$t('buttons.close'),
+          formToClear: 'dataAccountAction'
         })
+      })
+      this.$store.dispatch('accountDialogStatusAction', false)
+      this.$store.dispatch('dataAccountAction', {
+        name: '',
+        description: '',
+        disabled: ''
       })
     },
     // Edit account

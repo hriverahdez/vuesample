@@ -17,7 +17,8 @@ export const store = new Vuex.Store({
     alert: {
       type: 'success',
       show: false,
-      message: ''
+      message: '',
+      buttonText: ''
     }
   },
   mutations: {
@@ -26,16 +27,24 @@ export const store = new Vuex.Store({
       state.alert.type = data.type
       state.alert.show = data.show
       state.alert.message = data.message
-      setTimeout(() => {
-        state.alert.type = 'success'
-        state.alert.show = false
-        state.alert.message = ''
-        store.dispatch(data.dialog, false)
-        store.dispatch('dataAccountAction', {
-          name: '',
-          description: '',
-          disabled: ''})
-      }, data.timeout)
+      state.alert.buttonText = data.buttonText
+      // setTimeout(() => {
+      //   state.alert.type = 'success'
+      //   state.alert.show = false
+      //   state.alert.message = ''
+      //   store.dispatch(data.dialog, false)
+      //   store.dispatch('dataAccountAction', {
+      //     name: '',
+      //     description: '',
+      //     disabled: ''})
+      // }, data.timeout)
+    },
+    closeAlertDialog: (state, data) => {
+      state.alert.type = 'success'
+      state.alert.show = false
+      state.alert.message = ''
+      state.alert.buttonText = ''
+      console.log(data)
     }
   }
 })
