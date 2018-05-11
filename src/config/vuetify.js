@@ -17,6 +17,7 @@ import {
     VGrid,
     VIcon,
     VList,
+    VMenu,
     VNavigationDrawer,
     VSelect,
     VSpeedDial,
@@ -49,6 +50,7 @@ Vue.use(Vuetify, {
     VGrid,
     VIcon,
     VList,
+    VMenu,
     VNavigationDrawer,
     VSelect,
     VSpeedDial,
@@ -61,18 +63,20 @@ Vue.use(Vuetify, {
     transitions
   },
   theme: {
-    primary: '#039BE5',
-    secondary: '#FF5722',
+    primary: '#00A0BD',
+    secondary: '#ee44aa',
     accent: '#FF8A65',
-    error: '#D81B60',
+    error: '#EF5350',
     info: '#2196F3',
-    success: '#4CAF50',
+    success: '#66BB6A',
     warning: '#D32F2F',
     floatingButton: '#FF5722',
-    toolBar: '#00838F'
+    toolBar: '#00A0BD',
+    form_elements_color: '#7E57C2',
+    headings: '#00838F'
   }
   // theme: {
-  //   primary: '#ee44aa', #004daf
+  //   primary: '#ee44aa',
   //   secondary: '#424242',
   //   accent: '#82B1FF',
   //   error: '#FF5252',
