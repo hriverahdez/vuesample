@@ -38,15 +38,22 @@
         img(src='@/assets/logo.png', alt='Labcave logo').logo
       v-spacer
       v-toolbar-items
-        v-avatar(slot="activator" size="38")
+        v-avatar(slot="activator" size="32")
           img(src='@/assets/spiderman.png' alt="User")
         div.user__info
           div.user__info__user  {{ $t('navigation.user') }}:
             span.user__info__label Spiderman
           div.user__info__account {{ $t('navigation.account') }}:
             span.user__info__label Marvel group
-      v-btn(icon)
-        v-icon more_vert
+      v-menu(bottom left dark offset-y)
+        v-btn(icon slot="activator" dark)
+          v-icon more_vert
+        v-list.options__list
+          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" @click="").option
+            v-list-tile-action
+              v-icon {{ item.icon }}
+            v-list-tile-content {{ $t(item.text) }}
+
 
 </template>
 
@@ -87,11 +94,11 @@ export default {
           ]
         }
       ],
-      items2: [
-        { title: 'Click Mgey' },
-        { title: 'Click Meyy' },
-        { title: 'Click Mey' },
-        { title: 'Click Me 2' }
+      user_menu_options: [
+        { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
+        { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
+        { icon: 'face', text: 'navigation.profile', action: '#' },
+        { icon: 'exit_to_app', text: 'navigation.logout', action: '#' }
       ],
       items_select: [
         'English', 'Spanish'
@@ -115,34 +122,46 @@ export default {
 </script>
 
 <style lang="scss">
-.list__group__items {
-  background-color: #333;
-}
-.toolbar__title {
-  display: flex;
-}
-.logo__container {
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
-}
-.logo {
-  width: 65%;
-}
-.toolbar__items {
-  display: flex;
-  align-items: center
-}
-.user__info {
-  padding: 12px 0 12px 12px;
-  font-size: 12px;
-
-  &__label {
-    display: inline-block;
-    margin-left: 4px;
-    font-weight: bold;
+  .list__group__items {
+    background-color: #333;
   }
-}
+
+  .toolbar__title {
+    display: flex;
+  }
+
+  .logo__container {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  .logo {
+    width: 65%;
+  }
+
+  .toolbar__items {
+    display: flex;
+    align-items: center
+  }
+
+  .user__info {
+    padding: 12px 0 12px 12px;
+    font-size: 12px;
+
+    &__label {
+      display: inline-block;
+      margin-left: 4px;
+      font-weight: bold;
+    }
+  }
+
+  .options__list {
+
+    .list__tile__content {
+        font-size: 12px;
+    }
+  }
 
 </style>
 
