@@ -179,10 +179,10 @@ export default {
   height: 50px;
 }
 .card__text.card__text__form {
-  padding: 0 20px 20px 20px;
+  padding: 30px;
 }
 .card__actions {
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 .accounts-form__status {
   display: flex;

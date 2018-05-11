@@ -29,3 +29,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .card__actions {
+      padding: 10px;
+  }
+</style>
+
