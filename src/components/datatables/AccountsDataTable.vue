@@ -1,19 +1,17 @@
 <template lang="pug">
     section
         v-card
-            //- v-card-title.grey.lighten-4.py-4.title Accounts list
-            //-     v-spacer
-            v-layout(wrap).card__row2
-                v-flex(xs8) 
-                    v-card-title.title Accounts list
-                v-flex(xs4)
-                    v-text-field(
-                    append-icon="search"
-                    label="Search"
-                    single-line
-                    hide-details
-                    v-model="search"
-                    )
+          v-layout(wrap).card__row2
+              v-flex(xs8)
+                  v-card-title.title.headings--text Accounts list
+              v-flex(xs4)
+                  v-text-field(
+                  append-icon="search"
+                  label="Search"
+                  single-line
+                  hide-details
+                  v-model="search"
+                  )
         v-data-table(
             :headers="headers"
             :items="accounts"
@@ -26,7 +24,7 @@
                 td.text-xs-left {{ props.item.disabled }}
                 td.justify-center
                     v-btn(icon @click="editAccountDialog(props.item)").mx-0
-                        v-icon(color="teal") edit
+                        v-icon(color="primary") edit
                     v-btn(icon @click="").mx-0
                         v-icon(color="blue") clear
                     v-btn(icon @click="deleteAccount(props.item)").mx-0
