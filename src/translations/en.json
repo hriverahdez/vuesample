@@ -43,6 +43,7 @@
     },
     "validations": {
       "length": "The field must have between {minLength} and {maxLength} characters",
-      "required": "Required field"
+      "required": "Required field",
+      "same_account_name": "Account name already exists"
     }
 }

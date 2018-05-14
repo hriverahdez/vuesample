@@ -67,6 +67,12 @@ export default {
       search: ''
     }
   },
+  watch: {
+    // Copy accounts to store
+    accounts (accounts) {
+      this.$store.commit('getAccountsMutation', accounts)
+    }
+  },
   apollo: {
     accounts: {
       query: GET_ACCOUNTS,

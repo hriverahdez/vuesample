@@ -16,7 +16,7 @@
                       :disabled="this.editedIndex !== -1"
                       label="Account name"
                       v-model="dataAccount.name"
-                      :rules="accountNameRules"
+                      :rules="this.editedIndex === -1 ? newAccountNameRules : editAccountNameRules"
                       :counter="30"
                       required
                       ).form_elements_color--text
@@ -59,19 +59,29 @@ export default {
     DialogAlert
   },
   data () {
+    let component = this
     return {
       inner: false,
       alert: true,
       name: '',
-      accountNameRules: [
+      newAccountNameRules: [
+        (v) => !!v || this.$t('validations.required'),
+        (v) => (v.length > 4 && v.length <= 30) || this.$t('validations.length', {minLength: 5, maxLength: 30}),
+        // Check if exists an account with the same name
+        (v) => !component.accountNames.includes(v) || this.$t('validations.same_account_name')
+      ],
+      editAccountNameRules: [
         (v) => !!v || this.$t('validations.required'),
         (v) => (v.length > 4 && v.length <= 30) || this.$t('validations.length', {minLength: 5, maxLength: 30})
       ],
-      valid: false,
-      editMode: false
+      valid: false
     }
   },
   computed: {
+    // Get the account names from store
+    accountNames () {
+      return this.$store.getters.accountNames
+    },
     // Change switch text label
     check () {
       if (this.dataAccount.disabled) {

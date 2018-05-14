@@ -1,6 +1,7 @@
 
 export default {
   state: {
+    accounts: [],
     // Show or hide dialog
     accountDialogStatus: false,
     // Comunicate account data between components
@@ -17,6 +18,11 @@ export default {
     },
     dataAccountGetter (state) {
       return state.dataAccount
+    },
+    accountNames (state) {
+      let names = []
+      state.accounts.map((account) => names.push(account.name))
+      return names
     }
   },
   mutations: {
@@ -28,6 +34,9 @@ export default {
     },
     editedIndexMutation (state, index) {
       state.editedIndex = index
+    },
+    getAccountsMutation (state, accounts) {
+      state.accounts = accounts
     }
   },
   actions: {

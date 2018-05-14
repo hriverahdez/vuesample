@@ -43,6 +43,7 @@
     },
     "validations": {
       "length": "El campo debe tener entre {minLength} y {maxLength} caracteres",
-      "required": "Campo obligatorio"
+      "required": "Campo obligatorio",
+      "same_account_name": "El nombre de la cuenta ya existe"
     }
   }
