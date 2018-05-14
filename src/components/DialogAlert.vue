@@ -1,20 +1,20 @@
 
 <template lang="pug">
 
-    v-dialog(v-model="$store.state.alert.show" max-width="500px")
+    v-dialog(v-model="$store.state.dialogAlertModule.alert.show" max-width="500px")
         v-card
             v-alert(
-                :value="$store.state.alert.show"
-                :type="$store.state.alert.type"
+                :value="$store.state.dialogAlertModule.alert.show"
+                :type="$store.state.dialogAlertModule.alert.type"
                 transition="fade-transition"
-            ) {{ $store.state.alert.message }}
+            ) {{ $store.state.dialogAlertModule.alert.message }}
             v-card-actions
                 v-spacer
                 v-btn(
                 color="form_elements_color"
                 flat
                 @click.native="closeDialog"
-                ) {{ $store.state.alert.buttonText }}
+                ) {{ $store.state.dialogAlertModule.alert.buttonText }}
 
 </template>
 
