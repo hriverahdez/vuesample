@@ -1,6 +1,7 @@
 
 {
     "accounts_view": {
+      "account_title": "Listado de cuentas",
       "alert_message": "Ninguna cuenta disponible",
       "edit_account": "Editar cuenta",
       "edit_success": "Cuenta editada",
@@ -12,6 +13,10 @@
       "close": "Salir",
       "create": "Crear",
       "edit": "Editar"
+    },
+    "dashboard_view": {
+      "apps": "Aplicaciones",
+      "dashboard_title": "Panel de control"
     },
     "links": {
       "home": "Inicio"

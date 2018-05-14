@@ -1,6 +1,7 @@
 
 {
     "accounts_view": {
+      "account_title": "Account list",
       "alert_message": "No accounts available",
       "edit_account": "Edit account",
       "edit_success": "Edited account",
@@ -12,6 +13,10 @@
       "close": "Close",
       "create": "Create",
       "edit": "Edit"
+    },
+    "dashboard_view": {
+      "apps": "Apps",
+      "dashboard_title": "Dashboard"
     },
     "links": {
       "home": "Home"

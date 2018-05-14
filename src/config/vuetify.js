@@ -10,6 +10,7 @@ import {
     VBreadcrumbs,
     VBtn,
     VCard,
+    VChip,
     VDataTable,
     VDialog,
     VForm,
@@ -43,6 +44,7 @@ Vue.use(Vuetify, {
     VBreadcrumbs,
     VBtn,
     VCard,
+    VChip,
     VDataTable,
     VDialog,
     VForm,
@@ -73,7 +75,9 @@ Vue.use(Vuetify, {
     floatingButton: '#FF5722',
     toolBar: '#00A0BD',
     form_elements_color: '#00A0BD',
-    headings: '#00838F'
+    headings: '#00838F',
+    purple: '#7E57C2',
+    orange: '#FF5722'
   }
   // theme: {
   //   primary: '#ee44aa',
