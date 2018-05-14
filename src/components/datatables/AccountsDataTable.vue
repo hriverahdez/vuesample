@@ -1,9 +1,9 @@
 <template lang="pug">
     section
         v-card
-          v-layout(wrap).card__row2
+          v-layout(wrap).card__row-title
               v-flex(xs8)
-                  v-card-title.title.headings--text Accounts list
+                  v-card-title.title.headings--text {{ $t('accounts_view.account_title' )}}
               v-flex(xs4)
                   v-text-field(
                   append-icon="search"
@@ -107,9 +107,6 @@ export default {
 <style lang="scss" scoped>
 .card__title {
     text-transform: uppercase;
-}
-.card__row2 {
-    padding: 15px;
 }
 .accounts-form__status {
     align-items: center;
