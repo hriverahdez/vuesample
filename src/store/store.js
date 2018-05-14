@@ -34,7 +34,6 @@ export const store = new Vuex.Store({
       state.alert.show = false
       state.alert.message = ''
       state.alert.buttonText = ''
-      console.log(data)
     }
   }
 })

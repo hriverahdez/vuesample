@@ -31,6 +31,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .card {
+    padding: 10px 10px 0 10px;
+  }
   .card__actions {
       padding: 10px;
   }
