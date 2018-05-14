@@ -16,7 +16,9 @@
     },
     "dashboard_view": {
       "apps": "Apps",
-      "dashboard_title": "Dashboard"
+      "dashboard_title": "Dashboard",
+      "formats": "Formats",
+      "networks": "Networks"
     },
     "links": {
       "home": "Home"

@@ -16,7 +16,9 @@
     },
     "dashboard_view": {
       "apps": "Aplicaciones",
-      "dashboard_title": "Panel de control"
+      "dashboard_title": "Panel de control",
+      "formats": "Formatos",
+      "networks": "Redes"
     },
     "links": {
       "home": "Inicio"
