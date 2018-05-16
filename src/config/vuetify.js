@@ -12,6 +12,7 @@ import {
     VCard,
     VChip,
     VDataTable,
+    VDatePicker,
     VDialog,
     VForm,
     VFooter,
@@ -30,6 +31,11 @@ import {
     VTooltip,
     transitions
   } from 'vuetify'
+
+// Datepicker component
+import VDateRange from 'vuetify-daterange-picker'
+import 'vuetify-daterange-picker/dist/vuetify-daterange-picker.css'
+
 import '../../node_modules/vuetify/src/stylus/app.styl'
 
 // Modifying Stylus variables
@@ -46,6 +52,7 @@ Vue.use(Vuetify, {
     VCard,
     VChip,
     VDataTable,
+    VDatePicker,
     VDialog,
     VForm,
     VFooter,
@@ -89,3 +96,5 @@ Vue.use(Vuetify, {
   //   warning: '#FFC107'
   // }
 })
+
+Vue.use(VDateRange)
