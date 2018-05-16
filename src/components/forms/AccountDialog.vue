@@ -1,12 +1,13 @@
 <template lang="pug">
     v-dialog(v-model="$store.state.accountsModule.accountDialogStatus" max-width="500px" light)
+      dialog-alert
       v-card
         v-card-title.form_elements_color.py-4.title.white--text {{ formTitle }}
         v-card-text.card__text__form
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-                <dialog-alert />
+                dialog-alert
                 v-form(
                   lazy-validation
                   v-model="valid"
@@ -15,7 +16,7 @@
                       :disabled="this.editedIndex !== -1"
                       label="Account name"
                       v-model="dataAccount.name"
-                      :rules="accountNameRules"
+                      :rules="this.editedIndex === -1 ? newAccountNameRules : editAccountNameRules"
                       :counter="30"
                       required
                       ).form_elements_color--text
@@ -58,18 +59,29 @@ export default {
     DialogAlert
   },
   data () {
+    let component = this
     return {
+      inner: false,
       alert: true,
       name: '',
-      accountNameRules: [
+      newAccountNameRules: [
+        (v) => !!v || this.$t('validations.required'),
+        (v) => (v.length > 4 && v.length <= 30) || this.$t('validations.length', {minLength: 5, maxLength: 30}),
+        // Check if exists an account with the same name
+        (v) => !component.accountNames.includes(v) || this.$t('validations.same_account_name')
+      ],
+      editAccountNameRules: [
         (v) => !!v || this.$t('validations.required'),
         (v) => (v.length > 4 && v.length <= 30) || this.$t('validations.length', {minLength: 5, maxLength: 30})
       ],
-      valid: false,
-      editMode: false
+      valid: false
     }
   },
   computed: {
+    // Get the account names from store
+    accountNames () {
+      return this.$store.getters.accountNames
+    },
     // Change switch text label
     check () {
       if (this.dataAccount.disabled) {
@@ -130,9 +142,14 @@ export default {
           show: true,
           type: 'success',
           message: this.$t('accounts_view.new_success'),
-          timeout: 1000,
-          dialog: 'accountDialogStatusAction'
+          buttonText: this.$t('buttons.close')
         })
+      })
+      this.$store.dispatch('accountDialogStatusAction', false)
+      this.$store.dispatch('dataAccountAction', {
+        name: '',
+        description: '',
+        disabled: ''
       })
     },
     // Edit account
@@ -153,8 +170,13 @@ export default {
           show: true,
           type: 'success',
           message: this.$t('accounts_view.edit_success'),
-          timeout: 1000,
-          dialog: 'accountDialogStatusAction'
+          buttonText: this.$t('buttons.close')
+        })
+        this.$store.dispatch('accountDialogStatusAction', false)
+        this.$store.dispatch('dataAccountAction', {
+          name: '',
+          description: '',
+          disabled: ''
         })
       })
     }
@@ -167,10 +189,10 @@ export default {
   height: 50px;
 }
 .card__text.card__text__form {
-  padding: 0 20px 20px 20px;
+  padding: 30px;
 }
 .card__actions {
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 .accounts-form__status {
   display: flex;

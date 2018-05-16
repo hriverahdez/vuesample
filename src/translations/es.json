@@ -1,6 +1,7 @@
 
 {
     "accounts_view": {
+      "account_title": "Listado de cuentas",
       "alert_message": "Ninguna cuenta disponible",
       "edit_account": "Editar cuenta",
       "edit_success": "Cuenta editada",
@@ -9,8 +10,15 @@
     },
     "buttons": {
       "cancel": "Cancelar",
+      "close": "Salir",
       "create": "Crear",
       "edit": "Editar"
+    },
+    "dashboard_view": {
+      "apps": "Aplicaciones",
+      "dashboard_title": "Panel de control",
+      "formats": "Formatos",
+      "networks": "Redes"
     },
     "links": {
       "home": "Inicio"
@@ -42,6 +50,7 @@
     },
     "validations": {
       "length": "El campo debe tener entre {minLength} y {maxLength} caracteres",
-      "required": "Campo obligatorio"
+      "required": "Campo obligatorio",
+      "same_account_name": "El nombre de la cuenta ya existe"
     }
   }
