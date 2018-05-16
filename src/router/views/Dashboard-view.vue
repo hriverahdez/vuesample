@@ -8,9 +8,12 @@
         v-flex(xs12)
             v-tabs(icons-and-text centered dark color="purple")
                 v-tabs-slider(color="orange")
-                v-tab(href="#tab-1") Global
-                v-tab(href="#tab-2") Days
-                v-tab(href="#tab-3") Countries
+                v-flex(xs9)
+                  v-tab(href="#tab-1") Global
+                  v-tab(href="#tab-2") Days
+                  v-tab(href="#tab-3") Countries
+                v-flex(xs3)
+                  div lolololololol
                 v-tab-item(id="tab-1")
                     v-card(flat)
                       dashboard-filters
