@@ -2,7 +2,7 @@
     v-dialog(v-model="$store.state.accountsModule.accountDialogStatus" max-width="500px" light)
       dialog-alert
       v-card
-        v-card-title.form_elements_color.py-4.title.white--text {{ formTitle }}
+        v-card-title.formElementColor.py-4.title.white--text {{ formTitle }}
         v-card-text.card__text__form
           v-container(grid-list-md)
             v-layout(wrap)
@@ -19,11 +19,11 @@
                       :rules="this.editedIndex === -1 ? newAccountNameRules : editAccountNameRules"
                       :counter="30"
                       required
-                      ).form_elements_color--text
+                      ).formElementColor--text
                     v-text-field(
                       label="Description"
                       v-model="dataAccount.description"
-                      ).form_elements_color--text
+                      ).formElementColor--text
                     div.accounts-form__status
                         div.accounts-form__status__span Status:
                         v-switch(
@@ -37,13 +37,13 @@
         v-card-actions
           v-spacer
           v-btn(
-            color="form_elements_color"
+            color="formElementColor"
             flat
             @click.native="closeDialog"
             ) {{ $t('buttons.cancel') }}
           v-btn(
             class="white--text"
-            color="form_elements_color"
+            color="formElementColor"
             @click.native="accountEventHandler"
             :disabled="!valid"
             ) {{ formButtonTitle }}
