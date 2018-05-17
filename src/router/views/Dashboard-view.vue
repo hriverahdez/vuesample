@@ -10,47 +10,35 @@
               v-daterange(
                 :options="dateRangeOptions"
                 @input="onDateRangeChange"
-                class="white pa-4"
+                class="lightGray pa-4"
               )
               v-flex(
                 xs12 text-xs-right
-                class="actions-row"
+                class="actions-row lightGray"
                 )
                 v-btn(
-                  color="form_elements_color"
+                  color="formElementColor"
                   @click="dialog = false"
                   class="white--text"
                   ) Close
             v-tabs(icons-and-text centered dark color="purple")
-                v-tabs-slider(color="orange")
+                v-tabs-slider(color="pink")
                 v-flex(xs7)
                   v-tab(href="#tab-1") App
                   v-tab(href="#tab-2") Country
                   v-tab(href="#tab-3") Format
                   v-tab(href="#tab-3") Network
                   v-tab(href="#tab-3") Placement tag
-                v-flex(xs3)
-                  v-btn(color="primary" dark @click.native.stop="dialog = true")
+                v-flex(xs3 class="select-date-button-container")
+                  v-btn(color="pink" @click.native.stop="dialog = true")
                     v-icon(left) event
                     | Select date
-                v-flex(xs1 v-if="range.length")
-                  div From: {{ range[0] }}
-                  div To: {{ range[1] }}
-
-
-                  //- v-layout(slot="activator" row wrap)
-                  //-   span From:
-                  //-   v-text-field(
-                  //-     v-model="range[0]"
-                  //-     label="Start date"
-                  //-     readonly
-                  //-     )
-                  //-   span to:
-                  //-   v-text-field(
-                  //-     v-model="range[1]"
-                  //-     label="End Date"
-                  //-     readonly
-                  //-     )
+                v-flex(xs2).dates-container
+                  section(v-if="range.length")
+                    div From:
+                      strong {{ ` ${range[0]}` }}
+                    div To:
+                      strong {{ ` ${range[1]}` }}
                 v-tab-item(id="tab-1")
                     v-card(flat)
                       dashboard-filters
@@ -61,68 +49,6 @@
                 v-tab-item(id="tab-3")
                     v-card(flat)
                       column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
-
-
-            //- v-dialog(
-            //-           ref="dialog"
-            //-           v-model="modal"
-            //-           :return-value.sync="date"
-            //-           persistent
-            //-           lazy
-            //-           full-width
-            //-           width="290px"
-            //-         )
-            //-   v-text-field(
-            //-     slot="activator"
-            //-     v-model="date"
-            //-     label="Picker in dialog"
-            //-     prepend-icon="event"
-            //-     readonly
-            //-     )
-            //-   v-date-picker(v-model="date" scrollable)
-            //-     v-spacer
-            //-     v-btn(color="purple" @click="modal = false")
-
-            //- v-dialog(
-            //-           ref="dialog"
-            //-           v-model="modal"
-            //-           :return-value.sync="date"
-            //-           persistent
-            //-           lazy
-            //-           full-width
-            //-           width="800"
-            //-         )
-            //-   v-layout(xs12 slot="activator" row wrap)
-            //-     v-flex(xs6)
-            //-       v-text-field(
-            //-         v-model="range[0]"
-            //-         label="Start date"
-            //-         prepend-icon="event"
-            //-         readonly
-            //-         )
-            //-     v-flex(xs6)
-            //-       v-text-field(
-            //-         v-model="range[1]"
-            //-         label="End Date"
-            //-         prepend-icon="event"
-            //-         readonly
-            //-         )
-            //-   v-daterange(
-            //-     :options="dateRangeOptions"
-            //-     @input="onDateRangeChange"
-            //-     class="white pa-4"
-            //-   )
-
-            //-   v-flex(
-            //-     xs12 text-xs-right
-            //-     class="actions-row"
-            //-     )
-            //-     v-btn(
-            //-       color="form_elements_color"
-            //-       @click="modal = false"
-            //-       class="white--text"
-            //-       ) Close
-
 </template>
 
 
@@ -140,7 +66,7 @@
       dateRangeOptions: {
         startDate: format(subDays(new Date(), 7), 'YYYY-MM-DD'),
         endDate: format(new Date(), 'YYYY-MM-DD'),
-        format: 'MM/DD/YYYY',
+        format: 'YYYY/MM/DD',
         presets: [
           {
             label: 'Today',
@@ -180,6 +106,20 @@
 <style lang="scss" scoped>
 .actions-row {
   padding: 0 34px 20px 0;
+}
+.dates-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+  text-align: left;
+  padding-left: 16px;
+  border-bottom: 1px solid #7E57C2;
+}
+.select-date-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 6px;
 }
 </style>
 
