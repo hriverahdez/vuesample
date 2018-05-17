@@ -27,8 +27,7 @@
                   v-tab(href="#tab-1") App
                   v-tab(href="#tab-2") Country
                   v-tab(href="#tab-3") Format
-                  v-tab(href="#tab-3") Network
-                  v-tab(href="#tab-3") Placement tag
+                  v-tab(href="#tab-4") Network
                 v-flex(xs3 class="select-date-button-container")
                   v-btn(color="pink" @click.native.stop="dialog = true")
                     v-icon(left) event
@@ -49,11 +48,14 @@
                 v-tab-item(id="tab-3")
                     v-card(flat)
                       column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
+
+      dashboard-data-table
 </template>
 
 
 <script>
   import { format, subDays } from 'date-fns'
+  import DashboardDataTable from '@/components/datatables/DashboardDataTable'
   import DashboardFilters from '@/components/DashboardFilters'
 
   export default {
@@ -93,7 +95,8 @@
       }
     }),
     components: {
-      DashboardFilters
+      DashboardFilters,
+      DashboardDataTable
     },
     methods: {
       onDateRangeChange (range) {
