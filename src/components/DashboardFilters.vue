@@ -1,7 +1,8 @@
 <template lang="pug">
   v-container(grid-list-md text-xs-center)
     v-layout(row wrap)
-        v-flex(xs3)
+        div
+        v-flex(xs6 pr-3)
             v-select(
                 v-model="emptyApp"
                 :items="app"
@@ -19,7 +20,7 @@
                     )
                         v-avatar(class="accent") {{ data.item.slice(0, 1).toUpperCase() }}
                         | {{ data.item }}
-        v-flex(xs3)
+        v-flex(xs6 pl-3)
             v-select(
                 v-model="emptyCountry"
                 :items="country"
@@ -35,7 +36,7 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs3)
+        v-flex(xs6 pr-3)
             v-select(
                 v-model="emptyFormat"
                 :items="format"
@@ -51,7 +52,7 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs3)
+        v-flex(xs6 pl-3)
             v-select(
                 v-model="emptyNetwork"
                 :items="network"
