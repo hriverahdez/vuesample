@@ -82,7 +82,7 @@ Vue.use(Vuetify, {
     floatingButton: '#E65100',
     toolBar: '#00695C',
     formElementColor: '#0D47A1',
-    buttonColor: '#29B6F6',
+    buttonColor: '#009688',
     headings: '#1565C0',
     purple: '#7E57C2',
     orange: '#DB6E1E',

@@ -1,8 +1,16 @@
+// Vars
+blue_darken_4 = #0D47A1
+white = #fff
+blue_calendar = #1565C0
+content_background = #efefef
+
+
 $body-font-family = 'Ubuntu', sans-serif
 $alert-padding = 10px
 $alert-margin = 0 auto
-$data-table-heading = #1565C0
-$data-table-heading-text = #fff
+$data-table-heading = blue_calendar
+$data-table-heading-text = white
+
 
 
 @import '../../node_modules/vuetify/src/stylus/main.styl'
@@ -10,7 +18,7 @@ $data-table-heading-text = #fff
 
 // General
 .content--wrap
-    background: #efefef
+    background: content_background
 
 // Button styles
 .btn__content
@@ -22,22 +30,37 @@ $data-table-heading-text = #fff
 
 .btn
     &.accent
-        background-color: #1565C0!important
+        background-color: blue_calendar!important
     &.accent--text
-        border-color: #1565C0!important
-        color: #1565C0!important
+        border-color: blue_calendar!important
+        color: blue_calendar!important
 
 
 // Card styles
 .card__title
     text-transform: uppercase
 
+// Chips styles
+.chip
+    .chip__content
+        height: 20px;
+
 .card__row-title
     padding: 8px 16px 6px 0
 
+// Datatable style
+.datatable
+    background: white!important
+
+    th
+        background: blue_darken_4
+        color: white!important
+    i
+        color: white!important
+
 // Dialog styles
 .dialog
-    background: #fff
+    background: white
 
 // Tabs styles
 .tabs__container
