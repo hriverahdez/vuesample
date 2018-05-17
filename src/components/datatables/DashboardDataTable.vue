@@ -3,6 +3,7 @@
         :headers="headers"
         :items="accounts"
         :search="search"
+        hide-actions
         class="elevation-1 dashboard-datatable"
         :rows-per-page-items="[10,20, 30]"
         )
@@ -33,11 +34,17 @@ export default {
       accounts: [],
       headers: [
         {
-          text: 'Name',
+          text: 'Group by date',
           align: 'left',
-          value: 'name'
+          value: 'date'
         },
-        { text: 'Active', value: 'active' },
+        { text: 'Request', value: 'request' },
+        { text: 'Impressions', value: 'impressions' },
+        { text: 'Fill rate', value: 'fill-rate' },
+        { text: 'Clicks', value: 'clicks' },
+        { text: 'CTR', value: 'ctr' },
+        { text: 'Revenue', value: 'revenue' },
+        { text: 'eCPM', value: 'ecpm' },
         { text: 'Actions',
           sortable: false,
           align: 'center',

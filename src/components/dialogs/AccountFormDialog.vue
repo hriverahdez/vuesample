@@ -37,13 +37,13 @@
         v-card-actions
           v-spacer
           v-btn(
-            color="formElementColor"
+            color="buttonColor"
             flat
             @click.native="closeDialog"
             ) {{ $t('buttons.cancel') }}
           v-btn(
             class="white--text"
-            color="formElementColor"
+            color="buttonColor"
             @click.native="accountEventHandler"
             :disabled="!valid"
             ) {{ formButtonTitle }}

@@ -26,7 +26,7 @@
               v-list-tile-title
                   | {{ $t(item.text) }}
     v-toolbar(
-      color='toolBar',
+      color='blue darken-4',
       dark,
       app,
       :clipped-left='$vuetify.breakpoint.lgAndUp',

@@ -72,22 +72,40 @@ Vue.use(Vuetify, {
     transitions
   },
   theme: {
-    primary: '#00A0BD',
+    primary: '#90CAF9',
     secondary: '#ee44aa',
     accent: '#FF8A65',
     error: '#EF5350',
     info: '#2196F3',
     success: '#66BB6A',
     warning: '#D32F2F',
-    floatingButton: '#FF5722',
-    toolBar: '#00A0BD',
-    formElementColor: '#00A0BD',
-    headings: '#00838F',
+    floatingButton: '#E65100',
+    toolBar: '#00695C',
+    formElementColor: '#0D47A1',
+    buttonColor: '#29B6F6',
+    headings: '#1565C0',
     purple: '#7E57C2',
-    orange: '#FF5722',
+    orange: '#DB6E1E',
     pink: '#ee44aa',
     lightGray: '#efefef'
   }
+  // theme: {
+  //   primary: '#00A0BD',
+  //   secondary: '#ee44aa',
+  //   accent: '#FF8A65',
+  //   error: '#EF5350',
+  //   info: '#2196F3',
+  //   success: '#66BB6A',
+  //   warning: '#D32F2F',
+  //   floatingButton: '#FF5722',
+  //   toolBar: '#00A0BD',
+  //   formElementColor: '#00A0BD',
+  //   headings: '#00838F',
+  //   purple: '#7E57C2',
+  //   orange: '#FF5722',
+  //   pink: '#ee44aa',
+  //   lightGray: '#efefef'
+  // }
   // theme: {
   //   primary: '#ee44aa',
   //   secondary: '#424242',

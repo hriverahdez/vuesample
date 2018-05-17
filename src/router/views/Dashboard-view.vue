@@ -17,19 +17,19 @@
                 class="actions-row lightGray"
                 )
                 v-btn(
-                  color="formElementColor"
+                  color="buttonColor"
                   @click="dialog = false"
                   class="white--text"
                   ) Close
-            v-tabs(icons-and-text centered dark color="purple")
-                v-tabs-slider(color="pink")
+            v-tabs(icons-and-text centered dark color="blue darken-4")
+                v-tabs-slider(color="blue lighten-4")
                 v-flex(xs7)
                   v-tab(href="#tab-1") App
                   v-tab(href="#tab-2") Country
                   v-tab(href="#tab-3") Format
                   v-tab(href="#tab-4") Network
                 v-flex(xs3 class="select-date-button-container")
-                  v-btn(color="pink" @click.native.stop="dialog = true")
+                  v-btn(color="buttonColor" @click.native.stop="dialog = true")
                     v-icon(left) event
                     | Select date
                 v-flex(xs2).dates-container
