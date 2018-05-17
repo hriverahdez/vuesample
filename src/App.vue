@@ -2,18 +2,18 @@
   v-app(light)
     admin-navigation
     v-content
-      v-container(grid-list-md text-xs-center align-content-start).dashboard__container
-          v-layout(row wrap align-content-start)
-          router-view
-    account-dialog
-    floating-button
+      v-container(grid-list-md text-xs-center align-content-center).dashboard__container
+        router-view
+        account-dialog
+    v-layout(class="floating-button-container")
+      floating-button
     //- v-footer(app)
 
 
 </template>
 
 <script>
-  import AccountDialog from '@/components/forms/AccountDialog'
+  import AccountDialog from '@/components/dialogs/AccountFormDialog'
   import AdminNavigation from '@/components/navigation/AdminNavigation'
   import FloatingButton from '@/components/FloatingButton'
 
@@ -29,6 +29,11 @@
 <style lang="scss" scoped>
 .container {
   padding: 30px;
+}
+.floating-button-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 </style>
 
