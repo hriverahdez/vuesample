@@ -15,10 +15,11 @@
       "edit": "Edit"
     },
     "dashboard_view": {
-      "apps": "Apps",
+      "app": "App",
+      "country": "Country",
       "dashboard_title": "Dashboard",
-      "formats": "Formats",
-      "networks": "Networks"
+      "format": "Format",
+      "network": "Network"
     },
     "links": {
       "home": "Home"

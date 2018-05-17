@@ -15,10 +15,11 @@
       "edit": "Editar"
     },
     "dashboard_view": {
-      "apps": "Aplicaciones",
+      "app": "Aplicaciones",
+      "country": "País",
       "dashboard_title": "Panel de control",
-      "formats": "Formatos",
-      "networks": "Redes"
+      "format": "Formato",
+      "network": "Red"
     },
     "links": {
       "home": "Inicio"
