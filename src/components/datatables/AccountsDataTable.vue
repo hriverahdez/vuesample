@@ -105,9 +105,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card__title {
-    text-transform: uppercase;
-}
 .accounts-form__status {
     align-items: center;
     display: flex;

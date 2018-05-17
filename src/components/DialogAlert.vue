@@ -11,7 +11,7 @@
             v-card-actions
                 v-spacer
                 v-btn(
-                color="form_elements_color"
+                color="formElementColor"
                 flat
                 @click.native="closeDialog"
                 ) {{ $store.state.dialogAlertModule.alert.buttonText }}

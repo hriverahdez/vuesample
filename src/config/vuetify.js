@@ -81,10 +81,12 @@ Vue.use(Vuetify, {
     warning: '#D32F2F',
     floatingButton: '#FF5722',
     toolBar: '#00A0BD',
-    form_elements_color: '#00A0BD',
+    formElementColor: '#00A0BD',
     headings: '#00838F',
     purple: '#7E57C2',
-    orange: '#FF5722'
+    orange: '#FF5722',
+    pink: '#ee44aa',
+    lightGray: '#efefef'
   }
   // theme: {
   //   primary: '#ee44aa',
