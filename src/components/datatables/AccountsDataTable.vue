@@ -100,6 +100,9 @@ export default {
         this.editAccount = {}
       })
     }
+  },
+  beforeCreate () {
+    this.$store.dispatch('endpointModifyAction', 'account')
   }
 }
 </script>

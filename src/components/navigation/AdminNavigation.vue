@@ -11,7 +11,7 @@
             append-icon)
             v-list-tile(slot='activator')
               v-list-tile-content
-                v-list-tile-title
+                v-list-tile-title(color="blue")
                   | {{ $t(item.text) }}
             v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
               v-list-tile-action(v-if='child.icon')
@@ -26,7 +26,7 @@
               v-list-tile-title
                   | {{ $t(item.text) }}
     v-toolbar(
-      color='blue darken-4',
+      color='toolBar',
       dark,
       app,
       :clipped-left='$vuetify.breakpoint.lgAndUp',
@@ -35,7 +35,7 @@
       )
       v-toolbar-side-icon(@click.stop='drawer = !drawer')
       div.logo__container
-        img(src='@/assets/logo.png', alt='Labcave logo').logo
+        img(src='@/assets/logo-fibonad.svg', alt='Labcave logo').logo
       v-spacer
       v-toolbar-items
         v-avatar(slot="activator" size="32")

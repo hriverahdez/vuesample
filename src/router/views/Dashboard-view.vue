@@ -21,7 +21,7 @@
                   @click="dialog = false"
                   class="white--text"
                   ) Close
-            v-tabs(icons-and-text centered dark color="blue darken-4")
+            v-tabs(icons-and-text centered dark color="blue-grey darken-3")
                 v-tabs-slider(color="blue lighten-4")
                 v-flex(xs7)
                   v-tab(href="#tab-1") App

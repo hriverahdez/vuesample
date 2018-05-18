@@ -71,8 +71,29 @@ Vue.use(Vuetify, {
     VTooltip,
     transitions
   },
+
+  // BLue darken-3 theme
+  // theme: {
+  //   primary: '#00A0D3',
+  //   secondary: '#ee44aa',
+  //   accent: '#FF8A65',
+  //   error: '#EF5350',
+  //   info: '#2196F3',
+  //   success: '#66BB6A',
+  //   warning: '#D32F2F',
+  //   floatingButton: '#E65100',
+  //   toolBar: '#00A0D3',
+  //   formElementColor: '#0D47A1',
+  //   buttonColor: '#009688',
+  //   headings: '#1565C0',
+  //   purple: '#7E57C2',
+  //   orange: '#DB6E1E',
+  //   pink: '#ee44aa',
+  //   lightGray: '#efefef'
+  // }
+
   theme: {
-    primary: '#90CAF9',
+    primary: '#00A0D3',
     secondary: '#ee44aa',
     accent: '#FF8A65',
     error: '#EF5350',
@@ -80,7 +101,7 @@ Vue.use(Vuetify, {
     success: '#66BB6A',
     warning: '#D32F2F',
     floatingButton: '#E65100',
-    toolBar: '#00695C',
+    toolBar: '#232E37',
     formElementColor: '#0D47A1',
     buttonColor: '#009688',
     headings: '#1565C0',
@@ -89,6 +110,8 @@ Vue.use(Vuetify, {
     pink: '#ee44aa',
     lightGray: '#efefef'
   }
+
+  // Default theme
   // theme: {
   //   primary: '#00A0BD',
   //   secondary: '#ee44aa',

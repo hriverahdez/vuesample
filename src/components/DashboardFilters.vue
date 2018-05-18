@@ -1,7 +1,6 @@
 <template lang="pug">
   v-container(grid-list-md text-xs-center)
     v-layout(row wrap)
-        div
         v-flex(xs6 pr-3)
             v-select(
                 v-model="emptyApp"
@@ -68,6 +67,21 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
+        v-layout(row justify-end)
+            v-flex(xs1 offset-xs5)
+                v-btn(
+                    color="buttonColor"
+                    flat
+                    @click.native="closeDialog"
+                    ) lolololo
+            v-flex(xs1 )
+                v-btn(
+                    class="white--text"
+                    color="buttonColor"
+                    @click.native="accountEventHandler"
+                    :disabled="!valid"
+                    ) lalala
+
 </template>
 
 <script>
@@ -104,9 +118,19 @@ export default {
       emptyApp: [],
       emptyCountry: [],
       emptyFormat: [],
-      emptyNetwork: []
+      emptyNetwork: [],
+      valid: false
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.prueba {
+    height: 50px;
+    background: red;
+    width: 100%;
+}
+</style>
+
 

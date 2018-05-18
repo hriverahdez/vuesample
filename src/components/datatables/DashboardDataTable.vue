@@ -1,22 +1,21 @@
 <template lang="pug">
     v-data-table(
         :headers="headers"
-        :items="accounts"
+        :items="stats"
         :search="search"
         hide-actions
         class="elevation-1 dashboard-datatable"
-        :rows-per-page-items="[10,20, 30]"
         )
         template(slot="items" slot-scope="props")
-            td.text-xs-left {{ props.item.name}}
-            td.text-xs-left {{ props.item.disabled }}
-            td.justify-center
-                v-btn(icon @click="editAccountDialog(props.item)").mx-0
-                    v-icon(color="primary") edit
-                v-btn(icon @click="").mx-0
-                    v-icon(color="blue") clear
-                v-btn(icon @click="deleteAccount(props.item)").mx-0
-                    v-icon(color="pink") delete
+            td.text-xs-left {{ props.item.label}}
+            td.text-xs-left {{ props.item.requests }}
+            td.text-xs-left {{ props.item.imps }}
+            td.text-xs-left {{ props.item.fillRate }}
+            td.text-xs-left {{ props.item.clicks }}
+            td.text-xs-left {{ props.item.ctr }}
+            td.text-xs-left {{ props.item.revenue }}
+            td.text-xs-left {{ props.item.ecpm }}
+
         template(slot="no-data")
             v-alert(
             :value="true"
@@ -25,13 +24,13 @@
 </template>
 
 <script>
-import { GET_ACCOUNTS } from '@/graphql/accounts'
+import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/dashboardReport'
 
 export default {
   name: 'dashboard-data-table',
   data () {
     return {
-      accounts: [],
+      stats: [],
       headers: [
         {
           text: 'Group by date',
@@ -40,26 +39,23 @@ export default {
         },
         { text: 'Request', value: 'request' },
         { text: 'Impressions', value: 'impressions' },
-        { text: 'Fill rate', value: 'fill-rate' },
+        { text: 'Fill rate', value: 'rate' },
         { text: 'Clicks', value: 'clicks' },
         { text: 'CTR', value: 'ctr' },
         { text: 'Revenue', value: 'revenue' },
-        { text: 'eCPM', value: 'ecpm' },
-        { text: 'Actions',
-          sortable: false,
-          align: 'center',
-          value: 'actions'
-        }
+        { text: 'eCPM', value: 'ecpm' }
       ],
       search: ''
     }
   },
   apollo: {
-    accounts: {
-      query: GET_ACCOUNTS,
+    stats: {
+      query: GET_DASHBOARD_REPORT_DATA,
       pollInterval: 100,
       loadingKey: 'loading'
     }
+  },
+  methods: {
   }
 }
 </script>
