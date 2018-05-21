@@ -1,5 +1,7 @@
 // Vars
 blue_darken_4 = #0D47A1
+blue_lighten_4 = #BBDEFB
+gray = #212121
 white = #fff
 blue_calendar = #1565C0
 content_background = #efefef
@@ -19,6 +21,7 @@ $data-table-heading-text = white
 // General
 .content--wrap
     background: content_background
+    padding: 10px;
 
 // Button styles
 .btn__content
@@ -62,6 +65,11 @@ $data-table-heading-text = white
 .dialog
     background: white
 
+// Form elements
+.input-group label {
+  font-size: 12px;
+
+}
 // Tabs styles
 .tabs__container
     &--icons-and-text
@@ -72,7 +80,7 @@ $data-table-heading-text = white
         @media $display-breakpoints.sm-and-up
           min-width: 100px
 
-.tabs__items
-    padding: 0 30px 30px 30px;
+.tabs__item--active
+    background-color: gray
 
 

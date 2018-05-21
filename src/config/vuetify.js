@@ -73,25 +73,6 @@ Vue.use(Vuetify, {
   },
 
   // BLue darken-3 theme
-  // theme: {
-  //   primary: '#00A0D3',
-  //   secondary: '#ee44aa',
-  //   accent: '#FF8A65',
-  //   error: '#EF5350',
-  //   info: '#2196F3',
-  //   success: '#66BB6A',
-  //   warning: '#D32F2F',
-  //   floatingButton: '#E65100',
-  //   toolBar: '#00A0D3',
-  //   formElementColor: '#0D47A1',
-  //   buttonColor: '#009688',
-  //   headings: '#1565C0',
-  //   purple: '#7E57C2',
-  //   orange: '#DB6E1E',
-  //   pink: '#ee44aa',
-  //   lightGray: '#efefef'
-  // }
-
   theme: {
     primary: '#00A0D3',
     secondary: '#ee44aa',
@@ -101,15 +82,36 @@ Vue.use(Vuetify, {
     success: '#66BB6A',
     warning: '#D32F2F',
     floatingButton: '#E65100',
-    toolBar: '#232E37',
+    toolBar: '#0D47A1',
     formElementColor: '#0D47A1',
     buttonColor: '#009688',
     headings: '#1565C0',
     purple: '#7E57C2',
     orange: '#DB6E1E',
     pink: '#ee44aa',
-    lightGray: '#efefef'
+    lightGray: '#efefef',
+    tab_heading: '#0D47A1',
+    tab_content: '#BBDEFB'
   }
+
+  // theme: {
+  //   primary: '#00A0D3',
+  //   secondary: '#ee44aa',
+  //   accent: '#FF8A65',
+  //   error: '#EF5350',
+  //   info: '#2196F3',
+  //   success: '#66BB6A',
+  //   warning: '#D32F2F',
+  //   floatingButton: '#E65100',
+  //   toolBar: '#232E37',
+  //   formElementColor: '#0D47A1',
+  //   buttonColor: '#009688',
+  //   headings: '#1565C0',
+  //   purple: '#7E57C2',
+  //   orange: '#DB6E1E',
+  //   pink: '#ee44aa',
+  //   lightGray: '#efefef'
+  // }
 
   // Default theme
   // theme: {

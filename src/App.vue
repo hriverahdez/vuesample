@@ -27,9 +27,6 @@
 </script>
 
 <style lang="scss" scoped>
-.container {
-  padding: 30px;
-}
 .floating-button-container {
   position: fixed;
   bottom: 0;
