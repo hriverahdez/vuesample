@@ -10,7 +10,7 @@
 
 
 <script>
-  import DashboardDataTable from '@/components/datatables/DashboardDataTable'
+  import DashboardDataTable from '@/components/dashboard/DashboardDataTable'
   import DashboardTabs from '@/components/dashboard/DashboardTabs'
 
   export default {
