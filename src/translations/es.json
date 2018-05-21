@@ -16,6 +16,7 @@
     },
     "dashboard_view": {
       "app": "Aplicaciones",
+      "apply_filters": "Aplicar filtros",
       "country": "País",
       "dashboard_title": "Panel de control",
       "format": "Formato",
@@ -23,6 +24,7 @@
       "grouped_by": "Agrupado por",
       "network": "Red",
       "not_selected": "sin seleccionar",
+      "reset_filters": "Resetear filtros",
       "select_date": "Selecciona fecha",
       "to": "Hasta:"
     },

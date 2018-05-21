@@ -16,6 +16,7 @@
     },
     "dashboard_view": {
       "app": "App",
+      "apply_filters": "Apply filters",
       "country": "Country",
       "dashboard_title": "Dashboard",
       "format": "Format",
@@ -23,6 +24,7 @@
       "grouped_by": "Grouped by",
       "network": "Network",
       "not_selected": "not selected",
+      "reset_filters": "Reset filters",
       "select_date": "Select date",
       "to": "To:"
     },

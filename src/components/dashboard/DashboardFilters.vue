@@ -9,6 +9,7 @@
                 tags
                 autocomplete
                 clearable
+                @change="checkIfApplyButtonAvailable"
             )
                 template(slot="selection" slot-scope="data")
                     v-chip(
@@ -23,10 +24,12 @@
                 v-model="emptyCountry"
                 :items="config.countries"
                 item-text="name"
+                item-value="name"
                 :label="this.$t('dashboard_view.country')"
                 tags
                 autocomplete
                 clearable
+                @change="checkIfApplyButtonAvailable"
             )
                 template(slot="selection" slot-scope="data")
                     v-chip(
@@ -43,6 +46,7 @@
                 tags
                 autocomplete
                 clearable
+                @change="checkIfApplyButtonAvailable"
             )
                 template(slot="selection" slot-scope="data")
                     v-chip(
@@ -59,6 +63,7 @@
                 tags
                 autocomplete
                 clearable
+                @change="checkIfApplyButtonAvailable"
             )
                 template(slot="selection" slot-scope="data")
                     v-chip(
@@ -67,20 +72,21 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-layout(row justify-end)
-            v-flex(xs1 offset-xs5)
-                v-btn(
-                    color="buttonColor"
-                    flat
-                    @click.native="closeDialog"
-                    ) lolololo
-            v-flex(xs1 )
-                v-btn(
-                    class="white--text"
-                    color="buttonColor"
-                    @click.native="accountEventHandler"
-                    :disabled="!valid"
-                    ) lalala
+        v-layout(mb-4 class="gray_lighten_4")
+            v-flex(xs12 justify-end class="buttons-container" d-flex)
+                v-flex(xs1 mr-4)
+                    v-btn(
+                        color="buttonColor"
+                        flat
+                        @click.native="resetFilters"
+                        ) {{ $t('dashboard_view.reset_filters')}}
+                v-flex(xs2 mr-4)
+                    v-btn(
+                        class="white--text"
+                        color="buttonColor"
+                        @click.native="accountEventHandler"
+                        :disabled="!valid"
+                        ) {{ $t('dashboard_view.apply_filters')}}
 
 </template>
 
@@ -91,36 +97,26 @@ export default {
   name: 'dashboard-filters',
   data () {
     return {
-      app: [
-        'Android',
-        'IOS',
-        'Ejemplo app 1',
-        'Ejemplo app 2'
-      ],
-      country: [
-        'Spain',
-        'England',
-        'Anngola'
-      ],
-      format: [
-        'Banner',
-        'Banner premium',
-        'Interstitials',
-        'Interstitiasl premium',
-        ' Reward video'
-      ],
-      network: [
-        'Addcolony',
-        'Addmob',
-        'Applovin',
-        'Chartboost'
-      ],
       emptyApp: [],
       emptyCountry: [],
       emptyFormat: [],
       emptyNetwork: [],
       valid: false,
       config: []
+    }
+  },
+  watch: {
+    emptyApp (val) {
+      this.checkIfApplyButtonAvailable()
+    },
+    emptyCountry (val) {
+      this.checkIfApplyButtonAvailable()
+    },
+    emptyFormat (val) {
+      this.checkIfApplyButtonAvailable()
+    },
+    emptyNetwork (val) {
+      this.checkIfApplyButtonAvailable()
     }
   },
   apollo: {
@@ -132,9 +128,29 @@ export default {
       pollInterval: 100,
       loadingKey: 'loading'
     }
+  },
+  methods: {
+    resetFilters () {
+      this.emptyApp = []
+      this.emptyCountry = []
+      this.emptyFormat = []
+      this.emptyNetwork = []
+      this.valid = false
+    },
+    checkIfApplyButtonAvailable () {
+      if (this.emptyApp.length || this.emptyCountry.length || this.emptyFormat.length || this.emptyNetwork.length) {
+        this.valid = true
+      } else {
+        this.valid = false
+      }
+    }
   }
 }
 </script>
+
+
+
+
 
 
 

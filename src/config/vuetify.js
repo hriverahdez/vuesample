@@ -91,7 +91,8 @@ Vue.use(Vuetify, {
     pink: '#ee44aa',
     lightGray: '#efefef',
     tab_heading: '#0D47A1',
-    tab_content: '#BBDEFB'
+    tab_content: '#BBDEFB',
+    gray_lighten_4: '#F5F5F5'
   }
 
   // theme: {
