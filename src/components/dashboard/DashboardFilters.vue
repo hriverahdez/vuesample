@@ -1,11 +1,10 @@
 <template lang="pug">
-  v-container(grid-list-md text-xs-center)
+  v-container(grid-list-xs text-xs-center)
     v-layout(row wrap)
-        v-flex(xs6 pr-3)
+        v-flex(xs3)
             v-select(
                 v-model="emptyApp"
-                :items="app"
-                item-text="name"
+                :items="config.platforms"
                 :label="this.$t('dashboard_view.app')"
                 tags
                 autocomplete
@@ -19,10 +18,11 @@
                     )
                         v-avatar(class="accent") {{ data.item.slice(0, 1).toUpperCase() }}
                         | {{ data.item }}
-        v-flex(xs6 pl-3)
+        v-flex(xs3)
             v-select(
                 v-model="emptyCountry"
-                :items="country"
+                :items="config.countries"
+                item-text="name"
                 :label="this.$t('dashboard_view.country')"
                 tags
                 autocomplete
@@ -35,10 +35,10 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs6 pr-3)
+        v-flex(xs3)
             v-select(
                 v-model="emptyFormat"
-                :items="format"
+                :items="config.formats"
                 :label="this.$t('dashboard_view.format')"
                 tags
                 autocomplete
@@ -51,10 +51,10 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs6 pl-3)
+        v-flex(xs3)
             v-select(
                 v-model="emptyNetwork"
-                :items="network"
+                :items="config.networkIds"
                 :label="this.$t('dashboard_view.network')"
                 tags
                 autocomplete
@@ -85,10 +85,10 @@
 </template>
 
 <script>
+import { GET_DATA_FILTERS } from '@/graphql/dashboardReport'
+
 export default {
-
   name: 'dashboard-filters',
-
   data () {
     return {
       app: [
@@ -119,18 +119,22 @@ export default {
       emptyCountry: [],
       emptyFormat: [],
       emptyNetwork: [],
-      valid: false
+      valid: false,
+      config: []
+    }
+  },
+  apollo: {
+    config: {
+      query: GET_DATA_FILTERS,
+      context: {
+        uri: 'config'
+      },
+      pollInterval: 100,
+      loadingKey: 'loading'
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.prueba {
-    height: 50px;
-    background: red;
-    width: 100%;
-}
-</style>
 
 

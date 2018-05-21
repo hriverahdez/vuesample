@@ -51,6 +51,9 @@ export default {
   apollo: {
     stats: {
       query: GET_DASHBOARD_REPORT_DATA,
+      context: {
+        uri: 'report'
+      },
       pollInterval: 100,
       loadingKey: 'loading'
     }
@@ -62,7 +65,7 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-datatable {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 </style>
 
