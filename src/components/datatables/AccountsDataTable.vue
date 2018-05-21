@@ -76,6 +76,9 @@ export default {
   apollo: {
     accounts: {
       query: GET_ACCOUNTS,
+      context: {
+        uri: 'account'
+      },
       pollInterval: 100,
       loadingKey: 'loading'
     }
@@ -93,6 +96,9 @@ export default {
     deleteAccount (account) {
       this.$apollo.mutate({
         mutation: DELETE_ACCOUNT,
+        context: {
+          uri: 'account'
+        },
         variables: {
           ids: account._id
         }

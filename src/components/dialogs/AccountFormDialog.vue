@@ -130,6 +130,9 @@ export default {
     createAccount () {
       this.$apollo.mutate({
         mutation: CREATE_NEW_ACCOUNT,
+        context: {
+          uri: 'account'
+        },
         variables: {
           input: {
             name: this.dataAccount.name,
@@ -156,6 +159,9 @@ export default {
     editAccount () {
       this.$apollo.mutate({
         mutation: UPDATE_ACCOUNT,
+        context: {
+          uri: 'account'
+        },
         variables: {
           id: this.dataAccount._id,
           input: {

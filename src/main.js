@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 // Apollo import
 import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
+import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
 
@@ -26,12 +26,16 @@ import '@/config/vuetify'
 import '@/config/chartkick'
 
 // Apollo config
-const httpLink = new HttpLink({
-  uri: 'http://stage.do.linkitox.com/public/graphql/account'
+const host = 'http://stage.do.linkitox.com/public/graphql'
+
+const customFetch = (uri, options) => fetch(`${host}/${uri}`, options)
+
+const dynLink = createHttpLink({
+  fetch: customFetch
 })
 
 const apolloClient = new ApolloClient({
-  link: httpLink,
+  link: dynLink,
   cache: new InMemoryCache(),
   connectToDevTools: true
 })
