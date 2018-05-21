@@ -7,8 +7,8 @@
             v-if='item.children',
             v-model='item.model',
             :key='item.text',
-            :prepend-icon="item.model ? item.icon : item['icon-alt']",
-            append-icon)
+            :prepend-icon="item.icon",
+            )
             v-list-tile(slot='activator')
               v-list-tile-content
                 v-list-tile-title(color="blue")
@@ -62,35 +62,71 @@ export default {
   data () {
     return {
       drawer: null,
+      // items: [
+      //   { icon: 'poll', text: 'navigation.dashboard', action: '/' },
+      //   { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
+      //   { icon: 'language', text: 'navigation.networks_integration', action: '#' },
+      //   { icon: 'stay_current_portrait', text: 'navigation.apps', action: '#' },
+      //   { icon: 'create', text: 'navigation.custom_campaign', action: '#' },
+      //   { icon: 'filter_list', text: 'navigation.waterfall_management', action: '#' },
+      //   {
+      //     icon: 'keyboard_arrow_up',
+      //     'icon-alt': 'keyboard_arrow_down',
+      //     text: 'navigation.account_management',
+      //     model: true,
+      //     children: [
+      //       { icon: 'group', text: 'navigation.account_users', action: '#' },
+      //       { icon: 'group_add', text: 'navigation.create_account', action: '#' },
+      //       { icon: 'label', text: 'navigation.placement_tags', action: '#' },
+      //       { icon: 'public', text: 'navigation.country_groups', action: '#' }
+      //     ]
+      //   },
+      //   {
+      //     icon: 'keyboard_arrow_up',
+      //     'icon-alt': 'keyboard_arrow_down',
+      //     text: 'navigation.admin',
+      //     model: true,
+      //     children: [
+      //       { text: 'navigation.accounts', action: 'accounts' },
+      //       { text: 'navigation.apps', action: '#' },
+      //       { text: 'navigation.roles', action: '#' },
+      //       { text: 'navigation.users', action: '#' }
+      //     ]
+      //   }
+      // ],
       items: [
-        { icon: 'poll', text: 'navigation.dashboard', action: '/' },
-        { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
-        { icon: 'language', text: 'navigation.networks_integration', action: '#' },
-        { icon: 'stay_current_portrait', text: 'navigation.apps', action: '#' },
-        { icon: 'create', text: 'navigation.custom_campaign', action: '#' },
-        { icon: 'filter_list', text: 'navigation.waterfall_management', action: '#' },
         {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'navigation.account_management',
-          model: true,
+          'icon': 'monetization_on',
+          text: 'navigation.monetization',
+          model: false,
           children: [
-            { icon: 'group', text: 'navigation.account_users', action: '#' },
-            { icon: 'group_add', text: 'navigation.create_account', action: '#' },
-            { icon: 'label', text: 'navigation.placement_tags', action: '#' },
-            { icon: 'public', text: 'navigation.country_groups', action: '#' }
+            { icon: 'dashboard', text: 'navigation.dashboard', action: '/' },
+            { icon: 'priority_high', text: 'navigation.waterfall_rules', action: '#' },
+            { icon: 'public', text: 'navigation.network_integration', action: '#' },
+            { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
+            { icon: 'build', text: 'navigation.advance', action: '#' }
+          ]
+        },
+        { icon: 'edit', text: 'navigation.campaigns', action: '#' },
+        { icon: 'stay_current_portrait', text: 'navigation.apps', action: '#' },
+        {
+          icon: 'list',
+          text: 'navigation.account',
+          model: false,
+          children: [
+            { icon: 'info', text: 'navigation.company_info', action: '#' },
+            { icon: 'timeline', text: 'navigation.finance', action: '#' },
+            { icon: 'people', text: 'navigation.users', action: '#' },
+            { icon: 'label', text: 'navigation.tags', action: '#' }
           ]
         },
         {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
+          icon: 'account_box',
           text: 'navigation.admin',
-          model: true,
+          model: false,
           children: [
-            { text: 'navigation.accounts', action: 'accounts' },
-            { text: 'navigation.apps', action: '#' },
-            { text: 'navigation.roles', action: '#' },
-            { text: 'navigation.users', action: '#' }
+            { icon: 'people', text: 'navigation.users', action: '#' },
+            { icon: 'list', text: 'navigation.accounts', action: 'accounts' }
           ]
         }
       ],
