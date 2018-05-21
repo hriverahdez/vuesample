@@ -37,15 +37,22 @@
 
                     // Tab items
                     v-tab-item(id="tab-1")
-                        v-card(flat)
                         dashboard-filters
+                        v-flex(xs12)
+                            v-btn(color="primary" dark) {{ $t('dashboard_view.requests')}}
+                            v-btn(color="primary" dark) {{ $t('dashboard_view.impressions')}}
+                            v-btn(color="primary" dark) {{ $t('dashboard_view.fill_rate')}}
+                            v-btn(color="primary" dark) {{ $t('dashboard_view.clicks')}}
+                            v-btn(color="primary" dark) {{ $t('dashboard_view.ctr')}}
+                            v-btn(color="primary" dark) {{ $t('dashboard_view.revenue')}}
+                            v-btn(color="primary" dark) {{ $t('dashboard_view.ecpm')}}
                         line-chart(:data="{'2017-05-13': 2, '2017-05-14': 5}")
-                    v-tab-item(id="tab-2")
-                        v-card(flat)
-                        pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
-                    v-tab-item(id="tab-3")
-                        v-card(flat)
-                        column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
+                    //- v-tab-item(id="tab-2")
+                    //-     v-card(flat)
+                    //-     pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
+                    //- v-tab-item(id="tab-3")
+                    //-     v-card(flat)
+                    //-     column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
 </template>
 
 <script>
