@@ -19,7 +19,12 @@
       "country": "País",
       "dashboard_title": "Panel de control",
       "format": "Formato",
-      "network": "Red"
+      "from": "Desde:",
+      "grouped_by": "Agrupado por",
+      "network": "Red",
+      "not_selected": "sin seleccionar",
+      "select_date": "Selecciona fecha",
+      "to": "Hasta:"
     },
     "links": {
       "home": "Inicio"

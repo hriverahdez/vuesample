@@ -19,7 +19,12 @@
       "country": "Country",
       "dashboard_title": "Dashboard",
       "format": "Format",
-      "network": "Network"
+      "from": "From:",
+      "grouped_by": "Grouped by",
+      "network": "Network",
+      "not_selected": "not selected",
+      "select_date": "Select date",
+      "to": "To:"
     },
     "links": {
       "home": "Home"
