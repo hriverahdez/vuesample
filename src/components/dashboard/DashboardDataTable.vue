@@ -30,6 +30,7 @@ export default {
   name: 'dashboard-data-table',
   data () {
     return {
+      prueba: 'DATE',
       stats: [],
       headers: [
         {
@@ -53,6 +54,10 @@ export default {
       query: GET_DASHBOARD_REPORT_DATA,
       context: {
         uri: 'report'
+      },
+      variables: {
+        groupBy: [this.prueba],
+        filters: ['']
       },
       pollInterval: 100,
       loadingKey: 'loading'
