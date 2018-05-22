@@ -1,6 +1,13 @@
 <template lang="pug">
   div
-    v-navigation-drawer(fixed, :clipped='$vuetify.breakpoint.lgAndUp', app, dark, v-model='drawer')
+    v-navigation-drawer(
+      fixed,
+      :clipped='$vuetify.breakpoint.lgAndUp',
+      app,
+      dark,
+      v-model='drawer'
+      width="275"
+      )
       v-list(dense)
         template(v-for='item in items')
           v-list-group(
@@ -62,38 +69,6 @@ export default {
   data () {
     return {
       drawer: null,
-      // items: [
-      //   { icon: 'poll', text: 'navigation.dashboard', action: '/' },
-      //   { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
-      //   { icon: 'language', text: 'navigation.networks_integration', action: '#' },
-      //   { icon: 'stay_current_portrait', text: 'navigation.apps', action: '#' },
-      //   { icon: 'create', text: 'navigation.custom_campaign', action: '#' },
-      //   { icon: 'filter_list', text: 'navigation.waterfall_management', action: '#' },
-      //   {
-      //     icon: 'keyboard_arrow_up',
-      //     'icon-alt': 'keyboard_arrow_down',
-      //     text: 'navigation.account_management',
-      //     model: true,
-      //     children: [
-      //       { icon: 'group', text: 'navigation.account_users', action: '#' },
-      //       { icon: 'group_add', text: 'navigation.create_account', action: '#' },
-      //       { icon: 'label', text: 'navigation.placement_tags', action: '#' },
-      //       { icon: 'public', text: 'navigation.country_groups', action: '#' }
-      //     ]
-      //   },
-      //   {
-      //     icon: 'keyboard_arrow_up',
-      //     'icon-alt': 'keyboard_arrow_down',
-      //     text: 'navigation.admin',
-      //     model: true,
-      //     children: [
-      //       { text: 'navigation.accounts', action: 'accounts' },
-      //       { text: 'navigation.apps', action: '#' },
-      //       { text: 'navigation.roles', action: '#' },
-      //       { text: 'navigation.users', action: '#' }
-      //     ]
-      //   }
-      // ],
       items: [
         {
           'icon': 'monetization_on',
