@@ -14,12 +14,37 @@
 <script>
   import DashboardDataTable from '@/components/dashboard/DashboardDataTable'
   import DashboardTabs from '@/components/dashboard/DashboardTabs'
+  import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'dashboard-view',
     components: {
       DashboardDataTable,
       DashboardTabs
+    },
+    methods: {
+      ...mapActions(['statsDataAction'])
+    },
+    apollo: {
+      stats: {
+        query: GET_DASHBOARD_REPORT_DATA,
+        context: {
+          uri: 'report'
+        },
+        variables: {
+          groupBy: ['DATE'],
+          filter: {
+            from: '2018-05-01',
+            to: '2018-05-15'
+          }
+        },
+        pollInterval: 100,
+        loadingKey: 'loading',
+        update (data) {
+          this.statsDataAction(data.stats)
+        }
+      }
     }
   }
 </script>

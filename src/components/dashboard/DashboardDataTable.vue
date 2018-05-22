@@ -24,14 +24,12 @@
 </template>
 
 <script>
-import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'dashboard-data-table',
   data () {
     return {
-      prueba: 'DATE',
-      stats: [],
       headers: [
         {
           text: 'Group by date',
@@ -49,21 +47,10 @@ export default {
       search: ''
     }
   },
-  apollo: {
-    stats: {
-      query: GET_DASHBOARD_REPORT_DATA,
-      context: {
-        uri: 'report'
-      },
-      variables: {
-        groupBy: [this.prueba],
-        filters: ['']
-      },
-      pollInterval: 100,
-      loadingKey: 'loading'
-    }
-  },
-  methods: {
+  computed: {
+    ...mapGetters({
+      stats: 'statsDataGetter'
+    })
   }
 }
 </script>
