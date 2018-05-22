@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { GET_DATA_FILTERS } from '@/graphql/dashboardReport'
+import { GET_DATA_FILTERS } from '@/graphql/config'
 
 export default {
   name: 'dashboard-filters',

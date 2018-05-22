@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { GET_ACCOUNTS, DELETE_ACCOUNT } from '@/graphql/accounts'
+import { GET_ACCOUNTS, DELETE_ACCOUNT } from '@/graphql/account'
 
 export default {
   name: 'accounts-data-table',

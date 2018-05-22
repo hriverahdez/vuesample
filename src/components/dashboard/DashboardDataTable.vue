@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/dashboardReport'
+import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
 
 export default {
   name: 'dashboard-data-table',

@@ -1,6 +1,5 @@
 import gql from 'graphql-tag'
 
-// Report
 export const GET_DASHBOARD_REPORT_DATA = gql`
 {
  stats(groupBy: [DATE]) {

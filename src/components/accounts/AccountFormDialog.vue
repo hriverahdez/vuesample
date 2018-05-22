@@ -51,7 +51,7 @@
 
 <script>
 import DialogAlert from '@/components/DialogAlert'
-import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/accounts'
+import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/account'
 
 export default {
   name: 'account-dialog',

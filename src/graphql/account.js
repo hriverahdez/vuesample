@@ -1,6 +1,5 @@
 import gql from 'graphql-tag'
 
-// Accounts
 export const GET_ACCOUNTS = gql`
 {
  accounts(orderBy: [name_DESC]) {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { UPDATE_ACCOUNT } from '@/graphql/accounts'
+  import { UPDATE_ACCOUNT } from '@/graphql/account'
   import AccountsDataTable from '@/components/accounts/AccountsDataTable'
 
   export default {
