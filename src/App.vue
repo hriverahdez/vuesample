@@ -2,7 +2,7 @@
   v-app(light)
     admin-navigation
     v-content
-      v-container(grid-list-md text-xs-center align-content-center).dashboard__container
+      v-container(grid-list-xl text-xs-center align-content-center).dashboard__container
         router-view
         account-dialog
     v-layout(class="floating-button-container")

@@ -2,9 +2,11 @@
     section.dashboard__section
         v-layout(wrap).card__row-title
           v-flex(xs12)
+            v-breadcrumbs(divider="/" large)
+              v-breadcrumbs-item Dashboard
             v-card
-              v-card-title.title.headings--text {{ $t('dashboard_view.dashboard_title' )}}
-                dashboard-tabs
+              //- v-card-title.title.headings--text {{ $t('dashboard_view.dashboard_title' )}}
+              dashboard-tabs
             dashboard-data-table
 </template>
 

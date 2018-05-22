@@ -24,7 +24,7 @@
                     v-tab(href="#tab-2") Country
                     v-tab(href="#tab-3") Format
                     v-tab(href="#tab-4") Network
-                    v-btn(color="buttonColor" @click.native.stop="dialog = true")
+                    v-btn(color="buttonColor" @click.native.stop="dialog = true" class="date-button")
                         v-icon(left) event
                         | {{ $t('dashboard_view.select_date')}}
                     v-flex(d-flex align-center xs2 class="body-2").date-container
@@ -38,6 +38,7 @@
                     // Tab items
                     v-tab-item(id="tab-1")
                         dashboard-filters
+                        v-divider
                         v-flex(xs12)
                             v-btn(color="primary" dark) {{ $t('dashboard_view.requests')}}
                             v-btn(color="primary" dark) {{ $t('dashboard_view.impressions')}}
@@ -130,6 +131,10 @@ export default {
         padding-left: 10px;
         text-transform: capitalize;
     }
+}
+.date-button {
+  margin: 4px;
+  height: 30px;
 }
 </style>
 
