@@ -22,18 +22,20 @@
                     v-tabs-slider(color="blue lighten-4")
                     v-tab(href="#tab-1") App
                     v-tab(href="#tab-2") Country
-                    v-tab(href="#tab-3") Format
-                    v-tab(href="#tab-4") Network
-                    v-btn(color="buttonColor" @click.native.stop="dialog = true" class="date-button")
-                        v-icon(left) event
-                        | {{ $t('dashboard_view.select_date')}}
-                    v-flex(d-flex align-center xs2 class="body-2").date-container
-                        div.date-container__startDate
-                            span {{ $t('dashboard_view.from') }}
-                            strong {{ ` ${startDateText}` }}
-                        div.date-container__endDate
-                            span {{ $t('dashboard_view.to') }}
-                            strong {{ ` ${endDateText}` }}
+                    v-tab(href="#tab-3") Date
+                    v-tab(href="#tab-4") Format
+                    v-tab(href="#tab-5") Network
+                    v-spacer
+                    section.date-container
+                      v-btn(color="buttonColor" @click.native.stop="dialog = true" class="date-button")
+                          v-icon(left) event
+                          | {{ $t('dashboard_view.select_date')}}
+                      div.date-container__startDate
+                          span {{ $t('dashboard_view.from') }}
+                          strong {{ ` ${startDateText}` }}
+                      div.date-container__endDate
+                          span {{ $t('dashboard_view.to') }}
+                          strong {{ ` ${startDateText}` }}
 
                     // Tab items
                     v-tab-item(id="tab-1")
@@ -121,6 +123,9 @@ export default {
 .date-container {
     text-transform: lowercase;
     color: white;
+    display: flex;
+    align-items: center;
+    padding-right: 14px;
 
     &__endDate {
         padding-left: 10px;
@@ -135,6 +140,11 @@ export default {
 .date-button {
   margin: 4px;
   height: 30px;
+}
+.prueba {
+  height: auto;
+  width: 50px;
+  background-color: red;
 }
 </style>
 
