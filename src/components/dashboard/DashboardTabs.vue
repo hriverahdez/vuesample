@@ -2,7 +2,7 @@
     v-container
         v-layout(wrap)
             v-flex(xs12)
-                v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedBy} `}}
+                //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedBy} `}}
                 v-dialog(v-model="dialog" width="800")
                     v-daterange(
                         :options="dateRangeOptions"
@@ -19,7 +19,7 @@
                         class="white--text"
                         ) Close
                 v-tabs(dark color="tab_heading")
-                    v-tabs-slider(color="blue lighten-4")
+                    v-tabs-slider(color="primary")
                     v-tab(href="#tab-1") App
                     v-tab(href="#tab-2") Country
                     v-tab(href="#tab-3") Date
@@ -40,16 +40,16 @@
                     // Tab items
                     v-tab-item(id="tab-1")
                         dashboard-filters
-                        v-divider
-                        v-flex(xs12)
-                            v-btn(color="primary" dark) {{ $t('dashboard_view.requests')}}
-                            v-btn(color="primary" dark) {{ $t('dashboard_view.impressions')}}
-                            v-btn(color="primary" dark) {{ $t('dashboard_view.fill_rate')}}
-                            v-btn(color="primary" dark) {{ $t('dashboard_view.clicks')}}
-                            v-btn(color="primary" dark) {{ $t('dashboard_view.ctr')}}
-                            v-btn(color="primary" dark) {{ $t('dashboard_view.revenue')}}
-                            v-btn(color="primary" dark) {{ $t('dashboard_view.ecpm')}}
+                        v-divider.divider
                         line-chart(:data="{'2017-05-13': 2, '2017-05-14': 5}")
+                        v-flex(xs12)
+                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.requests')}}
+                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.impressions')}}
+                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.fill_rate')}}
+                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.clicks')}}
+                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.ctr')}}
+                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.revenue')}}
+                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.ecpm')}}
                     v-tab-item(id="tab-2")
                         v-card(flat)
                         pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
@@ -141,10 +141,8 @@ export default {
   margin: 4px;
   height: 30px;
 }
-.prueba {
-  height: auto;
-  width: 50px;
-  background-color: red;
+.divider {
+  margin-bottom: 20px;
 }
 </style>
 

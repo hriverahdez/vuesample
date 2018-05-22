@@ -1,7 +1,7 @@
 <template lang="pug">
   v-container(grid-list-xs text-xs-center)
     v-layout(row wrap)
-        v-flex(xs3)
+        v-flex(xs2)
             v-select(
                 v-model="emptyApp"
                 :items="config.platforms"
@@ -19,7 +19,7 @@
                     )
                         v-avatar(class="accent") {{ data.item.slice(0, 1).toUpperCase() }}
                         | {{ data.item }}
-        v-flex(xs3)
+        v-flex(xs2)
             v-select(
                 v-model="emptyCountry"
                 :items="config.countries"
@@ -38,7 +38,7 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs3)
+        v-flex(xs2)
             v-select(
                 v-model="emptyFormat"
                 :items="config.formats"
@@ -55,7 +55,7 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs3)
+        v-flex(xs2)
             v-select(
                 v-model="emptyNetwork"
                 :items="config.networkIds"
@@ -72,21 +72,19 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-layout(mb-4 class="gray_lighten_4")
-            v-flex(xs12 justify-end class="buttons-container" d-flex)
-                v-flex(xs1 mr-4)
-                    v-btn(
-                        color="buttonColor"
-                        flat
-                        @click.native="resetFilters"
-                        ) {{ $t('dashboard_view.reset_filters')}}
-                v-flex(xs2 mr-4)
-                    v-btn(
-                        class="white--text"
-                        color="buttonColor"
-                        @click.native="accountEventHandler"
-                        :disabled="!valid"
-                        ) {{ $t('dashboard_view.apply_filters')}}
+        v-flex(xs4 justify-end align-center class="buttons-container" d-flex)
+            v-btn(
+                color="buttonColor"
+                flat
+                @click.native="resetFilters"
+                ) {{ $t('dashboard_view.reset_filters')}}
+            v-btn(
+                class="white--text"
+                color="buttonColor"
+                @click.native="accountEventHandler"
+                :disabled="!valid"
+                ) {{ $t('dashboard_view.apply_filters')}}
+
 
 </template>
 
@@ -147,6 +145,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.container.grid-list-xl .layout .flex .probando {
+    padding: 0;
+}
+</style>
+
 
 
 

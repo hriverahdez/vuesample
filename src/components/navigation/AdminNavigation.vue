@@ -33,7 +33,7 @@
               v-list-tile-title
                   | {{ $t(item.text) }}
     v-toolbar(
-      color='toolBar',
+      color='toolbar',
       dark,
       app,
       :clipped-left='$vuetify.breakpoint.lgAndUp',
@@ -42,16 +42,17 @@
       )
       v-toolbar-side-icon(@click.stop='drawer = !drawer')
       div.logo__container
-        img(src='@/assets/logo.png', alt='Labcave logo').logo
+        img(src='@/assets/logo-fibonad.svg', alt='Labcave logo').logo
       v-spacer
       v-toolbar-items
         v-avatar(slot="activator" size="32")
-          img(src='@/assets/spiderman.png' alt="User")
+          //- img(src='@/assets/spiderman.png' alt="User")
+          v-icon(dark) account_circle
         div.user__info
           div.user__info__user  {{ $t('navigation.user') }}:
-            span.user__info__label Spiderman
+            span.user__info__label.primary--text Spiderman
           div.user__info__account {{ $t('navigation.account') }}:
-            span.user__info__label Marvel group
+            span.user__info__label.primary--text Marvel group
       v-menu(bottom left dark offset-y)
         v-btn(icon slot="activator" dark)
           v-icon more_vert

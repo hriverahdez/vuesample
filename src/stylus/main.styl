@@ -1,11 +1,15 @@
 // Vars
 blue_darken_4 = #0D47A1
 blue_lighten_4 = #BBDEFB
+primary = #00A0D3
+gray_dark = #27333C
 gray = #212121
 white = #fff
 blue_calendar = #1565C0
 content_background = #efefef
 tabs_height = 38px
+teal = #009688
+data_table_heading = #1A237E
 
 
 $body-font-family = 'Ubuntu', sans-serif
@@ -30,7 +34,7 @@ $data-table-heading-text = white
     padding-left: 0
 
 .breadcrumbs--large li
-    font-size: 18px
+    font-size: 20px
 
 // Button styles
 .btn__content
@@ -68,7 +72,7 @@ $data-table-heading-text = white
     background: white!important
 
     th
-        background: blue_darken_4
+        background: data_table_heading
         color: white!important
     i
         color: white
@@ -80,6 +84,9 @@ $data-table-heading-text = white
 // Form elements
 .input-group label
   font-size: 14px
+
+.input-group__details:after
+   height: 1px
 
 // Subheader
 .subheader
@@ -103,6 +110,11 @@ table.table thead tr
           min-width: 100px
 
 .tabs__item--active
-    background-color: gray
+    background-color: primary
+
+.tabs__items
+    padding: 12px
+    background-color: #FAFAFA
+    border: 1px solid  rgba(0,0,0,0.12)
 
 
