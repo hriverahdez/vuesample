@@ -27,6 +27,9 @@
 </script>
 
 <style lang="scss" scoped>
+.dashboard__container {
+  max-width: 1400px;
+}
 .floating-button-container {
   position: fixed;
   bottom: 0;

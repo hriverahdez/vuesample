@@ -119,7 +119,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .date-container {
     text-transform: lowercase;
     color: white;
@@ -129,11 +129,13 @@ export default {
 
     &__endDate {
         padding-left: 10px;
+        font-size: 12px;
         text-transform: capitalize;
     }
 
     &__startDate {
         padding-left: 10px;
+        font-size: 12px;
         text-transform: capitalize;
     }
 }
