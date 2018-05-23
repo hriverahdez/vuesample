@@ -72,10 +72,11 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs4 justify-end align-center class="buttons-container" d-flex)
+        v-flex(xs4 class="dau buttons-container")
             v-btn(
+                :disabled="!valid"
+                class="white--text"
                 color="buttonColor"
-                flat
                 @click.native="resetFilters"
                 ) {{ $t('dashboard_view.reset_filters')}}
             v-btn(
@@ -84,6 +85,36 @@
                 @click.native="accountEventHandler"
                 :disabled="!valid"
                 ) {{ $t('dashboard_view.apply_filters')}}
+            v-checkbox(
+                class="dau__text"
+                v-model="dau"
+                label="Add DAU/AU data"
+                color="indigo darken-3"
+                value="indigo darken-3"
+                hide-details)
+
+        //- v-flex(xs4)
+        //-     v-layout(column class="buttons-container")
+        //-         v-flex(pb-0)
+        //-             v-btn(
+        //-                 :disabled="!valid"
+        //-                 class="white--text"
+        //-                 color="buttonColor"
+        //-                 @click.native="resetFilters"
+        //-                 ) {{ $t('dashboard_view.reset_filters')}}
+        //-             v-btn(
+        //-                 class="white--text"
+        //-                 color="buttonColor"
+        //-                 @click.native="accountEventHandler"
+        //-                 :disabled="!valid"
+        //-                 ) {{ $t('dashboard_view.apply_filters')}}
+        //-         v-flex(class="dau" pt-0)
+        //-             v-checkbox(
+        //-                 v-model="dau"
+        //-                 label="Add DAU/AU data"
+        //-                 color="indigo darken-3"
+        //-                 value="indigo darken-3"
+        //-                 hide-details)
 
 
 </template>
@@ -99,6 +130,7 @@ export default {
       emptyCountry: [],
       emptyFormat: [],
       emptyNetwork: [],
+      dau: false,
       valid: false
     }
   },
@@ -139,6 +171,24 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .btn {
+        font-size: 11px;
+    }
+    .dau {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+</style>
+
 
 
 
