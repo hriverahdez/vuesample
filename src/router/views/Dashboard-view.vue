@@ -15,6 +15,7 @@
   import DashboardDataTable from '@/components/dashboard/DashboardDataTable'
   import DashboardTabs from '@/components/dashboard/DashboardTabs'
   import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
+  import { GET_DATA_FILTERS } from '@/graphql/config'
   import { mapActions } from 'vuex'
 
   export default {
@@ -24,7 +25,10 @@
       DashboardTabs
     },
     methods: {
-      ...mapActions(['statsDataAction'])
+      ...mapActions([
+        'statsDataAction',
+        'dashboardFiltersAction'
+      ])
     },
     apollo: {
       stats: {
@@ -43,6 +47,17 @@
         loadingKey: 'loading',
         update (data) {
           this.statsDataAction(data.stats)
+        }
+      },
+      config: {
+        query: GET_DATA_FILTERS,
+        context: {
+          uri: 'config'
+        },
+        pollInterval: 100,
+        loadingKey: 'loading',
+        update (data) {
+          this.dashboardFiltersAction(data.config)
         }
       }
     }

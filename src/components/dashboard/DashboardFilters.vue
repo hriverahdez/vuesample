@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { GET_DATA_FILTERS } from '@/graphql/config'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'dashboard-filters',
@@ -99,8 +99,7 @@ export default {
       emptyCountry: [],
       emptyFormat: [],
       emptyNetwork: [],
-      valid: false,
-      config: []
+      valid: false
     }
   },
   watch: {
@@ -117,15 +116,10 @@ export default {
       this.checkIfApplyButtonAvailable()
     }
   },
-  apollo: {
-    config: {
-      query: GET_DATA_FILTERS,
-      context: {
-        uri: 'config'
-      },
-      pollInterval: 100,
-      loadingKey: 'loading'
-    }
+  computed: {
+    ...mapGetters({
+      config: 'dashboardFiltersGetter'
+    })
   },
   methods: {
     resetFilters () {
@@ -146,11 +140,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.container.grid-list-xl .layout .flex .probando {
-    padding: 0;
-}
-</style>
 
 
 

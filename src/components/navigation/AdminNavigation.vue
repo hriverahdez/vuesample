@@ -42,7 +42,7 @@
       )
       v-toolbar-side-icon(@click.stop='drawer = !drawer')
       div.logo__container
-        img(src='@/assets/logo-fibonad.svg', alt='Labcave logo').logo
+        img(src='@/assets/logo.png', alt='Labcave logo').logo
       v-spacer
       v-toolbar-items
         v-avatar(slot="activator" size="32")
