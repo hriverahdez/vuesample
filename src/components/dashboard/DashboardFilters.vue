@@ -3,13 +3,15 @@
     v-layout(row wrap)
         v-flex(xs2)
             v-select(
-                v-model="emptyApp"
+                v-model="apps"
                 :items="config.platforms"
                 :label="this.$t('dashboard_view.app')"
                 tags
                 autocomplete
                 clearable
                 @change="checkIfApplyButtonAvailable"
+                @input="addAppToList"
+                ref="appSelect"
             )
                 template(slot="selection" slot-scope="data")
                     v-chip(
@@ -21,14 +23,15 @@
                         | {{ data.item }}
         v-flex(xs2)
             v-select(
-                v-model="emptyCountry"
+                v-model="countries"
                 :items="config.countries"
                 item-text="name"
-                item-value="name"
                 :label="this.$t('dashboard_view.country')"
                 tags
                 autocomplete
                 clearable
+                @input="addCountryToList"
+                ref="countrySelect"
                 @change="checkIfApplyButtonAvailable"
             )
                 template(slot="selection" slot-scope="data")
@@ -40,13 +43,15 @@
 
         v-flex(xs2)
             v-select(
-                v-model="emptyFormat"
+                v-model="formats"
                 :items="config.formats"
                 :label="this.$t('dashboard_view.format')"
                 tags
                 autocomplete
                 clearable
                 @change="checkIfApplyButtonAvailable"
+                @input="addFormatToList"
+                ref="formatSelect"
             )
                 template(slot="selection" slot-scope="data")
                     v-chip(
@@ -57,13 +62,15 @@
 
         v-flex(xs2)
             v-select(
-                v-model="emptyNetwork"
+                v-model="networks"
                 :items="config.networkIds"
                 :label="this.$t('dashboard_view.network')"
                 tags
                 autocomplete
                 clearable
                 @change="checkIfApplyButtonAvailable"
+                @input="addNetworkToList"
+                ref="networkSelect"
             )
                 template(slot="selection" slot-scope="data")
                     v-chip(
@@ -93,29 +100,61 @@
                 value="indigo darken-3"
                 hide-details)
 
-        //- v-flex(xs4)
-        //-     v-layout(column class="buttons-container")
-        //-         v-flex(pb-0)
-        //-             v-btn(
-        //-                 :disabled="!valid"
-        //-                 class="white--text"
-        //-                 color="buttonColor"
-        //-                 @click.native="resetFilters"
-        //-                 ) {{ $t('dashboard_view.reset_filters')}}
-        //-             v-btn(
-        //-                 class="white--text"
-        //-                 color="buttonColor"
-        //-                 @click.native="accountEventHandler"
-        //-                 :disabled="!valid"
-        //-                 ) {{ $t('dashboard_view.apply_filters')}}
-        //-         v-flex(class="dau" pt-0)
-        //-             v-checkbox(
-        //-                 v-model="dau"
-        //-                 label="Add DAU/AU data"
-        //-                 color="indigo darken-3"
-        //-                 value="indigo darken-3"
-        //-                 hide-details)
+    // Lists
+    // Rows
+    v-flex(xs12 v-if="apps.length")
+        v-list(class="list")
+            v-subheader(class="list-title") {{`${$t('dashboard_view.apps')}:`}}
+            template(v-for="(app, index) in apps")
+                v-list-tile
+                    v-list-tile-content {{ app }}
 
+    v-flex(xs12 v-if="countries.length")
+        v-list(class="list")
+            v-subheader(class="list-title") {{`${$t('dashboard_view.countries')}:`}}
+            template(v-for="(country, index) in countries")
+                v-list-tile
+                    v-list-tile-content {{ country.name }}
+
+    v-flex(xs12 v-if="formats.length")
+        v-list(class="list")
+            v-subheader(class="list-title") {{`${$t('dashboard_view.formats')}:`}}
+            template(v-for="(format, index) in formats")
+                v-list-tile
+                    v-list-tile-content {{ format }}
+
+    v-flex(xs12 v-if="networks.length")
+        v-list(class="list")
+            v-subheader(class="list-title") {{`${$t('dashboard_view.networks')}:`}}
+            template(v-for="(network, index) in networks")
+                v-list-tile
+                    v-list-tile-content {{ network }}
+
+
+    //- // Columns
+    //- v-layout(row v-if="checkIfVisibleLists()")
+    //-     v-flex(xs3 v-if="apps.length")
+    //-         v-list
+    //-             template(v-for="(app, index) in apps")
+    //-                 v-list-tile
+    //-                     v-list-tile-content {{ app }}
+    //-     v-flex(xs3)
+    //-         v-list
+    //-             template(v-for="(country, index) in countries")
+    //-                 v-list-tile
+    //-                     v-list-tile-content {{ country.name }}
+
+    //-     v-flex(xs3)
+    //-         v-list
+    //-             template(v-for="(item, index) in apps")
+    //-                 v-list-tile
+    //-                     v-list-tile-content {{ item }}
+
+    //-     v-flex(xs3)
+    //-         v-list
+    //-             template(v-for="(item, index) in apps")
+    //-                 v-list-tile
+    //-                     v-list-tile-content {{ item }}
 
 </template>
 
@@ -126,25 +165,25 @@ export default {
   name: 'dashboard-filters',
   data () {
     return {
-      emptyApp: [],
-      emptyCountry: [],
-      emptyFormat: [],
-      emptyNetwork: [],
+      apps: [],
+      countries: [],
+      formats: [],
+      networks: [],
       dau: false,
       valid: false
     }
   },
   watch: {
-    emptyApp (val) {
+    apps (val) {
       this.checkIfApplyButtonAvailable()
     },
-    emptyCountry (val) {
+    countries (val) {
       this.checkIfApplyButtonAvailable()
     },
-    emptyFormat (val) {
+    formats (val) {
       this.checkIfApplyButtonAvailable()
     },
-    emptyNetwork (val) {
+    networks (val) {
       this.checkIfApplyButtonAvailable()
     }
   },
@@ -154,20 +193,64 @@ export default {
     })
   },
   methods: {
+    // Push selected apps to apps list
+    addAppToList () {
+      if (this.apps.length) {
+        this.$refs['appSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.apps')} (${this.apps.length})`
+      } else {
+        this.$refs['appSelect'].$el.children[1].children[0].innerText = ''
+      }
+    },
+    // Push selected country to countries list
+    addCountryToList () {
+      if (this.countries.length) {
+        this.$refs['countrySelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.countries')} (${this.countries.length})`
+      } else {
+        this.$refs['countrySelect'].$el.children[1].children[0].innerText = ''
+      }
+    },
+    // Push selected format to formats list
+    addFormatToList () {
+      if (this.formats.length) {
+        this.$refs['formatSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.formats')} (${this.formats.length})`
+      } else {
+        this.$refs['formatSelect'].$el.children[1].children[0].innerText = ''
+      }
+    },
+    // Push selected network to networks list
+    addNetworkToList () {
+      if (this.networks.length) {
+        this.$refs['networkSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.networks')} (${this.networks.length})`
+      } else {
+        this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''
+      }
+    },
     resetFilters () {
-      this.emptyApp = []
-      this.emptyCountry = []
-      this.emptyFormat = []
-      this.emptyNetwork = []
+      this.apps = []
+      this.$refs['appSelect'].$el.children[1].children[0].innerText = ''
+      this.countries = []
+      this.$refs['countrySelect'].$el.children[1].children[0].innerText = ''
+      this.formats = []
+      this.$refs['formatSelect'].$el.children[1].children[0].innerText = ''
+      this.networks = []
+      this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''
       this.valid = false
     },
     checkIfApplyButtonAvailable () {
-      if (this.emptyApp.length || this.emptyCountry.length || this.emptyFormat.length || this.emptyNetwork.length) {
+      if (this.apps.length || this.countries.length || this.formats.length || this.networks.length) {
         this.valid = true
       } else {
         this.valid = false
       }
     }
+    // Show or hide lists elements
+    // checkIfVisibleLists () {
+    //   if (this.apps.length || this.countries.length) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // }
   }
 }
 </script>
@@ -185,6 +268,13 @@ export default {
         justify-content: center;
         align-items: center;
     }
+}
+.list {
+    display: flex;
+    overflow: auto;
+}
+.list-title {
+    margin: 0 4px 0 20px;
 }
 
 </style>
