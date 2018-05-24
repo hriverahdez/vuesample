@@ -9,6 +9,7 @@
       "new_success": "Nueva cuenta creada"
     },
     "buttons": {
+      "apply": "Apply",
       "cancel": "Cancelar",
       "close": "Salir",
       "create": "Crear",
