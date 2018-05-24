@@ -21,7 +21,10 @@
   export default {
     name: 'dashboard-view',
     computed: {
-      ...mapGetters(['groupedByGetter'])
+      ...mapGetters([
+        'groupedByGetter',
+        'dateGetter'
+      ])
     },
     components: {
       DashboardDataTable,
@@ -37,8 +40,8 @@
           return {
             groupBy: this.groupedByGetter,
             filter: {
-              from: '',
-              to: ''
+              from: this.dateGetter.startDate,
+              to: this.dateGetter.endDate
             }
           }
         },

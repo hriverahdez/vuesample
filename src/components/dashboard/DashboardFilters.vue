@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-container(grid-list-xs text-xs-center)
+  v-container(text-xs-center)
     v-layout(row wrap)
         v-flex(xs2)
             v-select(

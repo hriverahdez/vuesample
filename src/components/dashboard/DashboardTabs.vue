@@ -2,25 +2,33 @@
     v-container
         v-layout(wrap)
             v-flex(xs12)
-                //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedBy} `}}
+                //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedByGetter} `}}
                 v-dialog(v-model="dialog" width="800")
                     v-daterange(
                         :options="dateRangeOptions"
                         @input="onDateRangeChange"
                         class="lightGray pa-4"
+                        ref="dateRange"
                     )
                     v-flex(
                         xs12 text-xs-right
                         class="actions-row lightGray"
                         )
                         v-btn(
-                        color="buttonColor"
-                        @click="dialog = false"
-                        class="white--text"
-                        ) Close
+                          color="buttonColor"
+                          @click="exitDialogWithoutSelectRangeOfDates"
+                          flat
+                          class="white--text"
+                        ) {{ $t('buttons.close') }}
+                        v-btn(
+                          color="buttonColor"
+                          @click="applyDateSelection"
+                          class="white--text"
+                        ) {{ $t('buttons.apply') }}
+
                 v-tabs(dark color="tab_heading")
                     v-tabs-slider(color="primary")
-                    v-tab(href="#tab-1") {{ $t('dashboard_view.date')}}
+                    v-tab(href="#tab-1" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
                     v-tab(href="#tab-2" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
                     v-tab(href="#tab-3" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.country')}}
                     v-tab(href="#tab-4" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.format')}}
@@ -35,7 +43,7 @@
                           strong {{ ` ${startDateText}` }}
                       div.date-container__endDate
                           span {{ $t('dashboard_view.to') }}
-                          strong {{ ` ${startDateText}` }}
+                          strong {{ ` ${endDateText}` }}
 
                     // Tab items
                     v-tab-item(id="tab-1")
@@ -61,16 +69,15 @@
 <script>
 import { format, subDays } from 'date-fns'
 import DashboardFilters from '@/components/dashboard/DashboardFilters'
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'dashboard-tabs',
   data: () => ({
     dialog: false,
-    date: null,
     range: [],
     dateRangeOptions: {
-      startDate: format(subDays(new Date(), 7), 'YYYY-MM-DD'),
+      startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
       endDate: format(new Date(), 'YYYY-MM-DD'),
       format: 'YYYY/MM/DD',
       presets: [
@@ -102,20 +109,38 @@ export default {
     DashboardFilters
   },
   computed: {
+    ...mapGetters([
+      'groupedByGetter',
+      'dateGetter'
+    ]),
     endDateText () {
-      return this.range[1] || this.$t('dashboard_view.not_selected')
-    },
-    groupedBy () {
-      return 'Date'
+      return this.range[1]
     },
     startDateText () {
-      return this.range[0] || this.$t('dashboard_view.not_selected')
+      return this.range[0]
     }
   },
   methods: {
     ...mapActions([
-      'groupedByVarDataAction'
+      'groupedByVarDataAction',
+      'getDateAction'
     ]),
+    // Dialog button select date action
+    applyDateSelection () {
+      this.getDateAction({
+        startDate: this.range[0],
+        endDate: this.range[1]
+      })
+      this.dialog = false
+    },
+    // Close dialog without apply selection
+    exitDialogWithoutSelectRangeOfDates () {
+      setTimeout(() => {
+        this.$refs['dateRange'].startDate = format(subDays(new Date(), 30), 'YYYY-MM-DD')
+        this.$refs['dateRange'].endDate = format(new Date(), 'YYYY-MM-DD')
+      }, 300)
+      this.dialog = false
+    },
     onDateRangeChange (range) {
       this.range = range
     },
@@ -123,6 +148,9 @@ export default {
     requestDataFromAPI (e) {
       this.groupedByVarDataAction(e.target.text.toUpperCase())
     }
+  },
+  mounted () {
+    this.range.push(this.dateGetter.startDate, this.dateGetter.endDate)
   }
 }
 </script>
