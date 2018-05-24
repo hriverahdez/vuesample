@@ -20,9 +20,9 @@
                         ) Close
                 v-tabs(dark color="tab_heading")
                     v-tabs-slider(color="primary")
-                    v-tab(href="#tab-1") App
-                    v-tab(href="#tab-2") Country
-                    v-tab(href="#tab-3") Date
+                    v-tab(href="#tab-1") Date
+                    v-tab(href="#tab-2") App
+                    v-tab(href="#tab-3") Country
                     v-tab(href="#tab-4") Format
                     v-tab(href="#tab-5") Network
                     v-spacer
