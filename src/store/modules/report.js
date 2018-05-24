@@ -1,12 +1,16 @@
 export const STATS_DATA = 'STATS_DATA'
 
 const state = {
-  stats: []
+  stats: [],
+  groupedBy: 'APP'
 }
 
 const getters = {
   statsDataGetter (state) {
     return state.stats
+  },
+  groupedByGetter (state) {
+    return state.groupedBy
   }
 }
 

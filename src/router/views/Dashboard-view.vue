@@ -33,11 +33,13 @@
         context: {
           uri: 'report'
         },
-        variables: {
-          groupBy: [this.groupedByGetter],
-          filter: {
-            from: '2018-05-01',
-            to: '2018-05-15'
+        variables () {
+          return {
+            groupBy: this.groupedByGetter,
+            filter: {
+              from: '',
+              to: ''
+            }
           }
         },
         pollInterval: 100,
