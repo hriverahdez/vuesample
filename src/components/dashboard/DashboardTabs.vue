@@ -20,11 +20,11 @@
                         ) Close
                 v-tabs(dark color="tab_heading")
                     v-tabs-slider(color="primary")
-                    v-tab(href="#tab-1") Date
-                    v-tab(href="#tab-2") App
-                    v-tab(href="#tab-3") Country
-                    v-tab(href="#tab-4") Format
-                    v-tab(href="#tab-5") Network
+                    v-tab(href="#tab-1") {{ $t('dashboard_view.date')}}
+                    v-tab(href="#tab-2" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
+                    v-tab(href="#tab-3" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.country')}}
+                    v-tab(href="#tab-4" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.format')}}
+                    v-tab(href="#tab-5" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.network')}}
                     v-spacer
                     section.date-container
                       v-btn(color="buttonColor" @click.native.stop="dialog = true" class="date-button")
@@ -61,6 +61,7 @@
 <script>
 import { format, subDays } from 'date-fns'
 import DashboardFilters from '@/components/dashboard/DashboardFilters'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'dashboard-tabs',
@@ -112,8 +113,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'groupedByVarDataAction'
+    ]),
     onDateRangeChange (range) {
       this.range = range
+    },
+    // Draw data from server
+    requestDataFromAPI (e) {
+      this.groupedByVarDataAction(e.target.text.toUpperCase())
     }
   }
 }

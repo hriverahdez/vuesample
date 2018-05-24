@@ -17,8 +17,8 @@ const mutations = {
 }
 
 const actions = {
-  dashboardFiltersAction (context, data) {
-    context.commit(DASHBOARD_FILTERS_DATA, data)
+  dashboardFiltersAction ({commit}, data) {
+    commit(DASHBOARD_FILTERS_DATA, data)
   }
 }
 

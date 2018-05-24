@@ -1,8 +1,10 @@
 export const STATS_DATA = 'STATS_DATA'
+// Dinamyc query variable
+export const GROUPEDBY_VAR_DATA = 'GROUPEDBY_VAR_DATA'
 
 const state = {
   stats: [],
-  groupedBy: 'APP'
+  groupedBy: 'DATE'
 }
 
 const getters = {
@@ -17,12 +19,18 @@ const getters = {
 const mutations = {
   [STATS_DATA] (state, data) {
     state.stats = data
+  },
+  [GROUPEDBY_VAR_DATA] (state, val) {
+    state.groupedBy = val
   }
 }
 
 const actions = {
-  statsDataAction (context, data) {
-    context.commit(STATS_DATA, data)
+  statsDataAction ({commit}, data) {
+    commit(STATS_DATA, data)
+  },
+  groupedByVarDataAction ({commit}, val) {
+    commit(GROUPEDBY_VAR_DATA, val)
   }
 }
 
