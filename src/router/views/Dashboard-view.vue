@@ -16,19 +16,16 @@
   import DashboardTabs from '@/components/dashboard/DashboardTabs'
   import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
   import { GET_DATA_FILTERS } from '@/graphql/config'
-  import { mapActions } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'dashboard-view',
+    computed: {
+      ...mapGetters(['groupedByGetter'])
+    },
     components: {
       DashboardDataTable,
       DashboardTabs
-    },
-    methods: {
-      ...mapActions([
-        'statsDataAction',
-        'dashboardFiltersAction'
-      ])
     },
     apollo: {
       stats: {
@@ -37,7 +34,7 @@
           uri: 'report'
         },
         variables: {
-          groupBy: ['DATE'],
+          groupBy: [this.groupedByGetter],
           filter: {
             from: '2018-05-01',
             to: '2018-05-15'
@@ -60,6 +57,12 @@
           this.dashboardFiltersAction(data.config)
         }
       }
+    },
+    methods: {
+      ...mapActions([
+        'statsDataAction',
+        'dashboardFiltersAction'
+      ])
     }
   }
 </script>

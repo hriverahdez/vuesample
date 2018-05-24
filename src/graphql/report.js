@@ -6,6 +6,8 @@ query ($groupBy: [StatsGroupBy], $filter: StatsFilter) {
         label
         requests
         imps
+        fillRate
+        ctr
         clicks
         revenue
         ecpm
