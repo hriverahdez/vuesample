@@ -46,6 +46,11 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 })
 
+// Filters
+Vue.filter('capitalize', (val) => {
+  return val.charAt(0).toUpperCase() + val.slice(1)
+})
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

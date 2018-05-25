@@ -50,7 +50,7 @@
                         dashboard-filters
                         v-divider.divider
                         line-chart(
-                          :ytitle="buttonSelectedGetter"
+                          :ytitle="statYText | capitalize"
                           :colors="['#00A0D3']"
                           :data="statsDataFormattedWithoutNameGetter")
                     v-tab-item(id="tab-2")
@@ -116,6 +116,36 @@ export default {
       'statsDataFormattedWithoutNameGetter',
       'buttonSelectedGetter'
     ]),
+    statYText () {
+      if (this.buttonSelectedGetter) {
+        switch (this.buttonSelectedGetter) {
+          case 'requests': {
+            return this.$t('dashboard_view.requests')
+          }
+          case 'imps': {
+            return this.$t('dashboard_view.impressions')
+          }
+          case 'fillRate': {
+            return this.$t('dashboard_view.fill_rate')
+          }
+          case 'clicks': {
+            return this.$t('dashboard_view.clicks')
+          }
+          case 'ctr': {
+            return this.$t('dashboard_view.ctr').toUpperCase()
+          }
+          case 'revenue': {
+            return this.$t('dashboard_view.revenue')
+          }
+          case 'ecpm': {
+            return this.$t('dashboard_view.ecpm').toUpperCase()
+          }
+          default: {
+            return this.$t('dashboard_view.revenue')
+          }
+        }
+      }
+    },
     endDateText () {
       return this.range[1]
     },
