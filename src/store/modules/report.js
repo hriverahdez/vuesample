@@ -11,7 +11,8 @@ const state = {
   date: {
     endDate: format(new Date(), 'YYYY-MM-DD'),
     startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
-  }
+  },
+  statsDataFormatted: []
 }
 
 const getters = {
@@ -23,6 +24,25 @@ const getters = {
   },
   dateGetter (state) {
     return state.date
+  },
+  // Formatted Data to show stats info
+  statsDataFormattedGetter (state, getters) {
+    let data = []
+    let object = {}
+    object['name'] = 'Requests'
+    object['data'] = {}
+    getters.statsDataGetter.map((item) => {
+      object['data'][item.label] = item.requests
+    })
+    data.push(object)
+    return data
+  },
+  statsDataFormattedWithoutNameGetter (state, getters) {
+    let object = {}
+    getters.statsDataGetter.map((item) => {
+      object[item.label] = item.requests
+    })
+    return object
   }
 }
 

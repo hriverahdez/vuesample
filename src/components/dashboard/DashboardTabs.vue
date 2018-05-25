@@ -49,7 +49,11 @@
                     v-tab-item(id="tab-1")
                         dashboard-filters
                         v-divider.divider
-                        line-chart(:data="{'2017-05-13': 2, '2017-05-14': 5}")
+                        line-chart(
+                          xtitle="Date"
+                          ytitle="Requests"
+                          :colors="['#00A0D3']"
+                          :data="statsDataFormattedWithoutNameGetter")
                         v-flex(xs12)
                             v-btn(color="buttonColor" dark) {{ $t('dashboard_view.requests')}}
                             v-btn(color="buttonColor" dark) {{ $t('dashboard_view.impressions')}}
@@ -74,6 +78,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'dashboard-tabs',
   data: () => ({
+    dateStat2: {'2017-05-13': 2, '2017-05-14': 5},
     dialog: false,
     range: [],
     dateRangeOptions: {
@@ -111,7 +116,9 @@ export default {
   computed: {
     ...mapGetters([
       'groupedByGetter',
-      'dateGetter'
+      'dateGetter',
+      'statsDataFormattedGetter',
+      'statsDataFormattedWithoutNameGetter'
     ]),
     endDateText () {
       return this.range[1]
