@@ -50,35 +50,29 @@
                         dashboard-filters
                         v-divider.divider
                         line-chart(
-                          xtitle="Date"
                           ytitle="Requests"
                           :colors="['#00A0D3']"
                           :data="statsDataFormattedWithoutNameGetter")
-                        v-flex(xs12)
-                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.requests')}}
-                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.impressions')}}
-                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.fill_rate')}}
-                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.clicks')}}
-                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.ctr')}}
-                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.revenue')}}
-                            v-btn(color="buttonColor" dark) {{ $t('dashboard_view.ecpm')}}
                     v-tab-item(id="tab-2")
                         v-card(flat)
                         pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
                     v-tab-item(id="tab-3")
                         v-card(flat)
                         column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
+
+                dashboard-stat-buttons
 </template>
 
 <script>
 import { format, subDays } from 'date-fns'
-import DashboardFilters from '@/components/dashboard/DashboardFilters'
 import { mapGetters, mapActions } from 'vuex'
+// Import components
+import DashboardFilters from '@/components/dashboard/DashboardFilters'
+import DashboardStatButtons from '@/components/dashboard/DashboardStatButtons'
 
 export default {
   name: 'dashboard-tabs',
   data: () => ({
-    dateStat2: {'2017-05-13': 2, '2017-05-14': 5},
     dialog: false,
     range: [],
     dateRangeOptions: {
@@ -111,7 +105,8 @@ export default {
     }
   }),
   components: {
-    DashboardFilters
+    DashboardFilters,
+    DashboardStatButtons
   },
   computed: {
     ...mapGetters([
