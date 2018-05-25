@@ -106,29 +106,25 @@
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.apps')}:`}}
             template(v-for="(app, index) in apps")
-                v-list-tile
-                    v-list-tile-content {{ app }}
+                v-chip(close @input="removeChip(app, 'apps')") {{ app }}
 
     v-flex(xs12 v-if="countries.length")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.countries')}:`}}
             template(v-for="(country, index) in countries")
-                v-list-tile
-                    v-list-tile-content {{ country.name }}
+                v-chip(close @input="removeChip(country, 'countries')") {{ country.name }}
 
     v-flex(xs12 v-if="formats.length")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.formats')}:`}}
             template(v-for="(format, index) in formats")
-                v-list-tile
-                    v-list-tile-content {{ format }}
+                v-chip(close @input="removeChip(format, 'formats')") {{ format }}
 
     v-flex(xs12 v-if="networks.length")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.networks')}:`}}
             template(v-for="(network, index) in networks")
-                v-list-tile
-                    v-list-tile-content {{ network }}
+                v-chip(close @input="removeChip(network, 'networks')") {{ network }}
 
 
     //- // Columns
@@ -230,6 +226,11 @@ export default {
       } else {
         this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''
       }
+    },
+    // Remove chip item from list
+    removeChip (item, type) {
+      this[type].splice(this[type].indexOf(item), 1)
+      this[type] = [...this[type]]
     },
     resetFilters () {
       this.apps = []
