@@ -50,7 +50,7 @@
                         dashboard-filters
                         v-divider.divider
                         line-chart(
-                          ytitle="Requests"
+                          :ytitle="buttonSelectedGetter"
                           :colors="['#00A0D3']"
                           :data="statsDataFormattedWithoutNameGetter")
                     v-tab-item(id="tab-2")
@@ -113,7 +113,8 @@ export default {
       'groupedByGetter',
       'dateGetter',
       'statsDataFormattedGetter',
-      'statsDataFormattedWithoutNameGetter'
+      'statsDataFormattedWithoutNameGetter',
+      'buttonSelectedGetter'
     ]),
     endDateText () {
       return this.range[1]
