@@ -22,8 +22,12 @@
     name: 'dashboard-view',
     computed: {
       ...mapGetters([
+        'appFiltersGetter',
+        'countryFiltersGetter',
+        'dateGetter',
+        'formatFiltersGetter',
         'groupedByGetter',
-        'dateGetter'
+        'networkFiltersGetter'
       ])
     },
     components: {
@@ -41,7 +45,11 @@
             groupBy: this.groupedByGetter,
             filter: {
               from: this.dateGetter.startDate,
-              to: this.dateGetter.endDate
+              to: this.dateGetter.endDate,
+              apps: this.appFiltersGetter,
+              formats: this.formatFiltersGetter,
+              networks: this.networkFiltersGetter,
+              countries: this.countryFiltersGetter
             }
           }
         },

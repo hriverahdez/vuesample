@@ -89,7 +89,7 @@
             v-btn(
                 class="white--text"
                 color="buttonColor"
-                @click.native="accountEventHandler"
+                @click.native="sendFilterValues"
                 :disabled="!valid"
                 ) {{ $t('dashboard_view.apply_filters')}}
             v-checkbox(
@@ -159,7 +159,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'dashboard-filters',
@@ -193,6 +193,12 @@ export default {
     })
   },
   methods: {
+    ...mapActions([
+      'appFiltersAction',
+      'countryFiltersAction',
+      'formatFiltersAction',
+      'networkFiltersAction'
+    ]),
     // Push selected apps to apps list
     addAppToList () {
       if (this.apps.length) {
@@ -242,6 +248,21 @@ export default {
       } else {
         this.valid = false
       }
+    },
+    // Get filters info
+    sendFilterValues () {
+      let countryCodes = []
+      let networksToString = []
+      this.countries.map((country) => {
+        countryCodes.push(country.code)
+      })
+      this.networks.map((network) => {
+        networksToString.push(network.toString())
+      })
+      this.appFiltersAction(this.apps)
+      this.countryFiltersAction(countryCodes)
+      this.formatFiltersAction(this.formats)
+      this.networkFiltersAction(networksToString)
     }
     // Show or hide lists elements
     // checkIfVisibleLists () {
