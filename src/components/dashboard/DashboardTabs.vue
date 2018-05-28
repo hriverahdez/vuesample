@@ -33,9 +33,9 @@
                     v-tabs-slider(color="primary")
                     v-tab(href="#tab-date" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
                     v-tab(href="#tab-app" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
-                    v-tab(href="#tab-3" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.country')}}
-                    v-tab(href="#tab-4" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.format')}}
-                    v-tab(href="#tab-5" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.network')}}
+                    v-tab(href="#tab-country" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.country')}}
+                    v-tab(href="#tab-format" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.format')}}
+                    v-tab(href="#tab-network" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.network')}}
                     v-spacer
                     section.date-container
                       v-btn(color="buttonColor" @click.native.stop="dialog = true" class="date-button")
@@ -49,27 +49,50 @@
                           strong {{ ` ${endDateText}` }}
 
                     // Tab items
+                    // Date tab
                     v-tab-item(id="tab-date")
                         dashboard-filters
                         line-chart(
                           :ytitle="statYText | capitalize"
-                          :colors="['#00A0D3']"
+                          :colors="['#C9651B']"
                           :data="statsDataFormattedWithoutNameGetter"
                           :discrete= "true")
-
+                    // App tab
                     v-tab-item(id="tab-app")
                         dashboard-filters
                         column-chart(
                           :ytitle="statYText | capitalize"
-                          :colors="['#00A0D3']"
+                          :colors="['#C9651B']"
                           :data="statsDataFormattedWithoutNameGetter"
-                          :stacked="true"
                           )
-                        //- pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
+                    // Country tab
+                    v-tab-item(id="tab-country")
+                        dashboard-filters
+                        line-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#C9651B']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                          :discrete= "true")
+                    // Format tab
+                    v-tab-item(id="tab-format")
+                        dashboard-filters
+                        pie-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#00A0D3', '#910287', '#00962B', '#FF982A', '#E4371E', '#1A237E']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                        )
+                    // Network tab
+                    v-tab-item(id="tab-network")
+                        dashboard-filters
+                        column-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#C9651B']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                          )
 
-                    v-tab-item(id="tab-3")
-                        v-card(flat)
-                        column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
+                    //- v-tab-item(id="tab-country")
+                    //-     v-card(flat)
+                    //-     column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
 
                 dashboard-stat-buttons
 </template>
