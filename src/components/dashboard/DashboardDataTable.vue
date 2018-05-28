@@ -7,14 +7,14 @@
         class="elevation-1 dashboard-datatable"
         )
         template(slot="items" slot-scope="props")
-            td.text-xs-left {{ props.item.label}}
-            td.text-xs-left {{ props.item.requests }}
-            td.text-xs-left {{ props.item.imps }}
-            td.text-xs-left {{ props.item.fillRate }}
-            td.text-xs-left {{ props.item.clicks }}
-            td.text-xs-left {{ props.item.ctr }}
-            td.text-xs-left {{ props.item.revenue }}
-            td.text-xs-left {{ props.item.ecpm }}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.label}}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.requests }}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.imps }}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.fillRate }}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.clicks }}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.ctr }}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.revenue }}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.ecpm }}
 
         template(slot="no-data")
             v-alert(
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'dashboard-data-table',
@@ -49,8 +49,39 @@ export default {
   },
   computed: {
     ...mapGetters({
-      stats: 'statsDataGetter'
+      stats: 'statsDataGetter',
+      groupedBy: 'groupedByGetter'
     })
+  },
+  methods: {
+    ...mapActions([
+      'getDateAction',
+      'groupedByVarDataAction',
+      'activeTabAction'
+    ]),
+    // Change current tab and filtars when clicked data table row
+    selectTableItem (item) {
+      if (this.groupedBy === 'DATE') {
+        this.activeTabAction('tab-app').then(() => {
+          this.groupedByVarDataAction('APP')
+        })
+      }
+        // console.log('entra', item)
+        // this.getDateAction({
+        //   startDate: item.label,
+        //   endDate: item.label
+        // })
+
+      // .then(() => {
+      //   this.setAlertMessage({
+      //     show: true,
+      //     type: 'success',
+      //     message: this.$t('dashboard_view.confirm_selected_date_range'),
+      //     buttonText: this.$t('buttons.close')
+      //   })
+      //   this.dialog = false
+      // })
+    }
   }
 }
 </script>
@@ -58,6 +89,9 @@ export default {
 <style lang="scss" scoped>
 .dashboard-datatable {
     margin-top: 20px;
+}
+td {
+  cursor: pointer;
 }
 </style>
 

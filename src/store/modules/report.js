@@ -1,5 +1,6 @@
 import { format, subDays } from 'date-fns'
 
+export const ACTIVE_TAB_DATA = 'ACTIVE_TAB_DATA'
 export const APPS_DATA = 'APPS_DATA'
 export const BUTTON_SELECTED_DATA = 'BUTTON_SELECTED_DATA'
 export const COUNTRIES_DATA = 'COUNTRIES_DATA'
@@ -10,6 +11,7 @@ export const NETWORKS_DATA = 'NETWORKS_DATA'
 export const STATS_DATA = 'STATS_DATA'
 
 const state = {
+  activeTab: 'tab-date',
   appFilters: [],
   buttonSelectedStat: 'revenue',
   countryFilters: [],
@@ -25,6 +27,9 @@ const state = {
 }
 
 const getters = {
+  activeTabGetter (state) {
+    return state.activeTab
+  },
   appFiltersGetter (state) {
     return state.appFilters
   },
@@ -71,6 +76,9 @@ const getters = {
 }
 
 const mutations = {
+  [ACTIVE_TAB_DATA] (state, activeTab) {
+    state.activeTab = activeTab
+  },
   [APPS_DATA] (state, filters) {
     state.appFilters = filters
   },
@@ -98,6 +106,10 @@ const mutations = {
 }
 
 const actions = {
+  activeTabAction ({commit}, activeTab) {
+    console.log(activeTab)
+    commit(ACTIVE_TAB_DATA, activeTab)
+  },
   appFiltersAction ({commit}, filters) {
     commit(APPS_DATA, filters)
   },
@@ -110,8 +122,8 @@ const actions = {
   formatFiltersAction ({commit}, filters) {
     commit(FORMATS_DATA, filters)
   },
-  getDateAction ({commit}, date) {
-    commit(DATE_DATA, date)
+  getDateAction ({commit}, dateRange) {
+    commit(DATE_DATA, dateRange)
   },
   groupedByVarDataAction ({commit}, val) {
     commit(GROUPEDBY_VAR_DATA, val)
