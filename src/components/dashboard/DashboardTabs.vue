@@ -31,8 +31,8 @@
 
                 v-tabs(dark color="tab_heading")
                     v-tabs-slider(color="primary")
-                    v-tab(href="#tab-1" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
-                    v-tab(href="#tab-2" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
+                    v-tab(href="#tab-date" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
+                    v-tab(href="#tab-app" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
                     v-tab(href="#tab-3" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.country')}}
                     v-tab(href="#tab-4" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.format')}}
                     v-tab(href="#tab-5" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.network')}}
@@ -49,16 +49,24 @@
                           strong {{ ` ${endDateText}` }}
 
                     // Tab items
-                    v-tab-item(id="tab-1")
+                    v-tab-item(id="tab-date")
                         dashboard-filters
-                        //- v-divider.divider
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#00A0D3']"
-                          :data="statsDataFormattedWithoutNameGetter")
-                    v-tab-item(id="tab-2")
-                        v-card(flat)
-                        pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
+                          :data="statsDataFormattedWithoutNameGetter"
+                          :discrete= "true")
+
+                    v-tab-item(id="tab-app")
+                        dashboard-filters
+                        column-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#00A0D3']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                          :stacked="true"
+                          )
+                        //- pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
+
                     v-tab-item(id="tab-3")
                         v-card(flat)
                         column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
@@ -224,9 +232,6 @@ export default {
 .date-button {
   margin: 4px;
   height: 30px;
-}
-.divider {
-  margin-bottom: 20px;
 }
 </style>
 
