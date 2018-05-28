@@ -29,7 +29,7 @@
                 // Confirm Apply Filters
                 dialog-alert
 
-                v-tabs(dark color="tab_heading" v-model="activeTabGetter")
+                v-tabs(dark color="tab_heading" v-model="$store.state.reportModule.activeTab")
                     v-tabs-slider(color="primary")
                     v-tab(href="#tab-date" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
                     v-tab(href="#tab-app" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
@@ -150,8 +150,7 @@ export default {
       'dateGetter',
       'statsDataFormattedGetter',
       'statsDataFormattedWithoutNameGetter',
-      'buttonSelectedGetter',
-      'activeTabGetter'
+      'buttonSelectedGetter'
     ]),
     statYText () {
       if (this.buttonSelectedGetter) {

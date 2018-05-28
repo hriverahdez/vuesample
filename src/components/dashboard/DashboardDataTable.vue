@@ -55,15 +55,25 @@ export default {
   },
   methods: {
     ...mapActions([
+      'activeTabAction',
+      'formatFiltersAction',
       'getDateAction',
-      'groupedByVarDataAction',
-      'activeTabAction'
+      'groupedByVarDataAction'
     ]),
     // Change current tab and filtars when clicked data table row
     selectTableItem (item) {
       if (this.groupedBy === 'DATE') {
         this.activeTabAction('tab-app').then(() => {
           this.groupedByVarDataAction('APP')
+        })
+      } else {
+        console.log(item.label)
+        this.activeTabAction('tab-date')
+        .then(() => {
+          this.groupedByVarDataAction('DATE')
+          .then(() => {
+            this.formatFiltersAction(item.label)
+          })
         })
       }
         // console.log('entra', item)
