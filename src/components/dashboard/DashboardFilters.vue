@@ -237,6 +237,13 @@ export default {
         this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''
       }
     },
+    checkIfApplyButtonAvailable () {
+      if (this.apps.length || this.countries.length || this.formats.length || this.networks.length) {
+        this.valid = true
+      } else {
+        this.valid = false
+      }
+    },
     // Remove chip item from list
     removeChip (item, type) {
       this[type].splice(this[type].indexOf(item), 1)
@@ -251,14 +258,11 @@ export default {
       this.$refs['formatSelect'].$el.children[1].children[0].innerText = ''
       this.networks = []
       this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''
+      this.appFiltersAction([])
+      this.countryFiltersAction([])
+      this.formatFiltersAction([])
+      this.networkFiltersAction([])
       this.valid = false
-    },
-    checkIfApplyButtonAvailable () {
-      if (this.apps.length || this.countries.length || this.formats.length || this.networks.length) {
-        this.valid = true
-      } else {
-        this.valid = false
-      }
     },
     // Get filters info
     sendFilterValues () {
