@@ -26,6 +26,8 @@
                           class="white--text"
                         ) {{ $t('buttons.apply') }}
 
+                dialog-alert
+
                 v-tabs(dark color="tab_heading")
                     v-tabs-slider(color="primary")
                     v-tab(href="#tab-1" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
@@ -36,7 +38,7 @@
                     v-spacer
                     section.date-container
                       v-btn(color="buttonColor" @click.native.stop="dialog = true" class="date-button")
-                          v-icon(left) event
+                          v-icon(left small) event
                           | {{ $t('dashboard_view.select_date')}}
                       div.date-container__startDate
                           span {{ $t('dashboard_view.from') }}
@@ -48,7 +50,7 @@
                     // Tab items
                     v-tab-item(id="tab-1")
                         dashboard-filters
-                        v-divider.divider
+                        //- v-divider.divider
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#00A0D3']"
@@ -65,10 +67,11 @@
 
 <script>
 import { format, subDays } from 'date-fns'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 // Import components
 import DashboardFilters from '@/components/dashboard/DashboardFilters'
 import DashboardStatButtons from '@/components/dashboard/DashboardStatButtons'
+import DialogAlert from '@/components/DialogAlert'
 
 export default {
   name: 'dashboard-tabs',
@@ -106,7 +109,8 @@ export default {
   }),
   components: {
     DashboardFilters,
-    DashboardStatButtons
+    DashboardStatButtons,
+    DialogAlert
   },
   computed: {
     ...mapGetters([
@@ -158,13 +162,21 @@ export default {
       'groupedByVarDataAction',
       'getDateAction'
     ]),
+    ...mapMutations(['setAlertMessage']),
     // Dialog button select date action
     applyDateSelection () {
       this.getDateAction({
         startDate: this.range[0],
         endDate: this.range[1]
+      }).then(() => {
+        this.setAlertMessage({
+          show: true,
+          type: 'success',
+          message: this.$t('accounts_view.new_success'),
+          buttonText: this.$t('buttons.close')
+        })
+        this.dialog = false
       })
-      this.dialog = false
     },
     // Close dialog without apply selection
     exitDialogWithoutSelectRangeOfDates () {
