@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-container
+  v-container.stat-buttons-container
     v-layout(row wrap)
       v-flex(xs12)
         v-btn(color="buttonColor" dark @click="showStat($event)") {{ $t('dashboard_view.requests')}}
@@ -60,5 +60,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.stat-buttons-container {
+  padding-bottom: 0;
+}
+</style>
+
 
 

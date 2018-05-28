@@ -106,7 +106,8 @@
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.apps')}:`}}
             template(v-for="(app, index) in apps")
-                v-chip(close @input="removeChip(app, 'apps')") {{ app }}
+                v-fade-transition
+                    v-chip(close @input="removeChip(app, 'apps')") {{ app }}
 
     v-flex(xs12 v-if="countries.length")
         v-list(class="list")
