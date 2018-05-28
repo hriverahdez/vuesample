@@ -26,6 +26,7 @@
                           class="white--text"
                         ) {{ $t('buttons.apply') }}
 
+                // Confirm Apply Filters
                 dialog-alert
 
                 v-tabs(dark color="tab_heading")
@@ -172,7 +173,7 @@ export default {
         this.setAlertMessage({
           show: true,
           type: 'success',
-          message: this.$t('accounts_view.new_success'),
+          message: this.$t('dashboard_view.confirm_selected_date_range'),
           buttonText: this.$t('buttons.close')
         })
         this.dialog = false

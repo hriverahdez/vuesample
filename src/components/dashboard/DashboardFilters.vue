@@ -100,6 +100,9 @@
                 value="indigo darken-3"
                 hide-details)
 
+        //Confirm appiled filters
+        dialog-alert
+
     // Lists
     // Rows
     v-flex(xs12 v-if="apps.length")
@@ -156,7 +159,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+// Import components
+import DialogAlert from '@/components/DialogAlert'
 
 export default {
   name: 'dashboard-filters',
@@ -169,6 +174,9 @@ export default {
       dau: false,
       valid: false
     }
+  },
+  components: {
+    DialogAlert
   },
   watch: {
     apps (val) {
@@ -196,6 +204,7 @@ export default {
       'formatFiltersAction',
       'networkFiltersAction'
     ]),
+    ...mapMutations(['setAlertMessage']),
     // Push selected apps to apps list
     addAppToList () {
       if (this.apps.length) {
@@ -265,6 +274,12 @@ export default {
       this.countryFiltersAction(countryCodes)
       this.formatFiltersAction(this.formats)
       this.networkFiltersAction(networksToString)
+      this.setAlertMessage({
+        show: true,
+        type: 'success',
+        message: this.$t('dashboard_view.confirm_filters_applied_message'),
+        buttonText: this.$t('buttons.close')
+      })
     }
     // Show or hide lists elements
     // checkIfVisibleLists () {

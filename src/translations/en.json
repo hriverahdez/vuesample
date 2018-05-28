@@ -20,6 +20,8 @@
       "apps": "Apps",
       "apply_filters": "Apply filters",
       "clicks": "clicks",
+      "confirm_filters_applied_message": "Selected filters applied",
+      "confirm_selected_date_range": "Selected date range",
       "country": "Country",
       "countries": "Countries",
       "ctr": "ctr",

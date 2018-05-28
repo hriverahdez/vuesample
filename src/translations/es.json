@@ -20,6 +20,8 @@
       "apps": "Aplicaciones",
       "apply_filters": "Aplicar filtros",
       "clicks": "clicks",
+      "confirm_filters_applied_message": "Filtros seleccionados aplicados",
+      "confirm_selected_date_range": "Seleccionado rago de fechas",
       "country": "País",
       "countries": "Paises",
       "ctr": "ctr",
