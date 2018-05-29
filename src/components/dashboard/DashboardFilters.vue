@@ -43,7 +43,7 @@
 
         v-flex(xs2)
             v-select(
-                v-model="formats"
+                v-model="$store.state.reportModule.formatFilters"
                 :items="config.formats"
                 :label="this.$t('dashboard_view.format')"
                 tags
@@ -169,7 +169,7 @@ export default {
     return {
       apps: [],
       countries: [],
-      formats: [],
+      // formats: [],
       networks: [],
       dau: false,
       valid: false
@@ -187,6 +187,7 @@ export default {
     },
     formats (val) {
       this.checkIfApplyButtonAvailable()
+      this.addFormatToList()
     },
     networks (val) {
       this.checkIfApplyButtonAvailable()
@@ -194,7 +195,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      config: 'dashboardFiltersGetter'
+      config: 'dashboardFiltersGetter',
+      formats: 'formatFiltersGetter'
     })
   },
   methods: {
@@ -202,7 +204,8 @@ export default {
       'appFiltersAction',
       'countryFiltersAction',
       'formatFiltersAction',
-      'networkFiltersAction'
+      'networkFiltersAction',
+      'removeFilterItemAction'
     ]),
     ...mapMutations(['setAlertMessage']),
     // Push selected apps to apps list
@@ -246,15 +249,17 @@ export default {
     },
     // Remove chip item from list
     removeChip (item, type) {
-      this[type].splice(this[type].indexOf(item), 1)
-      this[type] = [...this[type]]
+      this.removeFilterItemAction(item)
+      // this.formatFiltersAction([])
+      // this[type].splice(this[type].indexOf(item), 1)
+      // this[type] = [...this[type]]
     },
     resetFilters () {
       this.apps = []
       this.$refs['appSelect'].$el.children[1].children[0].innerText = ''
       this.countries = []
       this.$refs['countrySelect'].$el.children[1].children[0].innerText = ''
-      this.formats = []
+      // this.formats = []
       this.$refs['formatSelect'].$el.children[1].children[0].innerText = ''
       this.networks = []
       this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''

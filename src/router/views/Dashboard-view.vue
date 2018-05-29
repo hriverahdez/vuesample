@@ -53,7 +53,7 @@
             }
           }
         },
-        pollInterval: 100,
+        // pollInterval: 100,
         loadingKey: 'loading',
         update (data) {
           this.statsDataAction(data.stats)
@@ -64,7 +64,7 @@
         context: {
           uri: 'config'
         },
-        pollInterval: 100,
+        // pollInterval: 100,
         loadingKey: 'loading',
         update (data) {
           this.dashboardFiltersAction(data.config)

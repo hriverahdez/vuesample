@@ -56,6 +56,7 @@ export default {
   methods: {
     ...mapActions([
       'activeTabAction',
+      'addItemFiltersAction',
       'formatFiltersAction',
       'getDateAction',
       'groupedByVarDataAction'
@@ -67,12 +68,11 @@ export default {
           this.groupedByVarDataAction('APP')
         })
       } else {
-        console.log(item.label)
         this.activeTabAction('tab-date')
         .then(() => {
           this.groupedByVarDataAction('DATE')
           .then(() => {
-            this.formatFiltersAction(item.label)
+            this.addItemFiltersAction(item.label)
           })
         })
       }
