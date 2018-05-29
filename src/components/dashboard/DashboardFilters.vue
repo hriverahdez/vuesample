@@ -105,30 +105,34 @@
 
     // Lists
     // Rows
-    v-flex(xs12 v-if="apps.length" class="list-container")
-        v-list(class="list")
-            v-subheader(class="list-title") {{`${$t('dashboard_view.apps')}:`}}
-            template(v-for="(app, index) in apps")
-                v-fade-transition
-                    v-chip(close @input="removeChip(app, 'appFilters')") {{ app }}
+    transition(name="fade")
+      v-flex(xs12 v-if="apps.length" class="list-container")
+          v-list(class="list")
+              v-subheader(class="list-title") {{`${$t('dashboard_view.apps')}:`}}
+              template(v-for="(app, index) in apps")
+                  v-fade-transition
+                      v-chip(close @input="removeChip(app, 'appFilters')") {{ app }}
 
-    v-flex(xs12 v-if="countries.length" class="list-container")
-        v-list(class="list")
-            v-subheader(class="list-title") {{`${$t('dashboard_view.countries')}:`}}
-            template(v-for="(country, index) in countries")
-                v-chip(close @input="removeChip(country, 'countryFilters')") {{ country.name }}
+    transition(name="fade")
+      v-flex(xs12 v-if="countries.length" class="list-container")
+          v-list(class="list")
+              v-subheader(class="list-title") {{`${$t('dashboard_view.countries')}:`}}
+              template(v-for="(country, index) in countries")
+                  v-chip(close @input="removeChip(country, 'countryFilters')") {{ country.name }}
 
-    v-flex(xs12 v-if="formats.length" class="list-container")
-        v-list(class="list")
-            v-subheader(class="list-title") {{`${$t('dashboard_view.formats')}:`}}
-            template(v-for="(format, index) in formats")
-                v-chip(close @input="removeChip(format, 'formatFilters')") {{ format }}
+    transition(name="fade")
+      v-flex(xs12 v-if="formats.length" class="list-container")
+          v-list(class="list")
+              v-subheader(class="list-title") {{`${$t('dashboard_view.formats')}:`}}
+              template(v-for="(format, index) in formats")
+                  v-chip(close @input="removeChip(format, 'formatFilters')") {{ format }}
 
-    v-flex(xs12 v-if="networks.length" class="list-container")
-        v-list(class="list")
-            v-subheader(class="list-title") {{`${$t('dashboard_view.networks')}:`}}
-            template(v-for="(network, index) in networks")
-                v-chip(close @input="removeChip(network, 'networkFilters')") {{ network }}
+    transition(name="fade")
+      v-flex(xs12 v-if="networks.length" class="list-container")
+          v-list(class="list")
+              v-subheader(class="list-title") {{`${$t('dashboard_view.networks')}:`}}
+              template(v-for="(network, index) in networks")
+                  v-chip(close @input="removeChip(network, 'networkFilters')") {{ network }}
 
 
     //- // Columns
@@ -330,6 +334,12 @@ export default {
 }
 .list-title {
     margin: 0 4px 0 20px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to  {
+  opacity: 0;
 }
 
 </style>
