@@ -57,7 +57,6 @@ export default {
     ...mapActions([
       'activeTabAction',
       'addItemFiltersAction',
-      'formatFiltersAction',
       'getDateAction',
       'groupedByVarDataAction'
     ]),
