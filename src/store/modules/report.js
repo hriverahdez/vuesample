@@ -81,8 +81,9 @@ const mutations = {
   [ACTIVE_TAB_DATA] (state, activeTab) {
     state.activeTab = activeTab
   },
-  [ADD_ITEM_FILTER_DATA] (state, item) {
-    state.formatFilters.push(item)
+  [ADD_ITEM_FILTER_DATA] (state, [item, groupedBy]) {
+    let currentFilter = `${groupedBy.toLowerCase()}Filters`
+    state[currentFilter].push(item)
   },
   [APPS_DATA] (state, filters) {
     state.appFilters = filters
@@ -105,8 +106,8 @@ const mutations = {
   [NETWORKS_DATA] (state, filters) {
     state.networkFilters = filters
   },
-  [REMOVE_FILTER_ITEM] (state, item) {
-    let items = state.formatFilters
+  [REMOVE_FILTER_ITEM] (state, {item, filterType}) {
+    let items = state[filterType]
     items.splice(items.indexOf(item), 1)
   },
   [STATS_DATA] (state, data) {
@@ -118,8 +119,8 @@ const actions = {
   activeTabAction ({commit}, activeTab) {
     commit(ACTIVE_TAB_DATA, activeTab)
   },
-  addItemFiltersAction ({commit}, item) {
-    commit(ADD_ITEM_FILTER_DATA, item)
+  addItemFiltersAction ({commit}, [item, groupedBy]) {
+    commit(ADD_ITEM_FILTER_DATA, [item, groupedBy])
   },
   appFiltersAction ({commit}, filters) {
     commit(APPS_DATA, filters)
@@ -131,7 +132,6 @@ const actions = {
     commit(COUNTRIES_DATA, filters)
   },
   formatFiltersAction ({commit}, filters) {
-    console.log(typeof (filters))
     commit(FORMATS_DATA, filters)
   },
   getDateAction ({commit}, dateRange) {
@@ -143,8 +143,8 @@ const actions = {
   networkFiltersAction ({commit}, filters) {
     commit(NETWORKS_DATA, filters)
   },
-  removeFilterItemAction ({commit}, item) {
-    commit(REMOVE_FILTER_ITEM, item)
+  removeFilterItemAction ({commit}, {item, filterType}) {
+    commit(REMOVE_FILTER_ITEM, {item, filterType})
   },
   statsDataAction ({commit}, data) {
     commit(STATS_DATA, data)

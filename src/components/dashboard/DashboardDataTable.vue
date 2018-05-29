@@ -62,16 +62,18 @@ export default {
     ]),
     // Change current tab and filtars when clicked data table row
     selectTableItem (item) {
-      if (this.groupedBy === 'DATE') {
+      let originalGroupedByValue = this.groupedBy
+      let sendItemLabel = item.label
+      if (originalGroupedByValue === 'DATE') {
         this.activeTabAction('tab-app').then(() => {
           this.groupedByVarDataAction('APP')
         })
       } else {
         this.activeTabAction('tab-date')
         .then(() => {
-          this.groupedByVarDataAction('DATE')
+          this.addItemFiltersAction([sendItemLabel, originalGroupedByValue])
           .then(() => {
-            this.addItemFiltersAction(item.label)
+            this.groupedByVarDataAction('DATE')
           })
         })
       }

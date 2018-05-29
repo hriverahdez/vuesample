@@ -49,7 +49,7 @@
               apps: this.appFiltersGetter,
               formats: this.formatFiltersGetter,
               networks: this.networkFiltersGetter,
-              countries: this.countryFiltersGetter
+              countries: this.countryCodesGetter
             }
           }
         },

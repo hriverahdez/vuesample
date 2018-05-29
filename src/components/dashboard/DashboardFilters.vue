@@ -3,7 +3,7 @@
     v-layout(row wrap)
         v-flex(xs2)
             v-select(
-                v-model="apps"
+                v-model="$store.state.reportModule.appFilters"
                 :items="config.platforms"
                 :label="this.$t('dashboard_view.app')"
                 tags
@@ -23,7 +23,7 @@
                         | {{ data.item }}
         v-flex(xs2)
             v-select(
-                v-model="countries"
+                v-model="$store.state.reportModule.countryFilters"
                 :items="config.countries"
                 item-text="name"
                 :label="this.$t('dashboard_view.country')"
@@ -110,25 +110,25 @@
             v-subheader(class="list-title") {{`${$t('dashboard_view.apps')}:`}}
             template(v-for="(app, index) in apps")
                 v-fade-transition
-                    v-chip(close @input="removeChip(app, 'apps')") {{ app }}
+                    v-chip(close @input="removeChip(app, 'appFilters')") {{ app }}
 
     v-flex(xs12 v-if="countries.length")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.countries')}:`}}
             template(v-for="(country, index) in countries")
-                v-chip(close @input="removeChip(country, 'countries')") {{ country.name }}
+                v-chip(close @input="removeChip(country, 'countryFilters')") {{ country.name }}
 
     v-flex(xs12 v-if="formats.length")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.formats')}:`}}
             template(v-for="(format, index) in formats")
-                v-chip(close @input="removeChip(format, 'formats')") {{ format }}
+                v-chip(close @input="removeChip(format, 'formatFilters')") {{ format }}
 
     v-flex(xs12 v-if="networks.length")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.networks')}:`}}
             template(v-for="(network, index) in networks")
-                v-chip(close @input="removeChip(network, 'networks')") {{ network }}
+                v-chip(close @input="removeChip(network, 'networkFilters')") {{ network }}
 
 
     //- // Columns
@@ -167,8 +167,8 @@ export default {
   name: 'dashboard-filters',
   data () {
     return {
-      apps: [],
-      countries: [],
+      // apps: [],
+      // countries: [],
       // formats: [],
       networks: [],
       dau: false,
@@ -181,9 +181,11 @@ export default {
   watch: {
     apps (val) {
       this.checkIfApplyButtonAvailable()
+      this.addAppToList()
     },
     countries (val) {
       this.checkIfApplyButtonAvailable()
+      this.addCountryToList()
     },
     formats (val) {
       this.checkIfApplyButtonAvailable()
@@ -196,7 +198,9 @@ export default {
   computed: {
     ...mapGetters({
       config: 'dashboardFiltersGetter',
-      formats: 'formatFiltersGetter'
+      countries: 'countryFiltersGetter',
+      formats: 'formatFiltersGetter',
+      apps: 'appFiltersGetter'
     })
   },
   methods: {
@@ -248,16 +252,16 @@ export default {
       }
     },
     // Remove chip item from list
-    removeChip (item, type) {
-      this.removeFilterItemAction(item)
+    removeChip (item, filterType) {
+      this.removeFilterItemAction({item, filterType})
       // this.formatFiltersAction([])
       // this[type].splice(this[type].indexOf(item), 1)
       // this[type] = [...this[type]]
     },
     resetFilters () {
-      this.apps = []
+      // this.apps = []
       this.$refs['appSelect'].$el.children[1].children[0].innerText = ''
-      this.countries = []
+      // this.countries = []
       this.$refs['countrySelect'].$el.children[1].children[0].innerText = ''
       // this.formats = []
       this.$refs['formatSelect'].$el.children[1].children[0].innerText = ''
