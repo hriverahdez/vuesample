@@ -105,26 +105,26 @@
 
     // Lists
     // Rows
-    v-flex(xs12 v-if="apps.length")
+    v-flex(xs12 v-if="apps.length" class="list-container")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.apps')}:`}}
             template(v-for="(app, index) in apps")
                 v-fade-transition
                     v-chip(close @input="removeChip(app, 'appFilters')") {{ app }}
 
-    v-flex(xs12 v-if="countries.length")
+    v-flex(xs12 v-if="countries.length" class="list-container")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.countries')}:`}}
             template(v-for="(country, index) in countries")
                 v-chip(close @input="removeChip(country, 'countryFilters')") {{ country.name }}
 
-    v-flex(xs12 v-if="formats.length")
+    v-flex(xs12 v-if="formats.length" class="list-container")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.formats')}:`}}
             template(v-for="(format, index) in formats")
                 v-chip(close @input="removeChip(format, 'formatFilters')") {{ format }}
 
-    v-flex(xs12 v-if="networks.length")
+    v-flex(xs12 v-if="networks.length" class="list-container")
         v-list(class="list")
             v-subheader(class="list-title") {{`${$t('dashboard_view.networks')}:`}}
             template(v-for="(network, index) in networks")
@@ -323,6 +323,10 @@ export default {
 .list {
     display: flex;
     overflow: auto;
+    align-items: center;
+    border: 1px solid  rgba(0,0,0,0.12);
+    border-radius: 4px;
+    padding: 4px;
 }
 .list-title {
     margin: 0 4px 0 20px;
