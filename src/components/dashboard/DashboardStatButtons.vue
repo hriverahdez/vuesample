@@ -78,7 +78,7 @@ export default {
 
 <style lang="scss" scoped>
 .stat-buttons-container {
-  padding-bottom: 0;
+  padding: 24px 0 8px 0;
 }
 .active-button {
   background: #00A0D3!important;
