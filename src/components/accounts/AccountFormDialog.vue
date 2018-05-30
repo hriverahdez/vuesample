@@ -1,13 +1,13 @@
 <template lang="pug">
     v-dialog(v-model="$store.state.accountsModule.accountDialogStatus" max-width="500px" light)
-      dialog-alert
+      //- dialog-alert
       v-card
         v-card-title.formElementColor.py-4.title.white--text {{ formTitle }}
         v-card-text.card__text__form
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-                dialog-alert
+                //- dialog-alert
                 v-form(
                   lazy-validation
                   v-model="valid"

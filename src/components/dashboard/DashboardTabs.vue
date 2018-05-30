@@ -3,7 +3,7 @@
         v-layout(wrap)
             v-flex(xs12)
                 //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedByGetter} `}}
-                v-dialog(v-model="dialog" width="800")
+                v-dialog(v-model="selectDateDialog" width="800")
                     v-daterange(
                         :options="dateRangeOptions"
                         @input="onDateRangeChange"
@@ -27,7 +27,7 @@
                         ) {{ $t('buttons.apply') }}
 
                 // Confirm Apply Filters
-                dialog-alert
+                //- dialog-alert
 
                 v-tabs(dark color="tab_heading" v-model="$store.state.reportModule.activeTab")
                     v-tabs-slider(color="primary")
@@ -38,7 +38,7 @@
                     v-tab(href="#tab-network" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.network')}}
                     v-spacer
                     section.date-container
-                      v-btn(color="buttonColor" @click.native.stop="dialog = true" class="date-button")
+                      v-btn(color="buttonColor" @click.native.stop="selectDateDialog = true" class="date-button")
                           v-icon(left small) event
                           | {{ $t('dashboard_view.select_date')}}
                       div.date-container__startDate
@@ -103,12 +103,12 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 // Import components
 import DashboardFilters from '@/components/dashboard/DashboardFilters'
 import DashboardStatButtons from '@/components/dashboard/DashboardStatButtons'
-import DialogAlert from '@/components/DialogAlert'
+// import DialogAlert from '@/components/DialogAlert'
 
 export default {
   name: 'dashboard-tabs',
   data: () => ({
-    dialog: false,
+    selectDateDialog: false,
     range: [],
     dateRangeOptions: {
       startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
@@ -141,8 +141,8 @@ export default {
   }),
   components: {
     DashboardFilters,
-    DashboardStatButtons,
-    DialogAlert
+    DashboardStatButtons
+    // DialogAlert
   },
   computed: {
     ...mapGetters([
@@ -207,7 +207,7 @@ export default {
           message: this.$t('dashboard_view.confirm_selected_date_range'),
           buttonText: this.$t('buttons.close')
         })
-        this.dialog = false
+        this.selectDateDialog = false
       })
     },
     // Close dialog without apply selection
@@ -216,7 +216,7 @@ export default {
         this.$refs['dateRange'].startDate = format(subDays(new Date(), 30), 'YYYY-MM-DD')
         this.$refs['dateRange'].endDate = format(new Date(), 'YYYY-MM-DD')
       }, 300)
-      this.dialog = false
+      this.selectDateDialog = false
     },
     onDateRangeChange (range) {
       this.range = range

@@ -101,7 +101,7 @@
                 hide-details)
 
         //Confirm appiled filters
-        dialog-alert
+        //- dialog-alert
 
     // Lists
     // Rows
@@ -165,7 +165,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 // Import components
-import DialogAlert from '@/components/DialogAlert'
+// import DialogAlert from '@/components/DialogAlert'
 
 export default {
   name: 'dashboard-filters',
@@ -179,9 +179,9 @@ export default {
       valid: false
     }
   },
-  components: {
-    DialogAlert
-  },
+  // components: {
+  //   DialogAlert
+  // },
   watch: {
     apps (val) {
       this.checkIfApplyButtonAvailable()
