@@ -49,8 +49,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      apps: 'appIdAndName',
+      apps: 'appIdAndNameGetter',
       groupedBy: 'groupedByGetter',
+      networks: 'networksGetter',
       stats: 'statsDataGetter'
     })
   },
@@ -69,6 +70,12 @@ export default {
         for (let i = 0; i < this.apps.length; i++) {
           if (item.label === this.apps[i].id) {
             return this.apps[i].name
+          }
+        }
+      } else if (this.groupedBy === 'NETWORK') {
+        for (let key in this.networks) {
+          if (item.label === this.networks[key]) {
+            return key
           }
         }
       } else {

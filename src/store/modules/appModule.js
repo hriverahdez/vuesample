@@ -1,14 +1,35 @@
 export const APP_DATA = 'APP_DATA'
 
+const networks = {
+  ADCOLONY: '1003',
+  ADMOB: '1002',
+  APPLOVIN: '1008',
+  CHARTBOOST: '1007',
+  CUSTOM_CAMPAIGN: '1011',
+  FACEBOOK: '1009',
+  HYPRMX: '1015',
+  KIIP: '1006',
+  INMOBI: '1012',
+  IRONSOURCE: '1017',
+  MOBUSI: '1001',
+  MOBUSI_SSP: '1010',
+  MOBVISTA: '1014',
+  MOPUB: '1016',
+  UNITYADS: '1004',
+  STARTAPP: '1013',
+  VUNGLE: '1005'
+}
+
 const state = {
-  apps: []
+  apps: [],
+  networks
 }
 
 const getters = {
   appDataGetter (state) {
     return state.apps
   },
-  appIdAndName (state, getters) {
+  appIdAndNameGetter (state, getters) {
     const names = []
     getters.appDataGetter.map((app) => {
       let appObject = {}
@@ -17,6 +38,9 @@ const getters = {
       names.push(appObject)
     })
     return names
+  },
+  networksGetter (state) {
+    return state.networks
   }
 }
 
