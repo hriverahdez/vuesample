@@ -7,14 +7,14 @@
         class="elevation-1 dashboard-datatable"
         )
         template(slot="items" slot-scope="props")
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ formatDataLabelDependingOnGroupedby(props.item) }}
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.requests }}
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.imps }}
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.fillRate }}
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.clicks }}
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.ctr }}
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.revenue }}
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.ecpm }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ formatDataLabelDependingOnGroupedby(props.item) }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.requests }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imps }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.fillRate }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.clicks }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ctr }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.revenue }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ecpm }}
 
         template(slot="no-data")
             v-alert(
@@ -83,19 +83,31 @@ export default {
       }
     },
     // Change current tab and filtars when clicked data table row
-    selectTableItem (item) {
+    selectTableItem (item, index) {
       let originalGroupedByValue = this.groupedBy
-      let sendItemLabel = item.label
+      let sendItemLabel
       if (originalGroupedByValue === 'DATE') {
+        sendItemLabel = item.label
         this.activeTabAction('tab-app').then(() => {
           this.groupedByVarDataAction('APP')
         })
       } else {
         this.activeTabAction('tab-date')
         .then(() => {
-          this.addItemFiltersAction([sendItemLabel, originalGroupedByValue])
+          this.groupedByVarDataAction('DATE')
           .then(() => {
-            this.groupedByVarDataAction('DATE')
+            if (originalGroupedByValue === 'APP') {
+              sendItemLabel = this.apps[index].name
+            } else if (originalGroupedByValue === 'NETWORK') {
+              for (let key in this.networks) {
+                if (item.label === this.networks[key]) {
+                  sendItemLabel = key
+                }
+              }
+            } else {
+              sendItemLabel = item.label
+            }
+            this.addItemFiltersAction([sendItemLabel, originalGroupedByValue])
           })
         })
       }

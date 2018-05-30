@@ -3,8 +3,8 @@
     v-layout(row wrap)
         v-flex(xs2)
             v-select(
-                v-model="$store.state.reportModule.appFilters"
-                :items="config.platforms"
+                v-model="$store.state.configModule.appFilters"
+                :items="appNames"
                 :label="this.$t('dashboard_view.app')"
                 tags
                 autocomplete
@@ -23,7 +23,7 @@
                         | {{ data.item }}
         v-flex(xs2)
             v-select(
-                v-model="$store.state.reportModule.countryFilters"
+                v-model="$store.state.configModule.countryFilters"
                 :items="config.countries"
                 item-text="name"
                 :label="this.$t('dashboard_view.country')"
@@ -43,7 +43,7 @@
 
         v-flex(xs2)
             v-select(
-                v-model="$store.state.reportModule.formatFilters"
+                v-model="$store.state.configModule.formatFilters"
                 :items="config.formats"
                 :label="this.$t('dashboard_view.format')"
                 tags
@@ -62,8 +62,8 @@
 
         v-flex(xs2)
             v-select(
-                v-model="networks"
-                :items="config.networkIds"
+                v-model="$store.state.configModule.networkFilters"
+                :items="networkNames"
                 :label="this.$t('dashboard_view.network')"
                 tags
                 autocomplete
@@ -174,7 +174,7 @@ export default {
       // apps: [],
       // countries: [],
       // formats: [],
-      networks: [],
+      // networks: [],
       dau: false,
       valid: false
     }
@@ -197,14 +197,19 @@ export default {
     },
     networks (val) {
       this.checkIfApplyButtonAvailable()
+      this.addNetworkToList()
     }
   },
   computed: {
     ...mapGetters({
+      appNames: 'appNamesGetter',
+      apps: 'appFiltersGetter',
       config: 'dashboardFiltersGetter',
       countries: 'countryFiltersGetter',
       formats: 'formatFiltersGetter',
-      apps: 'appFiltersGetter'
+      networks: 'networkFiltersGetter',
+      networkNames: 'networkNamesGetter'
+
     })
   },
   methods: {
@@ -269,7 +274,7 @@ export default {
       this.$refs['countrySelect'].$el.children[1].children[0].innerText = ''
       // this.formats = []
       this.$refs['formatSelect'].$el.children[1].children[0].innerText = ''
-      this.networks = []
+      // this.networks = []
       this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''
       this.appFiltersAction([])
       this.countryFiltersAction([])

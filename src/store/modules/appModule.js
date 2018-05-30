@@ -30,14 +30,28 @@ const getters = {
     return state.apps
   },
   appIdAndNameGetter (state, getters) {
-    const names = []
+    const createdObject = []
     getters.appDataGetter.map((app) => {
       let appObject = {}
       appObject['id'] = app._id
       appObject['name'] = app.name
-      names.push(appObject)
+      createdObject.push(appObject)
     })
-    return names
+    return createdObject
+  },
+  appNamesGetter (state, getters) {
+    const appNames = []
+    getters.appDataGetter.map((app) => {
+      appNames.push(app.name)
+    })
+    return appNames
+  },
+  networkNamesGetter (state, getters) {
+    const networkNames = []
+    for (let key in getters.networksGetter) {
+      networkNames.push(key)
+    }
+    return networkNames
   },
   networksGetter (state) {
     return state.networks
