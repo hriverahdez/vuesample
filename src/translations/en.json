@@ -43,6 +43,9 @@
       "select_date": "Select date",
       "to": "To:"
     },
+    "footer": {
+      "copyright": "© 2018 Fibonad - All rights reserved"
+    },
     "links": {
       "home": "Home"
     },

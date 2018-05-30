@@ -8,7 +8,8 @@
         dialog-alert
     v-layout(class="floating-button-container")
       floating-button
-    //- v-footer(app)
+    v-footer(class="footer-container blue_dark")
+     span.copyright {{ $t('footer.copyright') }}
 
 
 </template>
@@ -38,6 +39,13 @@
   bottom: 0;
   right: 0;
 }
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.copyright {
+  font-size: 10px;
+}
 </style>
-
-
