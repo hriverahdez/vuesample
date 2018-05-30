@@ -109,7 +109,6 @@ export default {
   name: 'dashboard-tabs',
   data: () => ({
     selectDateDialog: false,
-    range: [],
     dateRangeOptions: {
       startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
       endDate: format(new Date(), 'YYYY-MM-DD'),
@@ -150,7 +149,8 @@ export default {
       'dateGetter',
       'statsDataFormattedGetter',
       'statsDataFormattedWithoutNameGetter',
-      'buttonSelectedGetter'
+      'buttonSelectedGetter',
+      'rangeGetter'
     ]),
     statYText () {
       if (this.buttonSelectedGetter) {
@@ -183,23 +183,24 @@ export default {
       }
     },
     endDateText () {
-      return this.range[1]
+      return this.dateGetter.endDate
     },
     startDateText () {
-      return this.range[0]
+      return this.dateGetter.startDate
     }
   },
   methods: {
     ...mapActions([
       'groupedByVarDataAction',
-      'getDateAction'
+      'getDateAction',
+      'rangeAction'
     ]),
     ...mapMutations(['setAlertMessage']),
     // Dialog button select date action
     applyDateSelection () {
       this.getDateAction({
-        startDate: this.range[0],
-        endDate: this.range[1]
+        startDate: this.rangeGetter[0],
+        endDate: this.rangeGetter[1]
       }).then(() => {
         this.setAlertMessage({
           show: true,
@@ -215,11 +216,15 @@ export default {
       setTimeout(() => {
         this.$refs['dateRange'].startDate = format(subDays(new Date(), 30), 'YYYY-MM-DD')
         this.$refs['dateRange'].endDate = format(new Date(), 'YYYY-MM-DD')
+        this.getDateAction({
+          startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
+          endDate: format(new Date(), 'YYYY-MM-DD')
+        })
       }, 300)
       this.selectDateDialog = false
     },
     onDateRangeChange (range) {
-      this.range = range
+      this.rangeAction(range)
     },
     // Draw data from server
     requestDataFromAPI (e) {
@@ -227,7 +232,10 @@ export default {
     }
   },
   mounted () {
-    this.range.push(this.dateGetter.startDate, this.dateGetter.endDate)
+    this.$root.$on('sendDateToRoot', (date) => {
+      this.$refs['dateRange'].startDate = date
+      this.$refs['dateRange'].endDate = date
+    })
   }
 }
 </script>

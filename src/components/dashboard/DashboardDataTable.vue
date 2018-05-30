@@ -60,7 +60,8 @@ export default {
       'activeTabAction',
       'addItemFiltersAction',
       'getDateAction',
-      'groupedByVarDataAction'
+      'groupedByVarDataAction',
+      'rangeAction'
     ]),
     // Show correct formatted label data depending on groupedby type
     formatDataLabelDependingOnGroupedby (item) {
@@ -89,6 +90,12 @@ export default {
       if (originalGroupedByValue === 'DATE') {
         sendItemLabel = item.label
         this.activeTabAction('tab-app').then(() => {
+          this.getDateAction({
+            startDate: item.label,
+            endDate: item.label
+          })
+          this.$root.$emit('sendDateToRoot', item.label)
+          this.rangeAction([item.label, item.label])
           this.groupedByVarDataAction('APP')
         })
       } else {
