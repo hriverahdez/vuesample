@@ -4,10 +4,10 @@ import Vuex from 'vuex'
 // Module imports
 import accountsModule from '@/store/modules/accounts'
 import appModule from '@/store/modules/appModule'
-import configModule from '@/store/modules/config'
+import configModule from '@/store/modules/configModule'
 import dialogAlertModule from '@/store/modules/dialogAlert'
 import endpointModule from '@/store/modules/endpoint'
-import reportModule from '@/store/modules/report'
+import reportModule from '@/store/modules/reportModule'
 import translationsModule from '@/store/modules/translations'
 
 // Vuex
