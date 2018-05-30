@@ -12,11 +12,14 @@
 
 
 <script>
+  import { mapActions, mapGetters } from 'vuex'
+  // Components imports
   import DashboardDataTable from '@/components/dashboard/DashboardDataTable'
   import DashboardTabs from '@/components/dashboard/DashboardTabs'
+  // Query imports
+  import { APP_DATA } from '@/graphql/app'
   import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
   import { GET_DATA_FILTERS } from '@/graphql/config'
-  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'dashboard-view',
@@ -69,12 +72,23 @@
         update (data) {
           this.dashboardFiltersAction(data.config)
         }
+      },
+      apps: {
+        query: APP_DATA,
+        context: {
+          uri: 'app'
+        },
+        loadingKey: 'loading',
+        update (data) {
+          this.appDataAction(data.apps)
+        }
       }
     },
     methods: {
       ...mapActions([
-        'statsDataAction',
-        'dashboardFiltersAction'
+        'appDataAction',
+        'dashboardFiltersAction',
+        'statsDataAction'
       ])
     }
   }

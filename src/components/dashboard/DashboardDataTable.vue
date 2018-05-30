@@ -7,7 +7,7 @@
         class="elevation-1 dashboard-datatable"
         )
         template(slot="items" slot-scope="props")
-            td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.label}}
+            td.text-xs-left(@click="selectTableItem(props.item)") {{ formatDataLabelDependingOnGroupedby(props.item) }}
             td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.requests }}
             td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.imps }}
             td.text-xs-left(@click="selectTableItem(props.item)") {{ props.item.fillRate }}
@@ -49,8 +49,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      stats: 'statsDataGetter',
-      groupedBy: 'groupedByGetter'
+      apps: 'appIdAndName',
+      groupedBy: 'groupedByGetter',
+      stats: 'statsDataGetter'
     })
   },
   methods: {
@@ -60,6 +61,20 @@ export default {
       'getDateAction',
       'groupedByVarDataAction'
     ]),
+    // Show correct formatted label data depending on groupedby type
+    formatDataLabelDependingOnGroupedby (item) {
+      if (this.groupedBy === 'DATE') {
+        return item.label
+      } else if (this.groupedBy === 'APP') {
+        for (let i = 0; i < this.apps.length; i++) {
+          if (item.label === this.apps[i].id) {
+            return this.apps[i].name
+          }
+        }
+      } else {
+        return item.label
+      }
+    },
     // Change current tab and filtars when clicked data table row
     selectTableItem (item) {
       let originalGroupedByValue = this.groupedBy
