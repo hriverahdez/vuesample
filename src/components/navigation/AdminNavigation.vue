@@ -76,24 +76,30 @@ export default {
           text: 'navigation.monetization',
           model: true,
           children: [
-            { icon: 'dashboard', text: 'navigation.dashboard', action: '/' },
-            { icon: 'priority_high', text: 'navigation.waterfall_rules', action: '#' },
-            { icon: 'public', text: 'navigation.network_integration', action: '#' }
-            // { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
-            // { icon: 'build', text: 'navigation.advance', action: '#' }
+            { text: 'navigation.dashboard', action: '/' },
+            { text: 'navigation.waterfall_rules', action: '#' },
+            { text: 'navigation.network_integration', action: '#' }
           ]
         },
-        { icon: 'edit', text: 'navigation.campaigns', action: '#' },
-        { icon: 'stay_current_portrait', text: 'navigation.apps', action: '#' },
+        {
+          'icon': 'stay_current_portrait',
+          text: 'navigation.apps',
+          model: true,
+          children: [
+            { text: 'navigation.apps', action: '/' },
+            { text: 'navigation.tags', action: '#' }
+          ]
+        },
+        { icon: 'edit', text: 'navigation.custom_campaigns', action: '#' },
         {
           icon: 'list',
           text: 'navigation.account',
           model: true,
           children: [
-            { icon: 'info', text: 'navigation.company_info', action: '#' },
-            { icon: 'timeline', text: 'navigation.finance', action: '#' },
-            { icon: 'people', text: 'navigation.users', action: '#' },
-            { icon: 'label', text: 'navigation.tags', action: '#' }
+            { text: 'navigation.profile', action: '#' },
+            // { icon: 'timeline', text: 'navigation.finance', action: '#' },
+            { text: 'navigation.users', action: '#' }
+            // { icon: 'label', text: 'navigation.tags', action: '#' }
           ]
         },
         {
@@ -101,8 +107,9 @@ export default {
           text: 'navigation.admin',
           model: true,
           children: [
-            { icon: 'people', text: 'navigation.users', action: '#' },
-            { icon: 'list', text: 'navigation.accounts', action: 'accounts' }
+            { text: 'navigation.users', action: '#' },
+            { text: 'navigation.roles', action: '#' },
+            { text: 'navigation.accounts', action: 'accounts' }
           ]
         }
       ],
