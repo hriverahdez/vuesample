@@ -74,13 +74,13 @@ export default {
         {
           'icon': 'monetization_on',
           text: 'navigation.monetization',
-          model: false,
+          model: true,
           children: [
             { icon: 'dashboard', text: 'navigation.dashboard', action: '/' },
             { icon: 'priority_high', text: 'navigation.waterfall_rules', action: '#' },
-            { icon: 'public', text: 'navigation.network_integration', action: '#' },
-            { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
-            { icon: 'build', text: 'navigation.advance', action: '#' }
+            { icon: 'public', text: 'navigation.network_integration', action: '#' }
+            // { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
+            // { icon: 'build', text: 'navigation.advance', action: '#' }
           ]
         },
         { icon: 'edit', text: 'navigation.campaigns', action: '#' },
@@ -88,7 +88,7 @@ export default {
         {
           icon: 'list',
           text: 'navigation.account',
-          model: false,
+          model: true,
           children: [
             { icon: 'info', text: 'navigation.company_info', action: '#' },
             { icon: 'timeline', text: 'navigation.finance', action: '#' },
@@ -99,7 +99,7 @@ export default {
         {
           icon: 'account_box',
           text: 'navigation.admin',
-          model: false,
+          model: true,
           children: [
             { icon: 'people', text: 'navigation.users', action: '#' },
             { icon: 'list', text: 'navigation.accounts', action: 'accounts' }
