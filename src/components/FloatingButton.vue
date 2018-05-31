@@ -30,24 +30,25 @@
 
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'floating-button',
-  data () {
-    return {
-      top: false,
-      right: true,
-      bottom: true,
-      left: false,
-      transition: 'slide-y-reverse-transition',
-      direction: 'top',
-      fab: false,
-      fling: false,
-      hover: false
-    }
-  },
+  data: () => ({
+    top: false,
+    right: true,
+    bottom: true,
+    left: false,
+    transition: 'slide-y-reverse-transition',
+    direction: 'top',
+    fab: false,
+    fling: false,
+    hover: false
+  }),
   methods: {
+    ...mapActions(['accountDialogStatusAction']),
     showAccountDialog () {
-      this.$store.dispatch('accountDialogStatusAction', true)
+      this.accountDialogStatusAction(true)
     }
   }
 }

@@ -8,33 +8,49 @@
 </template>
 
 <script>
-  import { UPDATE_ACCOUNT } from '@/graphql/account'
+  import { mapActions } from 'vuex'
+  // Queries
+  import { GET_ACCOUNTS } from '@/graphql/account'
+  // import { UPDATE_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT } from '@/graphql/account'
+  // Components
   import AccountsDataTable from '@/components/accounts/AccountsDataTable'
 
   export default {
     components: {
       AccountsDataTable
     },
-
-    methods: {
-      // Edit account
-      editAccount () {
-        const {newAccount} = this.$data
-        this.$apollo.mutate({
-          mutation: UPDATE_ACCOUNT,
-          variables: {
-            id: newAccount._id,
-            input: {
-              name: newAccount.name,
-              description: newAccount.description,
-              disabled: newAccount.disabled
-            }
-          }
-        }).then(() => {
-          this.newAccount = {}
-          this.closeDialog()
-        })
+    apollo: {
+      accounts: {
+        query: GET_ACCOUNTS,
+        context: {
+          uri: 'account'
+        },
+        loadingKey: 'loading',
+        update (data) {
+          this.accountsDataAction(data.accounts)
+        }
       }
+    },
+    methods: {
+      ...mapActions(['accountsDataAction'])
+      // Edit account
+      // editAccount () {
+      //   const {newAccount} = this.$data
+      //   this.$apollo.mutate({
+      //     mutation: UPDATE_ACCOUNT,
+      //     variables: {
+      //       id: newAccount._id,
+      //       input: {
+      //         name: newAccount.name,
+      //         description: newAccount.description,
+      //         disabled: newAccount.disabled
+      //       }
+      //     }
+      //   }).then(() => {
+      //     this.newAccount = {}
+      //     this.closeDialog()
+      //   })
+      // }
     }
   }
 </script>
