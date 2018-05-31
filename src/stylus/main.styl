@@ -6,10 +6,10 @@ gray_dark = #27333C
 gray = #212121
 white = #fff
 blue_calendar = #1565C0
-content_background = #efefef
+content_background-color = #efefef
 tabs_height = 36px
 teal = #009688
-data_table_heading = #1A237E
+data_table_color = #1A237E
 
 
 $body-font-family = 'Ubuntu', sans-serif
@@ -25,7 +25,7 @@ $data-table-heading-text = white
 
 // General
 .content--wrap
-    background: content_background
+    background-color: content_background-color
     // padding: 10px;
 .container
     max-width: 1400px;
@@ -50,7 +50,7 @@ $data-table-heading-text = white
     height: 28px
     font-size: 13px;
     &.accent
-        background-color: blue_calendar!important
+        background-color-color: blue_calendar!important
     &.accent--text
         border-color: blue_calendar!important
         color: blue_calendar!important
@@ -64,26 +64,36 @@ $data-table-heading-text = white
 
 // Chips styles
 .chip
-    height: 20px;
+    height: 20px
     .chip__content
-        height: 20px;
+        height: 20px
 
 // .card__row-title
 //     padding: 8px 16px 6px 0
 
 // Datatable style
 .datatable
-    background: white!important
+    background-color: white!important
 
     th
-        background: data_table_heading
+        background-color: data_table_color
         color: white!important
-    i
-        color: white
+
+        i
+            color: white!important
+            padding-left: 1px
+
+    // .datatable__actions
+    //     background-color: data_table_color!important
+    //     color: white!important
+
+    // .datatable__actions__select
+    //     i
+    //         color: white!important
 
 // Dialog styles
 .dialog
-    background: white
+    background-color: white
 
 // Form elements
 .input-group
@@ -119,11 +129,11 @@ table.table thead tr
           min-width: 100px
 
 .tabs__item--active
-    background-color: primary
+    background-color-color: primary
 
 .tabs__items
     padding: 3px 10px
-    background-color: #FAFAFA
+    background-color-color: #FAFAFA
     border: 1px solid  rgba(0,0,0,0.12)
 
 

@@ -1,7 +1,10 @@
 <template lang="pug">
-  section.accounts__section
-    v-flex(xs12)
-    accounts-data-table
+  v-container(class="accounts__section")
+    v-layout(wrap class="card__row-title")
+      v-flex(xs12)
+        v-breadcrumbs(divider="/" large)
+          v-breadcrumbs-item {{ $t('navigation.accounts') }}
+        accounts-data-table
 </template>
 
 <script>
@@ -9,25 +12,6 @@
   import AccountsDataTable from '@/components/accounts/AccountsDataTable'
 
   export default {
-
-    data () {
-      return {
-        breadcrumbs: [
-          {
-            text: 'Accounts',
-            disabled: false
-          },
-          {
-            text: 'Link 1',
-            disabled: false
-          },
-          {
-            text: 'Link 2',
-            disabled: true
-          }
-        ]
-      }
-    },
     components: {
       AccountsDataTable
     },

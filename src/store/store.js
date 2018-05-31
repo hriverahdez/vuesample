@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // Module imports
-import accountsModule from '@/store/modules/accounts'
+import accountModule from '@/store/modules/accountModule'
 import appModule from '@/store/modules/appModule'
 import configModule from '@/store/modules/configModule'
 import dialogAlertModule from '@/store/modules/dialogAlert'
@@ -15,7 +15,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   modules: {
-    accountsModule,
+    accountModule,
     appModule,
     configModule,
     dialogAlertModule,

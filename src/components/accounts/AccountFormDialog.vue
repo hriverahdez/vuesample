@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-dialog(v-model="$store.state.accountsModule.accountDialogStatus" max-width="500px" light)
+    v-dialog(v-model="$store.state.accountModule.accountDialogStatus" max-width="500px" light)
       //- dialog-alert
       v-card
         v-card-title.formElementColor.py-4.title.white--text {{ formTitle }}
@@ -100,10 +100,10 @@ export default {
     },
     //
     dataAccount () {
-      return this.$store.state.accountsModule.dataAccount
+      return this.$store.state.accountModule.dataAccount
     },
     editedIndex () {
-      return this.$store.state.accountsModule.editedIndex
+      return this.$store.state.accountModule.editedIndex
     }
   },
   methods: {
