@@ -1,56 +1,59 @@
 <template lang="pug">
-    //- v-dialog(v-model="$store.state.accountModule.accountDialogStatus" max-width="500px" light)
-    //-   //- dialog-alert
-    //-   v-card
-    //-     v-card-title.formElementColor.py-4.title.white--text {{ formTitle }}
-    //-     v-card-text.card__text__form
-    //-       v-container(grid-list-md)
-    //-         v-layout(wrap)
-    //-           v-flex(xs12)
-    //-             //- dialog-alert
-    //-             v-form(
-    //-               lazy-validation
-    //-               v-model="valid"
-    //-               ).accounts__form
-    //-                 v-text-field(
-    //-                   :disabled="this.editedIndex !== -1"
-    //-                   label="Account name"
-    //-                   v-model="dataAccount.name"
-    //-                   :rules="this.editedIndex === -1 ? newAccountNameRules : editAccountNameRules"
-    //-                   :counter="30"
-    //-                   required
-    //-                   ).formElementColor--text
-    //-                 v-text-field(
-    //-                   label="Description"
-    //-                   v-model="dataAccount.description"
-    //-                   ).formElementColor--text
-    //-                 div.accounts-form__status
-    //-                     div.accounts-form__status__span Status:
-    //-                     v-switch(
-    //-                         light
-    //-                         v-model="dataAccount.disabled"
-    //-                         :label="check"
-    //-                         color="success"
-    //-                         :value="!dataAccount"
-    //-                         hide-details
-    //-                     )
-    //-     v-card-actions
-    //-       v-spacer
-    //-       v-btn(
-    //-         color="buttonColor"
-    //-         flat
-    //-         @click.native="closeDialog"
-    //-         ) {{ $t('buttons.cancel') }}
-    //-       v-btn(
-    //-         class="white--text"
-    //-         color="buttonColor"
-    //-         @click.native="accountEventHandler"
-    //-         :disabled="!valid"
-    //-         ) {{ formButtonTitle }}
+    v-dialog(v-model="$store.state.accountModule.accountDialogStatus" max-width="500px" light)
+      //- dialog-alert
+      v-card
+        v-card-title.formElementColor.py-4.title.white--text {{ formTitle }}
+        v-card-text.card__text__form
+          v-container(grid-list-md)
+            v-layout(wrap)
+              v-flex(xs12)
+                //- dialog-alert
+                v-form(
+                  lazy-validation
+                  v-model="valid"
+                  ).accounts__form
+                    v-text-field(
+                      :disabled="this.editedIndex !== -1"
+                      label="Account name"
+                      v-model="accountData.name"
+                      :rules="this.editedIndex === -1 ? newAccountNameRules : editAccountNameRules"
+                      :counter="30"
+                      required
+                      ).formElementColor--text
+                    v-text-field(
+                      label="Description"
+                      v-model="accountData.description"
+                      ).formElementColor--text
+                    div.accounts-form__status
+                        div.accounts-form__status__span Status:
+                        v-switch(
+                            light
+                            v-model="accountData.disabled"
+                            :label="check"
+                            color="success"
+                            :value="!accountData"
+                            hide-details
+                        )
+        v-card-actions
+          v-spacer
+          v-btn(
+            color="buttonColor"
+            flat
+            @click.native="closeDialog"
+            ) {{ $t('buttons.cancel') }}
+          v-btn(
+            class="white--text"
+            color="buttonColor"
+            @click.native="accountEventHandler"
+            :disabled="!valid"
+            ) {{ formButtonTitle }}
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+// Components
 import DialogAlert from '@/components/DialogAlert'
+// Queries
 import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/account'
 
 export default {
@@ -78,13 +81,10 @@ export default {
     }
   },
   computed: {
-    // Get the account names from store
-    accountNames () {
-      return this.$store.getters.accountNames
-    },
+    ...mapGetters(['accountNames']),
     // Change switch text label
     check () {
-      if (this.dataAccount.disabled) {
+      if (this.accountData.disabled) {
         return 'Active'
       } else {
         return 'Inactive'
@@ -99,14 +99,19 @@ export default {
       return this.editedIndex === -1 ? this.$t('accounts_view.new_account') : this.$t('accounts_view.edit_account')
     },
     //
-    dataAccount () {
-      return this.$store.state.accountModule.dataAccount
+    accountData () {
+      return this.$store.state.accountModule.accountData
     },
     editedIndex () {
       return this.$store.state.accountModule.editedIndex
     }
   },
   methods: {
+    ...mapActions([
+      'accountDialogStatusAction',
+      'editedIndexStatusAction',
+      'accountDataAction'
+    ]),
     // Choose between create or edit account
     accountEventHandler () {
       if (this.editedIndex === -1) {
@@ -117,10 +122,10 @@ export default {
     },
     // Close dialog layer
     closeDialog () {
-      this.$store.dispatch('accountDialogStatusAction', false)
+      this.accountDialogStatusAction(false)
       setTimeout(() => {
-        this.$store.dispatch('editedIndexAction', -1)
-        this.$store.dispatch('dataAccountAction', {
+        this.editedIndexStatusAction(-1)
+        this.accountDataAction({
           name: '',
           description: '',
           disabled: false})
@@ -135,9 +140,9 @@ export default {
         },
         variables: {
           input: {
-            name: this.dataAccount.name,
-            description: this.dataAccount.description,
-            disabled: this.dataAccount.disabled
+            name: this.accountData.name,
+            description: this.accountData.description,
+            disabled: this.accountData.disabled
           }
         }
       }).then(() => {
@@ -149,7 +154,7 @@ export default {
         })
       })
       this.$store.dispatch('accountDialogStatusAction', false)
-      this.$store.dispatch('dataAccountAction', {
+      this.$store.dispatch('accountDataAction', {
         name: '',
         description: '',
         disabled: ''
@@ -163,11 +168,11 @@ export default {
           uri: 'account'
         },
         variables: {
-          id: this.dataAccount._id,
+          id: this.accountData._id,
           input: {
-            name: this.dataAccount.name,
-            description: this.dataAccount.description,
-            disabled: this.dataAccount.disabled
+            name: this.accountData.name,
+            description: this.accountData.description,
+            disabled: this.accountData.disabled
           }
         }
       }).then(() => {
@@ -179,7 +184,7 @@ export default {
           buttonText: this.$t('buttons.close')
         })
         this.$store.dispatch('accountDialogStatusAction', false)
-        this.$store.dispatch('dataAccountAction', {
+        this.$store.dispatch('accountDataAction', {
           name: '',
           description: '',
           disabled: ''
