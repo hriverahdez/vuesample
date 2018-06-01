@@ -27,7 +27,7 @@
                     v-icon(color="primary") edit
                 v-btn(icon @click="").mx-0
                     v-icon(color="blue") clear
-                v-btn(icon @click="deleteAccount(props.item)").mx-0
+                v-btn(icon @click="sendDeleteAccountEvent(props.item)").mx-0
                     v-icon(color="pink") delete
         template(slot="no-data")
             v-alert(
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-// import { GET_ACCOUNTS, DELETE_ACCOUNT } from '@/graphql/account'
+// import { DELETE_ACCOUNT } from '@/graphql/account'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -88,6 +88,9 @@ export default {
   //   }
   // },
   methods: {
+    sendDeleteAccountEvent (account) {
+      this.$root.$emit('deleteAccount', account)
+    }
     // Show edit account dialog
     // editAccountDialog (account) {
     //   this.editedIndex = this.accounts.indexOf(account)
@@ -106,14 +109,15 @@ export default {
     //     variables: {
     //       ids: account._id
     //     }
-    //   }).then(() => {
-    //     this.editAccount = {}
     //   })
+    //   // .then(() => {
+    //   //   this.editAccount = {}
+    //   // })
     // }
-  },
-  beforeCreate () {
-    this.$store.dispatch('endpointModifyAction', 'account')
   }
+  // beforeCreate () {
+  //   this.$store.dispatch('endpointModifyAction', 'account')
+  // }
 }
 </script>
 

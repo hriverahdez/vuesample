@@ -54,7 +54,8 @@ import { mapGetters, mapActions } from 'vuex'
 // Components
 import DialogAlert from '@/components/DialogAlert'
 // Queries
-import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/account'
+import { UPDATE_ACCOUNT } from '@/graphql/account'
+// import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT, GET_ACCOUNTS } from '@/graphql/account'
 
 export default {
   name: 'account-dialog',
@@ -110,7 +111,8 @@ export default {
     ...mapActions([
       'accountDialogStatusAction',
       'editedIndexStatusAction',
-      'accountDataAction'
+      'accountDataAction',
+      'accountsDataAction'
     ]),
     // Choose between create or edit account
     accountEventHandler () {
@@ -131,34 +133,9 @@ export default {
           disabled: false})
       }, 300)
     },
-    // Create new account Apollo mutation
+    // Send event to create account
     createAccount () {
-      this.$apollo.mutate({
-        mutation: CREATE_NEW_ACCOUNT,
-        context: {
-          uri: 'account'
-        },
-        variables: {
-          input: {
-            name: this.accountData.name,
-            description: this.accountData.description,
-            disabled: this.accountData.disabled
-          }
-        }
-      }).then(() => {
-        this.$store.commit('setAlertMessage', {
-          show: true,
-          type: 'success',
-          message: this.$t('accounts_view.new_success'),
-          buttonText: this.$t('buttons.close')
-        })
-      })
-      this.$store.dispatch('accountDialogStatusAction', false)
-      this.$store.dispatch('accountDataAction', {
-        name: '',
-        description: '',
-        disabled: ''
-      })
+      this.$root.$emit('createAccount', this.accountData.name, this.accountData.description, this.accountData.disabled)
     },
     // Edit account
     editAccount () {

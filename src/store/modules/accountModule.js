@@ -38,7 +38,7 @@ const getters = {
 
 const mutations = {
   [ACCOUNT_DATA] (state, account) {
-    state.account = account
+    state.accountData = account
   },
   [ACCOUNTS_DATA] (state, accounts) {
     state.accounts = accounts
@@ -55,7 +55,7 @@ const mutations = {
 }
 
 const actions = {
-  accountDataAction ({commit}, currentAccount) {
+  accountSchemaAction ({commit}, currentAccount) {
     commit(ACCOUNT_DATA, currentAccount)
   },
   accountsDataAction ({commit}, accounts) {
