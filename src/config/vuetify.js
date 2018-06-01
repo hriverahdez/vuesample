@@ -114,7 +114,7 @@ Vue.use(Vuetify, {
     // warning: '#D32F2F',
     floatingButton: '#E65100',
     toolbar: '#232E37',
-    // formElementColor: '#0D47A1',
+    formElementColor: '#00A0D3',
     buttonColor: '#009688',
     headings: '#1A237E',
     // purple: '#7E57C2',

@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-container
+    v-container(class="stats-container")
         v-layout(wrap)
             v-flex(xs12)
                 //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedByGetter} `}}
@@ -263,6 +263,9 @@ export default {
 .date-button {
   margin: 4px;
   height: 30px;
+}
+.stats-container {
+  padding: 24px;
 }
 </style>
 

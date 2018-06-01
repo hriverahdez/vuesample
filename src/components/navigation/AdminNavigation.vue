@@ -14,15 +14,15 @@
             v-if='item.children',
             v-model='item.model',
             :key='item.text',
-            :prepend-icon="item.icon",
+            :prepend-icon="item.icon"
             )
             v-list-tile(slot='activator')
               v-list-tile-content
-                v-list-tile-title(color="blue")
+                v-list-tile-title
                   | {{ $t(item.text) }}
             v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
               v-list-tile-action(v-if='child.icon')
-                v-icon {{ child.icon }}
+                v-icon(color="floatingButton") {{ child.icon }}
               v-list-tile-content
                 v-list-tile-title
                   | {{ $t(child.text) }}
@@ -174,6 +174,10 @@ export default {
       font-weight: bold;
     }
   }
+
+  // .list__group__header__prepend-icon {
+  //   color: #00A0D3!important;
+  // }
 
   .options__list {
 
