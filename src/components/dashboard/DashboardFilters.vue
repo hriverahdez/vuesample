@@ -94,7 +94,7 @@
                 ) {{ $t('dashboard_view.apply_filters')}}
             v-checkbox(
                 class="dau__text"
-                v-model="dau"
+                v-model="$store.state.DAU"
                 label="Add DAU/AU data"
                 color="indigo darken-3"
                 value="indigo darken-3"
@@ -175,7 +175,7 @@ export default {
       // countries: [],
       // formats: [],
       // networks: [],
-      dau: false,
+      // dau: false,
       valid: false
     }
   },

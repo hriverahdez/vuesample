@@ -1,6 +1,6 @@
 <template lang="pug">
     v-data-table(
-        :headers="headers"
+        :headers="showDAU ? headersWithDAU : headers"
         :items="stats"
         :search="search"
         hide-actions
@@ -9,6 +9,7 @@
         template(slot="items" slot-scope="props")
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ formatDataLabelDependingOnGroupedby(props.item) }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.requests }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)" v-if="showDAU") DAU
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imps }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.fillRate }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.clicks }}
@@ -28,31 +29,45 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'dashboard-data-table',
-  data () {
-    return {
-      headers: [
-        {
-          text: 'Group by date',
-          align: 'left',
-          value: 'date'
-        },
-        { text: 'Request', value: 'request' },
-        { text: 'Impressions', value: 'impressions' },
-        { text: 'Fill rate', value: 'rate' },
-        { text: 'Clicks', value: 'clicks' },
-        { text: 'CTR', value: 'ctr' },
-        { text: 'Revenue', value: 'revenue' },
-        { text: 'eCPM', value: 'ecpm' }
-      ],
-      search: ''
-    }
-  },
+  data: () => ({
+    headers: [
+      {
+        text: 'Group by date',
+        align: 'left',
+        value: 'date'
+      },
+      { text: 'Request', value: 'request' },
+      { text: 'Impressions', value: 'impressions' },
+      { text: 'Fill rate', value: 'rate' },
+      { text: 'Clicks', value: 'clicks' },
+      { text: 'CTR', value: 'ctr' },
+      { text: 'Revenue', value: 'revenue' },
+      { text: 'eCPM', value: 'ecpm' }
+    ],
+    headersWithDAU: [
+      {
+        text: 'Group by date',
+        align: 'left',
+        value: 'date'
+      },
+      { text: 'Request', value: 'request' },
+      { text: 'DAU', value: 'DAU' },
+      { text: 'Impressions', value: 'impressions' },
+      { text: 'Fill rate', value: 'rate' },
+      { text: 'Clicks', value: 'clicks' },
+      { text: 'CTR', value: 'ctr' },
+      { text: 'Revenue', value: 'revenue' },
+      { text: 'eCPM', value: 'ecpm' }
+    ],
+    search: ''
+  }),
   computed: {
     ...mapGetters({
       apps: 'appIdAndNameGetter',
       groupedBy: 'groupedByGetter',
       networks: 'networksGetter',
-      stats: 'statsDataGetter'
+      stats: 'statsDataGetter',
+      showDAU: 'checkDAUState'
     })
   },
   methods: {

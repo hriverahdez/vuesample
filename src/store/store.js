@@ -14,6 +14,14 @@ import translationsModule from '@/store/modules/translations'
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
+  state: {
+    DAU: false
+  },
+  getters: {
+    checkDAUState (state) {
+      return state.DAU
+    }
+  },
   modules: {
     accountModule,
     appModule,
