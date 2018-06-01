@@ -60,7 +60,8 @@
             // Write our data back to the cache.
             store.writeQuery({ query: GET_ACCOUNTS, data })
           }
-        }).then(() => {
+        })
+        .then(() => {
           this.$apollo.queries.accounts.refresh()
           this.SET_ALERT_MESSAGE({
             show: true,
@@ -121,7 +122,6 @@
             store.writeQuery({ query: GET_ACCOUNTS, data })
           }
         }).then(() => {
-          // this.$apollo.queries.accounts.refresh()
           this.editedIndexStatusAction(-1)
           this.SET_ALERT_MESSAGE({
             show: true,

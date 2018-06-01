@@ -53,9 +53,6 @@
 import { mapGetters, mapActions } from 'vuex'
 // Components
 import DialogAlert from '@/components/DialogAlert'
-// Queries
-// import { UPDATE_ACCOUNT } from '@/graphql/account'
-// import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT, GET_ACCOUNTS } from '@/graphql/account'
 
 export default {
   name: 'account-dialog',
@@ -141,37 +138,6 @@ export default {
     sendEditAccountEvent () {
       this.$root.$emit('editAccount', this.accountData._id, this.accountData.name, this.accountData.description, this.accountData.disabled)
     }
-    // Edit account
-    // editAccount () {
-    //   this.$apollo.mutate({
-    //     mutation: UPDATE_ACCOUNT,
-    //     context: {
-    //       uri: 'account'
-    //     },
-    //     variables: {
-    //       id: this.accountData._id,
-    //       input: {
-    //         name: this.accountData.name,
-    //         description: this.accountData.description,
-    //         disabled: this.accountData.disabled
-    //       }
-    //     }
-    //   }).then(() => {
-    //     this.$store.dispatch('editedIndexAction', -1)
-    //     this.$store.commit('setAlertMessage', {
-    //       show: true,
-    //       type: 'success',
-    //       message: this.$t('accounts_view.edit_success'),
-    //       buttonText: this.$t('buttons.close')
-    //     })
-    //     this.$store.dispatch('accountDialogStatusAction', false)
-    //     this.$store.dispatch('accountSchemaAction', {
-    //       name: '',
-    //       description: '',
-    //       disabled: ''
-    //     })
-    //   })
-    // }
   }
 }
 </script>

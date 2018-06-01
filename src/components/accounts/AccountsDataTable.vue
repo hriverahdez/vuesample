@@ -81,16 +81,10 @@ export default {
     editAccountDialog (account) {
       this.editedIndexStatusAction(this.accounts.indexOf(account))
       this.editedAccount = Object.assign({}, account)
-      // this.$store.commit('dataAccountMutation', this.editedAccount)
       this.ACCOUNT_DATA(this.editedAccount)
-      // this.$store.dispatch('accountDialogStatusAction', true)
       this.accountDialogStatusAction(true)
-      // this.$store.dispatch('editedIndexAction', this.editedIndex)
     }
   }
-  // beforeCreate () {
-  //   this.$store.dispatch('endpointModifyAction', 'account')
-  // }
 }
 </script>
 

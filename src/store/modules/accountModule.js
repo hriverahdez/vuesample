@@ -52,9 +52,6 @@ const mutations = {
   [EDIT_INDEX_STATUS] (state, indexValue) {
     state.editedIndex = indexValue
   }
-  // getAccountsMutation (state, accounts) {
-  //   state.accounts = accounts
-  // }
 }
 
 const actions = {
@@ -67,9 +64,6 @@ const actions = {
   accountDialogStatusAction ({commit}, showDialog) {
     commit(ACCOUNT_DIALOG_STATUS, showDialog)
   },
-  // accountDialogStatusAction (context, status) {
-  //   context.commit('accountDialogStatusMutation', status)
-  // },
   editedIndexStatusAction ({commit}, indexValue) {
     commit(EDIT_INDEX_STATUS, indexValue)
   }

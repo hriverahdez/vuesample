@@ -6,7 +6,7 @@ import accountModule from '@/store/modules/accountModule'
 import appModule from '@/store/modules/appModule'
 import configModule from '@/store/modules/configModule'
 import dialogAlertModule from '@/store/modules/dialogAlert'
-import endpointModule from '@/store/modules/endpoint'
+// import endpointModule from '@/store/modules/endpoint'
 import reportModule from '@/store/modules/reportModule'
 import translationsModule from '@/store/modules/translations'
 
@@ -19,7 +19,7 @@ export const store = new Vuex.Store({
     appModule,
     configModule,
     dialogAlertModule,
-    endpointModule,
+    // endpointModule,
     reportModule,
     translationsModule
   }
