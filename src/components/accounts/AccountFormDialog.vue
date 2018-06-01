@@ -54,7 +54,7 @@ import { mapGetters, mapActions } from 'vuex'
 // Components
 import DialogAlert from '@/components/DialogAlert'
 // Queries
-import { UPDATE_ACCOUNT } from '@/graphql/account'
+// import { UPDATE_ACCOUNT } from '@/graphql/account'
 // import { CREATE_NEW_ACCOUNT, UPDATE_ACCOUNT, GET_ACCOUNTS } from '@/graphql/account'
 
 export default {
@@ -111,15 +111,15 @@ export default {
     ...mapActions([
       'accountDialogStatusAction',
       'editedIndexStatusAction',
-      'accountDataAction',
+      'accountSchemaAction',
       'accountsDataAction'
     ]),
     // Choose between create or edit account
     accountEventHandler () {
       if (this.editedIndex === -1) {
-        this.createAccount()
+        this.sendCreateAccountEvent()
       } else {
-        this.editAccount()
+        this.sendEditAccountEvent()
       }
     },
     // Close dialog layer
@@ -127,47 +127,51 @@ export default {
       this.accountDialogStatusAction(false)
       setTimeout(() => {
         this.editedIndexStatusAction(-1)
-        this.accountDataAction({
+        this.accountSchemaAction({
           name: '',
           description: '',
           disabled: false})
       }, 300)
     },
     // Send event to create account
-    createAccount () {
+    sendCreateAccountEvent () {
       this.$root.$emit('createAccount', this.accountData.name, this.accountData.description, this.accountData.disabled)
     },
-    // Edit account
-    editAccount () {
-      this.$apollo.mutate({
-        mutation: UPDATE_ACCOUNT,
-        context: {
-          uri: 'account'
-        },
-        variables: {
-          id: this.accountData._id,
-          input: {
-            name: this.accountData.name,
-            description: this.accountData.description,
-            disabled: this.accountData.disabled
-          }
-        }
-      }).then(() => {
-        this.$store.dispatch('editedIndexAction', -1)
-        this.$store.commit('setAlertMessage', {
-          show: true,
-          type: 'success',
-          message: this.$t('accounts_view.edit_success'),
-          buttonText: this.$t('buttons.close')
-        })
-        this.$store.dispatch('accountDialogStatusAction', false)
-        this.$store.dispatch('accountDataAction', {
-          name: '',
-          description: '',
-          disabled: ''
-        })
-      })
+    // Send event to edit account
+    sendEditAccountEvent () {
+      this.$root.$emit('editAccount', this.accountData._id, this.accountData.name, this.accountData.description, this.accountData.disabled)
     }
+    // Edit account
+    // editAccount () {
+    //   this.$apollo.mutate({
+    //     mutation: UPDATE_ACCOUNT,
+    //     context: {
+    //       uri: 'account'
+    //     },
+    //     variables: {
+    //       id: this.accountData._id,
+    //       input: {
+    //         name: this.accountData.name,
+    //         description: this.accountData.description,
+    //         disabled: this.accountData.disabled
+    //       }
+    //     }
+    //   }).then(() => {
+    //     this.$store.dispatch('editedIndexAction', -1)
+    //     this.$store.commit('setAlertMessage', {
+    //       show: true,
+    //       type: 'success',
+    //       message: this.$t('accounts_view.edit_success'),
+    //       buttonText: this.$t('buttons.close')
+    //     })
+    //     this.$store.dispatch('accountDialogStatusAction', false)
+    //     this.$store.dispatch('accountSchemaAction', {
+    //       name: '',
+    //       description: '',
+    //       disabled: ''
+    //     })
+    //   })
+    // }
   }
 }
 </script>

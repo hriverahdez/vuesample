@@ -10,7 +10,7 @@
 <script>
   import { mapActions, mapMutations } from 'vuex'
   // Queries
-  import { CREATE_NEW_ACCOUNT, DELETE_ACCOUNT, GET_ACCOUNTS } from '@/graphql/account'
+  import { CREATE_NEW_ACCOUNT, DELETE_ACCOUNT, GET_ACCOUNTS, UPDATE_ACCOUNT } from '@/graphql/account'
   // Components
   import AccountsDataTable from '@/components/accounts/AccountsDataTable'
 
@@ -34,9 +34,10 @@
       ...mapActions([
         'accountsDataAction',
         'accountDialogStatusAction',
-        'accountSchemaAction'
+        'accountSchemaAction',
+        'editedIndexStatusAction'
       ]),
-      ...mapMutations(['setAlertMessage']),
+      ...mapMutations(['SET_ALERT_MESSAGE']),
       // Create account
       createAccount (name, description, disabled) {
         this.$apollo.mutate({
@@ -61,7 +62,7 @@
           }
         }).then(() => {
           this.$apollo.queries.accounts.refresh()
-          this.setAlertMessage({
+          this.SET_ALERT_MESSAGE({
             show: true,
             type: 'success',
             message: this.$t('accounts_view.new_success'),
@@ -93,8 +94,47 @@
             store.writeQuery({ query: GET_ACCOUNTS, data })
           }
         })
-        .then(() => {
-          this.$apollo.queries.accounts.refresh()
+      },
+      // Edit account
+      editAccount (id, name, description, disabled) {
+        this.$apollo.mutate({
+          mutation: UPDATE_ACCOUNT,
+          context: {
+            uri: 'account'
+          },
+          variables: {
+            id: id,
+            input: {
+              name: name,
+              description: description,
+              disabled: disabled
+            }
+          },
+          update: (store) => {
+            const data = store.readQuery({ query: GET_ACCOUNTS })
+            data.accounts.map((item) => {
+              if (item._id === id) {
+                item.description = description
+                item.disabled = disabled
+              }
+            })
+            store.writeQuery({ query: GET_ACCOUNTS, data })
+          }
+        }).then(() => {
+          // this.$apollo.queries.accounts.refresh()
+          this.editedIndexStatusAction(-1)
+          this.SET_ALERT_MESSAGE({
+            show: true,
+            type: 'success',
+            message: this.$t('accounts_view.edit_success'),
+            buttonText: this.$t('buttons.close')
+          })
+          this.accountDialogStatusAction(false)
+          this.accountSchemaAction({
+            name: '',
+            description: '',
+            disabled: ''
+          })
         })
       }
     },
@@ -105,6 +145,9 @@
       })
       this.$root.$on('deleteAccount', (account) => {
         this.deleteAccount(account)
+      })
+      this.$root.$on('editAccount', (id, name, description, disabled) => {
+        this.editAccount(id, name, description, disabled)
       })
     }
   }

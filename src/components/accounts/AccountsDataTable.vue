@@ -38,14 +38,11 @@
 </template>
 
 <script>
-// import { DELETE_ACCOUNT } from '@/graphql/account'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'accounts-data-table',
   data: () => ({
-      // accounts: [],
-    editedIndex: -1,
     headers: [
       {
         text: 'Name',
@@ -71,49 +68,25 @@ export default {
       accounts: 'accountsDataGetter'
     })
   },
-  // watch: {
-  //   // Copy accounts to store
-  //   accounts (accounts) {
-  //     this.$store.commit('getAccountsMutation', accounts)
-  //   }
-  // },
-  // apollo: {
-  //   accounts: {
-  //     query: GET_ACCOUNTS,
-  //     context: {
-  //       uri: 'account'
-  //     },
-  //     // pollInterval: 100,
-  //     loadingKey: 'loading'
-  //   }
-  // },
   methods: {
+    ...mapActions([
+      'editedIndexStatusAction',
+      'accountDialogStatusAction'
+    ]),
+    ...mapMutations(['ACCOUNT_DATA']),
     sendDeleteAccountEvent (account) {
       this.$root.$emit('deleteAccount', account)
-    }
+    },
     // Show edit account dialog
-    // editAccountDialog (account) {
-    //   this.editedIndex = this.accounts.indexOf(account)
-    //   this.editedAccount = Object.assign({}, account)
-    //   this.$store.commit('dataAccountMutation', this.editedAccount)
-    //   this.$store.dispatch('accountDialogStatusAction', true)
-    //   this.$store.dispatch('editedIndexAction', this.editedIndex)
-    // },
-    // Delete account
-    // deleteAccount (account) {
-    //   this.$apollo.mutate({
-    //     mutation: DELETE_ACCOUNT,
-    //     context: {
-    //       uri: 'account'
-    //     },
-    //     variables: {
-    //       ids: account._id
-    //     }
-    //   })
-    //   // .then(() => {
-    //   //   this.editAccount = {}
-    //   // })
-    // }
+    editAccountDialog (account) {
+      this.editedIndexStatusAction(this.accounts.indexOf(account))
+      this.editedAccount = Object.assign({}, account)
+      // this.$store.commit('dataAccountMutation', this.editedAccount)
+      this.ACCOUNT_DATA(this.editedAccount)
+      // this.$store.dispatch('accountDialogStatusAction', true)
+      this.accountDialogStatusAction(true)
+      // this.$store.dispatch('editedIndexAction', this.editedIndex)
+    }
   }
   // beforeCreate () {
   //   this.$store.dispatch('endpointModifyAction', 'account')

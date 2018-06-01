@@ -26,13 +26,16 @@ const getters = {
   accountDialogStatusGetter (state) {
     return state.accountDialogStatus
   },
-  // dataAccountGetter (state) {
-  //   return state.dataAccount
-  // },
+  accountDataGetter (state) {
+    return state.accountData
+  },
   accountNames (state) {
     let names = []
     state.accounts.map((account) => names.push(account.name))
     return names
+  },
+  editedIndexGetter (state) {
+    return state.editedIndex
   }
 }
 
