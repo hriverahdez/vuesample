@@ -149,6 +149,9 @@
       this.$root.$on('editAccount', (id, name, description, disabled) => {
         this.editAccount(id, name, description, disabled)
       })
+    },
+    beforeDestroy () {
+      this.$root.$off()
     }
   }
 </script>
