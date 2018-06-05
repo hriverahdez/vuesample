@@ -25,6 +25,12 @@ import '@/config/vuetify'
 // Chartkick import
 import '@/config/chartkick'
 
+// Vue-awesome
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon'
+
+Vue.component('icon', Icon)
+
 // Apollo config
 const host = 'http://stage.do.linkitox.com/public/graphql'
 

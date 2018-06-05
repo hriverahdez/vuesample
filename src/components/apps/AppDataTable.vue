@@ -20,7 +20,11 @@
         :rows-per-page-items="[10, 20, 30]"
         )
         template(slot="items" slot-scope="props")
-            td(class="text-xs-left app-name") <span>{{ props.item.platform }}</span> {{ props.item.name }}
+            td(class="text-xs-left app")
+              div(class="app__container")
+                icon(v-if="props.item.platform === 'android'" name="android" color="DarkMagenta")
+                icon(v-if="props.item.platform === 'ios'" name="apple" color="ForestGreen")
+                span(class="app__text") {{ props.item.name }}
             td.text-xs-left ADDCOLONY
             td.text-xs-left ADMOB
             td.text-xs-left APPLOVIN
@@ -91,8 +95,18 @@ export default {
 td {
   cursor: pointer;
 }
-.app-name {
+.app__container {
+  display: flex;
+  svg {
+    margin-right: 8px;
+  }
+}
+.app__text {
   min-width: 250px;
+  max-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>
 

@@ -6751,6 +6751,10 @@ vue-apollo@^3.0.0-beta.5:
     lodash.omit "^4.5.0"
     lodash.throttle "^4.1.1"
 
+vue-awesome@^2.3.7:
+  version "2.3.7"
+  resolved "https://registry.yarnpkg.com/vue-awesome/-/vue-awesome-2.3.7.tgz#dd381baede4dadaa2a8c735c2a6378d93c8655c4"
+
 vue-chartkick@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/vue-chartkick/-/vue-chartkick-0.3.1.tgz#d1f9b02f8f2fb02b8073a0adeecc1da496d83a37"
