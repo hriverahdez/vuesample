@@ -1,4 +1,5 @@
-export const APP_DATA = 'APP_DATA'
+const APP_DATA = 'APP_DATA'
+const APP_TOTAL_DATA = 'APP_TOTAL_DATA'
 
 const networks = {
   ADCOLONY: '1003',
@@ -22,6 +23,7 @@ const networks = {
 
 const state = {
   apps: [],
+  appsTotalData: [],
   networks
 }
 
@@ -46,6 +48,9 @@ const getters = {
     })
     return appNames
   },
+  appTotalDataGetter (state) {
+    return state.appsTotalData
+  },
   networkNamesGetter (state, getters) {
     const networkNames = []
     for (let key in getters.networksGetter) {
@@ -61,12 +66,19 @@ const getters = {
 const mutations = {
   [APP_DATA] (state, data) {
     state.apps = data
+  },
+  [APP_TOTAL_DATA] (state, appsTotalData) {
+    state.appsTotalData = appsTotalData
   }
 }
 
 const actions = {
   appDataAction ({commit}, data) {
     commit(APP_DATA, data)
+  },
+  appTotalDataAction ({commit}, appsTotalData) {
+    console.log(appsTotalData)
+    commit(APP_TOTAL_DATA, appsTotalData)
   }
 }
 

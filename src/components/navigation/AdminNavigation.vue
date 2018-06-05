@@ -86,7 +86,7 @@ export default {
           text: 'navigation.apps',
           model: true,
           children: [
-            { text: 'navigation.apps', action: '/' },
+            { text: 'navigation.apps', action: '/apps' },
             { text: 'navigation.tags', action: '#' }
           ]
         },
