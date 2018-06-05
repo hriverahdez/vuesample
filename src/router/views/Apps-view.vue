@@ -3,40 +3,24 @@
       v-layout(wrap).card__row-title
         v-flex(xs12)
           v-breadcrumbs(divider="/" large)
-            v-breadcrumbs-item Apps
+            v-breadcrumbs-item {{ $t('dashboard_view.apps') }}
           apps-data-table
 </template>
 
 
 
 <script>
-// Query imports
-import { APP_TOTAL_DATA } from '@/graphql/app'
-// Components
+// Components imports
 import AppsDataTable from '@/components/apps/AppDataTable'
-
-import { mapActions } from 'vuex'
+// Mixins imports
+import appMixin from '@/mixins/appMixin'
 
 export default {
   name: 'apps-view',
-  apollo: {
-    accounts: {
-      query: APP_TOTAL_DATA,
-      context: {
-        uri: 'app'
-      },
-      loadingKey: 'loading',
-      update (data) {
-        this.appTotalDataAction(data.apps)
-      }
-    }
-  },
   components: {
     AppsDataTable
   },
-  methods: {
-    ...mapActions(['appTotalDataAction'])
-  }
+  mixins: [appMixin]
 }
 </script>
 

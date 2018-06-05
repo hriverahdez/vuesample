@@ -3,7 +3,7 @@
     v-container
       v-layout(wrap xs12 class="card__row-title")
         v-flex(xs8)
-            v-card-title(class="title headings--text") {{ $t('accounts_view.account_title' )}}
+            v-card-title(class="title headings--text") {{ $t('apps_view.apps_title' )}}
         v-flex(xs4)
             v-text-field(
             append-icon="search"
@@ -69,7 +69,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      apps: 'appTotalDataGetter'
+      apps: 'appDataGetter'
     })
   }
 }
