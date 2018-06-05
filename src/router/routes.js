@@ -7,6 +7,7 @@ import AppsView from '@/router/views/Apps-view'
 import Contacto from '@/components/Contacto'
 import DashboardView from '@/router/views/Dashboard-view'
 import DashboardPrueba from '@/components/Dashboard'
+import LoginView from '@/router/views/Login-view'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/contacto',
       name: 'contacto',
       component: Contacto
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
     }
   ],
   mode: 'history'
