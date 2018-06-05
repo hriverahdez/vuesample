@@ -25,7 +25,7 @@
                 icon(v-if="props.item.platform === 'android'" name="android" color="DimGray")
                 icon(v-if="props.item.platform === 'ios'" name="apple" color="LimeGreen ")
                 span(class="app__text") {{ props.item.name }}
-            td.text-xs-left ADDCOLONY
+            td(class="text-xs-left padding-scroll") ADDCOLONY
             td.text-xs-left ADMOB
             td.text-xs-left APPLOVIN
             td.text-xs-left CHARBOOST
@@ -60,7 +60,8 @@ export default {
       {
         text: 'Name',
         align: 'left',
-        value: 'name'
+        value: 'name',
+        color: 'red'
       },
       // { text: 'Impressions', value: 'impressions' },
       { text: 'ADCOLONY', value: 'ADCOLONY' },
@@ -95,6 +96,17 @@ export default {
 td {
   cursor: pointer;
 }
+.app {
+  position: absolute;
+  background: white;
+  display: flex;
+  align-items: center;
+  height: 47px;
+  border-right: 1px solid rgba(0,0,0,0.12)
+}
+.padding-scroll {
+  padding-left: 300px!important;
+}
 .app__container {
   display: flex;
   svg {
@@ -102,12 +114,10 @@ td {
   }
 }
 .app__text {
-  min-width: 250px;
-  max-width: 250px;
+  min-width: 200px;
+  max-width: 200px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 </style>
-
-
