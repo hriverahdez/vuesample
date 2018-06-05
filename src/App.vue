@@ -7,11 +7,10 @@
         template(v-if="checkIfVisibleDependingOnRoute()")
           account-dialog
           dialog-alert
-    template(v-if="checkIfVisibleDependingOnRoute()")
-      v-layout(class="floating-button-container")
-        floating-button
-      v-footer(class="footer-container blue_dark")
-      span.copyright {{ $t('footer.copyright') }}
+    v-layout(class="floating-button-container" v-if="checkIfVisibleDependingOnRoute()")
+      floating-button
+    v-footer(class="footer-container blue_dark" v-if="checkIfVisibleDependingOnRoute()")
+     span.copyright {{ $t('footer.copyright') }}
 
 
 </template>
