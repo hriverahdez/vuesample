@@ -44,5 +44,8 @@ export default new Router({
       component: LoginView
     }
   ],
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })

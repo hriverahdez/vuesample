@@ -8,6 +8,9 @@
       "new_account": "New account",
       "new_success": "New account created"
     },
+    "apps_view": {
+      "apps_title": "Apps list"
+    },
     "buttons": {
       "apply": "Apply",
       "cancel": "Cancel",
