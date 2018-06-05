@@ -1,19 +1,139 @@
+// Vars
+blue_darken_4 = #0D47A1
+blue_lighten_4 = #BBDEFB
+primary = #00A0D3
+gray_dark = #27333C
+gray = #212121
+white = #fff
+blue_calendar = #1565C0
+content_background-color = #efefef
+tabs_height = 36px
+teal = #009688
+data_table_color = #1A237E
+
+
 $body-font-family = 'Ubuntu', sans-serif
 $alert-padding = 10px
 $alert-margin = 0 auto
-$data-table-heading = #7E57C2
-$data-table-heading-text = #fff
+$data-table-heading = blue_calendar
+$data-table-heading-text = white
 
-// Card styles
-.card__row-title {
-    padding: 15px;
-}
 
-// Tabs styles
-.tabs__container
-    .tabs__div {
-        height: 50px;
-    }
 
 @import '../../node_modules/vuetify/src/stylus/main.styl'
 @import '../../node_modules/vuetify/src/stylus/app.styl'
+
+// General
+.content--wrap
+    background-color: content_background-color
+    // padding: 10px;
+.container
+    max-width: 1400px;
+
+// Breadcrumbs
+.breadcrumbs
+    padding-top: 0
+    padding-left: 0
+
+.breadcrumbs--large li
+    font-size: 20px
+
+// Button styles
+.btn__content
+    padding: 0 8px 0 6px
+
+.btn .icon--left
+  margin-right: 4px
+
+
+.btn
+    height: 28px
+    font-size: 13px;
+    &.accent
+        background-color-color: blue_calendar!important
+    &.accent--text
+        border-color: blue_calendar!important
+        color: blue_calendar!important
+    &--floating
+        height 56px
+
+
+// Card styles
+.card__title
+    text-transform: uppercase
+
+// Chips styles
+.chip
+    height: 20px
+    .chip__content
+        height: 20px
+
+// .card__row-title
+//     padding: 8px 16px 6px 0
+
+// Datatable style
+.datatable
+    background-color: white!important
+
+    th
+        background-color: data_table_color
+        color: white!important
+
+        i
+            color: white!important
+            padding-left: 1px
+
+    // .datatable__actions
+    //     background-color: data_table_color!important
+    //     color: white!important
+
+    // .datatable__actions__select
+    //     i
+    //         color: white!important
+
+// Dialog styles
+.dialog
+    background-color: white
+
+// Form elements
+.input-group
+    label
+        font-size: 14px
+
+.input-group.dau__text
+    label
+        font-size: 10px
+
+.input-group__details:after
+   height: 1px
+
+// Subheader
+.subheader
+    padding: 0
+    margin-bottom: 14px
+
+//Table styles
+table.table thead tr
+  height: tabs_height
+
+// Tabs styles
+.tabs__container
+    height: tabs_height
+
+    &--icons-and-text
+        height: tabs_height
+    .tabs__div
+        height: tabs_height
+
+        @media $display-breakpoints.sm-and-up
+          min-width: 100px
+
+.tabs__item--active
+    background-color: primary
+
+.tabs__items
+    padding: 3px 10px
+    background-color: #FAFAFA
+    border: 1px solid  rgba(0,0,0,0.12)
+
+

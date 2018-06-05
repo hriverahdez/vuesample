@@ -1,0 +1,274 @@
+<template lang="pug">
+    v-container(class="stats-container")
+        v-layout(wrap)
+            v-flex(xs12)
+                //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedByGetter} `}}
+                v-dialog(v-model="selectDateDialog" width="800")
+                    v-daterange(
+                        :options="dateRangeOptions"
+                        @input="onDateRangeChange"
+                        class="lightGray pa-4"
+                        ref="dateRange"
+                    )
+                    v-flex(
+                        xs12 text-xs-right
+                        class="actions-row lightGray"
+                        )
+                        v-btn(
+                          color="buttonColor"
+                          @click="exitDialogWithoutSelectRangeOfDates"
+                          flat
+                          class="white--text"
+                        ) {{ $t('buttons.close') }}
+                        v-btn(
+                          color="buttonColor"
+                          @click="applyDateSelection"
+                          class="white--text"
+                        ) {{ $t('buttons.apply') }}
+
+                // Confirm Apply Filters
+                //- dialog-alert
+
+                v-tabs(dark color="tab_heading" v-model="$store.state.reportModule.activeTab")
+                    v-tabs-slider(color="primary")
+                    v-tab(href="#tab-date" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
+                    v-tab(href="#tab-app" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
+                    v-tab(href="#tab-country" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.country')}}
+                    v-tab(href="#tab-format" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.format')}}
+                    v-tab(href="#tab-network" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.network')}}
+                    v-spacer
+                    section.date-container
+                      v-btn(color="buttonColor" @click.native.stop="selectDateDialog = true" class="date-button")
+                          v-icon(left small) event
+                          | {{ $t('dashboard_view.select_date')}}
+                      div.date-container__startDate
+                          span {{ $t('dashboard_view.from') }}
+                          strong {{ ` ${startDateText}` }}
+                      div.date-container__endDate
+                          span {{ $t('dashboard_view.to') }}
+                          strong {{ ` ${endDateText}` }}
+
+                    // Tab items
+                    // Date tab
+                    v-tab-item(id="tab-date")
+                        dashboard-filters
+                        line-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#C9651B']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                          :discrete= "true")
+                    // App tab
+                    v-tab-item(id="tab-app")
+                        dashboard-filters
+                        column-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#C9651B']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                          )
+                    // Country tab
+                    v-tab-item(id="tab-country")
+                        dashboard-filters
+                        line-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#C9651B']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                          :discrete= "true")
+                    // Format tab
+                    v-tab-item(id="tab-format")
+                        dashboard-filters
+                        pie-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#00A0D3', '#910287', '#00962B', '#FF982A', '#E4371E', '#1A237E']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                        )
+                    // Network tab
+                    v-tab-item(id="tab-network")
+                        dashboard-filters
+                        column-chart(
+                          :ytitle="statYText | capitalize"
+                          :colors="['#C9651B']"
+                          :data="statsDataFormattedWithoutNameGetter"
+                          )
+
+                    //- v-tab-item(id="tab-country")
+                    //-     v-card(flat)
+                    //-     column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
+
+                dashboard-stat-buttons
+</template>
+
+<script>
+import { format, subDays } from 'date-fns'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+// Import components
+import DashboardFilters from '@/components/dashboard/DashboardFilters'
+import DashboardStatButtons from '@/components/dashboard/DashboardStatButtons'
+// import DialogAlert from '@/components/DialogAlert'
+
+export default {
+  name: 'dashboard-tabs',
+  data: () => ({
+    selectDateDialog: false,
+    dateRangeOptions: {
+      startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
+      endDate: format(new Date(), 'YYYY-MM-DD'),
+      format: 'YYYY/MM/DD',
+      presets: [
+        {
+          label: 'Today',
+          range: [
+            format(new Date(), 'YYYY-MM-DD'),
+            format(new Date(), 'YYYY-MM-DD')
+          ]
+        },
+        {
+          label: 'Yesterday',
+          range: [
+            format(subDays(new Date(), 1), 'YYYY-MM-DD'),
+            format(subDays(new Date(), 1), 'YYYY-MM-DD')
+          ]
+        },
+        {
+          label: 'Last 30 Days',
+          range: [
+            format(subDays(new Date(), 30), 'YYYY-MM-DD'),
+            format(subDays(new Date(), 1), 'YYYY-MM-DD')
+          ]
+        }
+      ]
+    }
+  }),
+  components: {
+    DashboardFilters,
+    DashboardStatButtons
+    // DialogAlert
+  },
+  computed: {
+    ...mapGetters([
+      'groupedByGetter',
+      'dateGetter',
+      'statsDataFormattedGetter',
+      'statsDataFormattedWithoutNameGetter',
+      'buttonSelectedGetter',
+      'rangeGetter'
+    ]),
+    statYText () {
+      if (this.buttonSelectedGetter) {
+        switch (this.buttonSelectedGetter) {
+          case 'requests': {
+            return this.$t('dashboard_view.requests')
+          }
+          case 'imps': {
+            return this.$t('dashboard_view.impressions')
+          }
+          case 'fillRate': {
+            return this.$t('dashboard_view.fill_rate')
+          }
+          case 'clicks': {
+            return this.$t('dashboard_view.clicks')
+          }
+          case 'ctr': {
+            return this.$t('dashboard_view.ctr').toUpperCase()
+          }
+          case 'revenue': {
+            return this.$t('dashboard_view.revenue')
+          }
+          case 'ecpm': {
+            return this.$t('dashboard_view.ecpm').toUpperCase()
+          }
+          default: {
+            return this.$t('dashboard_view.revenue')
+          }
+        }
+      }
+    },
+    endDateText () {
+      return this.dateGetter.endDate
+    },
+    startDateText () {
+      return this.dateGetter.startDate
+    }
+  },
+  methods: {
+    ...mapActions([
+      'groupedByVarDataAction',
+      'getDateAction',
+      'rangeAction'
+    ]),
+    ...mapMutations(['setAlertMessage']),
+    // Dialog button select date action
+    applyDateSelection () {
+      this.getDateAction({
+        startDate: this.rangeGetter[0],
+        endDate: this.rangeGetter[1]
+      }).then(() => {
+        this.setAlertMessage({
+          show: true,
+          type: 'success',
+          message: this.$t('dashboard_view.confirm_selected_date_range'),
+          buttonText: this.$t('buttons.close')
+        })
+        this.selectDateDialog = false
+      })
+    },
+    // Close dialog without apply selection
+    exitDialogWithoutSelectRangeOfDates () {
+      setTimeout(() => {
+        this.$refs['dateRange'].startDate = format(subDays(new Date(), 30), 'YYYY-MM-DD')
+        this.$refs['dateRange'].endDate = format(new Date(), 'YYYY-MM-DD')
+        this.getDateAction({
+          startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
+          endDate: format(new Date(), 'YYYY-MM-DD')
+        })
+      }, 300)
+      this.selectDateDialog = false
+    },
+    onDateRangeChange (range) {
+      this.rangeAction(range)
+    },
+    // Draw data from server
+    requestDataFromAPI (e) {
+      this.groupedByVarDataAction(e.target.text.toUpperCase())
+    }
+  },
+  mounted () {
+    this.$root.$on('sendDateToRoot', (date) => {
+      this.$refs['dateRange'].startDate = date
+      this.$refs['dateRange'].endDate = date
+    })
+  }
+}
+</script>
+
+<style lang="scss">
+.date-container {
+    text-transform: lowercase;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-right: 14px;
+
+    &__endDate {
+        padding-left: 10px;
+        font-size: 12px;
+        text-transform: capitalize;
+    }
+
+    &__startDate {
+        padding-left: 10px;
+        font-size: 12px;
+        text-transform: capitalize;
+    }
+}
+.date-button {
+  margin: 4px;
+  height: 30px;
+}
+.stats-container {
+  padding: 24px;
+}
+</style>
+
+
+
+

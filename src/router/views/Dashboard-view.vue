@@ -1,46 +1,99 @@
 <template lang="pug">
-    section.dashboard__section
-      v-card
+    v-container.dashboard__section
         v-layout(wrap).card__row-title
-            v-flex(xs12)
-                v-card-title.title.headings--text {{ $t('dashboard_view.dashboard_title' )}}
-
-        v-flex(xs12)
-            v-tabs(icons-and-text centered dark color="purple")
-                v-tabs-slider(color="orange")
-                v-flex(xs9)
-                  v-tab(href="#tab-1") Global
-                  v-tab(href="#tab-2") Days
-                  v-tab(href="#tab-3") Countries
-                v-flex(xs3)
-                  div lolololololol
-                v-tab-item(id="tab-1")
-                    v-card(flat)
-                      dashboard-filters
-                      line-chart(:data="{'2017-05-13': 2, '2017-05-14': 5}")
-                v-tab-item(id="tab-2")
-                    v-card(flat)
-                      pie-chart(:data="[['Blueberry', 44], ['Strawberry', 23]]")
-                v-tab-item(id="tab-3")
-                    v-card(flat)
-                      column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
+          v-flex(xs12)
+            v-breadcrumbs(divider="/" large)
+              v-breadcrumbs-item Dashboard
+            v-card
+              //- v-card-title.title.headings--text {{ $t('dashboard_view.dashboard_title' )}}
+              dashboard-tabs
+            dashboard-data-table
 </template>
 
 
 <script>
-  import DashboardFilters from '@/components/DashboardFilters'
+  import { mapActions, mapGetters } from 'vuex'
+  // Mixins
+  import accountMixin from '@/mixins/accountMixin'
+  // Components imports
+  import DashboardDataTable from '@/components/dashboard/DashboardDataTable'
+  import DashboardTabs from '@/components/dashboard/DashboardTabs'
+  // Query imports
+  import { APP_DATA } from '@/graphql/app'
+  import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
+  import { GET_DATA_FILTERS } from '@/graphql/config'
+
   export default {
-    data: () => ({
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-    }),
+    name: 'dashboard-view',
+    computed: {
+      ...mapGetters([
+        'appFiltersGetter',
+        'countryFiltersGetter',
+        'dateGetter',
+        'formatFiltersGetter',
+        'groupedByGetter',
+        'networkFiltersGetter'
+      ])
+    },
     components: {
-      DashboardFilters
+      DashboardDataTable,
+      DashboardTabs
+    },
+    mixins: [accountMixin],
+    apollo: {
+      stats: {
+        query: GET_DASHBOARD_REPORT_DATA,
+        context: {
+          uri: 'report'
+        },
+        variables () {
+          return {
+            groupBy: this.groupedByGetter,
+            filter: {
+              from: this.dateGetter.startDate,
+              to: this.dateGetter.endDate,
+              apps: this.appFiltersGetter,
+              formats: this.formatFiltersGetter,
+              networks: this.networkFiltersGetter,
+              countries: this.countryFiltersGetter
+            }
+          }
+        },
+        loadingKey: 'loading',
+        update (data) {
+          this.statsDataAction(data.stats)
+        }
+      },
+      config: {
+        query: GET_DATA_FILTERS,
+        context: {
+          uri: 'config'
+        },
+        loadingKey: 'loading',
+        update (data) {
+          this.dashboardFiltersAction(data.config)
+        }
+      },
+      apps: {
+        query: APP_DATA,
+        context: {
+          uri: 'app'
+        },
+        loadingKey: 'loading',
+        update (data) {
+          this.appDataAction(data.apps)
+        }
+      }
+    },
+    methods: {
+      ...mapActions([
+        'appDataAction',
+        'dashboardFiltersAction',
+        'statsDataAction'
+      ])
     }
   }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
 
 

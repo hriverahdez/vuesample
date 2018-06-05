@@ -1,0 +1,80 @@
+<html>
+<body>
+    <canvas id="myChart"></canvas>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script>
+function getChartJsLabels(data) {
+    var chartjsLabels = [];
+
+    var arrayLength = data.length;
+    for (var i = 0; i < arrayLength; i++) {
+        var item = data[i];
+        chartjsLabels.push(item['label']);
+    }
+    return chartjsLabels;
+}
+function getChartJsData(data, column) {
+    var chartjsData = [];
+
+    var arrayLength = data.length;
+    for (var i = 0; i < arrayLength; i++) {
+        var item = data[i];
+        chartjsData.push((item[column]===undefined)? 'NaN' : item[column] );
+    }
+    return chartjsData;
+}
+var columnLabels = {
+    requests: 'Requests',
+    imps: 'Impressions',
+    fillRate: 'Fill Rate',
+    clicks: 'Clicks',
+    ctr: 'CTR',
+    revenue: 'Revenue',
+    ecpm: 'eCPM',
+}
+function drawStat(id, data, column) {
+    /*console.log(id);
+    console.log(getChartJsLabels(data));
+    console.log(column);
+    console.log(getChartJsData(data, column));
+    throw "Hasta aquí";*/
+    var ctx = document.getElementById(id).getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+            labels: getChartJsLabels(data),
+            datasets: [
+                {
+                    label: columnLabels[column],
+                    data: getChartJsData(data, column),
+                }
+            ]
+        },
+        // Configuration options go here
+        options: {}
+    });
+}
+var id = "myChart";
+var data = "query=%7B%0A%20%20stats%20%7B%0A%20%20%09label%0A%20%20%20%20requests%0A%20%20%20%20imps%0A%20%20%20%20fillRate%0A%20%20%20%20clicks%0A%20%20%20%20ctr%0A%20%20%20%20revenue%0A%20%20%20%20ecpm%0A%09%7D%0A%7D";
+var column = "ctr";
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === 4) {
+        var parsed = JSON.parse(this.responseText);
+        drawStat(id, parsed.data.stats, column);
+    }
+});
+xhr.open("POST", "http://stage.do.linkitox.com/public/graphql/report");
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("Cache-Control", "no-cache");
+xhr.setRequestHeader("Postman-Token", "06890c47-9dc2-44f2-bb84-1db9f512fb0d");
+xhr.send(data);
+</script>
+</html>
+
+
+Añadir comentarioContrae

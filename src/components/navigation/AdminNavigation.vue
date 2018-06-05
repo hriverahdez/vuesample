@@ -1,21 +1,28 @@
 <template lang="pug">
   div
-    v-navigation-drawer(fixed, :clipped='$vuetify.breakpoint.lgAndUp', app, dark, v-model='drawer')
+    v-navigation-drawer(
+      fixed,
+      :clipped='$vuetify.breakpoint.lgAndUp',
+      app,
+      dark,
+      v-model='drawer'
+      width="275"
+      )
       v-list(dense)
         template(v-for='item in items')
           v-list-group(
             v-if='item.children',
             v-model='item.model',
             :key='item.text',
-            :prepend-icon="item.model ? item.icon : item['icon-alt']",
-            append-icon)
+            :prepend-icon="item.icon"
+            )
             v-list-tile(slot='activator')
               v-list-tile-content
                 v-list-tile-title
                   | {{ $t(item.text) }}
             v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
               v-list-tile-action(v-if='child.icon')
-                v-icon {{ child.icon }}
+                v-icon(color="floatingButton") {{ child.icon }}
               v-list-tile-content
                 v-list-tile-title
                   | {{ $t(child.text) }}
@@ -26,7 +33,7 @@
               v-list-tile-title
                   | {{ $t(item.text) }}
     v-toolbar(
-      color='toolBar',
+      color='toolbar',
       dark,
       app,
       :clipped-left='$vuetify.breakpoint.lgAndUp',
@@ -39,12 +46,13 @@
       v-spacer
       v-toolbar-items
         v-avatar(slot="activator" size="32")
-          img(src='@/assets/spiderman.png' alt="User")
+          //- img(src='@/assets/spiderman.png' alt="User")
+          v-icon(dark) account_circle
         div.user__info
           div.user__info__user  {{ $t('navigation.user') }}:
-            span.user__info__label Spiderman
+            span.user__info__label.primary--text Spiderman
           div.user__info__account {{ $t('navigation.account') }}:
-            span.user__info__label Marvel group
+            span.user__info__label.primary--text Marvel group
       v-menu(bottom left dark offset-y)
         v-btn(icon slot="activator" dark)
           v-icon more_vert
@@ -63,34 +71,45 @@ export default {
     return {
       drawer: null,
       items: [
-        { icon: 'poll', text: 'navigation.dashboard', action: '/' },
-        { icon: 'assignment', text: 'navigation.reporting_status', action: '#' },
-        { icon: 'language', text: 'navigation.networks_integration', action: '#' },
-        { icon: 'stay_current_portrait', text: 'navigation.apps', action: '#' },
-        { icon: 'create', text: 'navigation.custom_campaign', action: '#' },
-        { icon: 'filter_list', text: 'navigation.waterfall_management', action: '#' },
         {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'navigation.account_management',
+          'icon': 'monetization_on',
+          text: 'navigation.monetization',
           model: true,
           children: [
-            { icon: 'group', text: 'navigation.account_users', action: '#' },
-            { icon: 'group_add', text: 'navigation.create_account', action: '#' },
-            { icon: 'label', text: 'navigation.placement_tags', action: '#' },
-            { icon: 'public', text: 'navigation.country_groups', action: '#' }
+            { text: 'navigation.dashboard', action: '/' },
+            { text: 'navigation.waterfall_rules', action: '#' },
+            { text: 'navigation.network_integration', action: '#' }
           ]
         },
         {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
+          'icon': 'stay_current_portrait',
+          text: 'navigation.apps',
+          model: true,
+          children: [
+            { text: 'navigation.apps', action: '/apps' },
+            { text: 'navigation.tags', action: '#' }
+          ]
+        },
+        { icon: 'edit', text: 'navigation.custom_campaigns', action: '#' },
+        {
+          icon: 'list',
+          text: 'navigation.account',
+          model: true,
+          children: [
+            { text: 'navigation.profile', action: '#' },
+            // { icon: 'timeline', text: 'navigation.finance', action: '#' },
+            { text: 'navigation.users', action: '#' }
+            // { icon: 'label', text: 'navigation.tags', action: '#' }
+          ]
+        },
+        {
+          icon: 'account_box',
           text: 'navigation.admin',
           model: true,
           children: [
-            { text: 'navigation.accounts', action: 'accounts' },
-            { text: 'navigation.apps', action: '#' },
+            { text: 'navigation.users', action: '#' },
             { text: 'navigation.roles', action: '#' },
-            { text: 'navigation.users', action: '#' }
+            { text: 'navigation.accounts', action: 'accounts' }
           ]
         }
       ],
@@ -155,6 +174,10 @@ export default {
       font-weight: bold;
     }
   }
+
+  // .list__group__header__prepend-icon {
+  //   color: #00A0D3!important;
+  // }
 
   .options__list {
 

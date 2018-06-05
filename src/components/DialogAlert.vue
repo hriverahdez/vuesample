@@ -11,21 +11,21 @@
             v-card-actions
                 v-spacer
                 v-btn(
-                color="form_elements_color"
+                color="formElementColor"
                 flat
-                @click.native="closeDialog"
+                @click.native="CLOSE_ALERT_MESSAGE"
                 ) {{ $store.state.dialogAlertModule.alert.buttonText }}
 
 </template>
 
 <script>
 // Show message alerts in dialogs
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'dialog-alert',
   methods: {
-    closeDialog () {
-      this.$store.commit('closeAlertDialog')
-    }
+    ...mapMutations(['CLOSE_ALERT_MESSAGE'])
   }
 }
 </script>

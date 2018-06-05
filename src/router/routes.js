@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 // Routes
 import AccountsView from '@/router/views/Accounts-view'
+import AppsView from '@/router/views/Apps-view'
 import Contacto from '@/components/Contacto'
 import DashboardView from '@/router/views/Dashboard-view'
 import DashboardPrueba from '@/components/Dashboard'
@@ -20,6 +21,11 @@ export default new Router({
       path: '/accounts',
       name: 'accounts',
       component: AccountsView
+    },
+    {
+      path: '/apps',
+      name: 'apps',
+      component: AppsView
     },
     {
       path: '/dashboard',
