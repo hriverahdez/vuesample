@@ -1,10 +1,22 @@
 <template lang="pug">
+  v-card
+    v-container
+      v-layout(wrap xs12 class="card__row-title")
+        v-flex(xs8)
+            v-card-title(class="title headings--text") {{ $t('accounts_view.account_title' )}}
+        v-flex(xs4)
+            v-text-field(
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+            v-model="search"
+            )
     v-data-table(
         :headers="headers"
         :items="apps"
         :search="search"
-        hide-actions
-        class="elevation-1 dashboard-datatable"
+        class="elevation-1 apps-datatable"
         )
         template(slot="items" slot-scope="props")
             td.text-xs-left <span>{{ props.item.platform }}</span> {{ props.item.name }}
@@ -64,9 +76,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dashboard-datatable {
-    margin-top: 20px;
-}
 td {
   cursor: pointer;
 }

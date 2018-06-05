@@ -1,15 +1,17 @@
 <template lang="pug">
   v-app(light)
-    admin-navigation
+    admin-navigation(v-if="checkIfVisibleDependingOnRoute()")
     v-content
       v-container(grid-list-xl text-xs-center align-content-center).dashboard__container
         router-view
-        account-dialog
-        dialog-alert
-    v-layout(class="floating-button-container")
-      floating-button
-    v-footer(class="footer-container blue_dark")
-     span.copyright {{ $t('footer.copyright') }}
+        template(v-if="checkIfVisibleDependingOnRoute()")
+          account-dialog
+          dialog-alert
+    template(v-if="checkIfVisibleDependingOnRoute()")
+      v-layout(class="floating-button-container")
+        floating-button
+      v-footer(class="footer-container blue_dark")
+      span.copyright {{ $t('footer.copyright') }}
 
 
 </template>
@@ -26,6 +28,15 @@
       AdminNavigation,
       DialogAlert,
       FloatingButton
+    },
+    methods: {
+      checkIfVisibleDependingOnRoute () {
+        if (this.$route.name === 'login') {
+          return false
+        } else {
+          return true
+        }
+      }
     }
   }
 </script>
