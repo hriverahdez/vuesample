@@ -17,15 +17,31 @@
         :items="apps"
         :search="search"
         class="elevation-1 apps-datatable"
+        :rows-per-page-items="[10, 20, 30]"
         )
         template(slot="items" slot-scope="props")
-            td.text-xs-left <span>{{ props.item.platform }}</span> {{ props.item.name }}
-            td.text-xs-left {{ props.item.imps }}
-            td.text-xs-left {{ props.item.fillRate }}
-            td.text-xs-left {{ props.item.clicks }}
-            td.text-xs-left {{ props.item.ctr }}
-            td.text-xs-left {{ props.item.revenue }}
-            td.text-xs-left {{ props.item.ecpm }}
+            td(class="text-xs-left app")
+              div(class="app__container")
+                icon(v-if="props.item.platform === 'android'" name="android" color="DimGray")
+                icon(v-if="props.item.platform === 'ios'" name="apple" color="LimeGreen ")
+                span(class="app__text") {{ props.item.name }}
+            td(class="text-xs-left padding-scroll") ADDCOLONY
+            td.text-xs-left ADMOB
+            td.text-xs-left APPLOVIN
+            td.text-xs-left CHARBOOST
+            td.text-xs-left CUSTOM CAMPAING
+            td.text-xs-left FACEBOOK
+            td.text-xs-left HYPRMX
+            td.text-xs-left KIIP
+            td.text-xs-left INMOBI
+            td.text-xs-left IRON SOURCE
+            td.text-xs-left MOBUSI
+            td.text-xs-left MOBUSI SSP
+            td.text-xs-left MOBVISTA
+            td.text-xs-left MOPUB
+            td.text-xs-left UNITYADS
+            td.text-xs-left STARTAPP
+            td.text-xs-left VUNGLE
 
         template(slot="no-data")
             v-alert(
@@ -44,21 +60,22 @@ export default {
       {
         text: 'Name',
         align: 'left',
-        value: 'name'
+        value: 'name',
+        color: 'red'
       },
-      { text: 'Impressions', value: 'impressions' },
+      // { text: 'Impressions', value: 'impressions' },
       { text: 'ADCOLONY', value: 'ADCOLONY' },
       { text: 'ADMOB', value: 'ADMOB' },
       { text: 'APPLOVIN', value: 'APPLOVIN' },
       { text: 'CHARTBOOST', value: 'CHARTBOOST' },
-      { text: 'CUSTOM_CAMPAIGN', value: 'CUSTOM_CAMPAIGN' },
+      { text: 'CUSTOM CAMPAIGN', value: 'CUSTOM CAMPAIGN' },
       { text: 'FACEBOOK', value: 'FACEBOOK' },
       { text: 'HYPRMX', value: 'HYPRMX' },
       { text: 'KIIP', value: 'KIIP' },
       { text: 'INMOBI', value: 'INMOBI' },
       { text: 'IRONSOURCE', value: 'IRONSOURCE' },
       { text: 'MOBUSI', value: 'MOBUSI' },
-      { text: 'MOBUSI_SSP', value: 'MOBUSI_SSP' },
+      { text: 'MOBUSI SSP', value: 'MOBUSI SSP' },
       { text: 'MOBVISTA', value: 'MOBVISTA' },
       { text: 'MOPUB', value: 'MOPUB' },
       { text: 'UNITYADS', value: 'UNITYADS' },
@@ -79,6 +96,28 @@ export default {
 td {
   cursor: pointer;
 }
+.app {
+  position: absolute;
+  background: white;
+  display: flex;
+  align-items: center;
+  height: 47px;
+  border-right: 1px solid rgba(0,0,0,0.12)
+}
+.padding-scroll {
+  padding-left: 300px!important;
+}
+.app__container {
+  display: flex;
+  svg {
+    margin-right: 8px;
+  }
+}
+.app__text {
+  min-width: 200px;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 </style>
-
-

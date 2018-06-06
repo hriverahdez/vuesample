@@ -2,8 +2,8 @@
   v-container.apps__section
       v-layout(wrap).card__row-title
         v-flex(xs12)
-          v-breadcrumbs(divider="/" large)
-            v-breadcrumbs-item {{ $t('dashboard_view.apps') }}
+          //- v-breadcrumbs(divider="/" large)
+          //-   v-breadcrumbs-item {{ $t('dashboard_view.apps') }}
           apps-data-table
 </template>
 
