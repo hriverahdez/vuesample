@@ -13,6 +13,7 @@
 // Components imports
 import AppsDataTable from '@/components/apps/AppDataTable'
 // Mixins imports
+import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
 
 export default {
@@ -20,7 +21,10 @@ export default {
   components: {
     AppsDataTable
   },
-  mixins: [appMixin]
+  mixins: [
+    appMixin,
+    accountMixin
+  ]
 }
 </script>
 
