@@ -52,6 +52,9 @@
     "links": {
       "home": "Home"
     },
+    "loader": {
+      "loading_text": "Loading..."
+    },
     "navigation": {
       "account": "Account",
       "accounts": "Accounts",

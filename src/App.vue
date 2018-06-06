@@ -2,7 +2,7 @@
   v-app(light)
     admin-navigation(v-if="checkIfVisibleDependingOnRoute()")
     v-content
-      v-container(grid-list-xl text-xs-center align-content-center).dashboard__container
+      v-container(grid-list-xl text-xs-center align-content-center class="view__container")
         router-view
         template(v-if="checkIfVisibleDependingOnRoute()")
           account-dialog
@@ -41,7 +41,7 @@
 </script>
 
 <style lang="scss" scoped>
-.dashboard__container {
+.view__container {
   max-width: 1400px;
 }
 .floating-button-container {
@@ -57,5 +57,8 @@
 }
 .copyright {
   font-size: 10px;
+}
+.content--wrap {
+  background: red!important;
 }
 </style>

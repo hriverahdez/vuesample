@@ -52,6 +52,9 @@
     "links": {
       "home": "Inicio"
     },
+    "loader": {
+      "loading_text": "Cargando..."
+    },
     "navigation": {
       "account": "Cuenta",
       "accounts": "Cuentas",
