@@ -46,26 +46,9 @@
                       :key="index"
                       @click="") {{ $t(item) }}
 
-            td(class="text-xs-left padding-scroll")
-              div(class="network-item-container") ADDCOLONY
+            td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
+              div(class="network-item-container") {{ network }}
                 icon(name="cog" color="indigo" slot="activator" class="cog-icon")
-
-            td.text-xs-left ADMOB
-            td.text-xs-left APPLOVIN
-            td.text-xs-left CHARBOOST
-            td.text-xs-left CUSTOM CAMPAING
-            td.text-xs-left FACEBOOK
-            td.text-xs-left HYPRMX
-            td.text-xs-left KIIP
-            td.text-xs-left INMOBI
-            td.text-xs-left IRON SOURCE
-            td.text-xs-left MOBUSI
-            td.text-xs-left MOBUSI SSP
-            td.text-xs-left MOBVISTA
-            td.text-xs-left MOPUB
-            td.text-xs-left UNITYADS
-            td.text-xs-left STARTAPP
-            td.text-xs-left VUNGLE
 
         template(slot="no-data")
             v-alert(
@@ -121,7 +104,8 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      apps: 'appDataGetter'
+      apps: 'appDataGetter',
+      networks: 'networkNamesGetter'
     })
   }
 }
@@ -129,12 +113,14 @@ export default {
 <style lang="scss" scoped>
 .apps-datatable {
   /deep/ td {
-    cursor: pointer;
     z-index: 2!important;
   }
   /deep/ th {
     cursor: pointer;
     z-index: 2!important;
+  }
+  /deep/ tr:hover {
+    background: none!important;
   }
   .app {
     position: absolute;
@@ -143,6 +129,10 @@ export default {
     align-items: center;
     border-right: 1px solid rgba(0,0,0,0.12);
     border-bottom: 1px solid rgba(0,0,0,0.12);
+
+    &:hover {
+      background: rgba(0,0,0,0.12);
+    }
 
     .tooltip {
       /deep/ span {
