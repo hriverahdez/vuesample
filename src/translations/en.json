@@ -9,7 +9,14 @@
       "new_success": "New account created"
     },
     "apps_view": {
-      "apps_title": "Apps list"
+      "add_placement": "Add placement",
+      "app_delete": "Delete",
+      "app_disable_enable": "Disable / enable",
+      "app_edit": "Edit",
+      "apps_title": "Apps list",
+      "edit_network_profile": "Edit network profile",
+      "enable_disable_network": "Enable / disable",
+      "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {
       "apply": "Apply",

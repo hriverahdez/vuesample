@@ -9,7 +9,14 @@
       "new_success": "Nueva cuenta creada"
     },
     "apps_view": {
-      "apps_title": "Listado de apps"
+      "add_placement": "Zona anuncio",
+      "app_delete": "Eliminar",
+      "app_disable_enable": "Habilitar / deshabilitar",
+      "app_edit": "Editar",
+      "apps_title": "Listado de apps",
+      "edit_network_profile": "Editar perfil de red",
+      "enable_disable_network": "Habilitar / deshabilitar",
+      "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {
       "apply": "Apply",

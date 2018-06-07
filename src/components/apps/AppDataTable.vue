@@ -21,12 +21,14 @@
         )
         template(slot="headerCell" slot-scope="props")
           span {{ props.header.text }}
-          v-menu(bottom offset-y @click.native.stop="" class="header-menu")
+          v-menu(offset-y bottom @click.native.stop="" class="network-header-menu")
             a(slot="activator" class="header-activator")
               icon(name="cog" color="white" class="cog-icon")
-            v-list(class="menu-filter")
-              v-list-tile Edit network profile
-              v-list-tile Enable / disable
+            v-list(class="apps-view-list")
+              v-list-tile(
+                v-for="(item, index) in networkMenuOptions"
+                :key="index"
+                @click="") {{ $t(item) }}
 
         template(slot="items" slot-scope="props")
             td(class="text-xs-left app")
@@ -34,20 +36,20 @@
                 icon(v-if="props.item.platform === 'android'" name="android" color="DimGray")
                 icon(v-if="props.item.platform === 'ios'" name="apple" color="LimeGreen ")
                 span(class="app__text") {{ props.item.name }}
-                v-tooltip(bottom)
-                  icon(name="cog" color="indigo" slot="activator" class="cog-icon")
-                  div lalalala
-                  div lalalala
-                  div lalalala
-                  div lalalala
+                v-menu(offset-y bottom class="app-column-menu")
+                  a(slot="activator" class="activator")
+                    icon(name="cog" color="indigo" class="cog-icon")
+                  v-list(class="app-column-menu__list apps-view-list")
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      v-for="(item, index) in appMenuOptions"
+                      :key="index"
+                      @click="") {{ $t(item) }}
+
             td(class="text-xs-left padding-scroll")
               div(class="network-item-container") ADDCOLONY
-                v-tooltip(bottom)
-                  icon(name="cog" color="indigo" slot="activator" class="cog-icon")
-                  div lalalala
-                  div lalalala
-                  div lalalala
-                  div lalalala
+                icon(name="cog" color="indigo" slot="activator" class="cog-icon")
+
             td.text-xs-left ADMOB
             td.text-xs-left APPLOVIN
             td.text-xs-left CHARBOOST
@@ -78,6 +80,13 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'apps-data-table',
   data: () => ({
+    appMenuOptions: [
+      'apps_view.app_edit',
+      'apps_view.app_delete',
+      'apps_view.app_disable_enable',
+      'apps_view.add_placement',
+      'apps_view.waterfall_debugger'
+    ],
     headers: [
       {
         text: 'Name',
@@ -103,6 +112,10 @@ export default {
       { text: 'UNITYADS', value: 'UNITYADS', sortable: false },
       { text: 'STARTAPP', value: 'STARTAPP', sortable: false },
       { text: 'VUNGLE', value: 'VUNGLE', sortable: false }
+    ],
+    networkMenuOptions: [
+      'apps_view.edit_network_profile',
+      'apps_view.enable_disable_network'
     ],
     search: ''
   }),
@@ -160,14 +173,14 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  .header-menu {
+  .network-header-menu {
     height: 16px;
     margin-right: 8px;
     width: 13px;
     z-index: 0;
   }
   th:first-of-type {
-    .header-menu  {
+    .network-header-menu  {
       display: none!important;
     }
   }
@@ -183,15 +196,19 @@ export default {
     align-items: center;
     justify-content: center;
 
-    .tooltip {
-      /deep/ span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      svg {
         margin-left: 4px;
       }
-    }
+  }
+  .activator {
+    display: flex
   }
 }
+.apps-view-list {
+  /deep/ .list__tile {
+    font-size: 14px;
+  }
+}
+
 
 </style>
