@@ -9,13 +9,19 @@
       "new_success": "New account created"
     },
     "apps_view": {
-      "add_placement": "Add placement",
+      "API_check_config": "API check config",
+      "API_failing": "API failing",
+      "API_no_data": "No API data",
+      "API_not_integrated": "Not integrated",
+      "API_working": "API working",
       "app_delete": "Delete",
       "app_disable_enable": "Disable / enable",
       "app_edit": "Edit",
+      "app_search": "App search",
       "apps_title": "Apps list",
-      "edit_network_profile": "Edit network profile",
+      "edit_create_network_profiles": "Edit / create network profiles",
       "enable_disable_network": "Enable / disable",
+      "manage_ad_placements": "Manage ad placements",
       "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {

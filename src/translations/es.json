@@ -9,13 +9,19 @@
       "new_success": "Nueva cuenta creada"
     },
     "apps_view": {
-      "add_placement": "Zona anuncio",
+      "API_check_config": "API configurada",
+      "API_failing": "API error",
+      "API_no_data": "API sin datos",
+      "API_not_integrated": "No integrada",
+      "API_working": "Funcionando",
       "app_delete": "Eliminar",
       "app_disable_enable": "Habilitar / deshabilitar",
       "app_edit": "Editar",
+      "app_search": "Buscar app",
       "apps_title": "Listado de apps",
-      "edit_network_profile": "Editar perfil de red",
+      "edit_create_network_profiles": "Editar / crear perfil de red",
       "enable_disable_network": "Habilitar / deshabilitar",
+      "manage_ad_placements": "Configurar zona anuncio",
       "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {

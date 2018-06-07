@@ -2,12 +2,19 @@
   v-card
     v-container
       v-layout(wrap xs12 class="card__row-title")
-        v-flex(xs8)
+        v-flex(xs2)
             v-card-title(class="title headings--text") {{ $t('apps_view.apps_title' )}}
+        v-flex(xs6)
+            div(class="help-colors")
+              div(class="API-working help-text") {{ $t('apps_view.API_working') }}
+              div(class="API-check-config help-text") {{ $t('apps_view.API_check_config') }}
+              div(class="API-failing help-text") {{ $t('apps_view.API_failing') }}
+              div(class="API-no-data help-text" ) {{ $t('apps_view.API_no_data') }}
+              div(class="API-not-integrated help-text") {{ $t('apps_view.API_not_integrated') }}
         v-flex(xs4)
             v-text-field(
             append-icon="search"
-            label="Search"
+            :label="this.$t('apps_view.app_search')"
             single-line
             hide-details
             v-model="search"
@@ -17,6 +24,7 @@
         :items="apps"
         :search="search"
         class="elevation-1 apps-datatable"
+        hide-actions
         :rows-per-page-items="[10, 20, 30]"
         )
         template(slot="headerCell" slot-scope="props")
@@ -47,7 +55,7 @@
                       @click="") {{ $t(item) }}
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
-              div(class="network-item-container") {{ network }}
+              div(class="network-item-container")
                 icon(name="cog" color="indigo" slot="activator" class="cog-icon")
 
         template(slot="no-data")
@@ -67,7 +75,7 @@ export default {
       'apps_view.app_edit',
       'apps_view.app_delete',
       'apps_view.app_disable_enable',
-      'apps_view.add_placement',
+      'apps_view.manage_ad_placements',
       'apps_view.waterfall_debugger'
     ],
     headers: [
@@ -82,7 +90,6 @@ export default {
       { text: 'ADMOB', value: 'ADMOB', sortable: false },
       { text: 'APPLOVIN', value: 'APPLOVIN', sortable: false },
       { text: 'CHARTBOOST', value: 'CHARTBOOST', sortable: false },
-      { text: 'CUSTOM CAMPAIGN', value: 'CUSTOM CAMPAIGN', sortable: false },
       { text: 'FACEBOOK', value: 'FACEBOOK', sortable: false },
       { text: 'HYPRMX', value: 'HYPRMX', sortable: false },
       { text: 'KIIP', value: 'KIIP', sortable: false },
@@ -97,10 +104,11 @@ export default {
       { text: 'VUNGLE', value: 'VUNGLE', sortable: false }
     ],
     networkMenuOptions: [
-      'apps_view.edit_network_profile',
+      'apps_view.edit_create_network_profiles',
       'apps_view.enable_disable_network'
     ],
-    search: ''
+    search: '',
+    prueba: ''
   }),
   computed: {
     ...mapGetters({
@@ -111,9 +119,17 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@mixin help-text-content {
+  content: '';
+  display: inline-block;
+  margin-right: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
 .apps-datatable {
   /deep/ td {
-    z-index: 2!important;
+    border-right: 1px solid rgba(0,0,0,0.12);
   }
   /deep/ th {
     cursor: pointer;
@@ -175,11 +191,11 @@ export default {
     }
   }
   .header-activator {
-    height: 13px;
+    height: 12px;
     margin-left: 4px;
   }
   .cog-icon {
-    height: 13px;
+    height: 12px;
   }
   .network-item-container {
     display: flex;
@@ -200,5 +216,57 @@ export default {
   }
 }
 
+.help-colors {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .help-text {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-right: 12px;
+
+    &.API-working {
+      &:before {
+          background: #A8DAA7;
+          @include help-text-content
+      }
+    }
+
+    &.API-check-config {
+      &:before {
+          background: #FFE7BE;
+          @include help-text-content
+      }
+    }
+
+    &.API-failing {
+      &:before {
+          background: #FFC6C7;
+          @include help-text-content
+      }
+    }
+
+    &.API-no-data {
+      &:before {
+          background: #FFF;
+          border: 1px solid rgba(0,0,0,0.12);
+          @include help-text-content
+      }
+    }
+
+    &.API-not-integrated {
+      &:before {
+          background: #CECECE;
+          @include help-text-content
+      }
+    }
+  }
+}
+
 
 </style>
+
+
