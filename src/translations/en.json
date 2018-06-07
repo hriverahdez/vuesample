@@ -16,7 +16,9 @@
       "cancel": "Cancel",
       "close": "Close",
       "create": "Create",
-      "edit": "Edit"
+      "edit": "Edit",
+      "signin": "Sign in",
+      "signup": "Sign up"
     },
     "dashboard_view": {
       "app": "App",
@@ -51,6 +53,12 @@
     },
     "links": {
       "home": "Home"
+    },
+    "login_view": {
+      "email" : "E-mail",
+      "error": "An error has occured with your account. Please contact the technical team for support.",
+      "password" : "Password",
+      "remember" : "Remember me"
     },
     "navigation": {
       "account": "Account",

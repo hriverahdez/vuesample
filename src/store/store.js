@@ -9,6 +9,7 @@ import dialogAlertModule from '@/store/modules/dialogAlert'
 // import endpointModule from '@/store/modules/endpoint'
 import reportModule from '@/store/modules/reportModule'
 import translationsModule from '@/store/modules/translations'
+import userModule from '@/store/modules/userModule'
 
 // Vuex
 Vue.use(Vuex)
@@ -29,6 +30,7 @@ export const store = new Vuex.Store({
     dialogAlertModule,
     // endpointModule,
     reportModule,
-    translationsModule
+    translationsModule,
+    userModule
   }
 })

@@ -16,7 +16,9 @@
       "cancel": "Cancelar",
       "close": "Salir",
       "create": "Crear",
-      "edit": "Editar"
+      "edit": "Editar",
+      "signin": "Login",
+      "signup": "Registrarse"
     },
     "dashboard_view": {
       "app": "Aplicación",
@@ -51,6 +53,12 @@
     },
     "links": {
       "home": "Inicio"
+    },
+    "login_view": {
+      "email" : "E-mail",
+      "error": "Hay un error en tu cuenta. Por favor, contacta con el equipo técnico para más ayuda.",
+      "password" : "Contraseña",
+      "remember" : "Recordarme"
     },
     "navigation": {
       "account": "Cuenta",

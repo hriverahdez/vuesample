@@ -4,9 +4,8 @@
     v-content
       v-container(grid-list-xl text-xs-center align-content-center).dashboard__container
         router-view
-        template(v-if="checkIfVisibleDependingOnRoute()")
-          account-dialog
-          dialog-alert
+        account-dialog(v-if="checkIfVisibleDependingOnRoute()")
+        dialog-alert
     v-layout(class="floating-button-container" v-if="checkIfVisibleDependingOnRoute()")
       floating-button
     v-footer(class="footer-container blue_dark" v-if="checkIfVisibleDependingOnRoute()")
