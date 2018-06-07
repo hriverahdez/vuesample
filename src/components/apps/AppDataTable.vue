@@ -19,13 +19,35 @@
         class="elevation-1 apps-datatable"
         :rows-per-page-items="[10, 20, 30]"
         )
+        template(slot="headerCell" slot-scope="props")
+          span {{ props.header.text }}
+          v-menu(bottom offset-y @click.native.stop="" class="header-menu")
+            a(slot="activator" class="header-activator")
+              icon(name="cog" color="white" class="cog-icon")
+            v-list(class="menu-filter")
+              v-list-tile Edit network profile
+              v-list-tile Enable / disable
+
         template(slot="items" slot-scope="props")
             td(class="text-xs-left app")
-              div(class="app__container")
+              div(class="app-container")
                 icon(v-if="props.item.platform === 'android'" name="android" color="DimGray")
                 icon(v-if="props.item.platform === 'ios'" name="apple" color="LimeGreen ")
                 span(class="app__text") {{ props.item.name }}
-            td(class="text-xs-left padding-scroll") ADDCOLONY
+                v-tooltip(bottom)
+                  icon(name="cog" color="indigo" slot="activator" class="cog-icon")
+                  div lalalala
+                  div lalalala
+                  div lalalala
+                  div lalalala
+            td(class="text-xs-left padding-scroll")
+              div(class="network-item-container") ADDCOLONY
+                v-tooltip(bottom)
+                  icon(name="cog" color="indigo" slot="activator" class="cog-icon")
+                  div lalalala
+                  div lalalala
+                  div lalalala
+                  div lalalala
             td.text-xs-left ADMOB
             td.text-xs-left APPLOVIN
             td.text-xs-left CHARBOOST
@@ -64,23 +86,23 @@ export default {
         color: 'red'
       },
       // { text: 'Impressions', value: 'impressions' },
-      { text: 'ADCOLONY', value: 'ADCOLONY' },
-      { text: 'ADMOB', value: 'ADMOB' },
-      { text: 'APPLOVIN', value: 'APPLOVIN' },
-      { text: 'CHARTBOOST', value: 'CHARTBOOST' },
-      { text: 'CUSTOM CAMPAIGN', value: 'CUSTOM CAMPAIGN' },
-      { text: 'FACEBOOK', value: 'FACEBOOK' },
-      { text: 'HYPRMX', value: 'HYPRMX' },
-      { text: 'KIIP', value: 'KIIP' },
-      { text: 'INMOBI', value: 'INMOBI' },
-      { text: 'IRONSOURCE', value: 'IRONSOURCE' },
-      { text: 'MOBUSI', value: 'MOBUSI' },
-      { text: 'MOBUSI SSP', value: 'MOBUSI SSP' },
-      { text: 'MOBVISTA', value: 'MOBVISTA' },
-      { text: 'MOPUB', value: 'MOPUB' },
-      { text: 'UNITYADS', value: 'UNITYADS' },
-      { text: 'STARTAPP', value: 'STARTAPP' },
-      { text: 'VUNGLE', value: 'VUNGLE' }
+      { text: 'ADCOLONY', value: 'ADCOLONY', sortable: false },
+      { text: 'ADMOB', value: 'ADMOB', sortable: false },
+      { text: 'APPLOVIN', value: 'APPLOVIN', sortable: false },
+      { text: 'CHARTBOOST', value: 'CHARTBOOST', sortable: false },
+      { text: 'CUSTOM CAMPAIGN', value: 'CUSTOM CAMPAIGN', sortable: false },
+      { text: 'FACEBOOK', value: 'FACEBOOK', sortable: false },
+      { text: 'HYPRMX', value: 'HYPRMX', sortable: false },
+      { text: 'KIIP', value: 'KIIP', sortable: false },
+      { text: 'INMOBI', value: 'INMOBI', sortable: false },
+      { text: 'IRONSOURCE', value: 'IRONSOURCE', sortable: false },
+      { text: 'MOBUSI', value: 'MOBUSI', sortable: false },
+      { text: 'MOBUSI SSP', value: 'MOBUSI SSP', sortable: false },
+      { text: 'MOBVISTA', value: 'MOBVISTA', sortable: false },
+      { text: 'MOPUB', value: 'MOPUB', sortable: false },
+      { text: 'UNITYADS', value: 'UNITYADS', sortable: false },
+      { text: 'STARTAPP', value: 'STARTAPP', sortable: false },
+      { text: 'VUNGLE', value: 'VUNGLE', sortable: false }
     ],
     search: ''
   }),
@@ -91,33 +113,85 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
-td {
-  cursor: pointer;
-}
-.app {
-  position: absolute;
-  background: white;
-  display: flex;
-  align-items: center;
-  height: 47px;
-  border-right: 1px solid rgba(0,0,0,0.12)
-}
-.padding-scroll {
-  padding-left: 300px!important;
-}
-.app__container {
-  display: flex;
-  svg {
+.apps-datatable {
+  /deep/ td {
+    cursor: pointer;
+    z-index: 2!important;
+  }
+  /deep/ th {
+    cursor: pointer;
+    z-index: 2!important;
+  }
+  .app {
+    position: absolute;
+    background: white;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid rgba(0,0,0,0.12);
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+
+    .tooltip {
+      /deep/ span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  tr:nth-child(1) > .app {
+    border-bottom: none;
+  }
+  .padding-scroll {
+    padding-left: 300px!important;
+  }
+  .app-container {
+    display: flex;
+    align-items: center;
+    svg {
+      margin-right: 8px;
+    }
+  }
+  .app__text {
+    min-width: 200px;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .header-menu {
+    height: 16px;
     margin-right: 8px;
+    width: 13px;
+    z-index: 0;
+  }
+  th:first-of-type {
+    .header-menu  {
+      display: none!important;
+    }
+  }
+  .header-activator {
+    height: 13px;
+    margin-left: 4px;
+  }
+  .cog-icon {
+    height: 13px;
+  }
+  .network-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .tooltip {
+      /deep/ span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 4px;
+      }
+    }
   }
 }
-.app__text {
-  min-width: 200px;
-  max-width: 200px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+
 </style>
