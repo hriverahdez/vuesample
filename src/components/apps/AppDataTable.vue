@@ -53,6 +53,13 @@
                       v-for="(item, index) in appMenuOptions"
                       :key="index"
                       @click="") {{ $t(item) }}
+                      v-switch(
+                        v-if="index === 2"
+                        light
+                        :label="check"
+                        color="success"
+                        hide-details
+                        )
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
               div(class="network-item-container")
@@ -132,7 +139,6 @@ export default {
     border-right: 1px solid rgba(0,0,0,0.12);
   }
   /deep/ th {
-    cursor: pointer;
     z-index: 2!important;
   }
   /deep/ tr:hover {
@@ -196,6 +202,7 @@ export default {
   }
   .cog-icon {
     height: 12px;
+    cursor: pointer;
   }
   .network-item-container {
     display: flex;
