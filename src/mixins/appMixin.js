@@ -20,7 +20,6 @@ const appMixin = {
       'appDialogStatusAction'
     ]),
     createApp (name, platform, bundle) {
-      console.log('entraaaaaaaaaa')
       this.$apollo.mutate({
         mutation: CREATE_NEW_APP,
         context: {
@@ -38,7 +37,7 @@ const appMixin = {
           // Read the data from our cache for this query.
           const data = store.readQuery({ query: APP_DATA })
           // Add our tag from the mutation to the end
-          data.app.push(createApp)
+          data.apps.push(createApp)
           // Write our data back to the cache.
           store.writeQuery({ query: APP_DATA, data })
         }
