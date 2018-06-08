@@ -15,13 +15,13 @@
       "API_not_integrated": "Not integrated",
       "API_working": "API working",
       "app_delete": "Delete",
-      "app_disable_enable": "Disable / enable",
+      "app_enable_disable": "Enable / disable:",
       "app_edit": "Edit",
       "app_search": "App search",
       "apps_title": "Apps list",
-      "edit_create_network_profiles": "Edit / create network profiles",
-      "enable_disable_network": "Enable / disable",
+      "enable_disable_network": "Enable / disable:",
       "manage_ad_placements": "Manage ad placements",
+      "manage_network_profiles": "Manage network profiles",
       "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {

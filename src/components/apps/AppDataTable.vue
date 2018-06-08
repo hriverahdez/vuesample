@@ -36,7 +36,15 @@
               v-list-tile(
                 v-for="(item, index) in networkMenuOptions"
                 :key="index"
-                @click="") {{ $t(item) }}
+                @click.native.stop="") {{ $t(item) }}
+                v-switch(
+                  v-if="index === 1"
+                  light
+                  color="success"
+                  v-model="networkSwitchStatus"
+                  hide-details
+                  class="switch"
+                  )
 
         template(slot="items" slot-scope="props")
             td(class="text-xs-left app")
@@ -52,13 +60,14 @@
                       class="app-column-menu__list__item"
                       v-for="(item, index) in appMenuOptions"
                       :key="index"
-                      @click="") {{ $t(item) }}
+                      @click.native.stop="") {{ $t(item) }}
                       v-switch(
                         v-if="index === 2"
                         light
-                        :label="check"
                         color="success"
+                        v-model="appSwitchStatus"
                         hide-details
+                        class="switch"
                         )
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
@@ -82,10 +91,11 @@ export default {
     appMenuOptions: [
       'apps_view.app_edit',
       'apps_view.app_delete',
-      'apps_view.app_disable_enable',
+      'apps_view.app_enable_disable',
       'apps_view.manage_ad_placements',
       'apps_view.waterfall_debugger'
     ],
+    appSwitchStatus: false,
     headers: [
       {
         text: 'Name',
@@ -112,9 +122,10 @@ export default {
       { text: 'VUNGLE', value: 'VUNGLE', sortable: false }
     ],
     networkMenuOptions: [
-      'apps_view.edit_create_network_profiles',
+      'apps_view.manage_network_profiles',
       'apps_view.enable_disable_network'
     ],
+    networkSwitchStatus: false,
     search: '',
     prueba: ''
   }),
@@ -272,6 +283,11 @@ export default {
       }
     }
   }
+}
+
+.switch {
+  margin-left: 12px;
+  padding-top: 5px;
 }
 
 

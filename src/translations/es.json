@@ -19,9 +19,9 @@
       "app_edit": "Editar",
       "app_search": "Buscar app",
       "apps_title": "Listado de apps",
-      "edit_create_network_profiles": "Editar / crear perfil de red",
       "enable_disable_network": "Habilitar / deshabilitar",
       "manage_ad_placements": "Configurar zona anuncio",
+      "manage_network_profiles": "Configurar perfil de red",
       "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {
