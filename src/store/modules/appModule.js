@@ -5,7 +5,6 @@ const networks = {
   ADMOB: '1002',
   APPLOVIN: '1008',
   CHARTBOOST: '1007',
-  CUSTOM_CAMPAIGN: '1011',
   FACEBOOK: '1009',
   HYPRMX: '1015',
   KIIP: '1006',
