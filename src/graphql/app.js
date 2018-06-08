@@ -10,16 +10,6 @@ export const APP_DATA = gql`
     disabled
     bundle
     platform
-    dateCreation {
-      date
-    }
-    dateLastUpdate {
-      date
-    }
-    adPlacements {
-      slug
-      formatId
-    }
     networks {
       profile
       formats {
@@ -33,4 +23,15 @@ export const APP_DATA = gql`
     }
   }
 }
+`
+
+export const CREATE_NEW_APP = gql`
+  mutation createApp($input: CreateAppInput!){
+    createApp(input: $input) {
+      app {
+        _id
+        name
+      }
+    }
+  }
 `

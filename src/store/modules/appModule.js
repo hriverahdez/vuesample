@@ -1,4 +1,5 @@
 const APP_DATA = 'APP_DATA'
+const APP_DIALOG_STATUS = 'APP_DIALOG_STATUS'
 
 const networks = {
   ADCOLONY: '1003',
@@ -21,12 +22,16 @@ const networks = {
 
 const state = {
   apps: [],
+  appDialogStatus: false,
   networks
 }
 
 const getters = {
   appDataGetter (state) {
     return state.apps
+  },
+  appDialogStatusGetter (state) {
+    return state.appDialogStatus
   },
   appIdAndNameGetter (state, getters) {
     const createdObject = []
@@ -60,12 +65,18 @@ const getters = {
 const mutations = {
   [APP_DATA] (state, data) {
     state.apps = data
+  },
+  [APP_DIALOG_STATUS] (state, status) {
+    state.appDialogStatus = status
   }
 }
 
 const actions = {
   appDataAction ({commit}, data) {
     commit(APP_DATA, data)
+  },
+  appDialogStatusAction ({commit}, showDialog) {
+    commit(APP_DIALOG_STATUS, showDialog)
   }
 }
 

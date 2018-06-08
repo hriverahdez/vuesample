@@ -11,17 +11,24 @@
     "apps_view": {
       "API_check_config": "API check config",
       "API_failing": "API failing",
+      "app_delete": "Delete",
+      "app_description": "Description",
+      "app_edit": "Edit",
+      "app_enable_disable": "Enable / disable:",
+      "app_name": "App name",
+      "app_search": "App search",
+      "app_URL": "App URL",
       "API_no_data": "No API data",
       "API_not_integrated": "Not integrated",
       "API_working": "API working",
-      "app_delete": "Delete",
-      "app_enable_disable": "Enable / disable:",
-      "app_edit": "Edit",
-      "app_search": "App search",
       "apps_title": "Apps list",
+      "bundle_identifier": "Bundle identifier",
+      "create_new_app": "New app",
       "enable_disable_network": "Enable / disable:",
+      "icon_text": "Icon:",
       "manage_ad_placements": "Manage ad placements",
       "manage_network_profiles": "Manage network profiles",
+      "select_platform": "Select platform",
       "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {
@@ -29,7 +36,11 @@
       "cancel": "Cancel",
       "close": "Close",
       "create": "Create",
-      "edit": "Edit"
+      "edit": "Edit",
+      "exit": "Exit"
+    },
+    "copies": {
+      "drag_and_drop": "Drag and drop a file or click"
     },
     "dashboard_view": {
       "app": "App",
@@ -58,6 +69,10 @@
       "revenue": "revenue",
       "select_date": "Select date",
       "to": "To:"
+    },
+    "floating_btn": {
+      "new_app": "New app",
+      "new_account": "New account"
     },
     "footer": {
       "copyright": "© 2018 Fibonad - All rights reserved"

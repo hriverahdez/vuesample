@@ -3,7 +3,7 @@
     v-container
       v-layout(wrap xs12 class="card__row-title")
         v-flex(xs2)
-            v-card-title(class="title headings--text") {{ $t('apps_view.apps_title' )}}
+            v-card-title(class="title headings--text") {{ $t('apps_view.apps_title' )}}}
         v-flex(xs6)
             div(class="help-colors")
               div(class="API-working help-text") {{ $t('apps_view.API_working') }}

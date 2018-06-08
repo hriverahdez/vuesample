@@ -16,12 +16,19 @@
       "API_working": "Funcionando",
       "app_delete": "Eliminar",
       "app_disable_enable": "Habilitar / deshabilitar",
+      "app_description": "Descripción",
       "app_edit": "Editar",
+      "app_name": "Nombre app",
       "app_search": "Buscar app",
+      "app_URL": "Aplicación URL",
       "apps_title": "Listado de apps",
+      "bundle_identifier": "Identificador de bundle",
+      "create_new_app": "Crear app",
       "enable_disable_network": "Habilitar / deshabilitar",
+      "icon_text": "Icono:",
       "manage_ad_placements": "Configurar zona anuncio",
       "manage_network_profiles": "Configurar perfil de red",
+      "select_platform": "Selecciona plataforma",
       "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {
@@ -29,7 +36,11 @@
       "cancel": "Cancelar",
       "close": "Salir",
       "create": "Crear",
-      "edit": "Editar"
+      "edit": "Editar",
+      "exit": "Salir"
+    },
+    "copies": {
+      "drag_and_drop": "Arrastre un fichero o haga click"
     },
     "dashboard_view": {
       "app": "Aplicación",
@@ -58,6 +69,10 @@
       "revenue": "ganancias",
       "select_date": "Selecciona fecha",
       "to": "Hasta:"
+    },
+    "floating_btn": {
+      "new_app": "Crear app",
+      "new_account": "Crear cuenta"
     },
     "footer": {
       "copyright": "© 2018 Fibonad - Todos los derechos reservados"
