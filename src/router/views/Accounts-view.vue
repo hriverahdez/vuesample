@@ -2,8 +2,8 @@
   v-container(class="accounts__section")
     v-layout(wrap class="card__row-title")
       v-flex(xs12)
-        v-breadcrumbs(divider="/" large)
-          v-breadcrumbs-item {{ $t('navigation.accounts') }}
+        //- v-breadcrumbs(divider="/" large)
+        //-   v-breadcrumbs-item {{ $t('navigation.accounts') }}
         accounts-data-table
 </template>
 

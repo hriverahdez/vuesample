@@ -73,6 +73,7 @@
 </template>
 
 <script>
+// Vuex imports
 import { mapGetters } from 'vuex'
 
 export default {

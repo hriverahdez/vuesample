@@ -104,7 +104,8 @@ const createAccountMixin = {
           })
           store.writeQuery({ query: GET_ACCOUNTS, data })
         }
-      }).then(() => {
+      })
+      .then(() => {
         this.editedIndexStatusAction(-1)
         this.SET_ALERT_MESSAGE({
           show: true,
