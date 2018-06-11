@@ -98,7 +98,7 @@
                     ) {{ $t('apps_view.waterfall_debugger') }}
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
-              div(class="network-item-container")
+              div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" color="indigo" slot="activator" class="cog-icon")
 
         template(slot="no-data")
@@ -172,6 +172,7 @@ export default {
   methods: {
     ...mapActions([
       'appDialogStatusAction',
+      'appNetworkConfigDialogStatusAction',
       'appRemoveDialogStatusAction',
       'appIdAction',
       'editedAppIndexStatusAction'
@@ -187,6 +188,10 @@ export default {
       this.editedApp = Object.assign({}, app)
       this.APP_DATA(this.editedApp)
       this.appDialogStatusAction(true)
+    },
+    selectedCell (networkName, appName, appId) {
+      console.log('lolololo', networkName, appName, appId)
+      this.appNetworkConfigDialogStatusAction(true)
     }
   }
 }

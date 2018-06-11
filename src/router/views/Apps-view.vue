@@ -8,6 +8,7 @@
           template(v-else)
             loader-component
           app-remove-dialog
+          app-network-configuration-dialog
 </template>
 
 
@@ -15,6 +16,7 @@
 <script>
 // Components imports
 import AppsDataTable from '@/components/apps/AppDataTable'
+import AppNetworkConfigurationDialog from '@/components/apps/AppNetworkConfigurationDialog'
 import AppRemoveDialog from '@/components/apps/AppRemoveDialog'
 import LoaderComponent from '@/components/LoaderComponent'
 // Mixins imports
@@ -27,6 +29,7 @@ export default {
   name: 'apps-view',
   components: {
     AppsDataTable,
+    AppNetworkConfigurationDialog,
     AppRemoveDialog,
     LoaderComponent
   },

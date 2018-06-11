@@ -4,6 +4,7 @@ const APP_DATA = 'APP_DATA'
 const APPS_DATA = 'APPS_DATA'
 const APP_DIALOG_STATUS = 'APP_DIALOG_STATUS'
 const APP_ID = 'APP_ID'
+const APP_NETWORK_CONFIG_DIALOG_STATUS = 'APP_NETWORK_CONFIG_DIALOG_STATUS'
 const APP_REMOVE_DIALOG_STATUS = 'APP_REMOVE_DIALOG_STATUS'
 const EDIT_APP_INDEX_STATUS = 'EDIT_APP_INDEX_STATUS'
 const REMOVE_APP_PERMISSION_INPUT = 'REMOVE_APP_PERMISSION_INPUT'
@@ -39,6 +40,7 @@ const state = {
   },
   appDialogStatus: false,
   appId: '',
+  appNetworkConfigDialogStatus: false,
   appRemoveDialogStatus: false,
   // Index element to know if its edited mode
   editedAppIndex: -1,
@@ -76,6 +78,9 @@ const getters = {
     })
     return appNames
   },
+  appNetworkConfigDialogStatusGetter (state) {
+    return state.appNetworkConfigDialogStatus
+  },
   editedAppIndexGetter (state) {
     return state.editedAppIndex
   },
@@ -107,6 +112,9 @@ const mutations = {
   [APP_ID] (state, id) {
     state.appId = id
   },
+  [APP_NETWORK_CONFIG_DIALOG_STATUS] (state, status) {
+    state.appNetworkConfigDialogStatus = status
+  },
   [APP_REMOVE_DIALOG_STATUS] (state, status) {
     state.appRemoveDialogStatus = status
   },
@@ -127,6 +135,9 @@ const actions = {
   },
   appIdAction ({commit}, id) {
     commit(APP_ID, id)
+  },
+  appNetworkConfigDialogStatusAction ({commit}, showDialog) {
+    commit(APP_NETWORK_CONFIG_DIALOG_STATUS, showDialog)
   },
   appRemoveDialogStatusAction ({commit}, showDialog) {
     commit(APP_REMOVE_DIALOG_STATUS, showDialog)

@@ -11,6 +11,7 @@ export const APPS_DATA = gql`
     bundle
     platform
     networks {
+      networkId
       profile
       formats {
         premium
