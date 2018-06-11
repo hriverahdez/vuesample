@@ -2,6 +2,7 @@ const APP_DATA = 'APP_DATA'
 const APP_DIALOG_STATUS = 'APP_DIALOG_STATUS'
 const APP_ID = 'APP_ID'
 const APP_REMOVE_DIALOG_STATUS = 'APP_REMOVE_DIALOG_STATUS'
+const REMOVE_APP_PERMISSION_INPUT = 'REMOVE_APP_PERMISSION_INPUT'
 
 const networks = {
   ADCOLONY: '1003',
@@ -28,7 +29,8 @@ const state = {
   appId: '',
   appRemoveDialogStatus: false,
   appName: '',
-  networks
+  networks,
+  removeAppPermissionInput: ''
 }
 
 const getters = {
@@ -67,6 +69,9 @@ const getters = {
   },
   networksGetter (state) {
     return state.networks
+  },
+  removeAppPermissionInputGetter (state) {
+    return state.removeAppPermissionInput
   }
 }
 
@@ -82,6 +87,9 @@ const mutations = {
   },
   [APP_REMOVE_DIALOG_STATUS] (state, status) {
     state.appRemoveDialogStatus = status
+  },
+  [REMOVE_APP_PERMISSION_INPUT] (state, data) {
+    state.removeAppPermissionInput = data
   }
 }
 
@@ -97,6 +105,9 @@ const actions = {
   },
   appRemoveDialogStatusAction ({commit}, showDialog) {
     commit(APP_REMOVE_DIALOG_STATUS, showDialog)
+  },
+  removeAppPermissionInputAction ({commit}, data) {
+    commit(REMOVE_APP_PERMISSION_INPUT, data)
   }
 }
 

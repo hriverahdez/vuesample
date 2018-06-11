@@ -19,7 +19,8 @@ const appMixin = {
       'appDataAction',
       'appDialogStatusAction',
       'appIdAction',
-      'appRemoveDialogStatusAction'
+      'appRemoveDialogStatusAction',
+      'removeAppPermissionInputAction'
     ]),
     createApp (name, platform, bundle) {
       this.$apollo.mutate({
@@ -74,6 +75,7 @@ const appMixin = {
         }
       }).then(() => {
         this.appRemoveDialogStatusAction(false)
+        this.removeAppPermissionInputAction('')
       })
     }
   },

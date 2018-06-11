@@ -10,7 +10,7 @@
               v-flex(xs12)
                 v-text-field(
                   :label="this.$t('apps_view.remove_app_message')"
-                  v-model="remove_permission"
+                  v-model="$store.state.appModule.removeAppPermissionInput"
                   class="formElementColor--text"
                   hide-details
                   required
@@ -42,7 +42,6 @@ export default {
   },
   data () {
     return {
-      remove_permission: '',
       valid: false
     }
   },
@@ -57,16 +56,19 @@ export default {
   },
   computed: {
     ...mapGetters({
-      appId: 'appIdGetter'
+      appId: 'appIdGetter',
+      remove_permission: 'removeAppPermissionInputGetter'
     })
   },
   methods: {
     ...mapActions([
-      'appRemoveDialogStatusAction'
+      'appRemoveDialogStatusAction',
+      'removeAppPermissionInputAction'
     ]),
     // Close dialog layer
     closeDialog () {
       this.appRemoveDialogStatusAction(false)
+      this.removeAppPermissionInputAction('')
     },
     sendDeleteAppEvent () {
       this.$root.$emit('deleteApp', this.appId)
