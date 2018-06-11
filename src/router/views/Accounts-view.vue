@@ -15,6 +15,7 @@ import AccountsDataTable from '@/components/accounts/AccountsDataTable'
 import LoaderComponent from '@/components/LoaderComponent'
 // Mixins
 import accountMixin from '@/mixins/accountMixin'
+import appMixin from '@/mixins/appMixin'
 // Vuex imports
 import { mapGetters } from 'vuex'
 
@@ -28,6 +29,6 @@ export default {
       accountsDataTable: 'accountsDataGetter'
     })
   },
-  mixins: [accountMixin]
+  mixins: [accountMixin, appMixin]
 }
 </script>
