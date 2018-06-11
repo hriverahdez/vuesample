@@ -4,11 +4,13 @@ const APP_DATA = 'APP_DATA'
 const APPS_DATA = 'APPS_DATA'
 const APP_DIALOG_STATUS = 'APP_DIALOG_STATUS'
 const APP_ID = 'APP_ID'
+const APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS = 'APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS'
 const APP_NETWORK_CONFIG_DIALOG_STATUS = 'APP_NETWORK_CONFIG_DIALOG_STATUS'
 const APP_REMOVE_DIALOG_STATUS = 'APP_REMOVE_DIALOG_STATUS'
 const EDIT_APP_INDEX_STATUS = 'EDIT_APP_INDEX_STATUS'
 const REMOVE_APP_PERMISSION_INPUT = 'REMOVE_APP_PERMISSION_INPUT'
 const SELECTED_APP_NETWORK_DATATABLE = 'SELECTED_APP_NETWORK_DATATABLE'
+const SELECTED_NETWORK_TO_MANAGE = 'SELECTED_APP_NETWORK_DATATABLE'
 
 const networks = {
   ADCOLONY: '1003',
@@ -41,13 +43,15 @@ const state = {
   },
   appDialogStatus: false,
   appId: '',
+  appManageNetworkProfileDialogStatus: false,
   appNetworkConfigDialogStatus: false,
   appRemoveDialogStatus: false,
   // Index element to know if its edited mode
   editedAppIndex: -1,
   networks,
   removeAppPermissionInput: '',
-  selectedAppNetworkInDatatable: {}
+  selectedAppNetworkInDatatable: {},
+  selectedNetworkToManage: ''
 }
 
 const getters = {
@@ -72,6 +76,9 @@ const getters = {
       createdObject.push(appObject)
     })
     return createdObject
+  },
+  appManageNetworkProfileDialogStatusGetter (state) {
+    return state.appManageNetworkProfileDialogStatus
   },
   appNamesGetter (state, getters) {
     const appNames = []
@@ -101,6 +108,9 @@ const getters = {
   },
   selectedAppNetworkInDatatableGetter (state) {
     return state.selectedAppNetworkInDatatable
+  },
+  selectedNetworkToManageGetter (state) {
+    return state.selectedNetworkToManage
   }
 }
 
@@ -117,6 +127,9 @@ const mutations = {
   [APP_ID] (state, id) {
     state.appId = id
   },
+  [APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS] (state, status) {
+    state.appManageNetworkProfileDialogStatus = status
+  },
   [APP_NETWORK_CONFIG_DIALOG_STATUS] (state, status) {
     state.appNetworkConfigDialogStatus = status
   },
@@ -131,6 +144,9 @@ const mutations = {
   },
   [SELECTED_APP_NETWORK_DATATABLE] (state, data) {
     state.selectedAppNetworkInDatatable = data
+  },
+  [SELECTED_NETWORK_TO_MANAGE] (state, network) {
+    state.selectedNetworkToManage = network
   }
 }
 
@@ -143,6 +159,9 @@ const actions = {
   },
   appIdAction ({commit}, id) {
     commit(APP_ID, id)
+  },
+  appManageNetworkProfileDialogStatusAction ({commit}, showDialog) {
+    commit(APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS, showDialog)
   },
   appNetworkConfigDialogStatusAction ({commit}, showDialog) {
     commit(APP_NETWORK_CONFIG_DIALOG_STATUS, showDialog)
@@ -161,6 +180,9 @@ const actions = {
   },
   selectedAppNetworkInDatatableAction ({commit}, data) {
     commit(SELECTED_APP_NETWORK_DATATABLE, data)
+  },
+  selectedNetworkToManageAction ({commit}, network) {
+    commit(SELECTED_NETWORK_TO_MANAGE, network)
   }
 }
 

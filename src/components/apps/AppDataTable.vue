@@ -33,15 +33,27 @@
             a(slot="activator" class="header-activator")
               icon(name="cog" color="white" class="cog-icon")
             v-list(class="apps-view-list")
+              //- v-list-tile(
+              //-   v-for="(item, index) in networkMenuOptions"
+              //-   :key="index"
+              //-   @click.native.stop="prueba") {{ $t(item) }}
+              //-   v-switch(
+              //-     v-if="index === 1"
+              //-     light
+              //-     color="success"
+              //-     v-model="networkSwitchStatus"
+              //-     hide-details
+              //-     class="switch"
+              //-     )
               v-list-tile(
-                v-for="(item, index) in networkMenuOptions"
-                :key="index"
-                @click.native.stop="") {{ $t(item) }}
+                @click.native.stop="showManageNetworkProfiles(props.header.text)"
+                class="header-tile"
+                ) {{ $t('apps_view.manage_network_profiles')}}
+              v-list-tile(@click.native.stop="" class="header-tile") {{ $t('apps_view.enable_disable_network')}}
                 v-switch(
-                  v-if="index === 1"
                   light
                   color="success"
-                  v-model="networkSwitchStatus"
+                  v-model="appSwitchStatus"
                   hide-details
                   class="switch"
                   )
@@ -71,7 +83,7 @@
                     //-     )
                     v-list-tile(
                       class="app-column-menu__list__item"
-                      @click.native.stop="showEditAccountDialog(props.item)"
+                      @click.native.stop="showEditAppDialog(props.item)"
                     ) {{ $t('apps_view.app_edit') }}
                     v-list-tile(
                       class="app-column-menu__list__item"
@@ -105,7 +117,7 @@
             v-alert(
             :value="true"
             color="error"
-            icon="warning") {{ $t('accounts_view.alert_message')}}
+            icon="warning") {{ $t('apps_view.alert_message')}}
 </template>
 
 <script>
@@ -155,13 +167,12 @@ export default {
       { text: 'STARTAPP', value: 'STARTAPP', sortable: false },
       { text: 'VUNGLE', value: 'VUNGLE', sortable: false }
     ],
-    networkMenuOptions: [
-      'apps_view.manage_network_profiles',
-      'apps_view.enable_disable_network'
-    ],
+    // networkMenuOptions: [
+    //   'apps_view.manage_network_profiles',
+    //   'apps_view.enable_disable_network'
+    // ],
     networkSwitchStatus: false,
-    search: '',
-    prueba: ''
+    search: ''
   }),
   computed: {
     ...mapGetters({
@@ -172,11 +183,13 @@ export default {
   methods: {
     ...mapActions([
       'appDialogStatusAction',
+      'appManageNetworkProfileDialogStatusAction',
       'appNetworkConfigDialogStatusAction',
       'appRemoveDialogStatusAction',
       'appIdAction',
       'editedAppIndexStatusAction',
-      'selectedAppNetworkInDatatableAction'
+      'selectedAppNetworkInDatatableAction',
+      'selectedNetworkToManageAction'
     ]),
     ...mapMutations(['APP_DATA']),
     showDeleteDialog (app) {
@@ -184,16 +197,21 @@ export default {
       .then(() => this.appIdAction(app._id))
     },
     // Show edit app dialog
-    showEditAccountDialog (app) {
+    showEditAppDialog (app) {
       this.editedAppIndexStatusAction(this.apps.indexOf(app))
       this.editedApp = Object.assign({}, app)
       this.APP_DATA(this.editedApp)
       this.appDialogStatusAction(true)
     },
-    // Send data to show the app-network configuration corresponding dialog
+    // Send data to show the app-network configuration corresponding dialog from datatable cell
     selectedCell (networkName, appName, appId) {
       this.appNetworkConfigDialogStatusAction(true)
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
+    },
+     // Show the corresponding network profile dialog from datatable header
+    showManageNetworkProfiles (networkName) {
+      this.appManageNetworkProfileDialogStatusAction(true)
+      this.selectedNetworkToManageAction(networkName)
     }
   }
 }
@@ -351,9 +369,10 @@ export default {
   padding-top: 5px;
 }
 
-.app-column-menu__list__item:hover {
+.app-column-menu__list__item:hover, .header-tile:hover {
   background: rgba(0,0,0,0.12);
 }
+
 
 
 </style>

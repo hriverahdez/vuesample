@@ -9,6 +9,7 @@
       "new_success": "New account created"
     },
     "apps_view": {
+      "alert_message": "No apps available",
       "API_check_config": "API check config",
       "API_failing": "API failing",
       "app_delete": "Delete",

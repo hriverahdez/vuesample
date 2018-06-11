@@ -9,6 +9,7 @@
       "new_success": "Nueva cuenta creada"
     },
     "apps_view": {
+      "alert_message": "Ninguna app disponible",
       "API_check_config": "API configurada",
       "API_failing": "API error",
       "API_no_data": "API sin datos",

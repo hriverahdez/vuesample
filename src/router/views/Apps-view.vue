@@ -9,6 +9,7 @@
             loader-component
           app-remove-dialog
           app-network-configuration-dialog
+          app-manage-network-profile-dialog
 </template>
 
 
@@ -16,6 +17,7 @@
 <script>
 // Components imports
 import AppsDataTable from '@/components/apps/AppDataTable'
+import AppManageNetworkProfileDialog from '@/components/apps/AppManageNetworkProfileDialog'
 import AppNetworkConfigurationDialog from '@/components/apps/AppNetworkConfigurationDialog'
 import AppRemoveDialog from '@/components/apps/AppRemoveDialog'
 import LoaderComponent from '@/components/LoaderComponent'
@@ -29,6 +31,7 @@ export default {
   name: 'apps-view',
   components: {
     AppsDataTable,
+    AppManageNetworkProfileDialog,
     AppNetworkConfigurationDialog,
     AppRemoveDialog,
     LoaderComponent
