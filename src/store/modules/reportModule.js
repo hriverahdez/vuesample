@@ -15,7 +15,7 @@ const state = {
     startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
   },
   groupedBy: 'DATE',
-  stats: [],
+  networkStats: [],
   statsDataFormatted: [],
   range: []
 }
@@ -37,7 +37,7 @@ const getters = {
     return state.groupedBy
   },
   statsDataGetter (state) {
-    return state.stats
+    return state.networkStats
   },
   // Formatted Data to show stats info
   statsDataFormattedGetter (state, getters) {
@@ -77,7 +77,7 @@ const mutations = {
     state.groupedBy = val
   },
   [STATS_DATA] (state, data) {
-    state.stats = data
+    state.networkStats = data
   }
 }
 
