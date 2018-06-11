@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      appsDataTable: 'appDataGetter'
+      appsDataTable: 'appsDataGetter'
     })
   },
   mixins: [

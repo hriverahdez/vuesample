@@ -1,10 +1,10 @@
-import { APP_DATA, CREATE_NEW_APP, DELETE_APP } from '@/graphql/app'
+import { APPS_DATA, CREATE_NEW_APP, DELETE_APP } from '@/graphql/app'
 import { mapActions } from 'vuex'
 
 const appMixin = {
   apollo: {
     apps: {
-      query: APP_DATA,
+      query: APPS_DATA,
       context: {
         uri: 'app'
       },
@@ -20,6 +20,7 @@ const appMixin = {
       'appDialogStatusAction',
       'appIdAction',
       'appRemoveDialogStatusAction',
+      'appSchemaAction',
       'removeAppPermissionInputAction'
     ]),
     createApp (name, platform, bundle) {
@@ -38,11 +39,11 @@ const appMixin = {
         },
         update: (store, { data: { createApp } }) => {
           // Read the data from our cache for this query.
-          const data = store.readQuery({ query: APP_DATA })
+          const data = store.readQuery({ query: APPS_DATA })
           // Add our tag from the mutation to the end
           data.apps.push(createApp)
           // Write our data back to the cache.
-          store.writeQuery({ query: APP_DATA, data })
+          store.writeQuery({ query: APPS_DATA, data })
         }
       })
       .then(() => {
@@ -55,6 +56,13 @@ const appMixin = {
         })
       })
       this.appDialogStatusAction(false)
+      this.appSchemaAction({
+        name: '',
+        bundle: '',
+        platform: '',
+        URL: '',
+        description: ''
+      })
     },
     // Delete App mutation
     deleteApp (app) {
@@ -67,11 +75,11 @@ const appMixin = {
           _id: app
         },
         update: (store) => {
-          const data = store.readQuery({ query: APP_DATA })
+          const data = store.readQuery({ query: APPS_DATA })
           data.apps = data.apps.filter((item) => {
             return item._id !== app
           })
-          store.writeQuery({ query: APP_DATA, data })
+          store.writeQuery({ query: APPS_DATA, data })
         }
       }).then(() => {
         this.appRemoveDialogStatusAction(false)

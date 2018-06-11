@@ -71,7 +71,7 @@
                     //-     )
                     v-list-tile(
                       class="app-column-menu__list__item"
-                      @click.native.stop=""
+                      @click.native.stop="showEditAccountDialog(props.item)"
                     ) {{ $t('apps_view.app_edit') }}
                     v-list-tile(
                       class="app-column-menu__list__item"
@@ -110,7 +110,7 @@
 
 <script>
 // Vuex imports
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'apps-data-table',
@@ -123,6 +123,13 @@ export default {
     //   'apps_view.waterfall_debugger'
     // ],
     appSwitchStatus: false,
+    editedApp: {
+      name: '',
+      bundle: '',
+      platform: '',
+      URL: '',
+      description: ''
+    },
     headers: [
       {
         text: 'Name',
@@ -158,18 +165,28 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      apps: 'appDataGetter',
+      apps: 'appsDataGetter',
       networks: 'networkNamesGetter'
     })
   },
   methods: {
     ...mapActions([
+      'appDialogStatusAction',
       'appRemoveDialogStatusAction',
-      'appIdAction'
+      'appIdAction',
+      'editedAppIndexStatusAction'
     ]),
+    ...mapMutations(['APP_DATA']),
     showDeleteDialog (app) {
       this.appRemoveDialogStatusAction(true)
       .then(() => this.appIdAction(app._id))
+    },
+    // Show edit app dialog
+    showEditAccountDialog (app) {
+      this.editedAppIndexStatusAction(this.apps.indexOf(app))
+      this.editedApp = Object.assign({}, app)
+      this.APP_DATA(this.editedApp)
+      this.appDialogStatusAction(true)
     }
   }
 }

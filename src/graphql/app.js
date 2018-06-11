@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const APP_DATA = gql`
+export const APPS_DATA = gql`
 {
   apps {
     _id

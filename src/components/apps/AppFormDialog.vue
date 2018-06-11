@@ -18,30 +18,30 @@
                 )
                     v-text-field(
                       :label="this.$t('apps_view.app_name')"
-                      v-model="appName"
+                      v-model="appData.name"
                       class="formElementColor--text"
                       required
                     )
                     v-select(
                       :items="platforms"
                       :label="this.$t('apps_view.select_platform')"
-                      v-model="appPlatform"
+                      v-model="appData.platform"
                       required
                     )
                     v-text-field(
                       :label="this.$t('apps_view.app_URL')"
-                      v-model="appURL"
+                      v-model="appData.URL"
                       class="formElementColor--text"
                     )
                     v-text-field(
                       :label="this.$t('apps_view.bundle_identifier')"
-                      v-model="appBundleIdentifier"
+                      v-model="appData.bundle"
                       class="formElementColor--text"
                       required
                     )
                     v-text-field(
                       :label="this.$t('apps_view.app_description')"
-                      v-model="appDescription"
+                      v-model="appData.description"
                       class="formElementColor--text"
                       textarea
                     )
@@ -62,7 +62,7 @@
             color="buttonColor"
             @click.native="sendCreateNewAppEvent"
             :disabled="!valid"
-            ) {{ $t('buttons.create')}}
+            ) {{ formButtonTitle }}
 </template>
 
 <script>
@@ -76,33 +76,38 @@ export default {
     DialogAlert
   },
   data () {
-    // let component = this
     return {
-      appBundleIdentifier: '',
-      appDescription: '',
-      appName: '',
-      appPlatform: '',
-      appURL: '',
       platforms: ['ios', 'android'],
       valid: false
     }
   },
   computed: {
-    // ...mapGetters(['accountNames']),
+    appData () {
+      return this.$store.state.appModule.appData
+    },
+    editedIndex () {
+      return this.$store.state.appModule.editedAppIndex
+    },
+    // Form button title
+    formButtonTitle () {
+      return this.editedIndex === -1 ? this.$t('buttons.create') : this.$t('buttons.edit')
+    }
   },
   methods: {
     ...mapActions([
-      'appDialogStatusAction'
+      'appDialogStatusAction',
+      'editedAppIndexStatusAction'
     ]),
     // Close dialog layer
     closeDialog () {
       this.appDialogStatusAction(false)
       setTimeout(() => {
         this.$refs['newAppForm'].reset()
+        this.editedAppIndexStatusAction(-1)
       }, 300)
     },
     sendCreateNewAppEvent () {
-      this.$root.$emit('createApp', this.appName, this.appPlatform, this.appBundleIdentifier)
+      this.$root.$emit('createApp', this.appData.name, this.appData.platform, this.appData.bundle)
       setTimeout(() => {
         this.$refs['newAppForm'].reset()
       }, 300)

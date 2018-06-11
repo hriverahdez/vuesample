@@ -76,16 +76,6 @@ export default {
         this.dashboardFiltersAction(data.config)
       }
     }
-    // apps: {
-    //   query: APP_DATA,
-    //   context: {
-    //     uri: 'app'
-    //   },
-    //   loadingKey: 'loading',
-    //   update (data) {
-    //     this.appDataAction(data.apps)
-    //   }
-    // }
   },
   methods: {
     ...mapActions([

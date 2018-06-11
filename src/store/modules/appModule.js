@@ -1,7 +1,11 @@
+// Current account schema
 const APP_DATA = 'APP_DATA'
+// Total apps from query
+const APPS_DATA = 'APPS_DATA'
 const APP_DIALOG_STATUS = 'APP_DIALOG_STATUS'
 const APP_ID = 'APP_ID'
 const APP_REMOVE_DIALOG_STATUS = 'APP_REMOVE_DIALOG_STATUS'
+const EDIT_APP_INDEX_STATUS = 'EDIT_APP_INDEX_STATUS'
 const REMOVE_APP_PERMISSION_INPUT = 'REMOVE_APP_PERMISSION_INPUT'
 
 const networks = {
@@ -25,15 +29,28 @@ const networks = {
 
 const state = {
   apps: [],
+  // Comunicate account data between components
+  appData: {
+    name: '',
+    bundle: '',
+    platform: '',
+    URL: '',
+    description: ''
+  },
   appDialogStatus: false,
   appId: '',
   appRemoveDialogStatus: false,
+  // Index element to know if its edited mode
+  editedAppIndex: -1,
   networks,
   removeAppPermissionInput: ''
 }
 
 const getters = {
   appDataGetter (state) {
+    return state.appData
+  },
+  appsDataGetter (state) {
     return state.apps
   },
   appDialogStatusGetter (state) {
@@ -44,7 +61,7 @@ const getters = {
   },
   appIdAndNameGetter (state, getters) {
     const createdObject = []
-    getters.appDataGetter.map((app) => {
+    getters.appsDataGetter.map((app) => {
       let appObject = {}
       appObject['id'] = app._id
       appObject['name'] = app.name
@@ -54,10 +71,13 @@ const getters = {
   },
   appNamesGetter (state, getters) {
     const appNames = []
-    getters.appDataGetter.map((app) => {
+    getters.appsDataGetter.map((app) => {
       appNames.push(app.name)
     })
     return appNames
+  },
+  editedAppIndexGetter (state) {
+    return state.editedAppIndex
   },
   networkNamesGetter (state, getters) {
     const networkNames = []
@@ -75,7 +95,10 @@ const getters = {
 }
 
 const mutations = {
-  [APP_DATA] (state, data) {
+  [APP_DATA] (state, app) {
+    state.appData = app
+  },
+  [APPS_DATA] (state, data) {
     state.apps = data
   },
   [APP_DIALOG_STATUS] (state, status) {
@@ -87,6 +110,9 @@ const mutations = {
   [APP_REMOVE_DIALOG_STATUS] (state, status) {
     state.appRemoveDialogStatus = status
   },
+  [EDIT_APP_INDEX_STATUS] (state, indexValue) {
+    state.editedAppIndex = indexValue
+  },
   [REMOVE_APP_PERMISSION_INPUT] (state, data) {
     state.removeAppPermissionInput = data
   }
@@ -94,7 +120,7 @@ const mutations = {
 
 const actions = {
   appDataAction ({commit}, data) {
-    commit(APP_DATA, data)
+    commit(APPS_DATA, data)
   },
   appDialogStatusAction ({commit}, showDialog) {
     commit(APP_DIALOG_STATUS, showDialog)
@@ -104,6 +130,12 @@ const actions = {
   },
   appRemoveDialogStatusAction ({commit}, showDialog) {
     commit(APP_REMOVE_DIALOG_STATUS, showDialog)
+  },
+  appSchemaAction ({commit}, currentApp) {
+    commit(APP_DATA, currentApp)
+  },
+  editedAppIndexStatusAction ({commit}, indexValue) {
+    commit(EDIT_APP_INDEX_STATUS, indexValue)
   },
   removeAppPermissionInputAction ({commit}, data) {
     commit(REMOVE_APP_PERMISSION_INPUT, data)
