@@ -26,6 +26,7 @@
       "apps_title": "Apps list",
       "bundle_identifier": "Bundle identifier",
       "create_new_app": "New app",
+      "delete_app": "Deleted app succesfully",
       "edit_app": "Edit app",
       "edit_success": "Edited app",
       "enable_disable_network": "Enable / disable:",

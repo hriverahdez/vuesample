@@ -26,6 +26,7 @@
       "apps_title": "Listado de apps",
       "bundle_identifier": "Identificador de bundle",
       "create_new_app": "Crear app",
+      "delete_app": "App eliminada correctamente",
       "edit_app": "Editar app",
       "edit_success": "App editada",
       "enable_disable_network": "Habilitar / deshabilitar",

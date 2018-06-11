@@ -83,6 +83,12 @@ const appMixin = {
           store.writeQuery({ query: APPS_DATA, data })
         }
       }).then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.delete_app'),
+          buttonText: this.$t('buttons.close')
+        })
         this.appRemoveDialogStatusAction(false)
         this.removeAppPermissionInputAction('')
       })
@@ -139,7 +145,6 @@ const appMixin = {
     })
     this.$root.$on('editApp', (id, name, description) => {
       this.editApp(id, name, description)
-      console.log('entra', id, name, description)
     })
   },
   beforeDestroy () {
