@@ -9,7 +9,7 @@
             v-layout(wrap)
               v-flex(xs12)
                 v-text-field(
-                  :label="this.$t('apps_view.remove_app_message')"
+                  :label="this.$t('apps_view.remove_app_message', {number: randomNumber})"
                   v-model="$store.state.appModule.removeAppPermissionInput"
                   class="formElementColor--text"
                   hide-details
@@ -47,7 +47,7 @@ export default {
   },
   watch: {
     remove_permission (val) {
-      if (val === this.$t('buttons.remove').toUpperCase()) {
+      if (val === this.randomNumber.toString()) {
         this.valid = true
       } else {
         this.valid = false
@@ -58,7 +58,10 @@ export default {
     ...mapGetters({
       appId: 'appIdGetter',
       remove_permission: 'removeAppPermissionInputGetter'
-    })
+    }),
+    randomNumber () {
+      return Math.floor(Math.random() * 100000000)
+    }
   },
   methods: {
     ...mapActions([

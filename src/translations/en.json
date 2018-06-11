@@ -29,7 +29,7 @@
       "manage_ad_placements": "Manage ad placements",
       "manage_network_profiles": "Manage network profiles",
       "remove_app": "Remove app",
-      "remove_app_message": "If you want to remove the app write REMOVE in the text field",
+      "remove_app_message": "Write {number} in the text field ",
       "select_platform": "Select platform",
       "waterfall_debugger": "Waterfall debugger"
     },
