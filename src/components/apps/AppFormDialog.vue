@@ -14,10 +14,11 @@
                   lazy-validation
                   v-model="valid"
                   class="apps__form"
+                  ref="newAppForm"
                 )
                     v-text-field(
                       :label="this.$t('apps_view.app_name')"
-                      v-model="appName"
+                      v-model="$store.state.appModule.appName"
                       class="formElementColor--text"
                       required
                     )
@@ -55,7 +56,7 @@
             color="buttonColor"
             flat
             @click.native="closeDialog"
-            ) {{ $t('buttons.exit') }}
+            ) {{ $t('buttons.cancel') }}
           v-btn(
             class="white--text"
             color="buttonColor"
@@ -65,7 +66,7 @@
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 // Components
 import DialogAlert from '@/components/DialogAlert'
 
@@ -79,7 +80,7 @@ export default {
     return {
       appBundleIdentifier: '',
       appDescription: '',
-      appName: '',
+      // appName: '',
       appPlatform: '',
       appURL: '',
       platforms: ['ios', 'android'],
@@ -90,9 +91,16 @@ export default {
     // ...mapGetters(['accountNames']),
   },
   methods: {
-    // ...mapActions([
-    //   'accountDialogStatusAction'
-    // ]),
+    ...mapActions([
+      'appDialogStatusAction'
+    ]),
+    // Close dialog layer
+    closeDialog () {
+      this.appDialogStatusAction(false)
+      setTimeout(() => {
+        this.$refs['newAppForm'].reset()
+      }, 300)
+    },
     sendCreateNewAppEvent () {
       this.$root.$emit('createApp', this.appName, this.appPlatform, this.appBundleIdentifier)
     }

@@ -35,3 +35,9 @@ export const CREATE_NEW_APP = gql`
     }
   }
 `
+
+export const DELETE_APP = gql`
+  mutation deleteAppById($_id: [ID!]) {
+    deleteAppById(_id: $_id)
+  }
+`

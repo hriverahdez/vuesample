@@ -28,6 +28,8 @@
       "icon_text": "Icono:",
       "manage_ad_placements": "Configurar zona anuncio",
       "manage_network_profiles": "Configurar perfil de red",
+      "remove_app": "Eliminar app",
+      "remove_app_message": "Si quieres eliminar la app escribe ELIMINAR en el campo de texto",
       "select_platform": "Selecciona plataforma",
       "waterfall_debugger": "Regulador cascada"
     },
@@ -37,7 +39,8 @@
       "close": "Salir",
       "create": "Crear",
       "edit": "Editar",
-      "exit": "Salir"
+      "exit": "Salir",
+      "remove": "Eliminar"
     },
     "copies": {
       "drag_and_drop": "Arrastre un fichero o haga click"

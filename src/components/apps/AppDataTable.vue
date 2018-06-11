@@ -56,19 +56,46 @@
                   a(slot="activator" class="activator")
                     icon(name="cog" color="indigo" class="cog-icon")
                   v-list(class="app-column-menu__list apps-view-list")
+                    //- v-list-tile(
+                    //-   class="app-column-menu__list__item"
+                    //-   v-for="(item, index) in appMenuOptions"
+                    //-   :key="index"
+                    //-   @click.native.stop="menuAction") {{ $t(item) }}
+                    //-   v-switch(
+                    //-     v-if="index === 2"
+                    //-     light
+                    //-     color="success"
+                    //-     v-model="appSwitchStatus"
+                    //-     hide-details
+                    //-     class="switch"
+                    //-     )
                     v-list-tile(
                       class="app-column-menu__list__item"
-                      v-for="(item, index) in appMenuOptions"
-                      :key="index"
-                      @click.native.stop="") {{ $t(item) }}
+                      @click.native.stop=""
+                    ) {{ $t('apps_view.app_edit') }}
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      @click.native="showDeleteDialog(props.item)"
+                    ) {{ $t('apps_view.app_delete') }}
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      @click.native.stop=""
+                    ) {{ $t('apps_view.app_enable_disable') }}
                       v-switch(
-                        v-if="index === 2"
                         light
                         color="success"
                         v-model="appSwitchStatus"
                         hide-details
                         class="switch"
-                        )
+                      )
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      @click.native.stop=""
+                    ) {{ $t('apps_view.manage_ad_placements') }}
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      @click.native.stop=""
+                    ) {{ $t('apps_view.waterfall_debugger') }}
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
               div(class="network-item-container")
@@ -83,18 +110,18 @@
 
 <script>
 // Vuex imports
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'apps-data-table',
   data: () => ({
-    appMenuOptions: [
-      'apps_view.app_edit',
-      'apps_view.app_delete',
-      'apps_view.app_enable_disable',
-      'apps_view.manage_ad_placements',
-      'apps_view.waterfall_debugger'
-    ],
+    // appMenuOptions: [
+    //   'apps_view.app_edit',
+    //   'apps_view.app_delete',
+    //   'apps_view.app_enable_disable',
+    //   'apps_view.manage_ad_placements',
+    //   'apps_view.waterfall_debugger'
+    // ],
     appSwitchStatus: false,
     headers: [
       {
@@ -134,6 +161,16 @@ export default {
       apps: 'appDataGetter',
       networks: 'networkNamesGetter'
     })
+  },
+  methods: {
+    ...mapActions([
+      'appRemoveDialogStatusAction',
+      'appIdAction'
+    ]),
+    showDeleteDialog (app) {
+      this.appRemoveDialogStatusAction(true)
+      .then(() => this.appIdAction(app._id))
+    }
   }
 }
 </script>
@@ -288,6 +325,10 @@ export default {
 .switch {
   margin-left: 12px;
   padding-top: 5px;
+}
+
+.app-column-menu__list__item:hover {
+  background: rgba(0,0,0,0.12);
 }
 
 

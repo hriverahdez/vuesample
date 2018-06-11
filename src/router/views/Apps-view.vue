@@ -7,6 +7,7 @@
           apps-data-table(v-if="appsDataTable.length")
           template(v-else)
             loader-component
+          app-remove-dialog
 </template>
 
 
@@ -14,6 +15,7 @@
 <script>
 // Components imports
 import AppsDataTable from '@/components/apps/AppDataTable'
+import AppRemoveDialog from '@/components/apps/AppRemoveDialog'
 import LoaderComponent from '@/components/LoaderComponent'
 // Mixins imports
 import accountMixin from '@/mixins/accountMixin'
@@ -25,6 +27,7 @@ export default {
   name: 'apps-view',
   components: {
     AppsDataTable,
+    AppRemoveDialog,
     LoaderComponent
   },
   computed: {

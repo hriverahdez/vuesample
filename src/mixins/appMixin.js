@@ -1,4 +1,4 @@
-import { APP_DATA, CREATE_NEW_APP } from '@/graphql/app'
+import { APP_DATA, CREATE_NEW_APP, DELETE_APP } from '@/graphql/app'
 import { mapActions } from 'vuex'
 
 const appMixin = {
@@ -17,7 +17,9 @@ const appMixin = {
   methods: {
     ...mapActions([
       'appDataAction',
-      'appDialogStatusAction'
+      'appDialogStatusAction',
+      'appIdAction',
+      'appRemoveDialogStatusAction'
     ]),
     createApp (name, platform, bundle) {
       this.$apollo.mutate({
@@ -28,8 +30,8 @@ const appMixin = {
         variables: {
           input: {
             name: name,
-            platform: platform,
             bundle: bundle,
+            platform: platform,
             account: '5b1a34e69a5fd6634e7690a2'
           }
         },
@@ -52,12 +54,38 @@ const appMixin = {
         })
       })
       this.appDialogStatusAction(false)
+    },
+    // Delete App mutation
+    deleteApp (app) {
+      this.$apollo.mutate({
+        mutation: DELETE_APP,
+        context: {
+          uri: 'app'
+        },
+        variables: {
+          _id: app
+        },
+        update: (store) => {
+          const data = store.readQuery({ query: APP_DATA })
+          data.apps = data.apps.filter((item) => {
+            return item._id !== app
+          })
+          store.writeQuery({ query: APP_DATA, data })
+        }
+      }).then(() => {
+        this.appRemoveDialogStatusAction(false)
+      })
     }
   },
   mounted () {
     // Receive events from components
     this.$root.$on('createApp', (name, platform, bundle) => {
-      this.createApp(name, platform, bundle)
+      // this.createApp(name, platform, bundle)
+      this.$store.state.appModule.appName = ''
+    })
+    this.$root.$on('deleteApp', (app) => {
+      this.deleteApp(app)
+      this.appIdAction('')
     })
   },
   beforeDestroy () {

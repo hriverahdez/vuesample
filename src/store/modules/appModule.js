@@ -1,5 +1,7 @@
 const APP_DATA = 'APP_DATA'
 const APP_DIALOG_STATUS = 'APP_DIALOG_STATUS'
+const APP_ID = 'APP_ID'
+const APP_REMOVE_DIALOG_STATUS = 'APP_REMOVE_DIALOG_STATUS'
 
 const networks = {
   ADCOLONY: '1003',
@@ -23,6 +25,9 @@ const networks = {
 const state = {
   apps: [],
   appDialogStatus: false,
+  appId: '',
+  appRemoveDialogStatus: false,
+  appName: '',
   networks
 }
 
@@ -32,6 +37,9 @@ const getters = {
   },
   appDialogStatusGetter (state) {
     return state.appDialogStatus
+  },
+  appIdGetter (state) {
+    return state.appId
   },
   appIdAndNameGetter (state, getters) {
     const createdObject = []
@@ -68,6 +76,12 @@ const mutations = {
   },
   [APP_DIALOG_STATUS] (state, status) {
     state.appDialogStatus = status
+  },
+  [APP_ID] (state, id) {
+    state.appId = id
+  },
+  [APP_REMOVE_DIALOG_STATUS] (state, status) {
+    state.appRemoveDialogStatus = status
   }
 }
 
@@ -77,6 +91,12 @@ const actions = {
   },
   appDialogStatusAction ({commit}, showDialog) {
     commit(APP_DIALOG_STATUS, showDialog)
+  },
+  appIdAction ({commit}, id) {
+    commit(APP_ID, id)
+  },
+  appRemoveDialogStatusAction ({commit}, showDialog) {
+    commit(APP_REMOVE_DIALOG_STATUS, showDialog)
   }
 }
 
