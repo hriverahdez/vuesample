@@ -4,7 +4,7 @@
       v-card
         v-card-title(
           class="formElementColor py-4 title white--text"
-          ) {{ $t('apps_view.create_new_app') }}
+          ) {{ formTitle }}
         v-card-text(class="card__text__form")
           v-container(grid-list-md)
             v-layout(wrap)
@@ -60,7 +60,7 @@
           v-btn(
             class="white--text"
             color="buttonColor"
-            @click.native="sendCreateNewAppEvent"
+            @click.native="accountEventHandler"
             :disabled="!valid"
             ) {{ formButtonTitle }}
 </template>
@@ -91,6 +91,10 @@ export default {
     // Form button title
     formButtonTitle () {
       return this.editedIndex === -1 ? this.$t('buttons.create') : this.$t('buttons.edit')
+    },
+    // Form title
+    formTitle () {
+      return this.editedIndex === -1 ? this.$t('apps_view.new_app') : this.$t('apps_view.edit_app')
     }
   },
   methods: {
@@ -98,6 +102,14 @@ export default {
       'appDialogStatusAction',
       'editedAppIndexStatusAction'
     ]),
+    // Choose between create or edit app
+    accountEventHandler () {
+      if (this.editedIndex === -1) {
+        this.sendCreateNewAppEvent()
+      } else {
+        this.sendEditAppEvent()
+      }
+    },
     // Close dialog layer
     closeDialog () {
       this.appDialogStatusAction(false)
@@ -111,6 +123,10 @@ export default {
       setTimeout(() => {
         this.$refs['newAppForm'].reset()
       }, 300)
+    },
+    // Send event to edit account
+    sendEditAppEvent () {
+      this.$root.$emit('editApp', this.appData.name, this.appData.platform, this.appData.bundle)
     }
   }
 }

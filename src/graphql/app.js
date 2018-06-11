@@ -24,7 +24,6 @@ export const APPS_DATA = gql`
   }
 }
 `
-
 export const CREATE_NEW_APP = gql`
   mutation createApp($input: CreateAppInput!){
     createApp(input: $input) {
@@ -35,9 +34,20 @@ export const CREATE_NEW_APP = gql`
     }
   }
 `
-
 export const DELETE_APP = gql`
   mutation deleteAppById($_id: [ID!]) {
     deleteAppById(_id: $_id)
   }
+`
+
+export const UPDATE_APP = gql`
+mutation updateAppById ($_id: [ID!], $input: UpdateAppInput!){
+  updateAppById(_id: $id, input: $input) {
+    app {
+      _id
+      name
+      description
+    }
+  }
+}
 `

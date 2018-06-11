@@ -1,4 +1,4 @@
-import { APPS_DATA, CREATE_NEW_APP, DELETE_APP } from '@/graphql/app'
+import { APPS_DATA, CREATE_NEW_APP, DELETE_APP, UPDATE_APP } from '@/graphql/app'
 import { mapActions } from 'vuex'
 
 const appMixin = {
@@ -87,6 +87,48 @@ const appMixin = {
       })
     }
   },
+  editApp (id, name, bundle, platform) {
+    this.$apollo.mutate({
+      mutation: UPDATE_APP,
+      context: {
+        uri: 'account'
+      },
+      variables: {
+        _id: id,
+        input: {
+          name: name,
+          bundle: bundle,
+          platform: platform,
+          account: '5b1a34e69a5fd6634e7690a2'
+        }
+      },
+      update: (store) => {
+        const data = store.readQuery({ query: APPS_DATA })
+        data.apps.map((item) => {
+          if (item._id === id) {
+            item.bundle = bundle
+            item.platform = platform
+          }
+        })
+        store.writeQuery({ query: APPS_DATA, data })
+      }
+    })
+    .then(() => {
+      this.editedAppIndexStatusAction(-1)
+      this.SET_ALERT_MESSAGE({
+        show: true,
+        type: 'success',
+        message: this.$t('accounts_view.edit_success'),
+        buttonText: this.$t('buttons.close')
+      })
+      this.appDialogStatusAction(false)
+      this.appSchemaAction({
+        name: '',
+        description: '',
+        disabled: ''
+      })
+    })
+  },
   mounted () {
     // Receive events from components
     this.$root.$on('createApp', (name, platform, bundle) => {
@@ -95,6 +137,10 @@ const appMixin = {
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)
       this.appIdAction('')
+    })
+    this.$root.$on('editApp', (id, name, platform, bundle) => {
+      console.log('entra')
+      this.editApp(id, name, platform, bundle)
     })
   },
   beforeDestroy () {
