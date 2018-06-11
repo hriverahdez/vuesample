@@ -50,7 +50,7 @@ const appMixin = {
         this.SET_ALERT_MESSAGE({
           show: true,
           type: 'success',
-          message: this.$t('accounts_view.new_success'),
+          message: this.$t('apps_view.new_success'),
           buttonText: this.$t('buttons.close')
         })
       })
@@ -82,8 +82,7 @@ const appMixin = {
   mounted () {
     // Receive events from components
     this.$root.$on('createApp', (name, platform, bundle) => {
-      // this.createApp(name, platform, bundle)
-      this.$store.state.appModule.appName = ''
+      this.createApp(name, platform, bundle)
     })
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)

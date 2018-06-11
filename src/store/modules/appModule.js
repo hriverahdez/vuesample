@@ -28,7 +28,6 @@ const state = {
   appDialogStatus: false,
   appId: '',
   appRemoveDialogStatus: false,
-  appName: '',
   networks,
   removeAppPermissionInput: ''
 }

@@ -28,6 +28,7 @@
       "icon_text": "Icono:",
       "manage_ad_placements": "Configurar zona anuncio",
       "manage_network_profiles": "Configurar perfil de red",
+      "new_success": "Nueva app creada",
       "remove_app": "Eliminar app",
       "remove_app_message": "Escribe {number} en el campo de texto",
       "select_platform": "Selecciona plataforma",

@@ -18,7 +18,7 @@
                 )
                     v-text-field(
                       :label="this.$t('apps_view.app_name')"
-                      v-model="$store.state.appModule.appName"
+                      v-model="appName"
                       class="formElementColor--text"
                       required
                     )
@@ -80,7 +80,7 @@ export default {
     return {
       appBundleIdentifier: '',
       appDescription: '',
-      // appName: '',
+      appName: '',
       appPlatform: '',
       appURL: '',
       platforms: ['ios', 'android'],
@@ -103,37 +103,28 @@ export default {
     },
     sendCreateNewAppEvent () {
       this.$root.$emit('createApp', this.appName, this.appPlatform, this.appBundleIdentifier)
+      setTimeout(() => {
+        this.$refs['newAppForm'].reset()
+      }, 300)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-// .alert__container {
-//   height: 50px;
-// }
-// .card__text.card__text__form {
-//   padding: 30px;
-// }
+
 .card__actions {
   padding: 0 20px 20px 20px;
 }
-// .accounts-form__status {
-//   display: flex;
-//   align-items: center;
-//   height: 30px;
-//   font-size: 16px;
 
-//   &__span {
-//     margin-right: 14px;
-//   }
-// }
 .select-icon-container {
   display: flex;
 }
+
 .icon-text {
   margin-right: 10px;
 }
+
 .draganddrop-container {
   display: flex;
   align-items: center;
@@ -144,6 +135,7 @@ export default {
   height: 100px;
   margin: 0 auto;
 }
+
 </style>
 
 
