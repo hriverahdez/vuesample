@@ -8,6 +8,7 @@ const APP_NETWORK_CONFIG_DIALOG_STATUS = 'APP_NETWORK_CONFIG_DIALOG_STATUS'
 const APP_REMOVE_DIALOG_STATUS = 'APP_REMOVE_DIALOG_STATUS'
 const EDIT_APP_INDEX_STATUS = 'EDIT_APP_INDEX_STATUS'
 const REMOVE_APP_PERMISSION_INPUT = 'REMOVE_APP_PERMISSION_INPUT'
+const SELECTED_APP_NETWORK_DATATABLE = 'SELECTED_APP_NETWORK_DATATABLE'
 
 const networks = {
   ADCOLONY: '1003',
@@ -45,7 +46,8 @@ const state = {
   // Index element to know if its edited mode
   editedAppIndex: -1,
   networks,
-  removeAppPermissionInput: ''
+  removeAppPermissionInput: '',
+  selectedAppNetworkInDatatable: {}
 }
 
 const getters = {
@@ -96,6 +98,9 @@ const getters = {
   },
   removeAppPermissionInputGetter (state) {
     return state.removeAppPermissionInput
+  },
+  selectedAppNetworkInDatatableGetter (state) {
+    return state.selectedAppNetworkInDatatable
   }
 }
 
@@ -123,6 +128,9 @@ const mutations = {
   },
   [REMOVE_APP_PERMISSION_INPUT] (state, data) {
     state.removeAppPermissionInput = data
+  },
+  [SELECTED_APP_NETWORK_DATATABLE] (state, data) {
+    state.selectedAppNetworkInDatatable = data
   }
 }
 
@@ -150,6 +158,9 @@ const actions = {
   },
   removeAppPermissionInputAction ({commit}, data) {
     commit(REMOVE_APP_PERMISSION_INPUT, data)
+  },
+  selectedAppNetworkInDatatableAction ({commit}, data) {
+    commit(SELECTED_APP_NETWORK_DATATABLE, data)
   }
 }
 

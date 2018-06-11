@@ -175,7 +175,8 @@ export default {
       'appNetworkConfigDialogStatusAction',
       'appRemoveDialogStatusAction',
       'appIdAction',
-      'editedAppIndexStatusAction'
+      'editedAppIndexStatusAction',
+      'selectedAppNetworkInDatatableAction'
     ]),
     ...mapMutations(['APP_DATA']),
     showDeleteDialog (app) {
@@ -189,9 +190,10 @@ export default {
       this.APP_DATA(this.editedApp)
       this.appDialogStatusAction(true)
     },
+    // Send data to show the app-network configuration corresponding dialog
     selectedCell (networkName, appName, appId) {
-      console.log('lolololo', networkName, appName, appId)
       this.appNetworkConfigDialogStatusAction(true)
+      this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
     }
   }
 }

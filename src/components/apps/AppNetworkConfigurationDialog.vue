@@ -3,18 +3,21 @@
       v-card
         v-card-title(
           class="formElementColor py-4 title white--text"
-          ) {{ $t('apps_view.remove_app') }}
+          ) {{ $t('apps_view.app_network_configuration') }}
         v-card-text(class="card__text__form")
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-                v-text-field(
-                  :label="this.$t('apps_view.remove_app_message', {number: randomNumber})"
-                  v-model="$store.state.appModule.removeAppPermissionInput"
-                  class="formElementColor--text"
-                  hide-details
-                  required
-                )
+                p {{ selectedAppNetworkConfig.networkName }}
+                p {{ selectedAppNetworkConfig.appName }}
+                p {{ selectedAppNetworkConfig.appId }}
+        //-         v-text-field(
+        //-           :label="this.$t('apps_view.remove_app_message', {number: randomNumber})"
+        //-           v-model="$store.state.appModule.removeAppPermissionInput"
+        //-           class="formElementColor--text"
+        //-           hide-details
+        //-           required
+        //-         )
         v-card-actions
           v-spacer
           v-btn(
@@ -31,51 +34,45 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 // Components
-import DialogAlert from '@/components/DialogAlert'
+// import DialogAlert from '@/components/DialogAlert'
 
 export default {
-  name: 'app-dialog',
-  components: {
-    DialogAlert
-  },
+  name: 'app-network-configuration-dialog',
+  // components: {
+  //   DialogAlert
+  // },
   data () {
     return {
       valid: false
     }
   },
-  watch: {
-    remove_permission (val) {
-      if (val === this.randomNumber.toString()) {
-        this.valid = true
-      } else {
-        this.valid = false
-      }
-    }
-  },
+  // watch: {
+  //   remove_permission (val) {
+  //     if (val === this.randomNumber.toString()) {
+  //       this.valid = true
+  //     } else {
+  //       this.valid = false
+  //     }
+  //   }
+  // },
   computed: {
     ...mapGetters({
-      appId: 'appIdGetter',
-      remove_permission: 'removeAppPermissionInputGetter'
-    }),
-    randomNumber () {
-      return Math.floor(Math.random() * 100000000)
-    }
+      selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
+    })
   },
   methods: {
     ...mapActions([
-      'appRemoveDialogStatusAction',
-      'removeAppPermissionInputAction'
+      'appNetworkConfigDialogStatusAction'
     ]),
     // Close dialog layer
     closeDialog () {
-      this.appRemoveDialogStatusAction(false)
-      this.removeAppPermissionInputAction('')
-    },
-    sendDeleteAppEvent () {
-      this.$root.$emit('deleteApp', this.appId)
+      this.appNetworkConfigDialogStatusAction(false)
     }
+    // sendDeleteAppEvent () {
+    //   this.$root.$emit('deleteApp', this.appId)
+    // }
   }
 }
 </script>
