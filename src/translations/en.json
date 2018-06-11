@@ -25,6 +25,7 @@
       "bundle_identifier": "Bundle identifier",
       "create_new_app": "New app",
       "edit_app": "Edit app",
+      "edit_success": "Edited app",
       "enable_disable_network": "Enable / disable:",
       "icon_text": "Icon:",
       "manage_ad_placements": "Manage ad placements",

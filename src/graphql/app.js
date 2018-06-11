@@ -41,8 +41,8 @@ export const DELETE_APP = gql`
 `
 
 export const UPDATE_APP = gql`
-mutation updateAppById ($_id: [ID!], $input: UpdateAppInput!){
-  updateAppById(_id: $id, input: $input) {
+mutation updateAppById ($_id: ID!, $input: UpdateAppInput!){
+  updateAppById(_id: $_id, input: $input) {
     app {
       _id
       name

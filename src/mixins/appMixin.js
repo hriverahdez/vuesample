@@ -21,6 +21,7 @@ const appMixin = {
       'appIdAction',
       'appRemoveDialogStatusAction',
       'appSchemaAction',
+      'editedAppIndexStatusAction',
       'removeAppPermissionInputAction'
     ]),
     createApp (name, platform, bundle) {
@@ -85,49 +86,47 @@ const appMixin = {
         this.appRemoveDialogStatusAction(false)
         this.removeAppPermissionInputAction('')
       })
-    }
-  },
-  editApp (id, name, bundle, platform) {
-    this.$apollo.mutate({
-      mutation: UPDATE_APP,
-      context: {
-        uri: 'account'
-      },
-      variables: {
-        _id: id,
-        input: {
-          name: name,
-          bundle: bundle,
-          platform: platform,
-          account: '5b1a34e69a5fd6634e7690a2'
-        }
-      },
-      update: (store) => {
-        const data = store.readQuery({ query: APPS_DATA })
-        data.apps.map((item) => {
-          if (item._id === id) {
-            item.bundle = bundle
-            item.platform = platform
+    },
+    editApp (id, name, description) {
+      this.$apollo.mutate({
+        mutation: UPDATE_APP,
+        context: {
+          uri: 'app'
+        },
+        variables: {
+          _id: id,
+          input: {
+            name: name,
+            description: description
           }
+        },
+        update: (store) => {
+          const data = store.readQuery({ query: APPS_DATA })
+          data.apps.map((item) => {
+            if (item._id === id) {
+              item.name = name
+              item.description = description
+            }
+          })
+          store.writeQuery({ query: APPS_DATA, data })
+        }
+      })
+      .then(() => {
+        this.editedAppIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.edit_success'),
+          buttonText: this.$t('buttons.close')
         })
-        store.writeQuery({ query: APPS_DATA, data })
-      }
-    })
-    .then(() => {
-      this.editedAppIndexStatusAction(-1)
-      this.SET_ALERT_MESSAGE({
-        show: true,
-        type: 'success',
-        message: this.$t('accounts_view.edit_success'),
-        buttonText: this.$t('buttons.close')
+        this.appDialogStatusAction(false)
+        this.appSchemaAction({
+          name: '',
+          description: '',
+          disabled: ''
+        })
       })
-      this.appDialogStatusAction(false)
-      this.appSchemaAction({
-        name: '',
-        description: '',
-        disabled: ''
-      })
-    })
+    }
   },
   mounted () {
     // Receive events from components
@@ -138,9 +137,9 @@ const appMixin = {
       this.deleteApp(app)
       this.appIdAction('')
     })
-    this.$root.$on('editApp', (id, name, platform, bundle) => {
-      console.log('entra')
-      this.editApp(id, name, platform, bundle)
+    this.$root.$on('editApp', (id, name, description) => {
+      this.editApp(id, name, description)
+      console.log('entra', id, name, description)
     })
   },
   beforeDestroy () {
