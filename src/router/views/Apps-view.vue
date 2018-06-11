@@ -7,9 +7,9 @@
           apps-data-table(v-if="appsDataTable.length")
           template(v-else)
             loader-component
-          app-remove-dialog
-          app-network-configuration-dialog
-          app-manage-network-profile-dialog
+          app-remove-dialog(v-if="$store.state.appModule.appRemoveDialogStatus")
+          app-network-configuration-dialog(v-if="$store.state.appModule.appNetworkConfigDialogStatus")
+          app-manage-network-profile-dialog(v-if="$store.state.appModule.appManageNetworkProfileDialogStatus")
 </template>
 
 

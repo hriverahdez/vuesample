@@ -5,8 +5,8 @@
       v-container(grid-list-xl text-xs-center align-content-center class="view__container")
         router-view
         template(v-if="checkIfVisibleDependingOnRoute()")
-          account-dialog
-          app-dialog
+          account-dialog(v-if="$store.state.accountModule.accountDialogStatus")
+          app-dialog(v-if="$store.state.appModule.appDialogStatus")
           dialog-alert
     v-layout(class="floating-button-container" v-if="checkIfVisibleDependingOnRoute()")
       floating-button

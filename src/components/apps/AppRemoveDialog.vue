@@ -36,7 +36,7 @@ import { mapActions, mapGetters } from 'vuex'
 import DialogAlert from '@/components/DialogAlert'
 
 export default {
-  name: 'app-dialog',
+  name: 'app-remove-dialog',
   components: {
     DialogAlert
   },
