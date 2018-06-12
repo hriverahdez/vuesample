@@ -9,6 +9,7 @@
       "new_success": "Nueva cuenta creada"
     },
     "apps_view": {
+      "alert_message": "Ninguna app disponible",
       "API_check_config": "API configurada",
       "API_failing": "API error",
       "API_no_data": "API sin datos",
@@ -16,12 +17,27 @@
       "API_working": "Funcionando",
       "app_delete": "Eliminar",
       "app_disable_enable": "Habilitar / deshabilitar",
+      "app_description": "Descripción",
       "app_edit": "Editar",
+      "app_name": "Nombre app",
+      "app_network_configuration": "App-red configuración",
       "app_search": "Buscar app",
+      "app_URL": "Aplicación URL",
       "apps_title": "Listado de apps",
-      "edit_create_network_profiles": "Editar / crear perfil de red",
+      "bundle_identifier": "Identificador de bundle",
+      "create_new_app": "Crear app",
+      "delete_app": "App eliminada correctamente",
+      "edit_app": "Editar app",
+      "edit_success": "App editada",
       "enable_disable_network": "Habilitar / deshabilitar",
+      "icon_text": "Icono:",
       "manage_ad_placements": "Configurar zona anuncio",
+      "manage_network_profiles": "Configurar perfil de red",
+      "new_app": "Nueva app",
+      "new_success": "Nueva app creada",
+      "remove_app": "Eliminar app",
+      "remove_app_message": "Escribe {number} en el campo de texto",
+      "select_platform": "Selecciona plataforma",
       "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {
@@ -29,7 +45,12 @@
       "cancel": "Cancelar",
       "close": "Salir",
       "create": "Crear",
-      "edit": "Editar"
+      "edit": "Editar",
+      "exit": "Salir",
+      "remove": "Eliminar"
+    },
+    "copies": {
+      "drag_and_drop": "Arrastre un fichero o haga click"
     },
     "dashboard_view": {
       "app": "Aplicación",
@@ -58,6 +79,10 @@
       "revenue": "ganancias",
       "select_date": "Selecciona fecha",
       "to": "Hasta:"
+    },
+    "floating_btn": {
+      "new_app": "Crear app",
+      "new_account": "Crear cuenta"
     },
     "footer": {
       "copyright": "© 2018 Fibonad - Todos los derechos reservados"

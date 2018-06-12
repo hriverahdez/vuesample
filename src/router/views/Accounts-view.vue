@@ -4,19 +4,31 @@
       v-flex(xs12)
         //- v-breadcrumbs(divider="/" large)
         //-   v-breadcrumbs-item {{ $t('navigation.accounts') }}
-        accounts-data-table
+        accounts-data-table(v-if="accountsDataTable.length")
+        template(v-else)
+          loader-component
 </template>
 
 <script>
-  // Mixins
-  import accountMixin from '@/mixins/accountMixin'
-  // Components
-  import AccountsDataTable from '@/components/accounts/AccountsDataTable'
+// Components
+import AccountsDataTable from '@/components/accounts/AccountsDataTable'
+import LoaderComponent from '@/components/LoaderComponent'
+// Mixins
+import accountMixin from '@/mixins/accountMixin'
+import appMixin from '@/mixins/appMixin'
+// Vuex imports
+import { mapGetters } from 'vuex'
 
-  export default {
-    components: {
-      AccountsDataTable
-    },
-    mixins: [accountMixin]
-  }
+export default {
+  components: {
+    AccountsDataTable,
+    LoaderComponent
+  },
+  computed: {
+    ...mapGetters({
+      accountsDataTable: 'accountsDataGetter'
+    })
+  },
+  mixins: [accountMixin, appMixin]
+}
 </script>

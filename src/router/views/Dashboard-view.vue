@@ -41,7 +41,7 @@ export default {
   },
   mixins: [accountMixin, appMixin],
   apollo: {
-    stats: {
+    networkStats: {
       query: GET_DASHBOARD_REPORT_DATA,
       context: {
         uri: 'report'
@@ -50,18 +50,20 @@ export default {
         return {
           groupBy: this.groupedByGetter,
           filter: {
-            from: this.dateGetter.startDate,
-            to: this.dateGetter.endDate,
-            apps: this.appFiltersGetter,
-            formats: this.formatFiltersGetter,
-            networks: this.networkFiltersGetter,
-            countries: this.countryFiltersGetter
+            from: '2018-02-01',
+            to: '2018-02-09',
+            // from: this.dateGetter.startDate,
+            // to: this.dateGetter.endDate,
+            app: this.appFiltersGetter,
+            format: this.formatFiltersGetter,
+            source: this.networkFiltersGetter,
+            country: this.countryFiltersGetter
           }
         }
       },
       loadingKey: 'loading',
       update (data) {
-        this.statsDataAction(data.stats)
+        this.statsDataAction(data.networkStats.rowData)
       }
     },
     config: {
@@ -74,16 +76,6 @@ export default {
         this.dashboardFiltersAction(data.config)
       }
     }
-    // apps: {
-    //   query: APP_DATA,
-    //   context: {
-    //     uri: 'app'
-    //   },
-    //   loadingKey: 'loading',
-    //   update (data) {
-    //     this.appDataAction(data.apps)
-    //   }
-    // }
   },
   methods: {
     ...mapActions([

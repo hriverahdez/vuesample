@@ -7,6 +7,9 @@
           apps-data-table(v-if="appsDataTable.length")
           template(v-else)
             loader-component
+          app-remove-dialog(v-if="$store.state.appModule.appRemoveDialogStatus")
+          app-network-configuration-dialog(v-if="$store.state.appModule.appNetworkConfigDialogStatus")
+          app-manage-network-profile-dialog(v-if="$store.state.appModule.appManageNetworkProfileDialogStatus")
 </template>
 
 
@@ -14,6 +17,9 @@
 <script>
 // Components imports
 import AppsDataTable from '@/components/apps/AppDataTable'
+import AppManageNetworkProfileDialog from '@/components/apps/AppManageNetworkProfileDialog'
+import AppNetworkConfigurationDialog from '@/components/apps/AppNetworkConfigurationDialog'
+import AppRemoveDialog from '@/components/apps/AppRemoveDialog'
 import LoaderComponent from '@/components/LoaderComponent'
 // Mixins imports
 import accountMixin from '@/mixins/accountMixin'
@@ -25,11 +31,14 @@ export default {
   name: 'apps-view',
   components: {
     AppsDataTable,
+    AppManageNetworkProfileDialog,
+    AppNetworkConfigurationDialog,
+    AppRemoveDialog,
     LoaderComponent
   },
   computed: {
     ...mapGetters({
-      appsDataTable: 'appDataGetter'
+      appsDataTable: 'appsDataGetter'
     })
   },
   mixins: [

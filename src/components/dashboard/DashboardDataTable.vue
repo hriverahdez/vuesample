@@ -10,11 +10,11 @@
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ formatDataLabelDependingOnGroupedby(props.item) }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.requests }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)" v-if="showDAU") DAU
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imps }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imp }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.fillRate }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.clicks }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.click }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ctr }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.revenue }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.money }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ecpm }}
 
         template(slot="no-data")

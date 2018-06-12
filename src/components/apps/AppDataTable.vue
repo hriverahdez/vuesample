@@ -33,10 +33,30 @@
             a(slot="activator" class="header-activator")
               icon(name="cog" color="white" class="cog-icon")
             v-list(class="apps-view-list")
+              //- v-list-tile(
+              //-   v-for="(item, index) in networkMenuOptions"
+              //-   :key="index"
+              //-   @click.native.stop="prueba") {{ $t(item) }}
+              //-   v-switch(
+              //-     v-if="index === 1"
+              //-     light
+              //-     color="success"
+              //-     v-model="networkSwitchStatus"
+              //-     hide-details
+              //-     class="switch"
+              //-     )
               v-list-tile(
-                v-for="(item, index) in networkMenuOptions"
-                :key="index"
-                @click="") {{ $t(item) }}
+                @click.native.stop="showManageNetworkProfiles(props.header.text)"
+                class="header-tile"
+                ) {{ $t('apps_view.manage_network_profiles')}}
+              v-list-tile(@click.native.stop="" class="header-tile") {{ $t('apps_view.enable_disable_network')}}
+                v-switch(
+                  light
+                  color="success"
+                  v-model="appSwitchStatus"
+                  hide-details
+                  class="switch"
+                  )
 
         template(slot="items" slot-scope="props")
             td(class="text-xs-left app")
@@ -48,44 +68,80 @@
                   a(slot="activator" class="activator")
                     icon(name="cog" color="indigo" class="cog-icon")
                   v-list(class="app-column-menu__list apps-view-list")
+                    //- v-list-tile(
+                    //-   class="app-column-menu__list__item"
+                    //-   v-for="(item, index) in appMenuOptions"
+                    //-   :key="index"
+                    //-   @click.native.stop="menuAction") {{ $t(item) }}
+                    //-   v-switch(
+                    //-     v-if="index === 2"
+                    //-     light
+                    //-     color="success"
+                    //-     v-model="appSwitchStatus"
+                    //-     hide-details
+                    //-     class="switch"
+                    //-     )
                     v-list-tile(
                       class="app-column-menu__list__item"
-                      v-for="(item, index) in appMenuOptions"
-                      :key="index"
-                      @click="") {{ $t(item) }}
+                      @click.native.stop="showEditAppDialog(props.item)"
+                    ) {{ $t('apps_view.app_edit') }}
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      @click.native="showDeleteDialog(props.item)"
+                    ) {{ $t('apps_view.app_delete') }}
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      @click.native.stop=""
+                    ) {{ $t('apps_view.app_enable_disable') }}
                       v-switch(
-                        v-if="index === 2"
                         light
-                        :label="check"
                         color="success"
+                        v-model="appSwitchStatus"
                         hide-details
-                        )
+                        class="switch"
+                      )
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      @click.native.stop=""
+                    ) {{ $t('apps_view.manage_ad_placements') }}
+                    v-list-tile(
+                      class="app-column-menu__list__item"
+                      @click.native.stop=""
+                    ) {{ $t('apps_view.waterfall_debugger') }}
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
-              div(class="network-item-container")
+              div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" color="indigo" slot="activator" class="cog-icon")
 
         template(slot="no-data")
             v-alert(
             :value="true"
             color="error"
-            icon="warning") {{ $t('accounts_view.alert_message')}}
+            icon="warning") {{ $t('apps_view.alert_message')}}
 </template>
 
 <script>
 // Vuex imports
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'apps-data-table',
   data: () => ({
-    appMenuOptions: [
-      'apps_view.app_edit',
-      'apps_view.app_delete',
-      'apps_view.app_disable_enable',
-      'apps_view.manage_ad_placements',
-      'apps_view.waterfall_debugger'
-    ],
+    // appMenuOptions: [
+    //   'apps_view.app_edit',
+    //   'apps_view.app_delete',
+    //   'apps_view.app_enable_disable',
+    //   'apps_view.manage_ad_placements',
+    //   'apps_view.waterfall_debugger'
+    // ],
+    appSwitchStatus: false,
+    editedApp: {
+      name: '',
+      bundle: '',
+      platform: '',
+      URL: '',
+      description: ''
+    },
     headers: [
       {
         text: 'Name',
@@ -111,18 +167,52 @@ export default {
       { text: 'STARTAPP', value: 'STARTAPP', sortable: false },
       { text: 'VUNGLE', value: 'VUNGLE', sortable: false }
     ],
-    networkMenuOptions: [
-      'apps_view.edit_create_network_profiles',
-      'apps_view.enable_disable_network'
-    ],
-    search: '',
-    prueba: ''
+    // networkMenuOptions: [
+    //   'apps_view.manage_network_profiles',
+    //   'apps_view.enable_disable_network'
+    // ],
+    networkSwitchStatus: false,
+    search: ''
   }),
   computed: {
     ...mapGetters({
-      apps: 'appDataGetter',
+      apps: 'appsDataGetter',
       networks: 'networkNamesGetter'
     })
+  },
+  methods: {
+    ...mapActions([
+      'appDialogStatusAction',
+      'appManageNetworkProfileDialogStatusAction',
+      'appNetworkConfigDialogStatusAction',
+      'appRemoveDialogStatusAction',
+      'appIdAction',
+      'editedAppIndexStatusAction',
+      'selectedAppNetworkInDatatableAction',
+      'selectedNetworkToManageAction'
+    ]),
+    ...mapMutations(['APP_DATA']),
+    showDeleteDialog (app) {
+      this.appRemoveDialogStatusAction(true)
+      .then(() => this.appIdAction(app._id))
+    },
+    // Show edit app dialog
+    showEditAppDialog (app) {
+      this.editedAppIndexStatusAction(this.apps.indexOf(app))
+      this.editedApp = Object.assign({}, app)
+      this.APP_DATA(this.editedApp)
+      this.appDialogStatusAction(true)
+    },
+    // Send data to show the app-network configuration corresponding dialog from datatable cell
+    selectedCell (networkName, appName, appId) {
+      this.appNetworkConfigDialogStatusAction(true)
+      this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
+    },
+     // Show the corresponding network profile dialog from datatable header
+    showManageNetworkProfiles (networkName) {
+      this.appManageNetworkProfileDialogStatusAction(true)
+      this.selectedNetworkToManageAction(networkName)
+    }
   }
 }
 </script>
@@ -273,6 +363,16 @@ export default {
     }
   }
 }
+
+.switch {
+  margin-left: 12px;
+  padding-top: 5px;
+}
+
+.app-column-menu__list__item:hover, .header-tile:hover {
+  background: rgba(0,0,0,0.12);
+}
+
 
 
 </style>

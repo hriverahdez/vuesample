@@ -19,13 +19,23 @@
             v-icon add
             v-icon close
 
-        v-btn(dark color="buttonColor").speed-dial__button
+        v-btn(
+          dark
+          color="buttonColor"
+          @click="showCreateNewAppDialog"
+          class="speed-dial__button"
+          )
             //- v-icon(dark pink) remove_circle
-            span.speed-dial_label New app
+            span.speed-dial_label {{ $t('floating_btn.new_app')}}
 
-        v-btn(dark color="buttonColor"  @click="showAccountDialog").speed-dial__button
+        v-btn(
+          dark
+          color="buttonColor"
+           @click="showCreateNewAccountDialog"
+           class="speed-dial__button"
+           )
             //- v-icon(dark pink) remove_circle
-            span.speed-dial__label New account
+            span.speed-dial__label  {{ $t('floating_btn.new_account')}}
 </template>
 
 
@@ -46,9 +56,15 @@ export default {
     hover: false
   }),
   methods: {
-    ...mapActions(['accountDialogStatusAction']),
-    showAccountDialog () {
+    ...mapActions([
+      'accountDialogStatusAction',
+      'appDialogStatusAction'
+    ]),
+    showCreateNewAccountDialog () {
       this.accountDialogStatusAction(true)
+    },
+    showCreateNewAppDialog () {
+      this.appDialogStatusAction(true)
     }
   }
 }
