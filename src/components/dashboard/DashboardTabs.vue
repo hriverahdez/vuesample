@@ -55,7 +55,7 @@
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
                           :discrete= "true")
                     // App tab
                     v-tab-item(id="tab-app")
@@ -63,7 +63,7 @@
                         column-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
                           )
                     // Country tab
                     v-tab-item(id="tab-country")
@@ -71,7 +71,7 @@
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
                           :discrete= "true")
                     // Format tab
                     v-tab-item(id="tab-format")
@@ -79,7 +79,7 @@
                         pie-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#00A0D3', '#910287', '#00962B', '#FF982A', '#E4371E', '#1A237E']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
                         )
                     // Network tab
                     v-tab-item(id="tab-network")
@@ -87,7 +87,7 @@
                         column-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
                           )
 
                     //- v-tab-item(id="tab-country")
@@ -145,10 +145,10 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'groupedByGetter',
+      'groupByGetter',
       'dateGetter',
-      'statsDataFormattedGetter',
-      'statsDataFormattedWithoutNameGetter',
+      // 'statsDataFormattedGetter',
+      // 'statsDataFormattedWithoutNameGetter',
       'buttonSelectedGetter',
       'rangeGetter'
     ]),
@@ -191,7 +191,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'groupedByVarDataAction',
+      'groupByVarDataAction',
       'getDateAction',
       'rangeAction'
     ]),
@@ -228,7 +228,7 @@ export default {
     },
     // Draw data from server
     requestDataFromAPI (e) {
-      this.groupedByVarDataAction(e.target.text.toUpperCase())
+      this.groupByVarDataAction(e.target.text.toUpperCase())
     }
   },
   mounted () {

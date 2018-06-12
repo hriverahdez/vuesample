@@ -1,7 +1,7 @@
 <template lang="pug">
     v-data-table(
         :headers="showDAU ? headersWithDAU : headers"
-        :items="stats"
+        :items="datatableData"
         :search="search"
         hide-actions
         class="elevation-1 dashboard-datatable"
@@ -64,9 +64,9 @@ export default {
   computed: {
     ...mapGetters({
       apps: 'appIdAndNameGetter',
-      groupedBy: 'groupedByGetter',
+      groupedBy: 'groupByGetter',
       networks: 'networksGetter',
-      stats: 'statsDataGetter',
+      datatableData: 'statsDatatableDataGetter',
       showDAU: 'checkDAUState'
     })
   },
