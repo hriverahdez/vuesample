@@ -42,6 +42,24 @@ const getters = {
   // Datatable Dashboard data
   statsDatatableDataGetter (state, getters) {
     return getters.statsDataGetter.rowData
+  },
+  dashboardDatatableDataWithFormattedLabelGetter (state, getters) {
+    let newArray = []
+    function prueba (label) {
+      if (label.includes('--||--')) {
+        let withoutSymbol = label.split('--||--')
+        return withoutSymbol[1]
+      } else {
+        return label
+      }
+    }
+    if (getters.statsDatatableDataGetter) {
+      getters.statsDatatableDataGetter.map(item => {
+        let addFormattedLabel = Object.assign({}, item, { formattedLabel: prueba(item.label) })
+        newArray.push(addFormattedLabel)
+      })
+    }
+    return newArray
   }
   // Formatted Data to show stats info
   // statsDataFormattedGetter (state, getters) {
@@ -78,10 +96,14 @@ const mutations = {
     state.date = date
   },
   [GROUPBY_VAR_DATA] (state, val) {
-    if (val === 'NETWORK') {
-      state.groupBy = 'SOURCE'
+    if (val !== 'DATE') {
+      if (val === 'NETWORK') {
+        state.groupBy = ['DATE', 'SOURCE']
+      } else {
+        state.groupBy = ['DATE', val]
+      }
     } else {
-      state.groupBy = val
+      state.groupBy = ['DATE']
     }
   },
   [STATS_DATA] (state, data) {
