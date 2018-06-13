@@ -9,7 +9,7 @@ const RANGE_DATA = 'RANGE_DATA'
 
 const state = {
   activeTab: 'tab-date',
-  buttonSelectedStat: 'revenue',
+  buttonSelectedStat: 'money',
   date: {
     endDate: format(new Date(), 'YYYY-MM-DD'),
     startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
@@ -45,7 +45,7 @@ const getters = {
   },
   dashboardDatatableDataWithFormattedLabelGetter (state, getters) {
     let newArray = []
-    function prueba (label) {
+    function formatLabel (label) {
       if (label.includes('--||--')) {
         let withoutSymbol = label.split('--||--')
         return withoutSymbol[1]
@@ -55,31 +55,37 @@ const getters = {
     }
     if (getters.statsDatatableDataGetter) {
       getters.statsDatatableDataGetter.map(item => {
-        let addFormattedLabel = Object.assign({}, item, { formattedLabel: prueba(item.label) })
+        let addFormattedLabel = Object.assign({}, item, { formattedLabel: formatLabel(item.label) })
         newArray.push(addFormattedLabel)
       })
     }
     return newArray
+  },
+  statsDataFormattedGetter (state, getters) {
+    if (state.groupBy.length === 1) {
+      let object = {}
+      object['data'] = {}
+      if (getters.statsDatatableDataGetter) {
+        getters.statsDataGetter.rowData.map(item => {
+          object['data'][item.label] = item[`${state.buttonSelectedStat}`]
+        })
+      }
+      return object.data
+    } else {
+      let data = []
+      let object = {}
+      object['name'] = 'Requests'
+      object['data'] = {}
+      if (getters.statsDatatableDataGetter) {
+        getters.statsDataGetter.rowData.map(item => {
+          object['data'][item.label] = item[`${state.buttonSelectedStat}`]
+        })
+        data.push(object)
+      }
+      console.log(data)
+      return data
+    }
   }
-  // Formatted Data to show stats info
-  // statsDataFormattedGetter (state, getters) {
-  //   let data = []
-  //   let object = {}
-  //   object['name'] = 'Requests'
-  //   object['data'] = {}
-  //   getters.statsDataGetter.map((item) => {
-  //     object['data'][item.label] = item[`${state.buttonSelectedStat}`]
-  //   })
-  //   data.push(object)
-  //   return data
-  // },
-  // statsDataFormattedWithoutNameGetter (state, getters) {
-  //   let object = {}
-  //   getters.statsDataGetter.map((item) => {
-  //     object[item.label] = item[`${state.buttonSelectedStat}`]
-  //   })
-  //   return object
-  // }
 }
 
 const mutations = {
