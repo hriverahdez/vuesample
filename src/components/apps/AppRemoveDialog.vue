@@ -4,12 +4,14 @@
         v-card-title(
           class="formElementColor py-4 title white--text"
           ) {{ $t('apps_view.remove_app') }}
-        v-card-text(class="card__text__form")
+        v-card-text(class="card-text-form")
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
+                div(class="card-text-form__msg" class="teal white--text") 
+                  span {{ $t('apps_view.remove_app_message', {number: randomNumber}) }}
                 v-text-field(
-                  :label="this.$t('apps_view.remove_app_message', {number: randomNumber})"
+                  label="Number"
                   v-model="$store.state.appModule.removeAppPermissionInput"
                   class="formElementColor--text"
                   hide-details
@@ -81,8 +83,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card-text-form {
+  padding-top: 14px;
+}
 .card__actions {
   padding: 0 20px 20px 20px;
+}
+.card-text-form__msg {
+  padding: 18px 0 ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: olive;
 }
 </style>
 

@@ -19,7 +19,7 @@
                     v-text-field(
                       :label="this.$t('apps_view.app_name')"
                       v-model="appData.name"
-                      :rules="[v => !!v || 'Item is required']"
+                      :rules="appNameRules"
                       required
                     )
                     v-select(
@@ -32,7 +32,7 @@
                     v-text-field(
                       :label="this.$t('apps_view.bundle_identifier')"
                       v-model="appData.bundle"
-                      :rules="[v => !!v || 'Item is required']"
+                      :rules="appBundleRules"
                       required
                     )
                     v-text-field(
@@ -79,6 +79,14 @@ export default {
   },
   data () {
     return {
+      appNameRules: [
+        (v) => !!v || this.$t('validations.required'),
+        (v) => (v.length > 4 && v.length <= 255) || this.$t('validations.length', {minLength: 5, maxLength: 255})
+      ],
+      appBundleRules: [
+        (v) => !!v || this.$t('validations.required'),
+        (v) => (v.length > 1 && v.length <= 255) || this.$t('validations.length', {minLength: 1, maxLength: 255})
+      ],
       platforms: ['ios', 'android'],
       valid: false
     }
@@ -104,6 +112,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      'appSchemaAction',
       'appDialogStatusAction',
       'editedAppIndexStatusAction'
     ]),
@@ -122,6 +131,14 @@ export default {
       this.appDialogStatusAction(false)
       setTimeout(() => {
         this.editedAppIndexStatusAction(-1)
+        this.appSchemaAction({
+          name: '',
+          platform: '',
+          bundle: '',
+          description: '',
+          banner_position: '',
+          icon: ''
+        })
       }, 300)
     },
     sendCreateNewAppEvent () {
@@ -138,10 +155,10 @@ export default {
     sendEditAppEvent () {
       this.$root.$emit('editApp', this.appData._id, this.appData.name, this.appData.description)
     }
-  },
-  beforeDestroy () {
-    this.$refs['newAppForm'].reset()
   }
+  // beforeDestroy () {
+  //   this.$refs['newAppForm'].reset()
+  // }
 }
 </script>
 
