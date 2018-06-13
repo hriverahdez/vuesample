@@ -24,6 +24,7 @@ import LoaderComponent from '@/components/LoaderComponent'
 // Mixins imports
 import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
+import configMixin from '@/mixins/configMixin'
 // Vuex imports
 import { mapGetters } from 'vuex'
 
@@ -43,7 +44,8 @@ export default {
   },
   mixins: [
     accountMixin,
-    appMixin
+    appMixin,
+    configMixin
   ]
 }
 </script>

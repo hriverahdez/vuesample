@@ -1,5 +1,6 @@
 const APP_DATA = 'APP_DATA'
 const ADD_ITEM_FILTER_DATA = 'ADD_ITEM_FILTER_DATA'
+const BANNER_POSITIONS_DATA = 'BANNER_POSTIONS_DATA'
 const COUNTRIES_DATA = 'COUNTRIES_DATA'
 const DASHBOARD_FILTERS_DATA = 'DASHBOARD_FILTERS_DATA'
 const FORMATS_DATA = 'FORMATS_DATA'
@@ -8,6 +9,7 @@ const REMOVE_FILTER_ITEM = 'REMOVE_FILTER_ITEM'
 
 const state = {
   appFilters: [],
+  bannerPositions: [],
   config: [],
   countryFilters: [],
   formatFilters: [],
@@ -17,6 +19,9 @@ const state = {
 const getters = {
   appFiltersGetter (state) {
     return state.appFilters
+  },
+  bannerPositionsGetter (state) {
+    return state.bannerPositions.bannerPositions
   },
   countryFiltersGetter (state) {
     return state.countryFilters
@@ -39,6 +44,9 @@ const mutations = {
   },
   [APP_DATA] (state, filters) {
     state.appFilters = filters
+  },
+  [BANNER_POSITIONS_DATA] (state, position) {
+    state.bannerPositions = position
   },
   [COUNTRIES_DATA] (state, filters) {
     state.countryFilters = filters
@@ -64,6 +72,9 @@ const actions = {
   },
   appFiltersAction ({commit}, filters) {
     commit(APP_DATA, filters)
+  },
+  bannerPositionsDataAction ({commit}, position) {
+    commit(BANNER_POSITIONS_DATA, position)
   },
   countryFiltersAction ({commit}, filters) {
     commit(COUNTRIES_DATA, filters)

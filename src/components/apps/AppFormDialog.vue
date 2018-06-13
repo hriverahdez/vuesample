@@ -19,7 +19,6 @@
                     v-text-field(
                       :label="this.$t('apps_view.app_name')"
                       v-model="appData.name"
-
                       :rules="[v => !!v || 'Item is required']"
                       required
                     )
@@ -39,17 +38,18 @@
                     v-text-field(
                       :label="this.$t('apps_view.app_description')"
                       v-model="appData.description"
-                      class="pepe"
+                      class="form-textarea"
                       textarea
+                      no-resize
                     )
-                    v-text-field(
+                    v-select(
+                      :items="bannerPositions"
                       :label="this.$t('apps_view.banner_position')"
-                      v-model="appData.banner_position"
-                      required
+                      v-model="appData.bannerPosition"
                     )
                     div(class="select-icon-container")
                       span(class="icon-text") {{ $t('apps_view.icon_text')}}
-                      div(class="draganddrop-container")
+                      div(class="draganddrop-container" v-model="appData.icon")
                         v-icon cloud_upload
                         span {{ $t('copies.drag_and_drop')}}
         v-card-actions
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 // Components
 import DialogAlert from '@/components/DialogAlert'
 
@@ -84,6 +84,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      bannerPositions: 'bannerPositionsGetter'
+    }),
     appData () {
       return this.$store.state.appModule.appData
     },
@@ -122,7 +125,14 @@ export default {
       }, 300)
     },
     sendCreateNewAppEvent () {
-      this.$root.$emit('createApp', this.appData.name, this.appData.platform, this.appData.bundle)
+      this.$root.$emit('createApp',
+      this.appData.name,
+      this.appData.platform,
+      this.appData.bundle,
+      this.appData.description,
+      this.appData.bannerPosition,
+      this.appData.icon
+      )
     },
     // Send event to edit account
     sendEditAppEvent () {
@@ -143,14 +153,25 @@ export default {
 
 .select-icon-container {
   display: flex;
+  color: rgba(0,0,0,0.54);
+  padding-top: 18px;
 }
 
 .icon-text {
   margin-right: 10px;
 }
 
-.pepe label .input-group__input {
-  background: red!important;
+.form-textarea {
+  /deep/ .input-group__input {
+  border: 1px solid rgba(0,0,0,0.54)!important;
+  }
+}
+
+.form-banner-field {
+  margin-top: 0!important;
+  // /deep/ .input-group__input {
+  //   padding-top: 1px;
+  // }
 }
 
 .draganddrop-container {
@@ -158,7 +179,7 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid rgba(0,0,0,0.54);
   width:100%;
   height: 100px;
   margin: 0 auto;

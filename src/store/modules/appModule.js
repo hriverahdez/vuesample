@@ -40,10 +40,11 @@ const state = {
   // Comunicate account data between components
   appData: {
     name: '',
-    bundle: '',
     platform: '',
+    bundle: '',
     description: '',
-    banner_position: ''
+    banner_position: '',
+    icon: ''
   },
   appDialogStatus: false,
   appId: '',

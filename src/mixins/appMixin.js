@@ -47,7 +47,7 @@ const appMixin = {
       'editedAppIndexStatusAction',
       'removeAppPermissionInputAction'
     ]),
-    createApp (name, platform, bundle) {
+    createApp (name, platform, bundle, description, bannerPosition, icon) {
       this.$apollo.mutate({
         mutation: CREATE_NEW_APP,
         context: {
@@ -56,8 +56,11 @@ const appMixin = {
         variables: {
           input: {
             name: name,
-            bundle: bundle,
             platform: platform,
+            bundle: bundle,
+            description: description,
+            bannerPosition: bannerPosition,
+            icon: icon,
             account: '5b1a34e69a5fd6634e7690a2'
           }
         },
@@ -159,8 +162,8 @@ const appMixin = {
   },
   mounted () {
     // Receive events from components
-    this.$root.$on('createApp', (name, platform, bundle) => {
-      this.createApp(name, platform, bundle)
+    this.$root.$on('createApp', (name, platform, bundle, description, bannerPosition, icon) => {
+      this.createApp(name, platform, bundle, description, bannerPosition, icon)
     })
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)
