@@ -199,14 +199,14 @@ export default {
       'getDateAction',
       'rangeAction'
     ]),
-    ...mapMutations(['setAlertMessage']),
+    ...mapMutations(['SET_ALERT_MESSAGE']),
     // Dialog button select date action
     applyDateSelection () {
       this.getDateAction({
         startDate: this.rangeGetter[0],
         endDate: this.rangeGetter[1]
       }).then(() => {
-        this.setAlertMessage({
+        this.SET_ALERT_MESSAGE({
           show: true,
           type: 'success',
           message: this.$t('dashboard_view.confirm_selected_date_range'),
