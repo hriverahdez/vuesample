@@ -19,7 +19,7 @@ const reportMixin = {
             app: this.appFiltersGetter,
             format: this.formatFiltersGetter,
             source: this.networkFiltersGetter,
-            country: this.countryFiltersGetter
+            country: this.countryFiltersGetter.name
           }
         }
       },
