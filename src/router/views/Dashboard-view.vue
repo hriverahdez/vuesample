@@ -7,7 +7,9 @@
             v-card
               //- v-card-title.title.headings--text {{ $t('dashboard_view.dashboard_title' )}}
               dashboard-tabs
-            dashboard-data-table
+            dashboard-data-table(v-if="dashboardDatatableData.length")
+            template(v-else)
+              loader-component
 </template>
 
 
@@ -20,6 +22,7 @@ import reportMixin from '@/mixins/reportMixin'
 // Components imports
 import DashboardDataTable from '@/components/dashboard/DashboardDataTable'
 import DashboardTabs from '@/components/dashboard/DashboardTabs'
+import LoaderComponent from '@/components/LoaderComponent'
 // Query imports
 // import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
 import { GET_DATA_FILTERS } from '@/graphql/config'
@@ -27,18 +30,20 @@ import { GET_DATA_FILTERS } from '@/graphql/config'
 export default {
   name: 'dashboard-view',
   computed: {
-    ...mapGetters([
+    ...mapGetters({
       // 'appFiltersGetter',
       // 'countryFiltersGetter',
-      'dateGetter'
+      date: 'dateGetter',
+      dashboardDatatableData: 'dashboardDatatableDataWithFormattedLabelGetter'
       // 'formatFiltersGetter',
       // 'groupedByGetter',
       // 'networkFiltersGetter'
-    ])
+    })
   },
   components: {
     DashboardDataTable,
-    DashboardTabs
+    DashboardTabs,
+    LoaderComponent
   },
   mixins: [accountMixin, appMixin, reportMixin],
   apollo: {

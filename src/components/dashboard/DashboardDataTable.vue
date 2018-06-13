@@ -75,7 +75,7 @@ export default {
       'activeTabAction',
       'addItemFiltersAction',
       'getDateAction',
-      'groupedByVarDataAction',
+      'groupByVarDataAction',
       'rangeAction'
     ]),
     // Show correct formatted label data depending on groupedby type
@@ -98,7 +98,7 @@ export default {
     //     return item.label
     //   }
     // },
-    // Change current tab and filtars when clicked data table row
+    // Change current tab and filters when clicked data table row
     selectTableItem (item, index) {
       let originalGroupedByValue = this.groupedBy
       let sendItemLabel
@@ -111,12 +111,12 @@ export default {
           })
           this.$root.$emit('sendDateToRoot', item.label)
           this.rangeAction([item.label, item.label])
-          this.groupedByVarDataAction('APP')
+          this.groupByVarDataAction('APP')
         })
       } else {
         this.activeTabAction('tab-date')
         .then(() => {
-          this.groupedByVarDataAction('DATE')
+          this.groupByVarDataAction('DATE')
           .then(() => {
             if (originalGroupedByValue === 'APP') {
               sendItemLabel = this.apps[index].name
