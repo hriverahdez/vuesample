@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+// Queries
 export const APPS_DATA = gql`
 {
   apps {
@@ -25,6 +26,32 @@ export const APPS_DATA = gql`
   }
 }
 `
+
+export const APP_DATA_BY_ID = gql`
+query ($_id: ID!) {
+  appById(_id: $_id) {
+    name
+    _id
+    disabled
+    networks {
+      active
+      profile
+      networkId
+      formats {
+        format
+        active
+        premium
+        formatFields{
+          key
+          value
+        }
+      }
+    }
+  }
+}
+`
+
+// Mutations
 export const CREATE_NEW_APP = gql`
   mutation createApp($input: CreateAppInput!){
     createApp(input: $input) {

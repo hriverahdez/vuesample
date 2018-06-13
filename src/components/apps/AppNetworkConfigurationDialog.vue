@@ -30,6 +30,8 @@
                     v-model="selectedProfile"
                     required
                   )
+                p {{ skippedQuery }}
+                div  {{ app }}
                 //- p {{ selectedAppNetworkConfig.appId }}
         //-         v-text-field(
         //-           :label="this.$t('apps_view.remove_app_message', {number: randomNumber})"
@@ -82,7 +84,9 @@ export default {
   // },
   computed: {
     ...mapGetters({
-      selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
+      app: 'appByIdDataGetter',
+      selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter',
+      skippedQuery: 'skipAppByIdQueryGetter'
     }),
     // Change switch text label
     check () {

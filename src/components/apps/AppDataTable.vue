@@ -189,7 +189,8 @@ export default {
       'appIdAction',
       'editedAppIndexStatusAction',
       'selectedAppNetworkInDatatableAction',
-      'selectedNetworkToManageAction'
+      'selectedNetworkToManageAction',
+      'skipAppByIdQueryAction'
     ]),
     ...mapMutations(['APP_DATA']),
     showDeleteDialog (app) {
@@ -207,6 +208,7 @@ export default {
     selectedCell (networkName, appName, appId) {
       this.appNetworkConfigDialogStatusAction(true)
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
+      this.skipAppByIdQueryAction(false)
     },
      // Show the corresponding network profile dialog from datatable header
     showManageNetworkProfiles (networkName) {

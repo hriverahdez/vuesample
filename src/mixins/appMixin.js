@@ -1,21 +1,44 @@
-import { APPS_DATA, CREATE_NEW_APP, DELETE_APP, UPDATE_APP } from '@/graphql/app'
-import { mapActions } from 'vuex'
+import { APPS_DATA, CREATE_NEW_APP, DELETE_APP, UPDATE_APP, APP_DATA_BY_ID } from '@/graphql/app'
+import { mapActions, mapGetters } from 'vuex'
+
+const URI = 'app'
 
 const appMixin = {
   apollo: {
     apps: {
       query: APPS_DATA,
       context: {
-        uri: 'app'
+        uri: URI
       },
       loadingKey: 'loading',
       update (data) {
         this.appDataAction(data.apps)
       }
+    },
+    appById: {
+      query: APP_DATA_BY_ID,
+      context: {
+        uri: URI
+      },
+      variables: {
+        _id: '5b10f0d69a5fd6245f65838d'
+      },
+      skip () {
+        return this.skip
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.appByIdDataAction(data.appById)
+      }
     }
+  },
+  computed: {
+    ...mapGetters({
+      skip: 'skipAppByIdQueryGetter'})
   },
   methods: {
     ...mapActions([
+      'appByIdDataAction',
       'appDataAction',
       'appDialogStatusAction',
       'appIdAction',
