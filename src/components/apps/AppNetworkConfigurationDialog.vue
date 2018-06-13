@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-dialog(v-model="$store.state.appModule.appNetworkConfigDialogStatus" max-width="500px" light)
+    v-dialog(v-model="$store.state.appModule.appNetworkConfigDialogStatus" fullscreen light)
       v-card
         v-card-title(
           class="formElementColor py-4 title white--text"

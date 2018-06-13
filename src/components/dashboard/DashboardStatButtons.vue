@@ -40,19 +40,19 @@ export default {
       this.activeButtonIndex = index
       switch (e.target.innerText.toLowerCase()) {
         case this.$t('dashboard_view.impressions'): {
-          this.buttonSelectedAction('imps')
+          this.buttonSelectedAction('imp')
           break
         }
         case this.$t('dashboard_view.requests'): {
-          this.buttonSelectedAction('requests')
+          this.buttonSelectedAction('req')
           break
         }
         case this.$t('dashboard_view.fill_rate'): {
-          this.buttonSelectedAction('fillRate')
+          this.buttonSelectedAction('fillrate')
           break
         }
         case this.$t('dashboard_view.clicks'): {
-          this.buttonSelectedAction('clicks')
+          this.buttonSelectedAction('click')
           break
         }
         case this.$t('dashboard_view.ctr'): {
@@ -60,7 +60,7 @@ export default {
           break
         }
         case this.$t('dashboard_view.revenue'): {
-          this.buttonSelectedAction('revenue')
+          this.buttonSelectedAction('money')
           break
         }
         case this.$t('dashboard_view.ecpm'): {
@@ -68,7 +68,7 @@ export default {
           break
         }
         default: {
-          this.buttonSelectedAction('revenue')
+          this.buttonSelectedAction('money')
           break
         }
       }
