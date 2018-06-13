@@ -12,12 +12,12 @@
       "alert_message": "No apps available",
       "API_check_config": "API check config",
       "API_failing": "API failing",
+      "app": "App",
       "app_delete": "Delete",
       "app_description": "Description",
       "app_edit": "Edit",
       "app_enable_disable": "Enable / disable:",
       "app_name": "App name",
-      "app_network_configuration": "App-network configuration",
       "app_search": "App search",
       "app_URL": "App URL",
       "API_no_data": "No API data",
@@ -33,11 +33,14 @@
       "icon_text": "Icon:",
       "manage_ad_placements": "Manage ad placements",
       "manage_network_profiles": "Manage network profiles",
+      "network": "Network",
+      "network_configuration": "Network configuration",
       "new_app": "New app",
       "new_success": "New app created",
       "remove_app": "Remove app",
       "remove_app_message": "Write {number} in the text field ",
       "select_platform": "Select platform",
+      "select_profile": "Select profile",
       "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {
@@ -117,7 +120,10 @@
       "users": "Users",
       "waterfall_rules": "Waterfall rules"
     },
-
+    "switch": {
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
     "validations": {
       "length": "The field must have between {minLength} and {maxLength} characters",
       "required": "Required field",

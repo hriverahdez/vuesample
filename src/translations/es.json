@@ -15,12 +15,12 @@
       "API_no_data": "API sin datos",
       "API_not_integrated": "No integrada",
       "API_working": "Funcionando",
+      "app": "App",
       "app_delete": "Eliminar",
       "app_disable_enable": "Habilitar / deshabilitar",
       "app_description": "Descripción",
       "app_edit": "Editar",
       "app_name": "Nombre app",
-      "app_network_configuration": "App-red configuración",
       "app_search": "Buscar app",
       "app_URL": "Aplicación URL",
       "apps_title": "Listado de apps",
@@ -33,11 +33,14 @@
       "icon_text": "Icono:",
       "manage_ad_placements": "Configurar zona anuncio",
       "manage_network_profiles": "Configurar perfil de red",
+      "network": "Red",
+      "network_configuration": "Configuración de red",
       "new_app": "Nueva app",
       "new_success": "Nueva app creada",
       "remove_app": "Eliminar app",
       "remove_app_message": "Escribe {number} en el campo de texto",
       "select_platform": "Selecciona plataforma",
+      "select_profile": "Selecciona perfil",
       "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {
@@ -116,6 +119,10 @@
       "user": "Usuario",
       "users": "Usuarios",
       "waterfall_rules": "Reglas de cascada"
+    },
+    "switch": {
+      "enabled": "Habilitado",
+      "disabled": "Deshabilitado"
     },
     "validations": {
       "length": "El campo debe tener entre {minLength} y {maxLength} caracteres",
