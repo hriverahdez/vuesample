@@ -42,8 +42,8 @@ const state = {
     name: '',
     bundle: '',
     platform: '',
-    URL: '',
-    description: ''
+    description: '',
+    banner_position: ''
   },
   appDialogStatus: false,
   appId: '',

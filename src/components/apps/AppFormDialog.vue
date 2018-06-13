@@ -19,31 +19,33 @@
                     v-text-field(
                       :label="this.$t('apps_view.app_name')"
                       v-model="appData.name"
-                      class="formElementColor--text"
+
+                      :rules="[v => !!v || 'Item is required']"
                       required
                     )
                     v-select(
                       :items="platforms"
                       :label="this.$t('apps_view.select_platform')"
+                      :rules="[v => !!v || 'Item is required']"
                       v-model="appData.platform"
                       required
                     )
                     v-text-field(
-                      :label="this.$t('apps_view.app_URL')"
-                      v-model="appData.URL"
-                      class="formElementColor--text"
-                    )
-                    v-text-field(
                       :label="this.$t('apps_view.bundle_identifier')"
                       v-model="appData.bundle"
-                      class="formElementColor--text"
+                      :rules="[v => !!v || 'Item is required']"
                       required
                     )
                     v-text-field(
                       :label="this.$t('apps_view.app_description')"
                       v-model="appData.description"
-                      class="formElementColor--text"
+                      class="pepe"
                       textarea
+                    )
+                    v-text-field(
+                      :label="this.$t('apps_view.banner_position')"
+                      v-model="appData.banner_position"
+                      required
                     )
                     div(class="select-icon-container")
                       span(class="icon-text") {{ $t('apps_view.icon_text')}}
@@ -60,7 +62,7 @@
           v-btn(
             class="white--text"
             color="buttonColor"
-            @click.native="accountEventHandler"
+            @click.native="appEventHandler"
             :disabled="!valid"
             ) {{ formButtonTitle }}
 </template>
@@ -103,11 +105,13 @@ export default {
       'editedAppIndexStatusAction'
     ]),
     // Choose between create or edit app
-    accountEventHandler () {
-      if (this.editedIndex === -1) {
-        this.sendCreateNewAppEvent()
-      } else {
-        this.sendEditAppEvent()
+    appEventHandler () {
+      if (this.$refs.newAppForm.validate()) {
+        if (this.editedIndex === -1) {
+          this.sendCreateNewAppEvent()
+        } else {
+          this.sendEditAppEvent()
+        }
       }
     },
     // Close dialog layer
@@ -143,6 +147,10 @@ export default {
 
 .icon-text {
   margin-right: 10px;
+}
+
+.pepe label .input-group__input {
+  background: red!important;
 }
 
 .draganddrop-container {
