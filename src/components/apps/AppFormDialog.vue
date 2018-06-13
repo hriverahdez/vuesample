@@ -114,20 +114,19 @@ export default {
     closeDialog () {
       this.appDialogStatusAction(false)
       setTimeout(() => {
-        this.$refs['newAppForm'].reset()
         this.editedAppIndexStatusAction(-1)
       }, 300)
     },
     sendCreateNewAppEvent () {
       this.$root.$emit('createApp', this.appData.name, this.appData.platform, this.appData.bundle)
-      setTimeout(() => {
-        this.$refs['newAppForm'].reset()
-      }, 300)
     },
     // Send event to edit account
     sendEditAppEvent () {
       this.$root.$emit('editApp', this.appData._id, this.appData.name, this.appData.description)
     }
+  },
+  beforeDestroy () {
+    this.$refs['newAppForm'].reset()
   }
 }
 </script>
