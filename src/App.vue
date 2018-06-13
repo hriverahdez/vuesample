@@ -46,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .view__container {
-  max-width: 1400px;
+  max-width: 1600px;
 }
 .floating-button-container {
   position: fixed;

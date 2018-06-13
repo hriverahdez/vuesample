@@ -19,7 +19,7 @@
                         close
                         @input="data.parent.selectItem(data.item)"
                     )
-                        v-avatar(class="accent") 
+                        v-avatar(class="accent")
                         | {{ data.item }}
         v-flex(xs2)
             v-select(
@@ -134,54 +134,18 @@
               template(v-for="(network, index) in networks")
                   v-chip(close @input="removeChip(network, 'networkFilters')") {{ network }}
 
-
-    //- // Columns
-    //- v-layout(row v-if="checkIfVisibleLists()")
-    //-     v-flex(xs3 v-if="apps.length")
-    //-         v-list
-    //-             template(v-for="(app, index) in apps")
-    //-                 v-list-tile
-    //-                     v-list-tile-content {{ app }}
-    //-     v-flex(xs3)
-    //-         v-list
-    //-             template(v-for="(country, index) in countries")
-    //-                 v-list-tile
-    //-                     v-list-tile-content {{ country.name }}
-
-    //-     v-flex(xs3)
-    //-         v-list
-    //-             template(v-for="(item, index) in apps")
-    //-                 v-list-tile
-    //-                     v-list-tile-content {{ item }}
-
-    //-     v-flex(xs3)
-    //-         v-list
-    //-             template(v-for="(item, index) in apps")
-    //-                 v-list-tile
-    //-                     v-list-tile-content {{ item }}
-
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-// Import components
-// import DialogAlert from '@/components/DialogAlert'
 
 export default {
   name: 'dashboard-filters',
   data () {
     return {
-      // apps: [],
-      // countries: [],
-      // formats: [],
-      // networks: [],
-      // dau: false,
       valid: false
     }
   },
-  // components: {
-  //   DialogAlert
-  // },
   watch: {
     apps (val) {
       this.checkIfApplyButtonAvailable()
@@ -220,7 +184,7 @@ export default {
       'networkFiltersAction',
       'removeFilterItemAction'
     ]),
-    ...mapMutations(['setAlertMessage']),
+    ...mapMutations(['SET_ALERT_MESSAGE']),
     // Push selected apps to apps list
     addAppToList () {
       if (this.apps.length) {
@@ -296,21 +260,13 @@ export default {
       this.countryFiltersAction(countryCodes)
       this.formatFiltersAction(this.formats)
       this.networkFiltersAction(networksToString)
-      this.setAlertMessage({
+      this.SET_ALERT_MESSAGE({
         show: true,
         type: 'success',
         message: this.$t('dashboard_view.confirm_filters_applied_message'),
         buttonText: this.$t('buttons.close')
       })
     }
-    // Show or hide lists elements
-    // checkIfVisibleLists () {
-    //   if (this.apps.length || this.countries.length) {
-    //     return true
-    //   } else {
-    //     return false
-    //   }
-    // }
   }
 }
 </script>

@@ -18,6 +18,7 @@
             single-line
             hide-details
             v-model="search"
+            class="search-field"
             )
     v-data-table(
         :headers="headers"
@@ -246,7 +247,7 @@ export default {
     border-bottom: 1px solid rgba(0,0,0,0.12);
 
     &:hover {
-      background: rgba(0,0,0,0.12);
+      background: #ededed;
     }
 
     .tooltip {
@@ -364,6 +365,10 @@ export default {
       }
     }
   }
+}
+
+.search-field {
+  padding-right: 21px;
 }
 
 .switch {

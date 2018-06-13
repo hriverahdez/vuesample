@@ -23,10 +23,18 @@ const reportMixin = {
           }
         }
       },
+      skip () {
+        return this.skipDashboardDataQuery
+      },
       loadingKey: 'loading',
       update (data) {
         this.statsDataAction(data.networkStats)
       }
+    }
+  },
+  data () {
+    return {
+      skipDashboardDataQuery: true
     }
   },
   computed: {

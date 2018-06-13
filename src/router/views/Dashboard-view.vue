@@ -14,30 +14,23 @@
 
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 // Mixins
 import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
+import configMixin from '@/mixins/configMixin'
 import reportMixin from '@/mixins/reportMixin'
 // Components imports
 import DashboardDataTable from '@/components/dashboard/DashboardDataTable'
 import DashboardTabs from '@/components/dashboard/DashboardTabs'
 import LoaderComponent from '@/components/LoaderComponent'
-// Query imports
-// import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
-import { GET_DATA_FILTERS } from '@/graphql/config'
 
 export default {
   name: 'dashboard-view',
   computed: {
     ...mapGetters({
-      // 'appFiltersGetter',
-      // 'countryFiltersGetter',
-      date: 'dateGetter',
+      // date: 'dateGetter',
       dashboardDatatableData: 'dashboardDatatableDataWithFormattedLabelGetter'
-      // 'formatFiltersGetter',
-      // 'groupedByGetter',
-      // 'networkFiltersGetter'
     })
   },
   components: {
@@ -45,49 +38,9 @@ export default {
     DashboardTabs,
     LoaderComponent
   },
-  mixins: [accountMixin, appMixin, reportMixin],
-  apollo: {
-    // networkStats: {
-    //   query: GET_DASHBOARD_REPORT_DATA,
-    //   context: {
-    //     uri: 'report'
-    //   },
-    //   variables () {
-    //     return {
-    //       groupBy: this.groupedByGetter,
-    //       filter: {
-    //         from: '2018-02-01',
-    //         to: '2018-02-09',
-    //         // from: this.dateGetter.startDate,
-    //         // to: this.dateGetter.endDate,
-    //         app: this.appFiltersGetter,
-    //         format: this.formatFiltersGetter,
-    //         source: this.networkFiltersGetter,
-    //         country: this.countryFiltersGetter
-    //       }
-    //     }
-    //   },
-    //   loadingKey: 'loading',
-    //   update (data) {
-    //     this.statsDataAction(data.networkStats.rowData)
-    //   }
-    // },
-    config: {
-      query: GET_DATA_FILTERS,
-      context: {
-        uri: 'config'
-      },
-      loadingKey: 'loading',
-      update (data) {
-        this.dashboardFiltersAction(data.config)
-      }
-    }
-  },
-  methods: {
-    ...mapActions([
-      'dashboardFiltersAction'
-      // 'statsDataAction'
-    ])
+  mixins: [accountMixin, appMixin, configMixin, reportMixin],
+  created () {
+    this.skipDashboardDataQuery = false
   }
 }
 </script>

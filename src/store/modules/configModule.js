@@ -68,7 +68,6 @@ const mutations = {
 
 const actions = {
   addItemFiltersAction ({commit}, [item, groupedBy]) {
-    console.log(item)
     commit(ADD_ITEM_FILTER_DATA, [item, groupedBy])
   },
   appFiltersAction ({commit}, filters) {
