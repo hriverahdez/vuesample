@@ -24,7 +24,7 @@ const appMixin = {
         _id: '5b10f0d69a5fd6245f65838d'
       },
       skip () {
-        return this.skip
+        return this.skipAppById
       },
       loadingKey: 'loading',
       update (data) {
@@ -34,7 +34,7 @@ const appMixin = {
   },
   computed: {
     ...mapGetters({
-      skip: 'skipAppByIdQueryGetter'})
+      skipAppById: 'skipAppByIdQueryGetter'})
   },
   methods: {
     ...mapActions([
@@ -61,7 +61,7 @@ const appMixin = {
             description: description,
             bannerPosition: bannerPosition,
             icon: icon,
-            account: '5b1a34e69a5fd6634e7690a2'
+            account: '5b10f0f89a5fd62624137dd5'
           }
         },
         update: (store, { data: { createApp } }) => {
@@ -85,10 +85,11 @@ const appMixin = {
       this.appDialogStatusAction(false)
       this.appSchemaAction({
         name: '',
-        bundle: '',
         platform: '',
-        URL: '',
-        description: ''
+        bundle: '',
+        description: '',
+        banner_position: '',
+        icon: ''
       })
     },
     // Delete App mutation

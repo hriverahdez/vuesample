@@ -16,7 +16,8 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    DAU: false
+    DAU: false,
+    prueba: 'NetworkIntegration1008'
   },
   getters: {
     checkDAUState (state) {

@@ -4,6 +4,7 @@ const ACCOUNT_DATA = 'ACCOUNT_DATA'
 const ACCOUNTS_DATA = 'ACCOUNTS_DATA'
 const ACCOUNT_DIALOG_STATUS = 'ACCOUNT_DIALOG_STATUS'
 const EDIT_INDEX_STATUS = 'EDIT_INDEX_STATUS'
+const NETWORK_PROFILES_DATA = 'NETWORK_PROFILES_DATA'
 
 const state = {
   accounts: [],
@@ -16,7 +17,9 @@ const state = {
     disabled: false
   },
   // Index element to know if its edited mode
-  editedIndex: -1
+  editedIndex: -1,
+  // Info network profiles when launch dialog manage profiles from app view datatable
+  networkProfiles: ''
 }
 
 const getters = {
@@ -36,6 +39,9 @@ const getters = {
   },
   editedIndexGetter (state) {
     return state.editedIndex
+  },
+  networkProfilesDataGetter (state) {
+    return state.networkProfiles
   }
 }
 
@@ -51,6 +57,9 @@ const mutations = {
   },
   [EDIT_INDEX_STATUS] (state, indexValue) {
     state.editedIndex = indexValue
+  },
+  [NETWORK_PROFILES_DATA] (state, profiles) {
+    state.networkProfiles = profiles
   }
 }
 
@@ -66,6 +75,10 @@ const actions = {
   },
   editedIndexStatusAction ({commit}, indexValue) {
     commit(EDIT_INDEX_STATUS, indexValue)
+  },
+  networkProfilesDataAction ({commit}, profiles) {
+    console.log('entra', profiles)
+    commit(NETWORK_PROFILES_DATA, profiles)
   }
 }
 

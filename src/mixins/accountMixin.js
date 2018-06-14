@@ -1,16 +1,28 @@
-import { CREATE_NEW_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/account'
+import { CREATE_NEW_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT, UPDATE_ACCOUNT, NETWORK_PROFILES } from '@/graphql/account'
 import { mapMutations, mapActions } from 'vuex'
+
+const URI = 'account'
 
 const accountMixin = {
   apollo: {
     accounts: {
       query: GET_ACCOUNTS,
       context: {
-        uri: 'account'
+        uri: URI
       },
       loadingKey: 'loading',
       update (data) {
         this.accountsDataAction(data.accounts)
+      }
+    },
+    networkProfiles: {
+      query: NETWORK_PROFILES,
+      context: {
+        uri: URI
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
       }
     }
   },
@@ -19,7 +31,8 @@ const accountMixin = {
       'accountsDataAction',
       'accountDialogStatusAction',
       'accountSchemaAction',
-      'editedIndexStatusAction'
+      'editedIndexStatusAction',
+      'networkProfilesDataAction'
     ]),
     ...mapMutations(['SET_ALERT_MESSAGE']),
     // Create account mutation
