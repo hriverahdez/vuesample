@@ -23,6 +23,8 @@
       "app_name": "Nombre app",
       "app_search": "Buscar app",
       "app_URL": "Aplicación URL",
+      "API_info_text": "",
+      "API_key": "Clave API",
       "apps_title": "Listado de apps",
       "banner_position": "Posición del banner",
       "bundle_identifier": "Identificador de bundle",
@@ -34,10 +36,13 @@
       "icon_text": "Icono:",
       "manage_ad_placements": "Configurar zona anuncio",
       "manage_network_profiles": "Configurar perfil de red",
+      "manage_network_info_text": "In this section you can manage the current integrated networks for your app and its profiless. (This will be the default list of networks you will see in the app creation & edition sections)",
       "network": "Red",
       "network_configuration": "Configuración de red",
       "new_app": "Nueva app",
+      "new_profile": "Nuevo perfil",
       "new_success": "Nueva app creada",
+      "profile_name": "Nombre de perfil",
       "remove_app": "Eliminar app",
       "remove_app_message": "Escribe {number} en el campo de texto",
       "select_platform": "Selecciona plataforma",
@@ -120,6 +125,24 @@
       "user": "Usuario",
       "users": "Usuarios",
       "waterfall_rules": "Reglas de cascada"
+    },
+    "networks_info": {
+      "addcolony1003": {
+        "api_key": {
+          "label": "Clave API",
+          "help_text": "Your API key will be labeled as \"Read-Only API Key\" on this page - PENDING"
+        }
+      },
+      "applovin1008": {
+        "report_key": {
+          "label": "Clave reporte",
+          "help_text": "From your Account page, choose \"Keys\" in the left sidebar, then select the Report Key. If you do not see the Report Key field, email support@applovin.com and request your reporting key. - PENDING"
+        },
+        "sdk_key": {
+          "label": "Cleve SDK",
+          "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key.-PENDING"
+        }
+      }
     },
     "switch": {
       "enabled": "Habilitado",

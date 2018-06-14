@@ -1,14 +1,48 @@
 <template lang="pug">
-    v-dialog(v-model="$store.state.appModule.appManageNetworkProfileDialogStatus" max-width="500px" light)
+    v-dialog(v-model="$store.state.appModule.appManageNetworkProfileDialogStatus" max-width="600px" light)
       v-card
         v-card-title(
           class="formElementColor py-4 title white--text"
           ) {{ $t('apps_view.manage_network_profiles') }}
         v-card-text(class="card__text__form")
-          v-container(grid-list-md)
+          v-container(grid-list-md class="manage-network__container")
             v-layout(wrap)
               v-flex(xs12)
-                p {{ selectedNetworkName }}
+                div(class="manage-network__container__text-info")
+                  p {{ $t('apps_view.manage_network_info_text')}}
+                div(class="manage-network__container__network-logo")
+                  p {{ selectedNetworkName }}
+                div(class="manage-network__container__actions-row")
+                  v-flex(xs8)
+                    v-select(
+                      :label="this.$t('apps_view.select_profile')"
+                      required
+                    )
+                  v-flex(xs2 offset-xs1)
+                    v-btn(
+                        class="white--text"
+                        color="buttonColor"
+                        @click.native=""
+                    ) {{ $t('apps_view.new_profile') }}
+                v-form(class="manage-network__container__form")
+                  //- v-text-field(
+                  //-   :label="this.$t('apps_view.profile_name')"
+                  //-   required
+                  //- )
+                  //- v-text-field(
+                  //-   :label="this.$t('apps_view.API_key')"
+                  //-   required
+                  //- )
+                  div(
+                    v-for="(field,index) in networksInfo[selectednetworkId].params_by_network"
+                    :key="index"
+                    class="manage-network__container__form__input-container"
+                    )
+                    v-text-field(
+                      :label="field.label"
+                      )
+                    p {{  field.help_text }}
+
         //-         v-text-field(
         //-           :label="this.$t('apps_view.remove_app_message', {number: randomNumber})"
         //-           v-model="$store.state.appModule.removeAppPermissionInput"
@@ -57,6 +91,8 @@ export default {
   // },
   computed: {
     ...mapGetters({
+      networksInfo: 'networksInfoGetter',
+      selectednetworkId: 'selectedNetworkIdToManageGetter',
       selectedNetworkName: 'selectedNetworkToManageGetter'
     })
   },
@@ -78,6 +114,25 @@ export default {
 <style lang="scss" scoped>
 .card__actions {
   padding: 0 20px 20px 20px;
+}
+.manage-network__container {
+
+  &__actions-row {
+    display: flex;
+    align-items: center;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.54);
+    padding: 0 40px;
+
+    &__input-container {
+      width: 100%;
+    }
+  }
 }
 </style>
 

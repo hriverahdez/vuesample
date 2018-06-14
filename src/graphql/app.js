@@ -11,6 +11,7 @@ export const APPS_DATA = gql`
     disabled
     bundle
     platform
+    icon
     networks {
       networkId
       profile

@@ -20,6 +20,7 @@
       "app_name": "App name",
       "app_search": "App search",
       "app_URL": "App URL",
+      "API_key": "API Key",
       "API_no_data": "No API data",
       "API_not_integrated": "Not integrated",
       "API_working": "API working",
@@ -33,11 +34,14 @@
       "enable_disable_network": "Enable / disable:",
       "icon_text": "Icon:",
       "manage_ad_placements": "Manage ad placements",
+      "manage_network_info_text": "In this section you can manage the current integrated networks for your app and its profiless. (This will be the default list of networks you will see in the app creation & edition sections)",
       "manage_network_profiles": "Manage network profiles",
       "network": "Network",
       "network_configuration": "Network configuration",
       "new_app": "New app",
       "new_success": "New app created",
+      "new_profile": "New profile",
+      "profile_name": "Profile name",
       "remove_app": "Remove app",
       "remove_app_message": "Write {number} in the text field ",
       "select_platform": "Select platform",
@@ -120,6 +124,24 @@
       "user": "User",
       "users": "Users",
       "waterfall_rules": "Waterfall rules"
+    },
+    "networks_info": {
+      "addcolony1003": {
+        "api_key": {
+          "label": "API key",
+          "help_text": "Your API key will be labeled as \"Read-Only API Key\" on this page"
+        }
+      },
+      "applovin1008": {
+        "report_key": {
+          "label": "Report Key",
+          "help_text": "From your Account page, choose \"Keys\" in the left sidebar, then select the Report Key. If you do not see the Report Key field, email support@applovin.com and request your reporting key."
+        },
+        "sdk_key": {
+          "label": "SDK Key",
+          "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key."
+        }
+      }
     },
     "switch": {
       "enabled": "Enabled",

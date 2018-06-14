@@ -121,6 +121,10 @@ const getters = {
   selectedAppNetworkInDatatableGetter (state) {
     return state.selectedAppNetworkInDatatable
   },
+  selectedNetworkIdToManageGetter (state, getters) {
+    let networkName = state.selectedNetworkToManage
+    return networks[networkName]
+  },
   selectedNetworkToManageGetter (state) {
     return state.selectedNetworkToManage
   },

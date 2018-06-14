@@ -55,7 +55,7 @@
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedGetter"
+                          :data="alvaro"
                           :discrete= "true")
                     // App tab
                     v-tab-item(id="tab-app" v-if="statsDataFormattedGetter")
@@ -140,6 +140,41 @@ export default {
     data2: [
       {name: 'Workout', data: {'2017-01-01 00:00:00 -0800': 3, '2017-01-02 00:00:00 -0800': 4}},
       {name: 'Call parents', data: {'2017-01-03 00:00:00 -0800': 5, '2017-01-04 00:00:00 -0800': 3}}
+    ],
+    alvaro: [
+    // {
+    //   "name": "App 01",
+    //   "data": {
+    //     "2018-02-01": 3,
+    //     "2018-02-02": 30,
+    //     "2018-02-03": 33,
+    //     "2018-02-07": 1
+    //   }
+    // },
+    // {
+    //   "name": "App 05",
+    //   "data": {
+    //     "2018-02-07": 1
+    //   }
+    // },
+    // {
+    //   "name": "App 03",
+    //   "data": {
+    //     "2018-02-07": 1
+    //   }
+    // },
+    // {
+    //   "name": "App 04",
+    //   "data": {
+    //     "2018-02-01": 11,
+    //     "2018-02-02": 13,
+    //     "2018-02-03": 10,
+    //     "2018-02-04": 10,
+    //     "2018-02-05": 9,
+    //     "2018-02-06": 13,
+    //     "2018-02-07": 13
+    //   }
+    // }
     ]
   }),
   components: {
