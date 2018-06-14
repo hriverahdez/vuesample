@@ -96,7 +96,8 @@ export default {
           text: 'navigation.account',
           model: true,
           children: [
-            { text: 'navigation.profile', action: '#' },
+            { text: 'navigation.profile', action: '/login' },
+            { text: 'navigation.profile', action: '/logout' }, // TODO. borrar
             // { icon: 'timeline', text: 'navigation.finance', action: '#' },
             { text: 'navigation.users', action: '#' }
             // { icon: 'label', text: 'navigation.tags', action: '#' }
@@ -117,7 +118,7 @@ export default {
         { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
         { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
         { icon: 'face', text: 'navigation.profile', action: '#' },
-        { icon: 'exit_to_app', text: 'navigation.logout', action: '#' }
+        { icon: 'exit_to_app', text: 'navigation.logout', action: '/logout' }
       ],
       items_select: [
         'English', 'Spanish'

@@ -3,11 +3,13 @@ import Router from 'vue-router'
 
 // Routes
 import AccountsView from '@/router/views/Accounts-view'
+import AccountsSelectionView from '@/router/views/Accounts-selection-view'
 import AppsView from '@/router/views/Apps-view'
 import Contacto from '@/components/Contacto'
 import DashboardView from '@/router/views/Dashboard-view'
 import DashboardPrueba from '@/components/Dashboard'
 import LoginView from '@/router/views/Login-view'
+import { store } from '@/store/store'
 
 Vue.use(Router)
 
@@ -16,32 +18,99 @@ export default new Router({
     {
       path: '/',
       name: 'dashboard',
-      component: DashboardView
+      component: DashboardView,
+      beforeEnter: (to, from, next) => {
+        console.log(store.getters.tokenGetter)
+        if (store.getters.tokenGetter === '') {
+          next('/login')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/accounts',
       name: 'accounts',
-      component: AccountsView
+      component: AccountsView,
+      beforeEnter: (to, from, next) => {
+        if (store.getters.tokenGetter === '') {
+          next('/login')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/accounts-selection',
+      name: 'accounts_selection',
+      component: AccountsSelectionView,
+      beforeEnter: (to, from, next) => {
+        console.log(store.getters.tokenGetter)
+        if (store.getters.tokenGetter === '') {
+          next('/login')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/apps',
       name: 'apps',
-      component: AppsView
+      component: AppsView,
+      beforeEnter: (to, from, next) => {
+        if (store.getters.tokenGetter === '') {
+          next('/login')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/dashboard',
       name: 'prueba',
-      component: DashboardPrueba
+      component: DashboardPrueba,
+      beforeEnter: (to, from, next) => {
+        if (store.getters.tokenGetter === '') {
+          next('/login')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/contacto',
       name: 'contacto',
-      component: Contacto
+      component: Contacto,
+      beforeEnter: (to, from, next) => {
+        if (store.getters.tokenGetter === '') {
+          next('/login')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      beforeEnter: (to, from, next) => {
+        console.log(store)
+        console.log(store.getters.tokenGetter)
+        if (store.getters.tokenGetter !== '') {
+          next('/')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: LoginView,
+      beforeRouteLeave (to, from, next) {
+        store.dispatch('logout')
+        next('/login')
+      }
     }
   ],
   mode: 'history',

@@ -76,7 +76,7 @@
       })
     },
     methods: {
-      ...mapActions(['tokenDataAction']),
+      ...mapActions(['tokenDataAction', 'setActiveUserAccountByIndexAction']),
       ...mapMutations(['SET_ALERT_MESSAGE']),
       checkIsLoading () {
         return this.isLoading
@@ -94,28 +94,8 @@
             .then(response => {
               if (response.data.token) {
                 this.tokenDataAction(response.data.token)
-
+                // vamos a consultar en graphQL por los datos de usuario
                 this.queryUser(this.email)
-
-                if (this.getUserAccountsNum === 0 && this.getUser.isAdmin === false) {
-                  console.log('entro')
-                  this.SET_ALERT_MESSAGE({
-                    show: true,
-                    type: 'success',
-                    message: this.$t('login_view.error'),
-                    buttonText: this.$t('buttons.close')
-                  })
-                } else {
-                  // si tiene una cuenta redirigimos al dashboard
-                  console.log(this.getUserAccountsNum)
-                  if (this.getUserAccountsNum === 1) {
-                    console.log('entro2')
-                    this.$router.push({ name: 'dashboard' })
-                  } else {
-                    console.log('entro3')
-                     // TODO: si tiene mas de una redirigimos o es admin a la pantalla de selección de cuentas
-                  }
-                }
               } else {
                 this.SET_ALERT_MESSAGE({
                   show: true,
@@ -127,7 +107,13 @@
             })
             .catch(error => {
               console.log(error)
-              // TODO: mostramos el error / desbloqueamos el formulario
+              this.isLoading = false
+              this.SET_ALERT_MESSAGE({
+                show: true,
+                type: 'success',
+                message: this.$t('login_view.error_user_not_valid'),
+                buttonText: this.$t('buttons.close')
+              })
             })
             .finally(() => (this.isLoading = false))
         }

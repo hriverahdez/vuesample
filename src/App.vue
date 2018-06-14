@@ -12,7 +12,6 @@
     v-footer(class="footer-container blue_dark" v-if="checkIfVisibleDependingOnRoute()")
      span.copyright {{ $t('footer.copyright') }}
 
-
 </template>
 
 <script>
@@ -33,7 +32,7 @@ export default {
   },
   methods: {
     checkIfVisibleDependingOnRoute () {
-      if (this.$route.name === 'login') {
+      if (this.$route.name === 'login' || this.$route.name === 'accounts_selection') {
         return false
       } else {
         return true

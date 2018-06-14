@@ -1,4 +1,5 @@
 import { GET_USER } from '@/graphql/user'
+import { GET_ACCOUNTS_FILTERING } from '@/graphql/account'
 import { mapActions } from 'vuex'
 
 const userMixin = {
@@ -27,10 +28,12 @@ const userMixin = {
         } else {
           // si tiene una cuenta redirigimos al dashboard
           if (this.getUserAccountsNum === 1) {
+            // setear en otra propiedad del store la cuenta activa,q es la unica que tiene
+            this.setActiveUserAccountAction(this.getUser.accounts[0].account)
             this.$router.push({ name: 'dashboard' })
           } else {
-            console.log('entro3')
-            // TODO: si tiene mas de una redirigimos o es admin a la pantalla de selección de cuentas
+            // si tiene mas de una redirigimos o es admin a la pantalla de selección de cuentas
+            this.$router.push({ name: 'accounts_selection' })
           }
         }
       },
@@ -38,15 +41,42 @@ const userMixin = {
       skip () {
         return this.skipQuery
       }
+    },
+    userAccounts: {
+      query: GET_ACCOUNTS_FILTERING,
+      context: {
+        uri: 'account'
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id_in: this.getUserAccountsIds
+            }
+          }
+        }
+      },
+      loadingKey: 'loading',
+      update (data) {
+        console.log(data)
+        this.setUserAccounts(data.accounts)
+      },
+      // Deshabilitamos la query,para lanzarla cuando queramos
+      skip () {
+        return this.skipQueryUserAccounts
+      }
     }
   },
   data: () => ({
+    accountIds: [],
+    email: '',
     skipQuery: true,
-    email: ''
+    skipQueryUserAccounts: true
   }),
   methods: {
     ...mapActions([
-      'userDataAction'
+      'userDataAction',
+      'setUserAccounts'
     ]),
     queryUser (email) {
       this.email = email

@@ -1,5 +1,11 @@
 
 {
+    "accounts_selection_view": {
+      "title": "Selección de cuenta",
+      "p1": "Por favor selecciona la cuenta en la que quieres logarte.",
+      "p2": "Cuentas disponibles",
+      "select_account": "Selecciona una cuenta"
+    },
     "accounts_view": {
       "account_title": "Listado de cuentas",
       "alert_message": "Ninguna cuenta disponible",

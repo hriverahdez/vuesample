@@ -1,5 +1,11 @@
 
 {
+    "accounts_selection_view": {
+      "title": "Account selection",
+      "p1": "Please, select the account you want to sign in.",
+      "p2": "Available accounts",
+      "select_account": "Select an account"
+    },
     "accounts_view": {
       "account_title": "Account list",
       "alert_message": "No accounts available",
