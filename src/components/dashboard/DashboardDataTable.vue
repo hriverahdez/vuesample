@@ -1,20 +1,20 @@
 <template lang="pug">
     v-data-table(
         :headers="showDAU ? headersWithDAU : headers"
-        :items="stats"
+        :items="datatableData"
         :search="search"
         hide-actions
         class="elevation-1 dashboard-datatable"
         )
         template(slot="items" slot-scope="props")
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ formatDataLabelDependingOnGroupedby(props.item) }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.requests }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)" v-if="showDAU") DAU
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imps }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imp }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.fillRate }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.clicks }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.click }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ctr }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.revenue }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.money }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ecpm }}
 
         template(slot="no-data")
@@ -64,9 +64,9 @@ export default {
   computed: {
     ...mapGetters({
       apps: 'appIdAndNameGetter',
-      groupedBy: 'groupedByGetter',
+      groupedBy: 'groupByGetter',
       networks: 'networksGetter',
-      stats: 'statsDataGetter',
+      datatableData: 'dashboardDatatableDataWithFormattedLabelGetter',
       showDAU: 'checkDAUState'
     })
   },
@@ -79,25 +79,25 @@ export default {
       'rangeAction'
     ]),
     // Show correct formatted label data depending on groupedby type
-    formatDataLabelDependingOnGroupedby (item) {
-      if (this.groupedBy === 'DATE') {
-        return item.label
-      } else if (this.groupedBy === 'APP') {
-        for (let i = 0; i < this.apps.length; i++) {
-          if (item.label === this.apps[i].id) {
-            return this.apps[i].name
-          }
-        }
-      } else if (this.groupedBy === 'NETWORK') {
-        for (let key in this.networks) {
-          if (item.label === this.networks[key]) {
-            return key
-          }
-        }
-      } else {
-        return item.label
-      }
-    },
+    // formatDataLabelDependingOnGroupedby (item) {
+    //   if (this.groupedBy === 'DATE') {
+    //     return item.label
+    //   } else if (this.groupedBy === 'APP') {
+    //     for (let i = 0; i < this.apps.length; i++) {
+    //       if (item.label === this.apps[i].id) {
+    //         return this.apps[i].name
+    //       }
+    //     }
+    //   } else if (this.groupedBy === 'NETWORK') {
+    //     for (let key in this.networks) {
+    //       if (item.label === this.networks[key]) {
+    //         return key
+    //       }
+    //     }
+    //   } else {
+    //     return item.label
+    //   }
+    // },
     // Change current tab and filtars when clicked data table row
     selectTableItem (item, index) {
       let originalGroupedByValue = this.groupedBy

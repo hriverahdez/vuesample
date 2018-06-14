@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const APP_DATA = gql`
+export const APPS_DATA = gql`
 {
   apps {
     _id
@@ -10,17 +10,8 @@ export const APP_DATA = gql`
     disabled
     bundle
     platform
-    dateCreation {
-      date
-    }
-    dateLastUpdate {
-      date
-    }
-    adPlacements {
-      slug
-      formatId
-    }
     networks {
+      networkId
       profile
       formats {
         premium
@@ -30,6 +21,33 @@ export const APP_DATA = gql`
           value
         }
       }
+    }
+  }
+}
+`
+export const CREATE_NEW_APP = gql`
+  mutation createApp($input: CreateAppInput!){
+    createApp(input: $input) {
+      app {
+        _id
+        name
+      }
+    }
+  }
+`
+export const DELETE_APP = gql`
+  mutation deleteAppById($_id: [ID!]) {
+    deleteAppById(_id: $_id)
+  }
+`
+
+export const UPDATE_APP = gql`
+mutation updateAppById ($_id: ID!, $input: UpdateAppInput!){
+  updateAppById(_id: $_id, input: $input) {
+    app {
+      _id
+      name
+      description
     }
   }
 }

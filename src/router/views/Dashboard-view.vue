@@ -16,54 +16,57 @@ import { mapActions, mapGetters } from 'vuex'
 // Mixins
 import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
+import reportMixin from '@/mixins/reportMixin'
 // Components imports
 import DashboardDataTable from '@/components/dashboard/DashboardDataTable'
 import DashboardTabs from '@/components/dashboard/DashboardTabs'
 // Query imports
-import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
+// import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
 import { GET_DATA_FILTERS } from '@/graphql/config'
 
 export default {
   name: 'dashboard-view',
   computed: {
     ...mapGetters([
-      'appFiltersGetter',
-      'countryFiltersGetter',
-      'dateGetter',
-      'formatFiltersGetter',
-      'groupedByGetter',
-      'networkFiltersGetter'
+      // 'appFiltersGetter',
+      // 'countryFiltersGetter',
+      'dateGetter'
+      // 'formatFiltersGetter',
+      // 'groupedByGetter',
+      // 'networkFiltersGetter'
     ])
   },
   components: {
     DashboardDataTable,
     DashboardTabs
   },
-  mixins: [accountMixin, appMixin],
+  mixins: [accountMixin, appMixin, reportMixin],
   apollo: {
-    stats: {
-      query: GET_DASHBOARD_REPORT_DATA,
-      context: {
-        uri: 'report'
-      },
-      variables () {
-        return {
-          groupBy: this.groupedByGetter,
-          filter: {
-            from: this.dateGetter.startDate,
-            to: this.dateGetter.endDate,
-            apps: this.appFiltersGetter,
-            formats: this.formatFiltersGetter,
-            networks: this.networkFiltersGetter,
-            countries: this.countryFiltersGetter
-          }
-        }
-      },
-      loadingKey: 'loading',
-      update (data) {
-        this.statsDataAction(data.stats)
-      }
-    },
+    // networkStats: {
+    //   query: GET_DASHBOARD_REPORT_DATA,
+    //   context: {
+    //     uri: 'report'
+    //   },
+    //   variables () {
+    //     return {
+    //       groupBy: this.groupedByGetter,
+    //       filter: {
+    //         from: '2018-02-01',
+    //         to: '2018-02-09',
+    //         // from: this.dateGetter.startDate,
+    //         // to: this.dateGetter.endDate,
+    //         app: this.appFiltersGetter,
+    //         format: this.formatFiltersGetter,
+    //         source: this.networkFiltersGetter,
+    //         country: this.countryFiltersGetter
+    //       }
+    //     }
+    //   },
+    //   loadingKey: 'loading',
+    //   update (data) {
+    //     this.statsDataAction(data.networkStats.rowData)
+    //   }
+    // },
     config: {
       query: GET_DATA_FILTERS,
       context: {
@@ -74,21 +77,11 @@ export default {
         this.dashboardFiltersAction(data.config)
       }
     }
-    // apps: {
-    //   query: APP_DATA,
-    //   context: {
-    //     uri: 'app'
-    //   },
-    //   loadingKey: 'loading',
-    //   update (data) {
-    //     this.appDataAction(data.apps)
-    //   }
-    // }
   },
   methods: {
     ...mapActions([
-      'dashboardFiltersAction',
-      'statsDataAction'
+      'dashboardFiltersAction'
+      // 'statsDataAction'
     ])
   }
 }
