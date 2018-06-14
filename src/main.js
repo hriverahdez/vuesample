@@ -4,7 +4,7 @@ import Vue from 'vue'
 // Apollo import
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
 
 // Main component import
@@ -34,6 +34,12 @@ Vue.component('icon', Icon)
 // Apollo config
 const host = 'http://stage.do.linkitox.com/public/graphql'
 
+const introspectionQueryResultData = require('./fragmentTypes.json')
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+})
+
 const customFetch = (uri, options) => fetch(`${host}/${uri}`, options)
 
 const dynLink = createHttpLink({
@@ -42,7 +48,7 @@ const dynLink = createHttpLink({
 
 const apolloClient = new ApolloClient({
   link: dynLink,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({fragmentMatcher}),
   connectToDevTools: true
 })
 
