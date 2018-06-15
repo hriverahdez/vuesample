@@ -1,19 +1,30 @@
 // Current token
+const LOGOUT = 'LOGOUT'
+const REMEMBER_ME = 'REMEMBER_ME'
+const SET_ACTIVE_ACCOUNT = 'SET_ACTIVE_ACCOUNT'
 const TOKEN_DATA = 'TOKEN_DATA'
 const USER_DATA = 'USER_DATA'
-const LOGOUT = 'LOGOUT'
-const SET_ACTIVE_ACCOUNT = 'SET_ACTIVE_ACCOUNT'
 const USER_ACCOUNTS = 'USER_ACCOUNTS'
 
 const state = {
   activeAccount: '',
   token: '',
+  rememberMe: false,
   user: [],
   userAccountsNumber: 0,
   userAccounts: []
 }
 
 const getters = {
+  activeAccount (state) {
+    return state.activeAccount
+  },
+  isLogged (state, getters) {
+    return (typeof getters.tokenGetter !== 'undefined' && getters.tokenGetter !== '' && getters.userGetter !== 'undefined' && getters.userGetter !== '')
+  },
+  rememberMe (state) {
+    return state.rememberMe
+  },
   tokenGetter (state) {
     return state.token
   },
@@ -42,21 +53,38 @@ const getters = {
 }
 
 const mutations = {
-  [TOKEN_DATA] (state, token) {
-    state.token = token
+  [LOGOUT] (state) {
+    console.log('logout')
+    state.activeAccount = ''
+    state.token = ''
+    state.user = []
+    state.userAccountsNumber = 0
+    state.userAccounts = []
+    state.rememberMe = false
+    localStorage.removeItem('activeAccount')
+    localStorage.removeItem('token')
+    localStorage.removeItem('rememberMe')
+  },
+  [REMEMBER_ME] (state, remember) {
+    state.rememberMe = remember
+    localStorage.setItem('rememberMe', remember)
+  },
+  [TOKEN_DATA] (state, data) {
+    state.token = data.token
+    if (data.rememberMe) {
+      state.rememberMe = true
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('rememberMe', data.rememberMe)
+    }
   },
   [USER_DATA] (state, user) {
     state.user = user
   },
   [SET_ACTIVE_ACCOUNT] (state, account) {
     state.activeAccount = account
-  },
-  [LOGOUT] (state) {
-    state.activeAccount = ''
-    state.token = ''
-    state.user = []
-    state.userAccountsNumber = 0
-    state.userAccounts = []
+    if (state.rememberMe) {
+      localStorage.setItem('activeAccount', account)
+    }
   },
   [USER_ACCOUNTS] (state, accounts) {
     state.userAccounts = accounts
@@ -64,14 +92,17 @@ const mutations = {
 }
 
 const actions = {
+  logout ({ commit }) {
+    commit(LOGOUT)
+  },
+  rememberMe ({ commit }, remember) {
+    commit(REMEMBER_ME, remember)
+  },
   tokenDataAction ({commit}, token) {
     commit(TOKEN_DATA, token)
   },
   userDataAction ({commit}, user) {
     commit(USER_DATA, user)
-  },
-  logout ({ commit }) {
-    commit(LOGOUT)
   },
   setActiveUserAccountAction ({commit}, account) {
     commit(SET_ACTIVE_ACCOUNT, account)

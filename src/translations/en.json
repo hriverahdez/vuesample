@@ -102,9 +102,11 @@
       "loading_text": "Loading..."
     },
     "login_view": {
+      "click_here": "Click here",
       "email" : "E-mail",
       "error": "An error has occured with your account. Please contact the technical team for support.",
       "password" : "Password",
+      "not_register": "Not registered yet?",
       "remember" : "Remember me"
     },
     "navigation": {

@@ -1,13 +1,14 @@
 <template lang="pug">
-    v-container(class="login__section fullscreen")
+    v-container(class="login__body fullscreen")
         v-layout(wrap class="card__row-title")
-            v-flex(xs12 sm12 offset-sm1 mt-3).login
-                h4.login_title LOG IN
+            v-flex().login
+                img(src="@/assets/logo-labcave.png").logo
+                h2.t1 Sign in to start your sesion
                 v-form(
                     ref="form"
                     lazy-validation
                     v-model="valid"
-                    ).login__form
+                    )
                         v-text-field(
                             :label="this.$t('login_view.email')"
                             v-model="email"
@@ -27,23 +28,14 @@
                             v-model="checkbox"
                             :label="this.$t('login_view.remember')"
                             :disabled="checkIsLoading()"
-                        )
+                        ).checkbox
                         v-btn(
-                            color="info"
                             @click.stop.prevent="submit"
                             :disabled="checkIsLoading()"
-                        ) {{ $t('buttons.signin') }}
-                v-card().login_sidebar
-                    h4().block__sidebar__title
-                        img(src="@/assets/logo.png", alt="Mediation logo", style="height: 54px")
-                        strong Mediation layer panel
-                    div().login__block__sidebar__item
-                        p The mediation panel helps you configure your apps and ad networks to monetize your campaigns in the best way.
-                    div().login__block__sidebar__place
-                        v-icon location_on
-                        span Madrid, SPAIN
+                        ).btn-submit {{ $t('buttons.signin') }}
                         br
-                        a(href="https://www.mobusi.com/" target="_blank") https://www.mobusi.com
+                        p.t2 {{ $t('login_view.not_register') }}&nbsp;
+                            a(href="mailto:mediation@labcavegames.com") {{ $t('login_view.click_here') }}
 </template>
 
 <script>
@@ -93,10 +85,11 @@
             })
             .then(response => {
               if (response.data.token) {
-                this.tokenDataAction(response.data.token)
+                this.tokenDataAction({token: response.data.token, rememberMe: this.checkbox})
                 // vamos a consultar en graphQL por los datos de usuario
                 this.queryUser(this.email)
               } else {
+                // TODO: no se ven los alerts de mensajes de error
                 this.SET_ALERT_MESSAGE({
                   show: true,
                   type: 'success',
@@ -124,113 +117,146 @@
 
 <style lang="scss" scoped>
 
-  .login__section{
-     background: transparent url("../../assets/background.jpg") !important;
-  }
-
-  .fullscreen{
-      position: fixed;
-      z-index: 20000;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      overflow-y: auto;
-      margin: 0 auto;
-      background-size: cover !important;
-      max-width: 100%;
-  }
-
-  .login{
-      min-width: 21.42rem;
-      max-width: 50rem;
-      margin: 0 auto;
-      padding: 5.50rem 4.85rem 5.50rem !important;
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
-      overflow: hidden;
-      background-color: #ffffff;
-      position: relative;
-      margin-top: 12% !important;
-  }
-
-  @media (min-width: 992px) {
-      .login__form{
-          margin-right: 21.42rem;
-      }
-  }
-
-  .login__form{
-      position: relative;
-      z-index: 2;
-      box-sizing: inherit;
-      color: #514d6a;
-  }
-
-  .login_sidebar{
-    display: none;
-  }
-
-  @media (min-width: 992px) {
-    .login_sidebar{
-      position: absolute;
-      display: block;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 21.42rem;
-      padding: 2.71rem 2.85rem;
-      color: #ffffff;
-      background: #222034;
-      border-radius: 0 10px 10px 0;
+    .login__body{
+        font-family:'brandon-grotesque', sans-serif !important;
+        font-weight:400 !important;
+        -webkit-font-smoothing:antialiased !important;
+        background:#fafbfc !important;
     }
-  }
 
-  .login_title{
-      text-transform: uppercase!important;
-      text-align: left !important;
-      font-size: 1.5rem;
-  }
+    .fullscreen{
+        position: fixed;
+        z-index: 20000;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        overflow-y: auto;
+        margin: 0 auto;
+        background-size: cover !important;
+        max-width: 100%;
+    }
 
-  .block__sidebar__title{
-      font-size: 1.5rem;
-      margin-bottom: 1.42rem;
-      line-height: 1.5;
-  }
-
-  .login__block__sidebar__item{
-      text-align: justify !important;
-      padding-left: 1.42rem;
-      border-left: 2px solid #74708d;
-      margin-bottom: 1.42rem;
-      color: #74708d;
-  }
-
-  .login__block__sidebar__place {
-      text-align: left !important;
-      font-weight: bold;
-      position: absolute;
-      z-index: 2;
-      bottom: 1rem;
-      left: 2.85rem;
-      color: #fff !important;
-      font-size: 0.9rem;
-  }
-
-  .login__block__sidebar__place i {
-      color: #fff !important;
-  }
-
-  .login__block__sidebar__place a {
-      text-decoration: none;
-      color: #74708d;
-  }
-
-  .login__block__sidebar__place a:hover {
-      text-decoration: none;
-  }
-
-  .content--wrap{
-      background: transparent url("../../assets/background.jpg") !important;
-  }
+    img{
+        height:auto  !important
+    }
+    a{
+        color: #03b0bb;
+        text-decoration:none
+    }
+    .login{
+        width:100%;
+        max-width:380px;
+        margin:0 auto;
+        padding:27.1vh 0 0 !important;
+        color:#8a9cad
+    }
+    @media (max-width: 420px){
+        .login{
+            padding:10vh 7.5% 0
+        }
+    }
+    .login .logo{
+        display:block;
+        max-width:100%;
+        margin:0 auto
+    }
+    .login .t1{
+        margin-top:55px;
+        padding:0 0 25px;
+        font-size:14px;
+        font-weight:700;
+        letter-spacing:0.065em;
+        text-transform:uppercase;
+        color:rgba(169,173,177,0.75);
+        text-align:center;
+        border-bottom:1px solid #ecedee
+    }
+    .login .t1.error{
+        color:#eb2224
+    }
+    .login .form-control{
+        display:block;
+        width:100%;
+        margin:15px 0 0;
+        padding:13px 20px 12px;
+        font-size:17px;
+        letter-spacing:0.02em;
+        color:#383d47;
+        background:#f5f6f7;
+        border-radius:3px;
+        outline:none;
+        border:1px solid transparent
+    }
+    .login .form-control:focus{
+        border-color:#8ed2ce
+    }
+    .login .form-control.error{
+        border-color:#eb2224
+    }
+    .login .checkbox{
+        color:#bfc2c5;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none
+    }
+    .login .checkbox input[type=checkbox]{
+        position:absolute;
+        width:1px;
+        height:1px;
+        margin:4px 0 0;
+        outline:none;
+        border:1px solid transparent;
+        background-color:transparent
+    }
+    .login .checkbox input[type=checkbox]+label::before{
+        content:'';
+        display:inline-block;
+        margin:0 8px 0 0;
+        width:13px;
+        height:13px;
+        border:1px solid #bfc2c5;
+        position:relative;
+        top:2px;
+        background-color:#fff
+    }
+    .login .checkbox input[type=checkbox]:focus+label::before{
+        border-color:#8ed2ce
+    }
+    .login .checkbox input[type=checkbox]:checked+label::before{
+        background:url(../../assets/checkbox.png) no-repeat center/contain;
+        border-color:#039fbf
+    }
+    .login .checkbox label{
+        font-size:14px;
+        cursor:pointer
+    }
+    .login .btn{
+        width:100%;
+        margin: 0px;
+        padding:19px 0 38px;
+        font-size:15px;
+        font-weight:700;
+        letter-spacing:0.1em;
+        text-transform:uppercase;
+        color:#fff;
+        border-radius:3px;
+        background-color:#02a6c3;
+        background-image:-webkit-gradient(linear, left top, right top, from(#02a6c3), to(#01ced7));
+        background-image:linear-gradient(to right, #02a6c3 0%, #01ced7 100%);
+        outline:none;
+        cursor:pointer
+    }
+    .login .t2{
+        text-align:center;
+        margin:42px auto 0;
+        letter-spacing:0.05em
+    }
+    .login .t2 a{
+        color:#03b0bb
+    }
+    .login label {
+        color: #8a9cad !important;
+    }
 </style>

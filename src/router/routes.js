@@ -13,101 +13,48 @@ import { store } from '@/store/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       name: 'dashboard',
-      component: DashboardView,
-      beforeEnter: (to, from, next) => {
-        console.log(store.getters.tokenGetter)
-        if (store.getters.tokenGetter === '') {
-          next('/login')
-        } else {
-          next()
-        }
-      }
+      component: DashboardView
     },
     {
       path: '/accounts',
       name: 'accounts',
-      component: AccountsView,
-      beforeEnter: (to, from, next) => {
-        if (store.getters.tokenGetter === '') {
-          next('/login')
-        } else {
-          next()
-        }
-      }
+      component: AccountsView
     },
     {
       path: '/accounts-selection',
       name: 'accounts_selection',
-      component: AccountsSelectionView,
-      beforeEnter: (to, from, next) => {
-        console.log(store.getters.tokenGetter)
-        if (store.getters.tokenGetter === '') {
-          next('/login')
-        } else {
-          next()
-        }
-      }
+      component: AccountsSelectionView
     },
     {
       path: '/apps',
       name: 'apps',
-      component: AppsView,
-      beforeEnter: (to, from, next) => {
-        if (store.getters.tokenGetter === '') {
-          next('/login')
-        } else {
-          next()
-        }
-      }
+      component: AppsView
     },
     {
       path: '/dashboard',
       name: 'prueba',
-      component: DashboardPrueba,
-      beforeEnter: (to, from, next) => {
-        if (store.getters.tokenGetter === '') {
-          next('/login')
-        } else {
-          next()
-        }
-      }
+      component: DashboardPrueba
     },
     {
       path: '/contacto',
       name: 'contacto',
-      component: Contacto,
-      beforeEnter: (to, from, next) => {
-        if (store.getters.tokenGetter === '') {
-          next('/login')
-        } else {
-          next()
-        }
-      }
+      component: Contacto
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView,
-      beforeEnter: (to, from, next) => {
-        console.log(store)
-        console.log(store.getters.tokenGetter)
-        if (store.getters.tokenGetter !== '') {
-          next('/')
-        } else {
-          next()
-        }
-      }
+      component: LoginView
     },
     {
       path: '/logout',
       name: 'logout',
       component: LoginView,
-      beforeRouteLeave (to, from, next) {
+      beforeEnter (to, from, next) {
         store.dispatch('logout')
         next('/login')
       }
@@ -118,3 +65,26 @@ export default new Router({
     return { x: 0, y: 0 }
   }
 })
+
+router.beforeEach((to, from, next) => {
+  // SI EXISTE EN EL LOCAL STORE EL REMEMBER ME y EL TOKEN, CUENTA ACTIVA, SETEARLO ANTES
+  console.log('rememberMe: ' + localStorage.getItem('rememberMe'))
+
+  if (!store.getters.isLogged && typeof localStorage.getItem('rememberMe') !== 'undefined' &&
+      typeof localStorage.getItem('token') !== 'undefined') {
+    // TODO: hacer una consulta al servidor y cargar de nuevo el user en el store / cuenta activa
+    // remember me y token -> pasando el token en una consulta graphql, que nos devuelva el user asociado si existe
+  }
+
+  // comprobamos a que ruta debe ir
+  if (to.name !== 'login' && to.name !== 'accounts_selection' && !store.getters.isLogged) {
+    next('/login')
+  } else {
+    if (to.name === 'login' && store.getters.isLogged) {
+      next('/')
+    }
+    next()
+  }
+})
+
+export default router

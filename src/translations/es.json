@@ -102,9 +102,11 @@
       "loading_text": "Cargando..."
     },
     "login_view": {
+      "click_here": "Haz click aquí",
       "email" : "E-mail",
       "error": "Hay un error en tu cuenta. Por favor, contacta con el equipo técnico para más ayuda.",
       "password" : "Contraseña",
+      "not_register": "¿Aún no te has registrado?",
       "remember" : "Recordarme"
     },
     "navigation": {
