@@ -12,7 +12,9 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.accountsDataAction(data.accounts)
+        this.accountsDataAction(data.accounts).then(() => {
+          this.accountsLoaderStatusAction(false)
+        })
       }
     },
     networkProfiles: {
@@ -30,6 +32,7 @@ const accountMixin = {
     ...mapActions([
       'accountsDataAction',
       'accountDialogStatusAction',
+      'accountsLoaderStatusAction',
       'accountSchemaAction',
       'editedIndexStatusAction',
       'networkProfilesDataAction'
