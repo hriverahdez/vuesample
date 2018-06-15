@@ -76,7 +76,8 @@ const userMixin = {
   methods: {
     ...mapActions([
       'userDataAction',
-      'setUserAccounts'
+      'setUserAccounts',
+      'setActiveUserAccountAction'
     ]),
     queryUser (email) {
       this.email = email
