@@ -19,21 +19,18 @@ export const GET_ACCOUNTS = gql`
   }
 }
 `
-
-console.log('edeokfeofkoerfkeof', store.state.prueba)
-
 export const NETWORK_PROFILES = gql`
 {
   accounts(orderBy: [name_DESC]) {
       _id
       name
       networkProfiles {
-        ... on ${store.state.prueba} {
+        ... on ${store.state.network.title}{
           networkId
           profiles {
             name
             default
-            api_key
+            ${store.state.network.vars}
         }
       }
     }
