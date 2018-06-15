@@ -4,7 +4,7 @@
         v-flex(xs12)
           //- v-breadcrumbs(divider="/" large)
           //-   v-breadcrumbs-item {{ $t('dashboard_view.apps') }}
-          apps-data-table(v-if="appsDataTable.length")
+          apps-data-table(v-if="loaderStatus === false")
           template(v-else)
             loader-component
           app-remove-dialog(v-if="$store.state.appModule.appRemoveDialogStatus")
@@ -39,7 +39,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      appsDataTable: 'appsDataGetter'
+      appsDataTable: 'appsDataGetter',
+      loaderStatus: 'appsLoaderStatusGetter'
     })
   },
   mixins: [

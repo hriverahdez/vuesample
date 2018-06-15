@@ -12,7 +12,9 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.appDataAction(data.apps)
+        this.appDataAction(data.apps).then(() => {
+          this.appsLoaderStatusAction(false)
+        })
       }
     },
     appById: {
@@ -44,6 +46,7 @@ const appMixin = {
       'appIdAction',
       'appRemoveDialogStatusAction',
       'appSchemaAction',
+      'appsLoaderStatusAction',
       'editedAppIndexStatusAction',
       'removeAppPermissionInputAction'
     ]),

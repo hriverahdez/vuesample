@@ -4,6 +4,8 @@ const APP_DATA = 'APP_DATA'
 // Total apps from query
 const APPS_DATA = 'APPS_DATA'
 const APP_DIALOG_STATUS = 'APP_DIALOG_STATUS'
+// Loader control
+const APPS_LOADER_STATUS = 'APPS_LOADER_STATUS'
 const APP_ID = 'APP_ID'
 const APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS = 'APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS'
 const APP_NETWORK_CONFIG_DIALOG_STATUS = 'APP_NETWORK_CONFIG_DIALOG_STATUS'
@@ -48,6 +50,7 @@ const state = {
   },
   appDialogStatus: false,
   appId: '',
+  appsLoaderStatus: true,
   appManageNetworkProfileDialogStatus: false,
   appNetworkConfigDialogStatus: false,
   appRemoveDialogStatus: false,
@@ -101,6 +104,9 @@ const getters = {
   },
   appNetworkConfigDialogStatusGetter (state) {
     return state.appNetworkConfigDialogStatus
+  },
+  appsLoaderStatusGetter (state) {
+    return state.appsLoaderStatus
   },
   editedAppIndexGetter (state) {
     return state.editedAppIndex
@@ -158,6 +164,9 @@ const mutations = {
   [APP_REMOVE_DIALOG_STATUS] (state, status) {
     state.appRemoveDialogStatus = status
   },
+  [APPS_LOADER_STATUS] (state, status) {
+    state.appsLoaderStatus = status
+  },
   [EDIT_APP_INDEX_STATUS] (state, indexValue) {
     state.editedAppIndex = indexValue
   },
@@ -199,6 +208,9 @@ const actions = {
   },
   appSchemaAction ({commit}, currentApp) {
     commit(APP_DATA, currentApp)
+  },
+  appsLoaderStatusAction ({commit}, status) {
+    commit(APPS_LOADER_STATUS, status)
   },
   editedAppIndexStatusAction ({commit}, indexValue) {
     commit(EDIT_APP_INDEX_STATUS, indexValue)

@@ -2,15 +2,16 @@ import { format, subDays } from 'date-fns'
 
 const ACTIVE_TAB_DATA = 'ACTIVE_TAB_DATA'
 const BUTTON_SELECTED_DATA = 'BUTTON_SELECTED_DATA'
+const DASHBOARD_LOADER_STATUS = 'DASHBOARD_LOADER_STATUS'
 const DATE_DATA = 'DATE_DATA'
 const GROUPBY_VAR_DATA = 'GROUPBY_VAR_DATA'
 const STATS_DATA = 'STATS_DATA'
 const RANGE_DATA = 'RANGE_DATA'
-const DASHBOARD_LOADER_STATUS = 'DASHBOARD_LOADER_STATUS'
 
 const state = {
   activeTab: 'tab-date',
   buttonSelectedStat: 'money',
+  dashboardLoaderStatus: true,
   date: {
     endDate: format(new Date(), 'YYYY-MM-DD'),
     startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
@@ -18,8 +19,7 @@ const state = {
   groupBy: ['DATE'],
   networkStats: [],
   statsDataFormatted: [],
-  range: [],
-  dashboardLoaderStatus: true
+  range: []
 }
 
 const getters = {
@@ -32,14 +32,14 @@ const getters = {
   buttonSelectedGetter (state) {
     return state.buttonSelectedStat
   },
+  dashboardLoaderStatusGetter (state) {
+    return state.dashboardLoaderStatus
+  },
   dateGetter (state) {
     return state.date
   },
   groupByGetter (state) {
     return state.groupBy
-  },
-  dashboardLoaderStatusGetter (state) {
-    return state.dashboardLoaderStatus
   },
   statsDataGetter (state) {
     return state.networkStats
@@ -103,6 +103,9 @@ const mutations = {
   [BUTTON_SELECTED_DATA] (state, buttonSelected) {
     state.buttonSelectedStat = buttonSelected
   },
+  [DASHBOARD_LOADER_STATUS] (state, status) {
+    state.dashboardLoaderStatus = status
+  },
   [DATE_DATA] (state, date) {
     state.date = date
   },
@@ -117,23 +120,20 @@ const mutations = {
       state.groupBy = ['DATE']
     }
   },
-  [DASHBOARD_LOADER_STATUS] (state, status) {
-    state.dashboardLoaderStatus = status
-  },
   [STATS_DATA] (state, data) {
     state.networkStats = data
   }
 }
 
 const actions = {
-  rangeAction ({commit}, range) {
-    commit(RANGE_DATA, range)
-  },
   activeTabAction ({commit}, activeTab) {
     commit(ACTIVE_TAB_DATA, activeTab)
   },
   buttonSelectedAction ({commit}, selected) {
     commit(BUTTON_SELECTED_DATA, selected)
+  },
+  dashboardLoaderStatusAction ({commit}, status) {
+    commit(DASHBOARD_LOADER_STATUS, status)
   },
   getDateAction ({commit}, dateRange) {
     commit(DATE_DATA, dateRange)
@@ -141,8 +141,8 @@ const actions = {
   groupByVarDataAction ({commit}, val) {
     commit(GROUPBY_VAR_DATA, val)
   },
-  dashboardLoaderStatusAction ({commit}, status) {
-    commit(DASHBOARD_LOADER_STATUS, status)
+  rangeAction ({commit}, range) {
+    commit(RANGE_DATA, range)
   },
   statsDataAction ({commit}, data) {
     commit(STATS_DATA, data)
