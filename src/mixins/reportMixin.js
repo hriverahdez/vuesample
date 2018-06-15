@@ -28,7 +28,10 @@ const reportMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.statsDataAction(data.networkStats)
+        this.statsDataAction(data.networkStats).then(() => {
+          // Loader control
+          this.dashboardLoaderStatusAction(false)
+        })
       }
     }
   },
@@ -47,7 +50,10 @@ const reportMixin = {
     ])
   },
   methods: {
-    ...mapActions(['statsDataAction'])
+    ...mapActions([
+      'statsDataAction',
+      'dashboardLoaderStatusAction'
+    ])
   }
   // mounted () {
   //   // Receive events from components

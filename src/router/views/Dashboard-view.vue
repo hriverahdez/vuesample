@@ -7,7 +7,7 @@
             v-card
               //- v-card-title.title.headings--text {{ $t('dashboard_view.dashboard_title' )}}
               dashboard-tabs
-            dashboard-data-table(v-if="dashboardDatatableData.length")
+            dashboard-data-table(v-if="loaderStatus === false")
             template(v-else)
               loader-component
 </template>
@@ -30,7 +30,8 @@ export default {
   computed: {
     ...mapGetters({
       // date: 'dateGetter',
-      dashboardDatatableData: 'dashboardDatatableDataWithFormattedLabelGetter'
+      dashboardDatatableData: 'dashboardDatatableDataWithFormattedLabelGetter',
+      loaderStatus: 'dashboardLoaderStatusGetter'
     })
   },
   components: {

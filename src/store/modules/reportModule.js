@@ -6,6 +6,7 @@ const DATE_DATA = 'DATE_DATA'
 const GROUPBY_VAR_DATA = 'GROUPBY_VAR_DATA'
 const STATS_DATA = 'STATS_DATA'
 const RANGE_DATA = 'RANGE_DATA'
+const DASHBOARD_LOADER_STATUS = 'DASHBOARD_LOADER_STATUS'
 
 const state = {
   activeTab: 'tab-date',
@@ -17,7 +18,8 @@ const state = {
   groupBy: ['DATE'],
   networkStats: [],
   statsDataFormatted: [],
-  range: []
+  range: [],
+  dashboardLoaderStatus: true
 }
 
 const getters = {
@@ -35,6 +37,9 @@ const getters = {
   },
   groupByGetter (state) {
     return state.groupBy
+  },
+  dashboardLoaderStatusGetter (state) {
+    return state.dashboardLoaderStatus
   },
   statsDataGetter (state) {
     return state.networkStats
@@ -112,6 +117,9 @@ const mutations = {
       state.groupBy = ['DATE']
     }
   },
+  [DASHBOARD_LOADER_STATUS] (state, status) {
+    state.dashboardLoaderStatus = status
+  },
   [STATS_DATA] (state, data) {
     state.networkStats = data
   }
@@ -132,6 +140,9 @@ const actions = {
   },
   groupByVarDataAction ({commit}, val) {
     commit(GROUPBY_VAR_DATA, val)
+  },
+  dashboardLoaderStatusAction ({commit}, status) {
+    commit(DASHBOARD_LOADER_STATUS, status)
   },
   statsDataAction ({commit}, data) {
     commit(STATS_DATA, data)
