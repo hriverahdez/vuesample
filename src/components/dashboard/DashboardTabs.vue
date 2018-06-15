@@ -50,20 +50,20 @@
 
                     // Tab items
                     // Date tab
-                    v-tab-item(id="tab-date")
+                    v-tab-item(id="tab-date" v-if="statsDataFormattedGetter")
                         dashboard-filters
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="statsDataFormattedGetter"
                           :discrete= "true")
                     // App tab
-                    v-tab-item(id="tab-app")
+                    v-tab-item(id="tab-app" v-if="statsDataFormattedGetter")
                         dashboard-filters
                         column-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="statsDataFormattedGetter"
                           )
                     // Country tab
                     v-tab-item(id="tab-country")
@@ -71,7 +71,7 @@
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
                           :discrete= "true")
                     // Format tab
                     v-tab-item(id="tab-format")
@@ -79,7 +79,7 @@
                         pie-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#00A0D3', '#910287', '#00962B', '#FF982A', '#E4371E', '#1A237E']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
                         )
                     // Network tab
                     v-tab-item(id="tab-network")
@@ -87,7 +87,7 @@
                         column-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedWithoutNameGetter"
+                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
                           )
 
                     //- v-tab-item(id="tab-country")
@@ -136,7 +136,11 @@ export default {
           ]
         }
       ]
-    }
+    },
+    data2: [
+      {name: 'Workout', data: {'2017-01-01 00:00:00 -0800': 3, '2017-01-02 00:00:00 -0800': 4}},
+      {name: 'Call parents', data: {'2017-01-03 00:00:00 -0800': 5, '2017-01-04 00:00:00 -0800': 3}}
+    ]
   }),
   components: {
     DashboardFilters,
@@ -145,32 +149,32 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'groupedByGetter',
+      'groupByGetter',
       'dateGetter',
       'statsDataFormattedGetter',
-      'statsDataFormattedWithoutNameGetter',
+      // 'statsDataFormattedWithoutNameGetter',
       'buttonSelectedGetter',
       'rangeGetter'
     ]),
     statYText () {
       if (this.buttonSelectedGetter) {
         switch (this.buttonSelectedGetter) {
-          case 'requests': {
+          case 'req': {
             return this.$t('dashboard_view.requests')
           }
-          case 'imps': {
+          case 'imp': {
             return this.$t('dashboard_view.impressions')
           }
-          case 'fillRate': {
+          case 'fillrate': {
             return this.$t('dashboard_view.fill_rate')
           }
-          case 'clicks': {
+          case 'click': {
             return this.$t('dashboard_view.clicks')
           }
           case 'ctr': {
             return this.$t('dashboard_view.ctr').toUpperCase()
           }
-          case 'revenue': {
+          case 'money': {
             return this.$t('dashboard_view.revenue')
           }
           case 'ecpm': {
@@ -191,7 +195,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'groupedByVarDataAction',
+      'groupByVarDataAction',
       'getDateAction',
       'rangeAction'
     ]),
@@ -228,7 +232,7 @@ export default {
     },
     // Draw data from server
     requestDataFromAPI (e) {
-      this.groupedByVarDataAction(e.target.text.toUpperCase())
+      this.groupByVarDataAction(e.target.text.toUpperCase())
     }
   },
   mounted () {

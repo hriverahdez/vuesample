@@ -1,7 +1,7 @@
 import { CREATE_NEW_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT, UPDATE_ACCOUNT } from '@/graphql/account'
 import { mapMutations, mapActions } from 'vuex'
 
-const createAccountMixin = {
+const accountMixin = {
   apollo: {
     accounts: {
       query: GET_ACCOUNTS,
@@ -139,4 +139,4 @@ const createAccountMixin = {
   }
 }
 
-export default createAccountMixin
+export default accountMixin

@@ -19,7 +19,7 @@
                         close
                         @input="data.parent.selectItem(data.item)"
                     )
-                        v-avatar(class="accent") {{ data.item.slice(0, 1).toUpperCase() }}
+                        v-avatar(class="accent") 
                         | {{ data.item }}
         v-flex(xs2)
             v-select(

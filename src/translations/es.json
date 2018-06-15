@@ -1,5 +1,11 @@
 
 {
+    "accounts_selection_view": {
+      "title": "Selección de cuenta",
+      "p1": "Por favor selecciona la cuenta en la que quieres logarte.",
+      "p2": "Cuentas disponibles",
+      "select_account": "Selecciona una cuenta"
+    },
     "accounts_view": {
       "account_title": "Listado de cuentas",
       "alert_message": "Ninguna cuenta disponible",
@@ -9,14 +15,50 @@
       "new_success": "Nueva cuenta creada"
     },
     "apps_view": {
-      "apps_title": "Listado de apps"
+      "alert_message": "Ninguna app disponible",
+      "API_check_config": "API configurada",
+      "API_failing": "API error",
+      "API_no_data": "API sin datos",
+      "API_not_integrated": "No integrada",
+      "API_working": "Funcionando",
+      "app_delete": "Eliminar",
+      "app_disable_enable": "Habilitar / deshabilitar",
+      "app_description": "Descripción",
+      "app_edit": "Editar",
+      "app_name": "Nombre app",
+      "app_network_configuration": "App-red configuración",
+      "app_search": "Buscar app",
+      "app_URL": "Aplicación URL",
+      "apps_title": "Listado de apps",
+      "bundle_identifier": "Identificador de bundle",
+      "create_new_app": "Crear app",
+      "delete_app": "App eliminada correctamente",
+      "edit_app": "Editar app",
+      "edit_success": "App editada",
+      "enable_disable_network": "Habilitar / deshabilitar",
+      "icon_text": "Icono:",
+      "manage_ad_placements": "Configurar zona anuncio",
+      "manage_network_profiles": "Configurar perfil de red",
+      "new_app": "Nueva app",
+      "new_success": "Nueva app creada",
+      "remove_app": "Eliminar app",
+      "remove_app_message": "Escribe {number} en el campo de texto",
+      "select_platform": "Selecciona plataforma",
+      "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {
       "apply": "Apply",
       "cancel": "Cancelar",
       "close": "Salir",
       "create": "Crear",
-      "edit": "Editar"
+      "edit": "Editar",
+      "exit": "Salir",
+      "remove": "Eliminar",
+      "signin": "Login",
+      "signup": "Registrarse"
+    },
+    "copies": {
+      "drag_and_drop": "Arrastre un fichero o haga click"
     },
     "dashboard_view": {
       "app": "Aplicación",
@@ -46,11 +88,26 @@
       "select_date": "Selecciona fecha",
       "to": "Hasta:"
     },
+    "floating_btn": {
+      "new_app": "Crear app",
+      "new_account": "Crear cuenta"
+    },
     "footer": {
       "copyright": "© 2018 Fibonad - Todos los derechos reservados"
     },
     "links": {
       "home": "Inicio"
+    },
+    "loader": {
+      "loading_text": "Cargando..."
+    },
+    "login_view": {
+      "click_here": "Haz click aquí",
+      "email" : "E-mail",
+      "error": "Hay un error en tu cuenta. Por favor, contacta con el equipo técnico para más ayuda.",
+      "password" : "Contraseña",
+      "not_register": "¿Aún no te has registrado?",
+      "remember" : "Recordarme"
     },
     "navigation": {
       "account": "Cuenta",

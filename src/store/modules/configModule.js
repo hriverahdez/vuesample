@@ -1,4 +1,4 @@
-const APPS_DATA = 'APPS_DATA'
+const APP_DATA = 'APP_DATA'
 const ADD_ITEM_FILTER_DATA = 'ADD_ITEM_FILTER_DATA'
 const COUNTRIES_DATA = 'COUNTRIES_DATA'
 const DASHBOARD_FILTERS_DATA = 'DASHBOARD_FILTERS_DATA'
@@ -37,7 +37,7 @@ const mutations = {
     let currentFilter = `${groupedBy.toLowerCase()}Filters`
     state[currentFilter].push(item)
   },
-  [APPS_DATA] (state, filters) {
+  [APP_DATA] (state, filters) {
     state.appFilters = filters
   },
   [COUNTRIES_DATA] (state, filters) {
@@ -63,7 +63,7 @@ const actions = {
     commit(ADD_ITEM_FILTER_DATA, [item, groupedBy])
   },
   appFiltersAction ({commit}, filters) {
-    commit(APPS_DATA, filters)
+    commit(APP_DATA, filters)
   },
   countryFiltersAction ({commit}, filters) {
     commit(COUNTRIES_DATA, filters)

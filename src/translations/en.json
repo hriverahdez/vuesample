@@ -1,5 +1,11 @@
 
 {
+    "accounts_selection_view": {
+      "title": "Account selection",
+      "p1": "Please, select the account you want to sign in.",
+      "p2": "Available accounts",
+      "select_account": "Select an account"
+    },
     "accounts_view": {
       "account_title": "Account list",
       "alert_message": "No accounts available",
@@ -9,14 +15,50 @@
       "new_success": "New account created"
     },
     "apps_view": {
-      "apps_title": "Apps list"
+      "alert_message": "No apps available",
+      "API_check_config": "API check config",
+      "API_failing": "API failing",
+      "app_delete": "Delete",
+      "app_description": "Description",
+      "app_edit": "Edit",
+      "app_enable_disable": "Enable / disable:",
+      "app_name": "App name",
+      "app_network_configuration": "App-network configuration",
+      "app_search": "App search",
+      "app_URL": "App URL",
+      "API_no_data": "No API data",
+      "API_not_integrated": "Not integrated",
+      "API_working": "API working",
+      "apps_title": "Apps list",
+      "bundle_identifier": "Bundle identifier",
+      "create_new_app": "New app",
+      "delete_app": "Deleted app succesfully",
+      "edit_app": "Edit app",
+      "edit_success": "Edited app",
+      "enable_disable_network": "Enable / disable:",
+      "icon_text": "Icon:",
+      "manage_ad_placements": "Manage ad placements",
+      "manage_network_profiles": "Manage network profiles",
+      "new_app": "New app",
+      "new_success": "New app created",
+      "remove_app": "Remove app",
+      "remove_app_message": "Write {number} in the text field ",
+      "select_platform": "Select platform",
+      "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {
       "apply": "Apply",
       "cancel": "Cancel",
       "close": "Close",
       "create": "Create",
-      "edit": "Edit"
+      "edit": "Edit",
+      "exit": "Exit",
+      "remove": "Remove",
+      "signin": "Sign in",
+      "signup": "Sign up"
+    },
+    "copies": {
+      "drag_and_drop": "Drag and drop a file or click"
     },
     "dashboard_view": {
       "app": "App",
@@ -46,11 +88,26 @@
       "select_date": "Select date",
       "to": "To:"
     },
+    "floating_btn": {
+      "new_app": "New app",
+      "new_account": "New account"
+    },
     "footer": {
       "copyright": "© 2018 Fibonad - All rights reserved"
     },
     "links": {
       "home": "Home"
+    },
+    "loader": {
+      "loading_text": "Loading..."
+    },
+    "login_view": {
+      "click_here": "Click here",
+      "email" : "E-mail",
+      "error": "An error has occured with your account. Please contact the technical team for support.",
+      "password" : "Password",
+      "not_register": "Not registered yet?",
+      "remember" : "Remember me"
     },
     "navigation": {
       "account": "Account",
@@ -76,7 +133,6 @@
       "users": "Users",
       "waterfall_rules": "Waterfall rules"
     },
-
     "validations": {
       "length": "The field must have between {minLength} and {maxLength} characters",
       "required": "Required field",
