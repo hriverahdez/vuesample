@@ -10,12 +10,12 @@
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.requests }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)" v-if="showDAU") DAU
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imp }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imp | currency('', 0) }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.fillRate }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.click }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ctr }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.money }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ecpm }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.click | currency('', 0) }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ctr | percentageFormat }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.money | currency }}
+            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ecpm | percentageFormat }}
 
         template(slot="no-data")
             v-alert(

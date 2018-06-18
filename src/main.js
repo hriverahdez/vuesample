@@ -7,6 +7,9 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
 
+// Vue filters
+import Vue2Filters from 'vue2-filters'
+
 // Main component import
 import App from '@/App'
 
@@ -30,6 +33,8 @@ import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 
 Vue.component('icon', Icon)
+
+Vue.use(Vue2Filters)
 
 // Apollo config
 const host = 'http://stage.do.linkitox.com/public/graphql'
@@ -61,6 +66,10 @@ const apolloProvider = new VueApollo({
 // Filters
 Vue.filter('capitalize', (val) => {
   return val.charAt(0).toUpperCase() + val.slice(1)
+})
+
+Vue.filter('percentageFormat', function (val) {
+  return `${val.toFixed(2)}%`
 })
 
 Vue.config.productionTip = false

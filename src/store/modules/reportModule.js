@@ -1,4 +1,4 @@
-import { format, subDays } from 'date-fns'
+// import { format, subDays } from 'date-fns'
 
 const ACTIVE_TAB_DATA = 'ACTIVE_TAB_DATA'
 const APPS_IDS_AND_NAMES_BY_ACCOUNT_ID = 'APPS_IDS_AND_NAMES_BY_ACCOUNT_ID'
@@ -52,12 +52,12 @@ const getters = {
   rangeOfDays (state) {
     function addDays (startDate, numberOfDays) {
       let returnDate = new Date(
-                                startDate.getFullYear(),
-                                startDate.getMonth(),
-                                startDate.getDate() + numberOfDays,
-                                startDate.getHours(),
-                                startDate.getMinutes(),
-                                startDate.getSeconds())
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate() + numberOfDays,
+        startDate.getHours(),
+        startDate.getMinutes(),
+        startDate.getSeconds())
       return returnDate
     }
 
@@ -132,19 +132,20 @@ const getters = {
     return newArray
   },
   statsDataFormattedGetter (state, getters) {
-    var labelsFirstKey = {
-      '20180201': '2018-02-01',
-      '20180202': '2018-02-02',
-      '20180203': '2018-02-03',
-      '20180204': '2018-02-04',
-      // '20180205': '2018-02-05',
-      '20180206': '2018-02-06',
-      '20180207': '2018-02-07',
-      '20180208': '2018-02-08',
-      '20180209': '2018-02-09',
-      '20180210': '2018-02-10'
-    }
-    var labelsSecondKey = ''
+    // var labelsFirstKey = {
+    //   '20180201': '2018-02-01',
+    //   '20180202': '2018-02-02',
+    //   '20180203': '2018-02-03',
+    //   '20180204': '2018-02-04',
+    //   // '20180205': '2018-02-05',
+    //   '20180206': '2018-02-06',
+    //   '20180207': '2018-02-07',
+    //   '20180208': '2018-02-08',
+    //   '20180209': '2018-02-09',
+    //   '20180210': '2018-02-10'
+    // }
+    let labelsFirstKey = state.dateArray
+    let labelsSecondKey = ''
     if (state.activeTab === 'tab-app' && getters.appsNamesAndIdsGetter) {
       labelsSecondKey = getters.appsNamesAndIdsFormattedGetter
     } else if (state.activeTab === 'tab-country') {
