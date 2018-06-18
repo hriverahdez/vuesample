@@ -42,28 +42,33 @@ const getters = {
   rangeGetter (state) {
     return state.range
   },
-
   rangeOfDays (state) {
-    console.log(state.date.startDate, state.date.endDate)
-     /* eslint no-global-assign:off */
-    Date.prototype.addDays = function (days) {
-      var date = new Date(this.valueOf())
-      date.setDate(date.getDate() + days)
-      return date
+    function addDays (startDate, numberOfDays) {
+      let returnDate = new Date(
+                                startDate.getFullYear(),
+                                startDate.getMonth(),
+                                startDate.getDate() + numberOfDays,
+                                startDate.getHours(),
+                                startDate.getMinutes(),
+                                startDate.getSeconds())
+      return returnDate
     }
 
     function customGetDateInterval (startDate, stopDate) {
-      stopDate = stopDate.addDays(1) // para que también incluya la última
-      let dateArray = []
+      console.log(startDate, stopDate)
+      console.log(typeof startDate)
+      stopDate = addDays(stopDate, 1) // para que también incluya la última
+      let dateArray = {}
       let currentDate = startDate
       while (currentDate <= stopDate) {
-        dateArray.push(currentDate.toISOString().split('T')[0])
-        currentDate = currentDate.addDays(1)
+        let currentDateString = currentDate.toISOString().split('T')[0]
+        dateArray[currentDateString.replace(/-/g, '')] = currentDateString
+        currentDate = addDays(currentDate, 1)
       }
+      console.log(dateArray)
       return dateArray
     }
-
-    customGetDateInterval(state.date.startDate, state.date.endDate)
+    customGetDateInterval(new Date(state.date.startDate), new Date(state.date.endDate))
   },
   buttonSelectedGetter (state) {
     return state.buttonSelectedStat
