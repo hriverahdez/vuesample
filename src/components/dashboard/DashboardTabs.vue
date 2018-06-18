@@ -29,7 +29,7 @@
                 // Confirm Apply Filters
                 //- dialog-alert
 
-                v-tabs(dark color="tab_heading" v-model="$store.state.reportModule.activeTab")
+                v-tabs(dark color="tab_heading" v-model="$store.state.reportModule.activeTab" hide-slider)
                     v-tabs-slider(color="primary")
                     v-tab(href="#tab-date" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
                     v-tab(href="#tab-app" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
@@ -268,10 +268,12 @@ export default {
     },
     // Draw data from server
     requestDataFromAPI (e) {
-      // Stats
-      this.groupByVarDataAction(e.target.text.toUpperCase())
-      // Table
-      this.datatableGroupByAction(e.target.text.toUpperCase())
+      setTimeout(() => {
+        // Stats
+        this.groupByVarDataAction(e.target.text.toUpperCase())
+        // Table
+        this.datatableGroupByAction(e.target.text.toUpperCase())
+      }, 250)
     }
   },
   mounted () {
