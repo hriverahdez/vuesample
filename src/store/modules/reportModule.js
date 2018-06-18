@@ -4,6 +4,8 @@ const ACTIVE_TAB_DATA = 'ACTIVE_TAB_DATA'
 const APPS_IDS_AND_NAMES_BY_ACCOUNT_ID = 'APPS_IDS_AND_NAMES_BY_ACCOUNT_ID'
 const BUTTON_SELECTED_DATA = 'BUTTON_SELECTED_DATA'
 const DASHBOARD_LOADER_STATUS = 'DASHBOARD_LOADER_STATUS'
+const DATATABLE_DATA = 'DATATABLE_DATA'
+const DATATABLE_GROUPBY = 'DATATABLE_GROUPBY'
 const DATE_DATA = 'DATE_DATA'
 const GROUPBY_VAR_DATA = 'GROUPBY_VAR_DATA'
 const STATS_DATA = 'STATS_DATA'
@@ -16,6 +18,7 @@ const state = {
   appsNamesAndIdsFormatted: {},
   buttonSelectedStat: 'money',
   dashboardLoaderStatus: true,
+  datatableData: '',
   date: {
     // endDate: format(new Date(), 'YYYY-MM-DD'),
     // startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
@@ -24,6 +27,7 @@ const state = {
   },
   dateArray: [],
   groupBy: ['DATE'],
+  datatableGroupBy: ['DATE'],
   networkStats: [],
   statsDataFormatted: [],
   range: []
@@ -77,6 +81,12 @@ const getters = {
   dashboardLoaderStatusGetter (state) {
     return state.dashboardLoaderStatus
   },
+  datatableDataGetter (state) {
+    return state.datatableData.rowData
+  },
+  datatableGroupByGetter (state) {
+    return state.datatableGroupBy
+  },
   dateGetter (state) {
     return state.date
   },
@@ -92,20 +102,28 @@ const getters = {
   },
   dashboardDatatableDataWithFormattedLabelGetter (state, getters) {
     let newArray = []
+    // function formatLabel (label) {
+    //   if (label.includes('--||--')) {
+    //     let withoutSymbol = label.split('--||--')
+    //     if (state.activeTab === 'tab-app') {
+    //       console.log('entra')
+    //       return state.appsNamesAndIdsFormatted[withoutSymbol[1]]
+    //     } else {
+    //       return withoutSymbol[1]
+    //     }
+    //   } else {
+    //     return state.dateArray[label]
+    //   }
+    // }
     function formatLabel (label) {
-      if (label.includes('--||--')) {
-        let withoutSymbol = label.split('--||--')
-        if (state.activeTab === 'tab-app') {
-          return state.appsNamesAndIdsFormatted[withoutSymbol[1]]
-        } else {
-          return withoutSymbol[1]
-        }
+      if (state.activeTab === 'tab-app') {
+        return state.appsNamesAndIdsFormatted[label]
       } else {
         return state.dateArray[label]
       }
     }
-    if (getters.statsDatatableDataGetter) {
-      getters.statsDatatableDataGetter.map(item => {
+    if (getters.datatableDataGetter) {
+      getters.datatableDataGetter.map(item => {
         let addFormattedLabel = Object.assign({}, item, {
           formattedLabel: formatLabel(item.label) })
         newArray.push(addFormattedLabel)
@@ -114,30 +132,6 @@ const getters = {
     return newArray
   },
   statsDataFormattedGetter (state, getters) {
-    // Mi codigo
-    // if (state.groupBy.length === 1) {
-    //   let object = {}
-    //   object['data'] = {}
-    //   if (getters.statsDatatableDataGetter) {
-    //     getters.statsDataGetter.rowData.map(item => {
-    //       object['data'][item.label] = item[`${state.buttonSelectedStat}`]
-    //     })
-    //   }
-    //   return object.data
-    // } else {
-    //   let data = []
-    //   let object = {}
-    //   object['name'] = 'Requests'
-    //   object['data'] = {}
-    //   if (getters.statsDatatableDataGetter) {
-    //     getters.statsDataGetter.rowData.map(item => {
-    //       object['data'][item.label] = item[`${state.buttonSelectedStat}`]
-    //     })
-    //     data.push(object)
-    //   }
-    //   console.log(data)
-    //   return data
-    // }
     var labelsFirstKey = {
       '20180201': '2018-02-01',
       '20180202': '2018-02-02',
@@ -169,12 +163,8 @@ const getters = {
       let chartData = {}
       rowData.map(item => {
         let labelKeys = item.label.split('--||--')
-          // console.log(labelKeys[0])
-          // console.log(labelKeys[1])
-          // console.log(item)
         for (var key in item) {
           if (item.hasOwnProperty(key)) {
-                  // console.log(key + " -> " + item[key])
             if (key !== 'label') {
                       // tratamiento para chartData
               if (typeof chartData[key] === 'undefined') {
@@ -260,6 +250,12 @@ const mutations = {
   [DASHBOARD_LOADER_STATUS] (state, status) {
     state.dashboardLoaderStatus = status
   },
+  [DATATABLE_DATA] (state, data) {
+    state.datatableData = data
+  },
+  [DATATABLE_GROUPBY] (state, data) {
+    state.datatableGroupBy = data
+  },
   [DATE_DATA] (state, date) {
     state.date = date
   },
@@ -288,6 +284,12 @@ const actions = {
   },
   buttonSelectedAction ({commit}, selected) {
     commit(BUTTON_SELECTED_DATA, selected)
+  },
+  datatableDataAction ({commit}, data) {
+    commit(DATATABLE_DATA, data)
+  },
+  datatableGroupByAction ({commit}, data) {
+    commit(DATATABLE_GROUPBY, data)
   },
   dashboardLoaderStatusAction ({commit}, status) {
     commit(DASHBOARD_LOADER_STATUS, status)

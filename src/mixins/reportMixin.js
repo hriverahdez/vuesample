@@ -1,12 +1,17 @@
-import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
+import {
+  GET_DASHBOARD_REPORT_DATA,
+  GET_DASHBOARD_DATATABLE_DATA
+  } from '@/graphql/report'
 import { mapGetters, mapActions } from 'vuex'
+
+const URI = 'report'
 
 const reportMixin = {
   apollo: {
     networkStats: {
       query: GET_DASHBOARD_REPORT_DATA,
       context: {
-        uri: 'report'
+        uri: URI
       },
       variables () {
         return {
@@ -33,17 +38,47 @@ const reportMixin = {
           this.dashboardLoaderStatusAction(false)
         })
       }
+    },
+    datatableData: {
+      query: GET_DASHBOARD_DATATABLE_DATA,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          groupBy: this.datatableGroupByGetter,
+          filter: {
+            from: '2018-02-01',
+            to: '2018-02-10',
+            // from: this.dateGetter.startDate,
+            // to: this.dateGetter.endDate,
+            app: this.appFiltersGetter,
+            format: this.formatFiltersGetter,
+            source: this.networkFiltersGetter,
+            country: this.countryFiltersGetter.name
+          }
+        }
+      },
+      skip () {
+        return this.skipDatatableDataQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.datatableDataAction(data.networkStats)
+      }
     }
   },
   data () {
     return {
-      skipDashboardDataQuery: true
+      skipDashboardDataQuery: true,
+      skipDatatableDataQuery: true
     }
   },
   computed: {
     ...mapGetters([
       'appFiltersGetter',
       'countryFiltersGetter',
+      'datatableGroupByGetter',
       'formatFiltersGetter',
       'groupByGetter',
       'networkFiltersGetter'
@@ -52,7 +87,8 @@ const reportMixin = {
   methods: {
     ...mapActions([
       'statsDataAction',
-      'dashboardLoaderStatusAction'
+      'dashboardLoaderStatusAction',
+      'datatableDataAction'
     ])
   }
   // mounted () {

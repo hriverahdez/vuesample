@@ -42,6 +42,7 @@ export default {
   mixins: [accountMixin, appMixin, configMixin, reportMixin],
   created () {
     this.skipDashboardDataQuery = false
+    this.skipDatatableDataQuery = false
   }
 }
 </script>

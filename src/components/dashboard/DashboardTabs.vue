@@ -230,6 +230,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      'datatableGroupByAction',
       'groupByVarDataAction',
       'getDateAction',
       'rangeAction'
@@ -267,7 +268,10 @@ export default {
     },
     // Draw data from server
     requestDataFromAPI (e) {
+      // Stats
       this.groupByVarDataAction(e.target.text.toUpperCase())
+      // Table
+      this.datatableGroupByAction(e.target.text.toUpperCase())
     }
   },
   mounted () {
