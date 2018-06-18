@@ -52,6 +52,15 @@ query ($_id: ID!) {
 }
 `
 
+export const APPS_IDS_AND_NAMES_BY_ACCOUNT_ID = gql`
+query ($filter: [AppFilter]) {
+  apps(filter: $filter) {
+    name
+    _id
+  }
+}
+`
+
 // Mutations
 export const CREATE_NEW_APP = gql`
   mutation createApp($input: CreateAppInput!){

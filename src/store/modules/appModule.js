@@ -4,6 +4,7 @@ const APP_DATA = 'APP_DATA'
 // Total apps from query
 const APPS_DATA = 'APPS_DATA'
 const APP_DIALOG_STATUS = 'APP_DIALOG_STATUS'
+// const APPS_IDS_AND_NAMES_BY_ACCOUNT_ID = 'APPS_IDS_AND_NAMES_BY_ACCOUNT_ID'
 // Loader control
 const APPS_LOADER_STATUS = 'APPS_LOADER_STATUS'
 const APP_ID = 'APP_ID'
@@ -56,6 +57,8 @@ const state = {
   appManageNetworkProfileDialogStatus: false,
   appNetworkConfigDialogStatus: false,
   appRemoveDialogStatus: false,
+  // Save app names in from the beginning in Dashboard view
+  // appsNamesAndIds: '',
   // Index element to know if its edited mode
   editedAppIndex: -1,
   // network: {
@@ -112,6 +115,16 @@ const getters = {
     })
     return appNames
   },
+  // appNamesAndIdsGetter (state) {
+  //   return state.appNamesAndIds
+  // },
+  // appNamesAndIdsFormattedGetter (state, getters) {
+  //   let finalObject = {}
+  //   getters.appNamesAndIdsGetter.map((item) => {
+  //     finalObject[item._id] = item.name
+  //   })
+  //   return finalObject
+  // },
   appNetworkConfigDialogStatusGetter (state) {
     return state.appNetworkConfigDialogStatus
   },
@@ -189,6 +202,9 @@ const mutations = {
   [APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS] (state, status) {
     state.appManageNetworkProfileDialogStatus = status
   },
+  // [APPS_IDS_AND_NAMES_BY_ACCOUNT_ID] (state, data) {
+  //   state.appNamesAndIds = data
+  // },
   [APP_NETWORK_CONFIG_DIALOG_STATUS] (state, status) {
     state.appNetworkConfigDialogStatus = status
   },
@@ -237,6 +253,9 @@ const actions = {
   appManageNetworkProfileDialogStatusAction ({commit}, showDialog) {
     commit(APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS, showDialog)
   },
+  // appsNamesAndIdsAction ({commit}, data) {
+  //   commit(APPS_IDS_AND_NAMES_BY_ACCOUNT_ID, data)
+  // },
   appNetworkConfigDialogStatusAction ({commit}, showDialog) {
     commit(APP_NETWORK_CONFIG_DIALOG_STATUS, showDialog)
   },

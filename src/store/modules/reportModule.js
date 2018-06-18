@@ -1,6 +1,7 @@
 import { format, subDays } from 'date-fns'
 
 const ACTIVE_TAB_DATA = 'ACTIVE_TAB_DATA'
+const APPS_IDS_AND_NAMES_BY_ACCOUNT_ID = 'APPS_IDS_AND_NAMES_BY_ACCOUNT_ID'
 const BUTTON_SELECTED_DATA = 'BUTTON_SELECTED_DATA'
 const DASHBOARD_LOADER_STATUS = 'DASHBOARD_LOADER_STATUS'
 const DATE_DATA = 'DATE_DATA'
@@ -10,6 +11,9 @@ const RANGE_DATA = 'RANGE_DATA'
 
 const state = {
   activeTab: 'tab-date',
+  // Save app names in from the beginning in Dashboard view
+  appsNamesAndIds: '',
+  appsNamesAndIdsFormatted: {},
   buttonSelectedStat: 'money',
   dashboardLoaderStatus: true,
   date: {
@@ -25,6 +29,15 @@ const state = {
 const getters = {
   activeTabGetter (state) {
     return state.activeTab
+  },
+  appsNamesAndIdsGetter (state) {
+    return state.appsNamesAndIds
+  },
+  appsNamesAndIdsFormattedGetter (state, getters) {
+    getters.appsNamesAndIdsGetter.map((item) => {
+      state.appsNamesAndIdsFormatted[item._id] = item.name
+    })
+    return state.appsNamesAndIdsFormatted
   },
   rangeGetter (state) {
     return state.range
@@ -67,28 +80,124 @@ const getters = {
     return newArray
   },
   statsDataFormattedGetter (state, getters) {
-    if (state.groupBy.length === 1) {
-      let object = {}
-      object['data'] = {}
-      if (getters.statsDatatableDataGetter) {
-        getters.statsDataGetter.rowData.map(item => {
-          object['data'][item.label] = item[`${state.buttonSelectedStat}`]
-        })
+    // Mi codigo
+    // if (state.groupBy.length === 1) {
+    //   let object = {}
+    //   object['data'] = {}
+    //   if (getters.statsDatatableDataGetter) {
+    //     getters.statsDataGetter.rowData.map(item => {
+    //       object['data'][item.label] = item[`${state.buttonSelectedStat}`]
+    //     })
+    //   }
+    //   return object.data
+    // } else {
+    //   let data = []
+    //   let object = {}
+    //   object['name'] = 'Requests'
+    //   object['data'] = {}
+    //   if (getters.statsDatatableDataGetter) {
+    //     getters.statsDataGetter.rowData.map(item => {
+    //       object['data'][item.label] = item[`${state.buttonSelectedStat}`]
+    //     })
+    //     data.push(object)
+    //   }
+    //   console.log(data)
+    //   return data
+    // }
+    var labelsFirstKey = {
+      '20180201': '2018-02-01',
+      '20180202': '2018-02-02',
+      '20180203': '2018-02-03',
+      '20180204': '2018-02-04',
+      // '20180205': '2018-02-05',
+      '20180206': '2018-02-06',
+      '20180207': '2018-02-07',
+      '20180208': '2018-02-08',
+      '20180209': '2018-02-09',
+      '20180210': '2018-02-10'
+    }
+
+    if (getters.appsNamesAndIdsGetter) {
+      var labelsSecondKey = getters.appsNamesAndIdsFormattedGetter
+    }
+
+    function statsToChartJsFormat (rowData, labelsFirstKey, labelsSecondKey) {
+      labelsFirstKey = labelsFirstKey || {}
+      labelsSecondKey = labelsSecondKey || {}
+      let chartData = {}
+      rowData.map(item => {
+        let labelKeys = item.label.split('--||--')
+          // console.log(labelKeys[0])
+          // console.log(labelKeys[1])
+          // console.log(item)
+        for (var key in item) {
+          if (item.hasOwnProperty(key)) {
+                  // console.log(key + " -> " + item[key])
+            if (key !== 'label') {
+                      // tratamiento para chartData
+              if (typeof chartData[key] === 'undefined') {
+                chartData[key] = {}
+              }
+              let secondaryKey = (typeof labelKeys[1] !== 'undefined') ? labelKeys[1] : 'total'
+              if (typeof chartData[key][secondaryKey] === 'undefined') {
+                          // si tenemos la label en el listado de labels primarias, la cogemos, si no la key pasa a ser la label
+                let label = (typeof labelsSecondKey[secondaryKey] !== 'undefined') ? labelsSecondKey[secondaryKey] : secondaryKey
+                chartData[key][secondaryKey] = {
+                  name: label,
+                  data: {}
+                }
+              }
+              let label = (typeof labelsFirstKey[labelKeys[0]] !== 'undefined') ? labelsFirstKey[labelKeys[0]] : labelKeys[0]
+              chartData[key][secondaryKey]['data'][label] = item[key]
+            }
+          }
+        }
+      })
+
+      // some final treatment on chartdata
+      let finalChartData = {}
+      for (var key in chartData) {
+        finalChartData[key] = []
+        for (var key2 in chartData[key]) {
+          let unordered = chartData[key][key2]['data']
+          let ordered = {}
+          Object.keys(unordered).sort().forEach(function (key) {
+            ordered[key] = unordered[key]
+          })
+          finalChartData[key].push({
+            name: chartData[key][key2]['name'],
+            data: sortObjectByKey(chartData[key][key2]['data'])
+          })
+        }
+        finalChartData[key] = sortObjectByValueAlphabetically(finalChartData[key], 'name')
       }
-      return object.data
-    } else {
-      let data = []
-      let object = {}
-      object['name'] = 'Requests'
-      object['data'] = {}
-      if (getters.statsDatatableDataGetter) {
-        getters.statsDataGetter.rowData.map(item => {
-          object['data'][item.label] = item[`${state.buttonSelectedStat}`]
-        })
-        data.push(object)
-      }
-      console.log(data)
-      return data
+
+      return finalChartData
+    }
+
+    function sortObjectByValueAlphabetically (unordered, key) {
+      var ordered = unordered.slice(0)
+      ordered.sort(function (a, b) {
+        var x = a[key].toLowerCase()
+        var y = b[key].toLowerCase()
+        return x < y ? -1 : x > y ? 1 : 0
+      })
+
+      return ordered
+    }
+
+    function sortObjectByKey (unordered) {
+      // https://stackoverflow.com/questions/5467129/sort-javascript-object-by-key
+      let ordered = {}
+      Object.keys(unordered).sort().forEach(function (key) {
+        ordered[key] = unordered[key]
+      })
+
+      return ordered
+    }
+
+    if (state.networkStats.rowData && state.appsNamesAndIdsFormatted) {
+      return statsToChartJsFormat(state.networkStats.rowData, labelsFirstKey, labelsSecondKey)
     }
   }
 }
@@ -99,6 +208,9 @@ const mutations = {
   },
   [ACTIVE_TAB_DATA] (state, activeTab) {
     state.activeTab = activeTab
+  },
+  [APPS_IDS_AND_NAMES_BY_ACCOUNT_ID] (state, data) {
+    state.appsNamesAndIds = data
   },
   [BUTTON_SELECTED_DATA] (state, buttonSelected) {
     state.buttonSelectedStat = buttonSelected
@@ -128,6 +240,9 @@ const mutations = {
 const actions = {
   activeTabAction ({commit}, activeTab) {
     commit(ACTIVE_TAB_DATA, activeTab)
+  },
+  appsNamesAndIdsAction ({commit}, data) {
+    commit(APPS_IDS_AND_NAMES_BY_ACCOUNT_ID, data)
   },
   buttonSelectedAction ({commit}, selected) {
     commit(BUTTON_SELECTED_DATA, selected)

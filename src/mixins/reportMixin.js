@@ -13,7 +13,7 @@ const reportMixin = {
           groupBy: this.groupByGetter,
           filter: {
             from: '2018-02-01',
-            to: '2018-02-07',
+            to: '2018-02-10',
             // from: this.dateGetter.startDate,
             // to: this.dateGetter.endDate,
             app: this.appFiltersGetter,

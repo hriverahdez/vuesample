@@ -55,7 +55,7 @@
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="alvaro"
+                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           :discrete= "true")
                     // App tab
                     v-tab-item(id="tab-app" v-if="statsDataFormattedGetter")
@@ -63,7 +63,7 @@
                         column-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedGetter"
+                          :data="statsDataFormattedGetter.imp"
                           )
                     // Country tab
                     v-tab-item(id="tab-country")
@@ -136,12 +136,12 @@ export default {
           ]
         }
       ]
-    },
-    data2: [
-      {name: 'Workout', data: {'2017-01-01 00:00:00 -0800': 3, '2017-01-02 00:00:00 -0800': 4}},
-      {name: 'Call parents', data: {'2017-01-03 00:00:00 -0800': 5, '2017-01-04 00:00:00 -0800': 3}}
-    ],
-    alvaro: [
+    }
+    // data2: [
+    //   {name: 'Workout', data: {'2017-01-01 00:00:00 -0800': 3, '2017-01-02 00:00:00 -0800': 4}},
+    //   {name: 'Call parents', data: {'2017-01-03 00:00:00 -0800': 5, '2017-01-04 00:00:00 -0800': 3}}
+    // ],
+    // alvaro: [
     // {
     //   "name": "App 01",
     //   "data": {
@@ -175,7 +175,7 @@ export default {
     //     "2018-02-07": 13
     //   }
     // }
-    ]
+    // ]
   }),
   components: {
     DashboardFilters,

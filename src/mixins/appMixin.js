@@ -1,4 +1,11 @@
-import { APPS_DATA, CREATE_NEW_APP, DELETE_APP, UPDATE_APP, APP_DATA_BY_ID } from '@/graphql/app'
+import {
+  APP_DATA_BY_ID,
+  APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
+  APPS_DATA,
+  CREATE_NEW_APP,
+  DELETE_APP,
+  UPDATE_APP
+} from '@/graphql/app'
 import { mapActions, mapGetters } from 'vuex'
 
 const URI = 'app'
@@ -32,6 +39,23 @@ const appMixin = {
       update (data) {
         this.appByIdDataAction(data.appById)
       }
+    },
+    appsNamesAndIds: {
+      query: APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
+      context: {
+        uri: URI
+      },
+      variables: {
+        filter: {
+          filter: {
+            account: '5b10f0ea9a5fd6246022fd55'
+          }
+        }
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.appsNamesAndIdsAction(data.apps)
+      }
     }
   },
   computed: {
@@ -44,6 +68,7 @@ const appMixin = {
       'appDataAction',
       'appDialogStatusAction',
       'appIdAction',
+      'appsNamesAndIdsAction',
       'appRemoveDialogStatusAction',
       'appSchemaAction',
       'appsLoaderStatusAction',
