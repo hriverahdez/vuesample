@@ -1,6 +1,3 @@
-// Store import
-import { store } from '@/store/store'
-
 import gql from 'graphql-tag'
 
 // Queries
@@ -19,18 +16,18 @@ export const GET_ACCOUNTS = gql`
   }
 }
 `
-export const NETWORK_PROFILES = gql`
-{
-  accounts(orderBy: [name_DESC]) {
+export const NETWORK_PROFILES_ADCOLONY = gql`
+query ($filter: [AccountFilter]) {
+  accounts(filter: $filter) {
       _id
       name
       networkProfiles {
-        ... on ${store.state.network.title}{
+        ... on NetworkIntegration1003 {
           networkId
           profiles {
             name
             default
-            ${store.state.network.vars}
+            api_key
         }
       }
     }
@@ -38,6 +35,25 @@ export const NETWORK_PROFILES = gql`
  }
 `
 
+export const NETWORK_PROFILES_APPLOVIN = gql`
+query ($filter: [AccountFilter]) {
+  accounts(filter: $filter) {
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1008 {
+          networkId
+          profiles {
+            name
+            default
+            report_key
+            sdk_key
+        }
+      }
+    }
+  }
+ }
+`
 // Mutations
 export const CREATE_NEW_ACCOUNT = gql`
   mutation createAccount($input: CreateAccountInput!){

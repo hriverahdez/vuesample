@@ -11,10 +11,12 @@ const APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS = 'APP_MANAGE_NETWORK_PROFILE_DIA
 const APP_NETWORK_CONFIG_DIALOG_STATUS = 'APP_NETWORK_CONFIG_DIALOG_STATUS'
 const APP_REMOVE_DIALOG_STATUS = 'APP_REMOVE_DIALOG_STATUS'
 const EDIT_APP_INDEX_STATUS = 'EDIT_APP_INDEX_STATUS'
+const NETWORK_PROFILES_DATA = 'NETWORK_PROFILES_DATA'
 const REMOVE_APP_PERMISSION_INPUT = 'REMOVE_APP_PERMISSION_INPUT'
 const SELECTED_APP_NETWORK_DATATABLE = 'SELECTED_APP_NETWORK_DATATABLE'
 const SELECTED_NETWORK_TO_MANAGE = 'SELECTED_NETWORK_TO_MANAGE'
 const SKIP_APP_BY_ID_QUERY = 'SKIP_APP_BY_ID_QUERY'
+// const SKIP_NETWORK_PROFILES_QUERY = 'SKIP_NETWORK_PROFILES_QUERY'
 
 const networks = {
   ADCOLONY: '1003',
@@ -56,11 +58,19 @@ const state = {
   appRemoveDialogStatus: false,
   // Index element to know if its edited mode
   editedAppIndex: -1,
+  // network: {
+  //   title: 'NetworkIntegration1008',
+  //   var01: 'report_key',
+  //   var02: 'sdk_key'
+  // },
   networks,
+  // Info network profiles when launch dialog manage profiles from app view datatable
+  networkProfiles: '',
   removeAppPermissionInput: '',
   selectedAppNetworkInDatatable: {},
-  selectedNetworkToManage: '',
-  skipAppByIdQuery: true
+  selectedNetworkToManage: ''
+  // skipAppByIdQuery: true,
+  // skipNetworkProfiles: true
 }
 
 const getters = {
@@ -121,22 +131,43 @@ const getters = {
   networksGetter (state) {
     return state.networks
   },
+  networkProfilesDataGetter (state) {
+    return state.networkProfiles
+  },
+  networkProfilesListGetter (state, getters) {
+    if (getters.networkProfilesDataGetter) {
+      let networkProfiles = []
+      getters.networkProfilesDataGetter.map((item) => {
+        networkProfiles.push(item.networkProfiles)
+      })
+      // item.networkProfiles.find(e => e.profiles)
+      let currentNetworkProfile = networkProfiles[0].find(e => e.profiles)
+      let profiles = currentNetworkProfile.profiles
+      return profiles
+    }
+  },
   removeAppPermissionInputGetter (state) {
     return state.removeAppPermissionInput
   },
   selectedAppNetworkInDatatableGetter (state) {
     return state.selectedAppNetworkInDatatable
   },
-  selectedNetworkIdToManageGetter (state, getters) {
+  selectedNetworkIdToManageGetter (state) {
     let networkName = state.selectedNetworkToManage
     return networks[networkName]
   },
+  // selectedNetworkIdToFormattedManageGetter (state, getters) {
+  //   return `NetworkIntegration${getters.selectedNetworkIdToManageGetter}`
+  // },
   selectedNetworkToManageGetter (state) {
     return state.selectedNetworkToManage
   },
   skipAppByIdQueryGetter (state) {
     return state.skipAppByIdQuery
   }
+  // skipNetworkProfilesGetter (state) {
+  //   return state.skipNetworkProfiles
+  // }
 }
 
 const mutations = {
@@ -170,6 +201,9 @@ const mutations = {
   [EDIT_APP_INDEX_STATUS] (state, indexValue) {
     state.editedAppIndex = indexValue
   },
+  [NETWORK_PROFILES_DATA] (state, profiles) {
+    state.networkProfiles = profiles
+  },
   [REMOVE_APP_PERMISSION_INPUT] (state, data) {
     state.removeAppPermissionInput = data
   },
@@ -182,6 +216,9 @@ const mutations = {
   [SKIP_APP_BY_ID_QUERY] (state, status) {
     state.skipAppByIdQuery = status
   }
+  // [SKIP_NETWORK_PROFILES_QUERY] (state, status) {
+  //   state.skipNetworkProfiles = status
+  // }
 }
 
 const actions = {
@@ -215,6 +252,9 @@ const actions = {
   editedAppIndexStatusAction ({commit}, indexValue) {
     commit(EDIT_APP_INDEX_STATUS, indexValue)
   },
+  networkProfilesDataAction ({commit}, profiles) {
+    commit(NETWORK_PROFILES_DATA, profiles)
+  },
   removeAppPermissionInputAction ({commit}, data) {
     commit(REMOVE_APP_PERMISSION_INPUT, data)
   },
@@ -227,6 +267,9 @@ const actions = {
   skipAppByIdQueryAction ({commit}, status) {
     commit(SKIP_APP_BY_ID_QUERY, status)
   }
+  // skipNetworkProfilesAction ({commit}, status) {
+  //   commit(SKIP_NETWORK_PROFILES_QUERY, status)
+  // }
 }
 
 export default {

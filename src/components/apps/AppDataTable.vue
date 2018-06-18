@@ -191,7 +191,8 @@ export default {
       'editedAppIndexStatusAction',
       'selectedAppNetworkInDatatableAction',
       'selectedNetworkToManageAction',
-      'skipAppByIdQueryAction'
+      'skipAppByIdQueryAction',
+      'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
     showDeleteDialog (app) {
@@ -215,6 +216,7 @@ export default {
     showManageNetworkProfiles (networkName) {
       this.appManageNetworkProfileDialogStatusAction(true)
       this.selectedNetworkToManageAction(networkName)
+      this.$root.$emit('launchNetworkProfilesQuery', networkName)
     }
   }
 }

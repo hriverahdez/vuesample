@@ -15,8 +15,12 @@
                 div(class="manage-network__container__actions-row")
                   v-flex(xs8)
                     v-select(
+                      :items="networkProfiles"
                       :label="this.$t('apps_view.select_profile')"
+                      item-text="name"
                       required
+                      @change="passKeyToInput"
+                      v-model="selected"
                     )
                   v-flex(xs2 offset-xs1)
                     v-btn(
@@ -25,36 +29,22 @@
                         @click.native=""
                     ) {{ $t('apps_view.new_profile') }}
                 v-form(class="manage-network__container__form")
-                  //- v-text-field(
-                  //-   :label="this.$t('apps_view.profile_name')"
-                  //-   required
-                  //- )
-                  //- v-text-field(
-                  //-   :label="this.$t('apps_view.API_key')"
-                  //-   required
-                  //- )
                   div(
-                    v-for="(field,index) in networksInfo[selectednetworkId].params_by_network"
+                    v-for="(field, key, index) in networksInfo[selectednetworkId].params_by_network"
                     :key="index"
                     class="manage-network__container__form__input-container"
                     )
                     v-text-field(
                       :label="field.label"
+                      :value="selected[key]"
                       )
-                    p {{  field.help_text }}
+                    p {{ field.help_text }}
 
-        //-         v-text-field(
-        //-           :label="this.$t('apps_view.remove_app_message', {number: randomNumber})"
-        //-           v-model="$store.state.appModule.removeAppPermissionInput"
-        //-           class="formElementColor--text"
-        //-           hide-details
-        //-           required
-        //-         )
         v-card-actions
           v-spacer
           v-btn(
             color="buttonColor"
-            flat
+            flats
             @click.native="closeDialog"
             ) {{ $t('buttons.cancel') }}
           v-btn(
@@ -77,7 +67,11 @@ export default {
   // },
   data () {
     return {
-      valid: false
+      valid: false,
+      api_key: '',
+      report_key: '',
+      sdk_key: '',
+      selected: ''
     }
   },
   // watch: {
@@ -93,13 +87,19 @@ export default {
     ...mapGetters({
       networksInfo: 'networksInfoGetter',
       selectednetworkId: 'selectedNetworkIdToManageGetter',
-      selectedNetworkName: 'selectedNetworkToManageGetter'
+      selectedNetworkName: 'selectedNetworkToManageGetter',
+      networkProfiles: 'networkProfilesListGetter'
     })
   },
   methods: {
     ...mapActions([
       'appManageNetworkProfileDialogStatusAction'
     ]),
+    passKeyToInput (e) {
+      this.api_key = e.api_key
+      this.sdk_key = e.sdk_key
+      this.report_key = e.report_key
+    },
     // Close dialog layer
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)

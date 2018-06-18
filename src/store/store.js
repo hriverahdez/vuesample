@@ -16,11 +16,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    DAU: false,
-    network: {
-      title: 'NetworkIntegration1008',
-      vars: ['report_key', 'sdk_key']
-    }
+    DAU: false
   },
   getters: {
     checkDAUState (state) {

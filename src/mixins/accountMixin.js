@@ -1,4 +1,4 @@
-import { CREATE_NEW_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT, UPDATE_ACCOUNT, NETWORK_PROFILES } from '@/graphql/account'
+import { CREATE_NEW_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT, UPDATE_ACCOUNT, NETWORK_PROFILES_ADCOLONY, NETWORK_PROFILES_APPLOVIN } from '@/graphql/account'
 import { mapMutations, mapActions } from 'vuex'
 
 const URI = 'account'
@@ -17,15 +17,44 @@ const accountMixin = {
         })
       }
     },
-    networkProfiles: {
-      query: NETWORK_PROFILES,
+    networkProfilesAdcolony: {
+      query: NETWORK_PROFILES_ADCOLONY,
       context: {
         uri: URI
+      },
+      variables: {
+        filter: {
+          filter: {
+            _id: '5b10f0e09a5fd6253b119d5d'
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesAdcolonyQuery
       },
       loadingKey: 'loading',
       update (data) {
         this.networkProfilesDataAction(data.accounts)
       }
+    },
+    networkProfilesApplovin: {
+      query: NETWORK_PROFILES_APPLOVIN,
+      context: {
+        uri: URI
+      },
+      skip () {
+        return this.skipNetworkProfilesApplovinQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    }
+  },
+  data () {
+    return {
+      skipNetworkProfilesAdcolonyQuery: true,
+      skipNetworkProfilesApplovinQuery: true
     }
   },
   methods: {
@@ -148,6 +177,13 @@ const accountMixin = {
     })
     this.$root.$on('editAccount', (id, name, description, disabled) => {
       this.editAccount(id, name, description, disabled)
+    })
+    this.$root.$on('launchNetworkProfilesQuery', (networkName) => {
+      let formattedName = networkName.charAt(0).toUpperCase() + networkName.slice(1).toLowerCase()
+      let skipVar = `skipNetworkProfiles${formattedName}Query`
+      let queryName = `networkProfiles${formattedName}`
+      this[skipVar] = false
+      this.$apollo.queries[queryName].refetch()
     })
   },
   beforeDestroy () {
