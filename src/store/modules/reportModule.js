@@ -42,6 +42,29 @@ const getters = {
   rangeGetter (state) {
     return state.range
   },
+
+  rangeOfDays (state) {
+    console.log(state.date.startDate, state.date.endDate)
+     /* eslint no-global-assign:off */
+    Date.prototype.addDays = function (days) {
+      var date = new Date(this.valueOf())
+      date.setDate(date.getDate() + days)
+      return date
+    }
+
+    function customGetDateInterval (startDate, stopDate) {
+      stopDate = stopDate.addDays(1) // para que también incluya la última
+      let dateArray = []
+      let currentDate = startDate
+      while (currentDate <= stopDate) {
+        dateArray.push(currentDate.toISOString().split('T')[0])
+        currentDate = currentDate.addDays(1)
+      }
+      return dateArray
+    }
+
+    customGetDateInterval(state.date.startDate, state.date.endDate)
+  },
   buttonSelectedGetter (state) {
     return state.buttonSelectedStat
   },
@@ -66,14 +89,19 @@ const getters = {
     function formatLabel (label) {
       if (label.includes('--||--')) {
         let withoutSymbol = label.split('--||--')
-        return withoutSymbol[1]
+        if (state.activeTab === 'tab-app') {
+          return state.appsNamesAndIdsFormatted[withoutSymbol[1]]
+        } else {
+          return withoutSymbol[1]
+        }
       } else {
         return label
       }
     }
     if (getters.statsDatatableDataGetter) {
       getters.statsDatatableDataGetter.map(item => {
-        let addFormattedLabel = Object.assign({}, item, { formattedLabel: formatLabel(item.label) })
+        let addFormattedLabel = Object.assign({}, item, {
+          formattedLabel: formatLabel(item.label) })
         newArray.push(addFormattedLabel)
       })
     }
@@ -116,9 +144,17 @@ const getters = {
       '20180209': '2018-02-09',
       '20180210': '2018-02-10'
     }
-
-    if (getters.appsNamesAndIdsGetter) {
-      var labelsSecondKey = getters.appsNamesAndIdsFormattedGetter
+    var labelsSecondKey = ''
+    if (state.activeTab === 'tab-app' && getters.appsNamesAndIdsGetter) {
+      labelsSecondKey = getters.appsNamesAndIdsFormattedGetter
+    } else if (state.activeTab === 'tab-country') {
+      labelsSecondKey = {
+        'AD': 'aaaaaaaaaaaaaa'
+      }
+    } else if (state.activeTab === 'tab-format') {
+      labelsSecondKey = {
+        'banner': 'Banner'
+      }
     }
 
     function statsToChartJsFormat (rowData, labelsFirstKey, labelsSecondKey) {

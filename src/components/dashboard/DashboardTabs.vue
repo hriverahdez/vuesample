@@ -63,15 +63,15 @@
                         column-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedGetter.imp"
+                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           )
                     // Country tab
-                    v-tab-item(id="tab-country")
+                    v-tab-item(id="tab-country" v-if="statsDataFormattedGetter")
                         dashboard-filters
                         line-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
+                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           :discrete= "true")
                     // Format tab
                     v-tab-item(id="tab-format")
