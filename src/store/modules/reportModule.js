@@ -17,9 +17,12 @@ const state = {
   buttonSelectedStat: 'money',
   dashboardLoaderStatus: true,
   date: {
-    endDate: format(new Date(), 'YYYY-MM-DD'),
-    startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
+    // endDate: format(new Date(), 'YYYY-MM-DD'),
+    // startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
+    endDate: '2018-02-10',
+    startDate: '2018-02-01'
   },
+  dateArray: [],
   groupBy: ['DATE'],
   networkStats: [],
   statsDataFormatted: [],
@@ -55,8 +58,6 @@ const getters = {
     }
 
     function customGetDateInterval (startDate, stopDate) {
-      console.log(startDate, stopDate)
-      console.log(typeof startDate)
       stopDate = addDays(stopDate, 1) // para que también incluya la última
       let dateArray = {}
       let currentDate = startDate
@@ -65,7 +66,7 @@ const getters = {
         dateArray[currentDateString.replace(/-/g, '')] = currentDateString
         currentDate = addDays(currentDate, 1)
       }
-      console.log(dateArray)
+      state.dateArray = dateArray
       return dateArray
     }
     customGetDateInterval(new Date(state.date.startDate), new Date(state.date.endDate))
@@ -100,7 +101,7 @@ const getters = {
           return withoutSymbol[1]
         }
       } else {
-        return label
+        return state.dateArray[label]
       }
     }
     if (getters.statsDatatableDataGetter) {
