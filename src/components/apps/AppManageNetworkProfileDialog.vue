@@ -11,7 +11,7 @@
                 div(class="manage-network__container__text-info")
                   p {{ $t('apps_view.manage_network_info_text')}}
                 div(class="manage-network__container__network-logo")
-                  p {{ selectedNetworkName }}
+                  img(:src="imageSrc" class="network-logo")
                 div(class="manage-network__container__actions-row")
                   v-flex(xs8)
                     v-select(
@@ -89,7 +89,10 @@ export default {
       selectednetworkId: 'selectedNetworkIdToManageGetter',
       selectedNetworkName: 'selectedNetworkToManageGetter',
       networkProfiles: 'networkProfilesListGetter'
-    })
+    }),
+    imageSrc () {
+      return require(`../../assets/networks/${this.selectednetworkId}.png`)
+    }
   },
   methods: {
     ...mapActions([
@@ -131,6 +134,16 @@ export default {
 
     &__input-container {
       width: 100%;
+    }
+  }
+
+  &__network-logo {
+    margin: 0 auto;
+    text-align: center;
+
+    .network-logo {
+      max-width: 300px;
+      height: auto;
     }
   }
 }
