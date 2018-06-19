@@ -60,6 +60,7 @@
     "copies": {
       "drag_and_drop": "Drag and drop a file or click"
     },
+
     "dashboard_view": {
       "app": "App",
       "apps": "Apps",

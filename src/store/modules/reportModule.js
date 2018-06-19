@@ -101,7 +101,8 @@ const getters = {
   statsDatatableDataGetter (state, getters) {
     return getters.statsDataGetter.rowData
   },
-  dashboardDatatableDataWithFormattedLabelGetter (state, getters) {
+  dashboardDatatableDataWithFormattedLabelGetter (state, getters, rootState, rootGetters) {
+    console.log(rootGetters)
     let newArray = []
     // function formatLabel (label) {
     //   if (label.includes('--||--')) {
@@ -145,8 +146,12 @@ const getters = {
     function formatLabel (label) {
       if (state.activeTab === 'tab-app') {
         return state.appsNamesAndIdsFormatted[label]
-      } else {
+      } else if (state.activeTab === 'tab-date') {
         return state.dateArray[label]
+      } else if (state.activeTab === 'tab-country' && rootGetters.countriesFormattedGetter) {
+        return rootState.globalModule.countriesFormatted[label]
+      } else {
+        return 'kikikiki'
       }
     }
     if (getters.datatableDataGetter) {

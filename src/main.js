@@ -69,7 +69,11 @@ Vue.filter('capitalize', (val) => {
 })
 
 Vue.filter('percentageFormat', function (val) {
-  return `${val.toFixed(2)}%`
+  if (val) {
+    return `${val.toFixed(2)}%`
+  } else {
+    return false
+  }
 })
 
 Vue.config.productionTip = false
