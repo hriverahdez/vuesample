@@ -49,33 +49,6 @@ const getters = {
   rangeGetter (state) {
     return state.range
   },
-  // rangeOfDays (state) {
-  //   function addDays (startDate, numberOfDays) {
-  //     console.log('entra range')
-  //     let returnDate = new Date(
-  //       startDate.getFullYear(),
-  //       startDate.getMonth(),
-  //       startDate.getDate() + numberOfDays,
-  //       startDate.getHours(),
-  //       startDate.getMinutes(),
-  //       startDate.getSeconds())
-  //     return returnDate
-  //   }
-
-  //   function customGetDateInterval (startDate, stopDate) {
-  //     stopDate = addDays(stopDate, 1) // para que también incluya la última
-  //     let dateArray = {}
-  //     let currentDate = startDate
-  //     while (currentDate <= stopDate) {
-  //       let currentDateString = currentDate.toISOString().split('T')[0]
-  //       dateArray[currentDateString.replace(/-/g, '')] = currentDateString
-  //       currentDate = addDays(currentDate, 1)
-  //     }
-  //     state.dateArray = dateArray
-  //     return dateArray
-  //   }
-  //   customGetDateInterval(new Date(state.date.startDate), new Date(state.date.endDate))
-  // },
   buttonSelectedGetter (state) {
     return state.buttonSelectedStat
   },
@@ -103,19 +76,7 @@ const getters = {
   },
   dashboardDatatableDataWithFormattedLabelGetter (state, getters, rootState, rootGetters) {
     let newArray = []
-    // function formatLabel (label) {
-    //   if (label.includes('--||--')) {
-    //     let withoutSymbol = label.split('--||--')
-    //     if (state.activeTab === 'tab-app') {
-    //       console.log('entra')
-    //       return state.appsNamesAndIdsFormatted[withoutSymbol[1]]
-    //     } else {
-    //       return withoutSymbol[1]
-    //     }
-    //   } else {
-    //     return state.dateArray[label]
-    //   }
-    // }
+
     function addDays (startDate, numberOfDays) {
       let returnDate = new Date(
         startDate.getFullYear(),
@@ -151,8 +112,8 @@ const getters = {
         return rootState.globalModule.countriesFormatted[label]
       } else if (state.activeTab === 'tab-format' && rootGetters.formatsGetter) {
         return rootState.globalModule.formats[label]
-      } else if (state.activeTab === 'tab-network') {
-        return 'network'
+      } else if (state.activeTab === 'tab-network' && rootGetters.networksKeysGetter) {
+        return rootState.globalModule.networks[label]
       }
     }
     if (getters.datatableDataGetter) {
@@ -165,28 +126,17 @@ const getters = {
     return newArray
   },
   statsDataFormattedGetter (state, getters, rootState, rootGetters) {
-    // var labelsFirstKey = {
-    //   '20180201': '2018-02-01',
-    //   '20180202': '2018-02-02',
-    //   '20180203': '2018-02-03',
-    //   '20180204': '2018-02-04',
-    //   // '20180205': '2018-02-05',
-    //   '20180206': '2018-02-06',
-    //   '20180207': '2018-02-07',
-    //   '20180208': '2018-02-08',
-    //   '20180209': '2018-02-09',
-    //   '20180210': '2018-02-10'
-    // }
     let labelsFirstKey = state.dateArray
     let labelsSecondKey = ''
+
     if (state.activeTab === 'tab-app' && getters.appsNamesAndIdsGetter) {
       labelsSecondKey = getters.appsNamesAndIdsFormattedGetter
     } else if (state.activeTab === 'tab-country') {
       labelsSecondKey = rootGetters.countriesFormattedGetter
-    } else if (state.activeTab === 'tab-format') {
-      labelsSecondKey = {
-        'banner': 'Banner'
-      }
+    } else if (state.activeTab === 'tab-format' && rootGetters.formatsGetter) {
+      labelsFirstKey = rootGetters.formatsGetter
+    } else if (state.activeTab === 'tab-network' && rootGetters.networksKeysGetter) {
+      labelsSecondKey = rootGetters.networksKeysGetter
     }
 
     function statsToChartJsFormat (rowData, labelsFirstKey, labelsSecondKey) {
@@ -234,7 +184,6 @@ const getters = {
         }
         finalChartData[key] = sortObjectByValueAlphabetically(finalChartData[key], 'name')
       }
-      console.log(finalChartData)
       return finalChartData
     }
 
@@ -284,8 +233,12 @@ const mutations = {
   [DATATABLE_DATA] (state, data) {
     state.datatableData = data
   },
-  [DATATABLE_GROUPBY] (state, data) {
-    state.datatableGroupBy = data
+  [DATATABLE_GROUPBY] (state, val) {
+    if (val === 'NETWORK') {
+      state.datatableGroupBy = 'SOURCE'
+    } else {
+      state.datatableGroupBy = val
+    }
   },
   [DATE_DATA] (state, date) {
     state.date = date

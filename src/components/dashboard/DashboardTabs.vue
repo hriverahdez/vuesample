@@ -50,7 +50,7 @@
 
                     // Tab items
                     // Date tab
-                    v-tab-item(id="tab-date" v-if="statsDataFormattedGetter")
+                    v-tab-item(id="tab-date")
                         dashboard-filters
                         line-chart(
                           :ytitle="statYText | capitalize"
@@ -74,7 +74,7 @@
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           :discrete= "true")
                     // Format tab
-                    v-tab-item(id="tab-format"  v-if="statsDataFormattedGetter")
+                    v-tab-item(id="tab-format" v-if="statsDataFormattedGetter")
                         dashboard-filters
                         pie-chart(
                           :ytitle="statYText | capitalize"
@@ -82,12 +82,12 @@
                           :data="statsDataFormattedGetter[buttonSelectedGetter][0].data"
                         )
                     // Network tab
-                    v-tab-item(id="tab-network")
+                    v-tab-item(id="tab-network" v-if="statsDataFormattedGetter")
                         dashboard-filters
                         column-chart(
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
+                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           )
 
                     //- v-tab-item(id="tab-country")

@@ -1084,13 +1084,28 @@ const state = {
     'banner_premium': i18n.t('formats.banner_premium'),
     'interstitial_premium': i18n.t('formats.interstitial_premium'),
     'rewarded_video_premium': i18n.t('formats.rewarded_video_premium')
+  },
+  networks: {
+    '1001': 'MOBUSI',
+    '1002': 'ADMOB',
+    '1003': 'ADCOLONY',
+    '1004': 'UNITYADS',
+    '1005': 'VUNGLE',
+    '1006': 'KIIP',
+    '1007': 'CHARTBOOST',
+    '1008': 'APPLOVIN',
+    '1009': 'FACEBOOK',
+    '1010': 'MOBUSI_SSP',
+    '1012': 'INMOBI',
+    '10013': 'STARTAPP',
+    '1014': 'MOBVISTA',
+    '1015': 'HYPRMX',
+    '1016': 'MOPUB',
+    '1017': 'IRONSOURCE'
   }
 }
 
 const getters = {
-  networksInfoGetter (state) {
-    return state.networksInfo
-  },
   countriesFormattedGetter (state, getters) {
     if (getters.countriesGetter) {
       getters.countriesGetter.map((item) => {
@@ -1104,6 +1119,12 @@ const getters = {
   },
   formatsGetter (state) {
     return state.formats
+  },
+  networksKeysGetter (state) {
+    return state.networks
+  },
+  networksInfoGetter (state) {
+    return state.networksInfo
   }
 }
 
