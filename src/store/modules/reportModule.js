@@ -102,7 +102,6 @@ const getters = {
     return getters.statsDataGetter.rowData
   },
   dashboardDatatableDataWithFormattedLabelGetter (state, getters, rootState, rootGetters) {
-    console.log(rootGetters)
     let newArray = []
     // function formatLabel (label) {
     //   if (label.includes('--||--')) {
@@ -163,7 +162,7 @@ const getters = {
     }
     return newArray
   },
-  statsDataFormattedGetter (state, getters) {
+  statsDataFormattedGetter (state, getters, rootState, rootGetters) {
     // var labelsFirstKey = {
     //   '20180201': '2018-02-01',
     //   '20180202': '2018-02-02',
@@ -181,9 +180,7 @@ const getters = {
     if (state.activeTab === 'tab-app' && getters.appsNamesAndIdsGetter) {
       labelsSecondKey = getters.appsNamesAndIdsFormattedGetter
     } else if (state.activeTab === 'tab-country') {
-      labelsSecondKey = {
-        'AD': 'aaaaaaaaaaaaaa'
-      }
+      labelsSecondKey = rootGetters.countriesFormattedGetter
     } else if (state.activeTab === 'tab-format') {
       labelsSecondKey = {
         'banner': 'Banner'
