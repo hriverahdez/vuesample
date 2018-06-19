@@ -17,10 +17,10 @@ const reportMixin = {
         return {
           groupBy: this.groupByGetter,
           filter: {
-            from: '2018-02-01',
-            to: '2018-02-10',
-            // from: this.dateGetter.startDate,
-            // to: this.dateGetter.endDate,
+            // from: '2018-02-01',
+            // to: '2018-02-10',
+            from: this.dateGetter.startDate,
+            to: this.dateGetter.endDate,
             app: this.appFiltersGetter,
             format: this.formatFiltersGetter,
             source: this.networkFiltersGetter,
@@ -48,10 +48,10 @@ const reportMixin = {
         return {
           groupBy: this.datatableGroupByGetter,
           filter: {
-            from: '2018-02-01',
-            to: '2018-02-10',
-            // from: this.dateGetter.startDate,
-            // to: this.dateGetter.endDate,
+            // from: '2018-02-01',
+            // to: '2018-02-10',
+            from: this.dateGetter.startDate,
+            to: this.dateGetter.endDate,
             app: this.appFiltersGetter,
             format: this.formatFiltersGetter,
             source: this.networkFiltersGetter,
@@ -79,6 +79,7 @@ const reportMixin = {
       'appFiltersGetter',
       'countryFiltersGetter',
       'datatableGroupByGetter',
+      'dateGetter',
       'formatFiltersGetter',
       'groupByGetter',
       'networkFiltersGetter'

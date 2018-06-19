@@ -1,4 +1,4 @@
-// import { format, subDays } from 'date-fns'
+import { format, subDays } from 'date-fns'
 
 const ACTIVE_TAB_DATA = 'ACTIVE_TAB_DATA'
 const APPS_IDS_AND_NAMES_BY_ACCOUNT_ID = 'APPS_IDS_AND_NAMES_BY_ACCOUNT_ID'
@@ -20,10 +20,10 @@ const state = {
   dashboardLoaderStatus: true,
   datatableData: '',
   date: {
-    // endDate: format(new Date(), 'YYYY-MM-DD'),
-    // startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
-    endDate: '2018-02-10',
-    startDate: '2018-02-01'
+    endDate: format(new Date(), 'YYYY-MM-DD'),
+    startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
+    // endDate: '2018-02-10',
+    // startDate: '2018-02-01'
   },
   dateArray: [],
   groupBy: ['DATE'],
