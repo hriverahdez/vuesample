@@ -96,6 +96,14 @@
     "footer": {
       "copyright": "© 2018 Fibonad - All rights reserved"
     },
+    "formats": {
+      "banner": "Banner",
+      "interstitial": "Interstitial",
+      "rewarded_video": "Rewarded video",
+      "banner_premium": "Banner premium",
+      "interstitial_premium": "Interstitial premium",
+      "rewarded_video_premium": "Rewarded video premium"
+    },
     "links": {
       "home": "Home"
     },

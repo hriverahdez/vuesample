@@ -149,8 +149,10 @@ const getters = {
         return state.dateArray[label]
       } else if (state.activeTab === 'tab-country' && rootGetters.countriesFormattedGetter) {
         return rootState.globalModule.countriesFormatted[label]
-      } else {
-        return 'kikikiki'
+      } else if (state.activeTab === 'tab-format' && rootGetters.formatsGetter) {
+        return rootState.globalModule.formats[label]
+      } else if (state.activeTab === 'tab-network') {
+        return 'network'
       }
     }
     if (getters.datatableDataGetter) {
@@ -215,7 +217,6 @@ const getters = {
           }
         }
       })
-
       // some final treatment on chartdata
       let finalChartData = {}
       for (var key in chartData) {
@@ -223,8 +224,8 @@ const getters = {
         for (var key2 in chartData[key]) {
           let unordered = chartData[key][key2]['data']
           let ordered = {}
-          Object.keys(unordered).sort().forEach(function (key) {
-            ordered[key] = unordered[key]
+          Object.keys(unordered).sort().forEach(function (key3) {
+            ordered[key3] = unordered[key3]
           })
           finalChartData[key].push({
             name: chartData[key][key2]['name'],
@@ -233,7 +234,7 @@ const getters = {
         }
         finalChartData[key] = sortObjectByValueAlphabetically(finalChartData[key], 'name')
       }
-
+      console.log(finalChartData)
       return finalChartData
     }
 
@@ -293,6 +294,8 @@ const mutations = {
     if (val !== 'DATE') {
       if (val === 'NETWORK') {
         state.groupBy = ['DATE', 'SOURCE']
+      } else if (val === 'FORMAT') {
+        state.groupBy = ['FORMAT']
       } else {
         state.groupBy = ['DATE', val]
       }

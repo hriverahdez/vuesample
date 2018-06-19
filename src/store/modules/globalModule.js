@@ -1076,7 +1076,15 @@ const state = {
       'code': 'AX'
     }
   ],
-  countriesFormatted: {}
+  countriesFormatted: {},
+  formats: {
+    'banner': i18n.t('formats.banner'),
+    'interstitial': i18n.t('formats.interstitial'),
+    'rewarded_video': i18n.t('formats.rewarded_video'),
+    'banner_premium': i18n.t('formats.banner_premium'),
+    'interstitial_premium': i18n.t('formats.interstitial_premium'),
+    'rewarded_video_premium': i18n.t('formats.rewarded_video_premium')
+  }
 }
 
 const getters = {
@@ -1093,6 +1101,9 @@ const getters = {
   },
   countriesGetter (state) {
     return state.countries
+  },
+  formatsGetter (state) {
+    return state.formats
   }
 }
 
