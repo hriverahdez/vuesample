@@ -56,6 +56,7 @@
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                          :legend="false"
                           :discrete= "true")
                     // App tab
                     v-tab-item(id="tab-app" v-if="statsDataFormattedGetter")
