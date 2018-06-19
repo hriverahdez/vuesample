@@ -7,6 +7,10 @@
         hide-actions
         class="elevation-1 dashboard-datatable"
         )
+
+        template(slot="headers" slot-scope="props")
+          th(v-for="header in props.headers" :key="header.text") {{ header.text === "groupBy" ? `Group by ${datatableGroupBy.toLowerCase()}` : header.text }}
+
         template(slot="items" slot-scope="props")
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
             td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.requests }}
@@ -44,7 +48,7 @@ export default {
   data: () => ({
     headers: [
       {
-        text: 'Group by date',
+        text: 'groupBy',
         align: 'left',
         value: 'date'
       },
@@ -79,6 +83,7 @@ export default {
       groupedBy: 'groupByGetter',
       networks: 'networksGetter',
       datatableData: 'dashboardDatatableDataWithFormattedLabelGetter',
+      datatableGroupBy: 'datatableGroupByGetter',
       datatableTotals: 'datatableTotalsDataGetter',
       showDAU: 'checkDAUState'
     })
@@ -87,6 +92,7 @@ export default {
     ...mapActions([
       'activeTabAction',
       'addItemFiltersAction',
+      'datatableGroupByAction',
       'getDateAction',
       'groupByVarDataAction',
       'rangeAction'
@@ -113,22 +119,25 @@ export default {
     // },
     // Change current tab and filters when clicked data table row
     selectTableItem (item, index) {
-      let originalGroupedByValue = this.groupedBy
+      let originalGroupedByValue = this.datatableGroupBy
       let sendItemLabel
       if (originalGroupedByValue === 'DATE') {
-        sendItemLabel = item.label
+        sendItemLabel = item.formattedLabel
         this.activeTabAction('tab-app').then(() => {
-          this.getDateAction({
-            startDate: item.label,
-            endDate: item.label
-          })
-          this.$root.$emit('sendDateToRoot', item.label)
-          this.rangeAction([item.label, item.label])
+          this.datatableGroupByAction('APP')
           this.groupByVarDataAction('APP')
+          this.$root.$emit('sendDateToRoot', sendItemLabel)
+          this.rangeAction([sendItemLabel, sendItemLabel])
+          this.getDateAction({
+            startDate: sendItemLabel,
+            endDate: sendItemLabel
+          })
         })
       } else {
+        console.log('entra')
         this.activeTabAction('tab-date')
         .then(() => {
+          this.datatableGroupByAction('DATE')
           this.groupByVarDataAction('DATE')
           .then(() => {
             if (originalGroupedByValue === 'APP') {
@@ -140,27 +149,15 @@ export default {
                 }
               }
             } else {
-              sendItemLabel = item.label
+              sendItemLabel = {
+                name: item.formattedLabel,
+                code: item.label
+              }
             }
             this.addItemFiltersAction([sendItemLabel, originalGroupedByValue])
           })
         })
       }
-        // console.log('entra', item)
-        // this.getDateAction({
-        //   startDate: item.label,
-        //   endDate: item.label
-        // })
-
-      // .then(() => {
-      //   this.setAlertMessage({
-      //     show: true,
-      //     type: 'success',
-      //     message: this.$t('dashboard_view.confirm_selected_date_range'),
-      //     buttonText: this.$t('buttons.close')
-      //   })
-      //   this.dialog = false
-      // })
     }
   }
 }

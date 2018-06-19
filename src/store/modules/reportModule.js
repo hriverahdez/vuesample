@@ -28,7 +28,7 @@ const state = {
   },
   dateArray: [],
   groupBy: ['DATE'],
-  datatableGroupBy: ['DATE'],
+  datatableGroupBy: 'DATE',
   networkStats: [],
   statsDataFormatted: [],
   range: []
