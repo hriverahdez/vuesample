@@ -19,6 +19,7 @@ const state = {
   buttonSelectedStat: 'money',
   dashboardLoaderStatus: true,
   datatableData: '',
+  datatableTotals: [],
   date: {
     endDate: format(new Date(), 'YYYY-MM-DD'),
     startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD')
@@ -57,6 +58,12 @@ const getters = {
   },
   datatableDataGetter (state) {
     return state.datatableData.rowData
+  },
+  datatableTotalsDataGetter (state, getters) {
+    if (getters.datatableDataGetter) {
+      state.datatableTotals.push(state.datatableData.total)
+    }
+    return state.datatableTotals
   },
   datatableGroupByGetter (state) {
     return state.datatableGroupBy

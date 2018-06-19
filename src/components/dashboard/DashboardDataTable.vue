@@ -1,4 +1,5 @@
 <template lang="pug">
+  section
     v-data-table(
         :headers="showDAU ? headersWithDAU : headers"
         :items="datatableData"
@@ -22,6 +23,17 @@
             :value="true"
             color="error"
             icon="warning") {{ $t('accounts_view.alert_message')}}
+
+        template(slot="footer")
+          td.text-xs-left TOTAL
+          td.text-xs-left {{ datatableTotals[0].req }}
+          td.text-xs-left {{ datatableTotals[0].imp | currency('', 0) }}
+          td.text-xs-left {{ datatableTotals[0].fillRate }}
+          td.text-xs-left {{ datatableTotals[0].click | currency('', 0) }}
+          td.text-xs-left {{ datatableTotals[0].ctr | percentageFormat }}
+          td.text-xs-left {{ datatableTotals[0].money | currency }}
+          td.text-xs-left {{ datatableTotals[0].ecpm | percentageFormat }}
+
 </template>
 
 <script>
@@ -67,6 +79,7 @@ export default {
       groupedBy: 'groupByGetter',
       networks: 'networksGetter',
       datatableData: 'dashboardDatatableDataWithFormattedLabelGetter',
+      datatableTotals: 'datatableTotalsDataGetter',
       showDAU: 'checkDAUState'
     })
   },
