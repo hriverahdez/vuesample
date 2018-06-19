@@ -273,7 +273,7 @@ export default {
         this.groupByVarDataAction(e.target.text.toUpperCase())
         // Table
         this.datatableGroupByAction(e.target.text.toUpperCase())
-      }, 250)
+      }, 240)
     }
   },
   mounted () {

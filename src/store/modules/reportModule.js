@@ -49,32 +49,33 @@ const getters = {
   rangeGetter (state) {
     return state.range
   },
-  rangeOfDays (state) {
-    function addDays (startDate, numberOfDays) {
-      let returnDate = new Date(
-        startDate.getFullYear(),
-        startDate.getMonth(),
-        startDate.getDate() + numberOfDays,
-        startDate.getHours(),
-        startDate.getMinutes(),
-        startDate.getSeconds())
-      return returnDate
-    }
+  // rangeOfDays (state) {
+  //   function addDays (startDate, numberOfDays) {
+  //     console.log('entra range')
+  //     let returnDate = new Date(
+  //       startDate.getFullYear(),
+  //       startDate.getMonth(),
+  //       startDate.getDate() + numberOfDays,
+  //       startDate.getHours(),
+  //       startDate.getMinutes(),
+  //       startDate.getSeconds())
+  //     return returnDate
+  //   }
 
-    function customGetDateInterval (startDate, stopDate) {
-      stopDate = addDays(stopDate, 1) // para que también incluya la última
-      let dateArray = {}
-      let currentDate = startDate
-      while (currentDate <= stopDate) {
-        let currentDateString = currentDate.toISOString().split('T')[0]
-        dateArray[currentDateString.replace(/-/g, '')] = currentDateString
-        currentDate = addDays(currentDate, 1)
-      }
-      state.dateArray = dateArray
-      return dateArray
-    }
-    customGetDateInterval(new Date(state.date.startDate), new Date(state.date.endDate))
-  },
+  //   function customGetDateInterval (startDate, stopDate) {
+  //     stopDate = addDays(stopDate, 1) // para que también incluya la última
+  //     let dateArray = {}
+  //     let currentDate = startDate
+  //     while (currentDate <= stopDate) {
+  //       let currentDateString = currentDate.toISOString().split('T')[0]
+  //       dateArray[currentDateString.replace(/-/g, '')] = currentDateString
+  //       currentDate = addDays(currentDate, 1)
+  //     }
+  //     state.dateArray = dateArray
+  //     return dateArray
+  //   }
+  //   customGetDateInterval(new Date(state.date.startDate), new Date(state.date.endDate))
+  // },
   buttonSelectedGetter (state) {
     return state.buttonSelectedStat
   },
@@ -115,6 +116,32 @@ const getters = {
     //     return state.dateArray[label]
     //   }
     // }
+    function addDays (startDate, numberOfDays) {
+      let returnDate = new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate() + numberOfDays,
+        startDate.getHours(),
+        startDate.getMinutes(),
+        startDate.getSeconds())
+      return returnDate
+    }
+
+    function customGetDateInterval (startDate, stopDate) {
+      stopDate = addDays(stopDate, 1) // para que también incluya la última
+      let dateArray = {}
+      let currentDate = startDate
+      while (currentDate <= stopDate) {
+        let currentDateString = currentDate.toISOString().split('T')[0]
+        dateArray[currentDateString.replace(/-/g, '')] = currentDateString
+        currentDate = addDays(currentDate, 1)
+      }
+      state.dateArray = dateArray
+      return dateArray
+    }
+
+    customGetDateInterval(new Date(state.date.startDate), new Date(state.date.endDate))
+
     function formatLabel (label) {
       if (state.activeTab === 'tab-app') {
         return state.appsNamesAndIdsFormatted[label]
