@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-container(class="stats-container")
+    v-container(class="stats-container" v-if="statsDataFormattedGetter")
         v-layout(wrap)
             v-flex(xs12)
                 //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedByGetter} `}}
@@ -59,7 +59,7 @@
                           :legend="false"
                           :discrete= "true")
                     // App tab
-                    v-tab-item(id="tab-app" v-if="statsDataFormattedGetter")
+                    v-tab-item(id="tab-app")
                         dashboard-filters
                         column-chart(
                           :ytitle="statYText | capitalize"
@@ -67,7 +67,7 @@
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           )
                     // Country tab
-                    v-tab-item(id="tab-country" v-if="statsDataFormattedGetter")
+                    v-tab-item(id="tab-country")
                         dashboard-filters
                         line-chart(
                           :ytitle="statYText | capitalize"
@@ -75,7 +75,7 @@
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           :discrete= "true")
                     // Format tab
-                    v-tab-item(id="tab-format" v-if="statsDataFormattedGetter")
+                    v-tab-item(id="tab-format")
                         dashboard-filters
                         pie-chart(
                           :ytitle="statYText | capitalize"
@@ -83,7 +83,7 @@
                           :data="statsDataFormattedGetter[buttonSelectedGetter][0].data"
                         )
                     // Network tab
-                    v-tab-item(id="tab-network" v-if="statsDataFormattedGetter")
+                    v-tab-item(id="tab-network")
                         dashboard-filters
                         column-chart(
                           :ytitle="statYText | capitalize"
