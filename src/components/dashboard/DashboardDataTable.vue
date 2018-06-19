@@ -134,7 +134,6 @@ export default {
           })
         })
       } else {
-        console.log('entra')
         this.activeTabAction('tab-date')
         .then(() => {
           this.datatableGroupByAction('DATE')
@@ -142,17 +141,20 @@ export default {
           .then(() => {
             if (originalGroupedByValue === 'APP') {
               sendItemLabel = this.apps[index].name
-            } else if (originalGroupedByValue === 'NETWORK') {
+            } else if (originalGroupedByValue === 'SOURCE') {
               for (let key in this.networks) {
                 if (item.label === this.networks[key]) {
-                  sendItemLabel = key
+                  sendItemLabel = item.label
+                  originalGroupedByValue = 'NETWORK'
                 }
               }
-            } else {
+            } else if (originalGroupedByValue === 'COUNTRY') {
               sendItemLabel = {
                 name: item.formattedLabel,
                 code: item.label
               }
+            } else if (originalGroupedByValue === 'FORMAT') {
+              sendItemLabel = item.label.toLowerCase()
             }
             this.addItemFiltersAction([sendItemLabel, originalGroupedByValue])
           })
