@@ -269,10 +269,11 @@ export default {
         this.getDateAction({
           startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
           endDate: format(new Date(), 'YYYY-MM-DD')
-        }).then(() => {
-          this.skipDashboardDataQueryAction(false)
-          this.skipDatatableDataQueryAction(false)
         })
+        // .then(() => {
+        //   this.skipDashboardDataQueryAction(false)
+        //   this.skipDatatableDataQueryAction(false)
+        // })
       }, 300)
       this.selectDateDialog = false
     },

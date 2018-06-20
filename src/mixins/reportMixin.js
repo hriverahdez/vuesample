@@ -86,9 +86,9 @@ const reportMixin = {
       'formatIdFiltersGetter',
       'groupByGetter',
       // 'networkFiltersGetter',
-      'netwworkIdFiltersGetter',
-      'skipDashboardDataQueryGetter',
-      'skipDatatableDataQueryGetter'
+      'netwworkIdFiltersGetter'
+      // 'skipDashboardDataQueryGetter',
+      // 'skipDatatableDataQueryGetter'
     ])
   },
   methods: {
