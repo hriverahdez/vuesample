@@ -22,7 +22,7 @@ const reportMixin = {
             // to: '2018-02-10',
             from: this.dateGetter.startDate,
             to: this.dateGetter.endDate,
-            app: this.appFiltersGetter,
+            app: this.appIdFiltersGetter,
             format: this.formatFiltersGetter,
             source: this.networkFiltersGetter,
             country: this.countryFiltersGetter.name
@@ -76,7 +76,7 @@ const reportMixin = {
   },
   computed: {
     ...mapGetters([
-      'appFiltersGetter',
+      'appIdFiltersGetter',
       'accountIdGetter',
       'countryFiltersGetter',
       'datatableGroupByGetter',

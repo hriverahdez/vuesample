@@ -24,7 +24,6 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log('App query')
         this.appDataAction(data.apps).then(() => {
           this.appsLoaderStatusAction(false)
         })

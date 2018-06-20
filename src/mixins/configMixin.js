@@ -22,7 +22,6 @@ const configMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log('Config query')
         this.dashboardFiltersAction(data.config)
       }
     }

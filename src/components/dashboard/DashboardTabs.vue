@@ -242,6 +242,10 @@ export default {
     ...mapMutations(['SET_ALERT_MESSAGE']),
     // Dialog button select date action
     applyDateSelection () {
+      // Resume  query
+      this.skipDashboardDataQueryAction(false)
+      this.skipDatatableDataQueryAction(false)
+
       this.getDateAction({
         startDate: this.rangeGetter[0],
         endDate: this.rangeGetter[1]
@@ -257,12 +261,17 @@ export default {
     },
     // Close dialog without apply selection
     exitDialogWithoutSelectRangeOfDates () {
+      // Resume  query
+
       setTimeout(() => {
         this.$refs['dateRange'].startDate = format(subDays(new Date(), 30), 'YYYY-MM-DD')
         this.$refs['dateRange'].endDate = format(new Date(), 'YYYY-MM-DD')
         this.getDateAction({
           startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
           endDate: format(new Date(), 'YYYY-MM-DD')
+        }).then(() => {
+          this.skipDashboardDataQueryAction(false)
+          this.skipDatatableDataQueryAction(false)
         })
       }, 300)
       this.selectDateDialog = false

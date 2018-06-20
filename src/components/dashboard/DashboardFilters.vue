@@ -168,6 +168,7 @@ export default {
     ...mapGetters({
       appNames: 'appNamesGetter',
       apps: 'appFiltersGetter',
+      appsIdAndName: 'appIdAndNameGetter',
       config: 'dashboardFiltersGetter',
       countries: 'countryFiltersGetter',
       formats: 'formatFiltersGetter',
@@ -179,10 +180,13 @@ export default {
   methods: {
     ...mapActions([
       'appFiltersAction',
+      'appIdsFiltersAction',
       'countryFiltersAction',
       'formatFiltersAction',
       'networkFiltersAction',
-      'removeFilterItemAction'
+      'removeFilterItemAction',
+      'skipDashboardDataQueryAction',
+      'skipDatatableDataQueryAction'
     ]),
     ...mapMutations(['SET_ALERT_MESSAGE']),
     // Push selected apps to apps list
@@ -256,16 +260,27 @@ export default {
       this.networks.map((network) => {
         networksToString.push(network.toString())
       })
-      this.appFiltersAction(this.apps)
-      this.countryFiltersAction(countryCodes)
-      this.formatFiltersAction(this.formats)
-      this.networkFiltersAction(networksToString)
-      this.SET_ALERT_MESSAGE({
-        show: true,
-        type: 'success',
-        message: this.$t('dashboard_view.confirm_filters_applied_message'),
-        buttonText: this.$t('buttons.close')
+      // App
+      this.skipDatatableDataQueryAction(false)
+      let appIds = []
+      this.appsIdAndName.map((app, index) => {
+        if (app.name === this.apps[index]) {
+          appIds.push(app.id)
+        }
       })
+      this.appFiltersAction(this.apps)
+      this.appIdsFiltersAction(appIds)
+      // this.countryFiltersAction(countryCodes)
+      // this.formatFiltersAction(this.formats)
+      // this.networkFiltersAction(networksToString)
+      this.skipDashboardDataQueryAction(false)
+      this.skipDatatableDataQueryAction(false)
+      // this.SET_ALERT_MESSAGE({
+      //   show: true,
+      //   type: 'success',
+      //   message: this.$t('dashboard_view.confirm_filters_applied_message'),
+      //   buttonText: this.$t('buttons.close')
+      // })
     }
   }
 }

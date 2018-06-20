@@ -1,4 +1,5 @@
 const APP_DATA = 'APP_DATA'
+const APP_ID_FILTERS = 'APP_ID_FILTERS'
 const ADD_ITEM_FILTER_DATA = 'ADD_ITEM_FILTER_DATA'
 const BANNER_POSITIONS_DATA = 'BANNER_POSTIONS_DATA'
 const COUNTRIES_DATA = 'COUNTRIES_DATA'
@@ -8,7 +9,8 @@ const NETWORKS_DATA = 'NETWORKS_DATA'
 const REMOVE_FILTER_ITEM = 'REMOVE_FILTER_ITEM'
 
 const state = {
-  appFilters: [],
+  appFilters: '',
+  appIdFilters: '',
   bannerPositions: [],
   config: [],
   countryFilters: [],
@@ -19,6 +21,9 @@ const state = {
 const getters = {
   appFiltersGetter (state) {
     return state.appFilters
+  },
+  appIdFiltersGetter (state) {
+    return state.appIdFilters
   },
   bannerPositionsGetter (state) {
     return state.bannerPositions.bannerPositions
@@ -44,6 +49,9 @@ const mutations = {
   },
   [APP_DATA] (state, filters) {
     state.appFilters = filters
+  },
+  [APP_ID_FILTERS] (state, filters) {
+    state.appIdFilters = filters
   },
   [BANNER_POSITIONS_DATA] (state, position) {
     state.bannerPositions = position
@@ -72,6 +80,9 @@ const actions = {
   },
   appFiltersAction ({commit}, filters) {
     commit(APP_DATA, filters)
+  },
+  appIdsFiltersAction ({commit}, filters) {
+    commit(APP_ID_FILTERS, filters)
   },
   bannerPositionsDataAction ({commit}, position) {
     commit(BANNER_POSITIONS_DATA, position)
