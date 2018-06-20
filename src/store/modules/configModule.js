@@ -3,9 +3,11 @@ const APP_ID_FILTERS = 'APP_ID_FILTERS'
 const ADD_ITEM_FILTER_DATA = 'ADD_ITEM_FILTER_DATA'
 const BANNER_POSITIONS_DATA = 'BANNER_POSTIONS_DATA'
 const COUNTRIES_DATA = 'COUNTRIES_DATA'
+const COUNTRY_ID_FILTERS = 'COUNTRY_ID_FILTERS'
 const DASHBOARD_FILTERS_DATA = 'DASHBOARD_FILTERS_DATA'
 const FORMATS_DATA = 'FORMATS_DATA'
 const NETWORKS_DATA = 'NETWORKS_DATA'
+const NETWORK_ID_FILTERS = 'NETWORK_ID_FILTERS'
 const REMOVE_FILTER_ITEM = 'REMOVE_FILTER_ITEM'
 
 const state = {
@@ -14,8 +16,10 @@ const state = {
   bannerPositions: [],
   config: [],
   countryFilters: [],
+  countryIdFilters: [],
   formatFilters: [],
-  networkFilters: []
+  networkFilters: [],
+  networkIdFilters: []
 }
 
 const getters = {
@@ -31,6 +35,9 @@ const getters = {
   countryFiltersGetter (state) {
     return state.countryFilters
   },
+  countryIdFiltersGetter (state) {
+    return state.countryIdFilters
+  },
   dashboardFiltersGetter (state) {
     return state.config
   },
@@ -39,6 +46,9 @@ const getters = {
   },
   networkFiltersGetter (state) {
     return state.networkFilters
+  },
+  netwworkIdFiltersGetter (state) {
+    return state.networkIdFilters
   }
 }
 
@@ -59,6 +69,9 @@ const mutations = {
   [COUNTRIES_DATA] (state, filters) {
     state.countryFilters = filters
   },
+  [COUNTRY_ID_FILTERS] (state, filters) {
+    state.countryIdFilters = filters
+  },
   [DASHBOARD_FILTERS_DATA] (state, data) {
     state.config = data
   },
@@ -67,6 +80,9 @@ const mutations = {
   },
   [NETWORKS_DATA] (state, filters) {
     state.networkFilters = filters
+  },
+  [NETWORK_ID_FILTERS] (state, filters) {
+    state.networkIdFilters = filters
   },
   [REMOVE_FILTER_ITEM] (state, {item, filterType}) {
     let items = state[filterType]
@@ -90,6 +106,9 @@ const actions = {
   countryFiltersAction ({commit}, filters) {
     commit(COUNTRIES_DATA, filters)
   },
+  countryIdsFiltersAction ({commit}, filters) {
+    commit(COUNTRY_ID_FILTERS, filters)
+  },
   dashboardFiltersAction ({commit}, data) {
     commit(DASHBOARD_FILTERS_DATA, data)
   },
@@ -98,6 +117,9 @@ const actions = {
   },
   networkFiltersAction ({commit}, filters) {
     commit(NETWORKS_DATA, filters)
+  },
+  networkIdsFiltersAction ({commit}, filters) {
+    commit(NETWORK_ID_FILTERS, filters)
   },
   removeFilterItemAction ({commit}, {item, filterType}) {
     commit(REMOVE_FILTER_ITEM, {item, filterType})

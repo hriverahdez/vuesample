@@ -67,6 +67,7 @@
                 :label="this.$t('dashboard_view.network')"
                 tags
                 autocomplete
+                item-text="name"
                 clearable
                 @change="checkIfApplyButtonAvailable"
                 @input="addNetworkToList"
@@ -132,7 +133,7 @@
           v-list(class="list")
               v-subheader(class="list-title") {{`${$t('dashboard_view.networks')}:`}}
               template(v-for="(network, index) in networks")
-                  v-chip(close @input="removeChip(network, 'networkFilters')") {{ network }}
+                  v-chip(close @input="removeChip(network, 'networkFilters')") {{ network.name }}
 
 </template>
 
@@ -173,7 +174,8 @@ export default {
       countries: 'countryFiltersGetter',
       formats: 'formatFiltersGetter',
       networks: 'networkFiltersGetter',
-      networkNames: 'networkNamesGetter',
+      networksToFilters: 'networksKeysGetter',
+      networkNames: 'networksIdsAndNamesGetter',
       formatsArray: 'formatsArrayForDashboardFiltersGetter'
     })
   },
@@ -182,8 +184,10 @@ export default {
       'appFiltersAction',
       'appIdsFiltersAction',
       'countryFiltersAction',
+      'countryIdsFiltersAction',
       'formatFiltersAction',
       'networkFiltersAction',
+      'networkIdsFiltersAction',
       'removeFilterItemAction',
       'skipDashboardDataQueryAction',
       'skipDatatableDataQueryAction'
@@ -252,16 +256,7 @@ export default {
     },
     // Get filters info
     sendFilterValues () {
-      let countryCodes = []
-      let networksToString = []
-      this.countries.map((country) => {
-        countryCodes.push(country.code)
-      })
-      this.networks.map((network) => {
-        networksToString.push(network.toString())
-      })
       // App
-      this.skipDatatableDataQueryAction(false)
       let appIds = []
       this.appsIdAndName.map((app, index) => {
         if (app.name === this.apps[index]) {
@@ -270,11 +265,27 @@ export default {
       })
       this.appFiltersAction(this.apps)
       this.appIdsFiltersAction(appIds)
-      // this.countryFiltersAction(countryCodes)
+      // Country
+      let countryCodes = []
+      this.countries.map((country) => {
+        countryCodes.push(country.code)
+      })
+      this.countryIdsFiltersAction(countryCodes)
+      // Network
+      // let networksToString = []
+      let networksIds = []
+      this.networks.map((network) => {
+        networksIds.push(network.id)
+      })
+      this.networkIdsFiltersAction(networksIds)
+      console.log('a', this.networks, networksIds)
+      // Resume queries
+      // this.skipDashboardDataQueryAction(false)
+      // this.skipDatatableDataQueryAction(false)
+
       // this.formatFiltersAction(this.formats)
-      // this.networkFiltersAction(networksToString)
-      this.skipDashboardDataQueryAction(false)
-      this.skipDatatableDataQueryAction(false)
+      // this.skipDashboardDataQueryAction(false)
+      // this.skipDatatableDataQueryAction(false)
       // this.SET_ALERT_MESSAGE({
       //   show: true,
       //   type: 'success',

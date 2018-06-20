@@ -24,8 +24,8 @@ const reportMixin = {
             to: this.dateGetter.endDate,
             app: this.appIdFiltersGetter,
             format: this.formatFiltersGetter,
-            source: this.networkFiltersGetter,
-            country: this.countryFiltersGetter.name
+            source: this.netwworkIdFiltersGetter,
+            country: this.countryIdFiltersGetter
           }
         }
       },
@@ -38,7 +38,7 @@ const reportMixin = {
           // Loader control
           this.dashboardLoaderStatusAction(false)
           // Stop Query
-          this.skipDashboardDataQueryAction(true)
+          // this.skipDashboardDataQueryAction(true)
         })
       }
     },
@@ -56,10 +56,10 @@ const reportMixin = {
             // to: '2018-02-10',
             from: this.dateGetter.startDate,
             to: this.dateGetter.endDate,
-            app: this.appFiltersGetter,
+            app: this.appIdFiltersGetter,
             format: this.formatFiltersGetter,
-            source: this.networkFiltersGetter,
-            country: this.countryFiltersGetter.name
+            source: this.netwworkIdFiltersGetter,
+            country: this.countryIdFiltersGetter
           }
         }
       },
@@ -70,7 +70,7 @@ const reportMixin = {
       update (data) {
         this.datatableDataAction(data.networkStats)
         // Stop Query
-        this.skipDatatableDataQueryAction(true)
+        // this.skipDatatableDataQueryAction(true)
       }
     }
   },
@@ -78,12 +78,14 @@ const reportMixin = {
     ...mapGetters([
       'appIdFiltersGetter',
       'accountIdGetter',
-      'countryFiltersGetter',
+      // 'countryFiltersGetter',
+      'countryIdFiltersGetter',
       'datatableGroupByGetter',
       'dateGetter',
       'formatFiltersGetter',
       'groupByGetter',
-      'networkFiltersGetter',
+      // 'networkFiltersGetter',
+      'netwworkIdFiltersGetter',
       'skipDashboardDataQueryGetter',
       'skipDatatableDataQueryGetter'
     ])

@@ -1097,12 +1097,30 @@ const state = {
     '1009': 'FACEBOOK',
     '1010': 'MOBUSI_SSP',
     '1012': 'INMOBI',
-    '10013': 'STARTAPP',
+    '1013': 'STARTAPP',
     '1014': 'MOBVISTA',
     '1015': 'HYPRMX',
     '1016': 'MOPUB',
     '1017': 'IRONSOURCE'
-  }
+  },
+  networksIdsAndNames: [
+    {id: '1001', name: 'MOBUSI'},
+    {id: '1002', name: 'ADMOB'},
+    {id: '1003', name: 'ADCOLONY'},
+    {id: '1004', name: 'UNITYADS'},
+    {id: '1005', name: 'VUNGLE'},
+    {id: '1006', name: 'KIIP'},
+    {id: '1007', name: 'CHARTBOOST'},
+    {id: '1008', name: 'APPLOVIN'},
+    {id: '1009', name: 'FACEBOOK'},
+    {id: '1010', name: 'MOBUSI_SSP'},
+    {id: '1012', name: 'INMOBI'},
+    {id: '1013', name: 'STARTAPP'},
+    {id: '1014', name: 'MOBVISTA'},
+    {id: '1015', name: 'HYPRMX'},
+    {id: '1016', name: 'MOPUB'},
+    {id: '1017', name: 'IRONSOURCE'}
+  ]
 }
 
 const getters = {
@@ -1137,6 +1155,9 @@ const getters = {
   },
   networksInfoGetter (state) {
     return state.networksInfo
+  },
+  networksIdsAndNamesGetter (state) {
+    return state.networksIdsAndNames
   }
 }
 
