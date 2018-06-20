@@ -29,9 +29,9 @@ const reportMixin = {
           }
         }
       },
-      skip () {
-        return this.skipDashboardDataQueryGetter
-      },
+      // skip () {
+      //   return this.skipDashboardDataQueryGetter
+      // },
       loadingKey: 'loading',
       update (data) {
         this.statsDataAction(data.networkStats).then(() => {
@@ -63,9 +63,9 @@ const reportMixin = {
           }
         }
       },
-      skip () {
-        return this.skipDatatableDataQueryGetter
-      },
+      // skip () {
+      //   return this.skipDatatableDataQueryGetter
+      // },
       loadingKey: 'loading',
       update (data) {
         this.datatableDataAction(data.networkStats)

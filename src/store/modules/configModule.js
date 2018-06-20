@@ -12,8 +12,8 @@ const NETWORK_ID_FILTERS = 'NETWORK_ID_FILTERS'
 const REMOVE_FILTER_ITEM = 'REMOVE_FILTER_ITEM'
 
 const state = {
-  appFilters: '',
-  appIdFilters: '',
+  appFilters: [],
+  appIdFilters: [],
   bannerPositions: [],
   config: [],
   countryFilters: [],
@@ -59,8 +59,22 @@ const getters = {
 
 const mutations = {
   [ADD_ITEM_FILTER_DATA] (state, [item, groupedBy]) {
+    console.log(item, groupedBy)
     let currentFilter = `${groupedBy.toLowerCase()}Filters`
-    state[currentFilter].push(item)
+    let currentIdFilter = `${groupedBy.toLowerCase()}IdFilters`
+    if (groupedBy === 'APP') {
+      state[currentFilter].push(item.name)
+      state[currentIdFilter].push(item.id)
+    } else if (groupedBy === 'COUNTRY') {
+      state[currentFilter].push(item)
+      state[currentIdFilter].push(item.code)
+    } else if (groupedBy === 'FORMAT') {
+      state[currentFilter].push(item)
+      state[currentIdFilter].push(item.id)
+    } else if (groupedBy === 'NETWORK') {
+      state[currentFilter].push(item)
+      state[currentIdFilter].push(item.id)
+    }
   },
   [APP_DATA] (state, filters) {
     state.appFilters = filters

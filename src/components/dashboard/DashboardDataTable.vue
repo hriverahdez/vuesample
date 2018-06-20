@@ -140,11 +140,14 @@ export default {
           this.groupByVarDataAction('DATE')
           .then(() => {
             if (originalGroupedByValue === 'APP') {
-              sendItemLabel = this.apps[index].name
+              sendItemLabel = this.apps[index]
             } else if (originalGroupedByValue === 'SOURCE') {
               for (let key in this.networks) {
                 if (item.label === this.networks[key]) {
-                  sendItemLabel = item.label
+                  sendItemLabel = {
+                    name: item.formattedLabel,
+                    id: item.label
+                  }
                   originalGroupedByValue = 'NETWORK'
                 }
               }
@@ -154,7 +157,11 @@ export default {
                 code: item.label
               }
             } else if (originalGroupedByValue === 'FORMAT') {
-              sendItemLabel = item.label.toLowerCase()
+              console.log(item)
+              sendItemLabel = {
+                name: item.formattedLabel,
+                id: item.label
+              }
             }
             this.addItemFiltersAction([sendItemLabel, originalGroupedByValue])
           })
