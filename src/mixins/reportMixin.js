@@ -95,9 +95,9 @@ const reportMixin = {
     ...mapActions([
       'statsDataAction',
       'dashboardLoaderStatusAction',
-      'datatableDataAction',
-      'skipDashboardDataQueryAction',
-      'skipDatatableDataQueryAction'
+      'datatableDataAction'
+      // 'skipDashboardDataQueryAction',
+      // 'skipDatatableDataQueryAction'
     ])
   }
   // mounted () {

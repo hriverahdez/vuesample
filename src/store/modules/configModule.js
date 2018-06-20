@@ -59,7 +59,6 @@ const getters = {
 
 const mutations = {
   [ADD_ITEM_FILTER_DATA] (state, [item, groupedBy]) {
-    console.log(item, groupedBy)
     let currentFilter = `${groupedBy.toLowerCase()}Filters`
     let currentIdFilter = `${groupedBy.toLowerCase()}IdFilters`
     if (groupedBy === 'APP') {

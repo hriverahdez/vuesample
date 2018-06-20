@@ -191,9 +191,9 @@ export default {
       'formatIdsFiltersAction',
       'networkFiltersAction',
       'networkIdsFiltersAction',
-      'removeFilterItemAction',
-      'skipDashboardDataQueryAction',
-      'skipDatatableDataQueryAction'
+      'removeFilterItemAction'
+      // 'skipDashboardDataQueryAction',
+      // 'skipDatatableDataQueryAction'
     ]),
     ...mapMutations(['SET_ALERT_MESSAGE']),
     // Push selected apps to apps list
@@ -202,6 +202,7 @@ export default {
         this.$refs['appSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.apps')} (${this.apps.length})`
       } else {
         this.$refs['appSelect'].$el.children[1].children[0].innerText = ''
+        this.appIdsFiltersAction([])
       }
     },
     // Push selected country to countries list
@@ -210,6 +211,7 @@ export default {
         this.$refs['countrySelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.countries')} (${this.countries.length})`
       } else {
         this.$refs['countrySelect'].$el.children[1].children[0].innerText = ''
+        this.countryIdsFiltersAction([])
       }
     },
     // Push selected format to formats list
@@ -218,6 +220,7 @@ export default {
         this.$refs['formatSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.formats')} (${this.formats.length})`
       } else {
         this.$refs['formatSelect'].$el.children[1].children[0].innerText = ''
+        this.formatIdsFiltersAction([])
       }
     },
     // Push selected network to networks list
@@ -226,6 +229,7 @@ export default {
         this.$refs['networkSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.networks')} (${this.networks.length})`
       } else {
         this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''
+        this.networkIdsFiltersAction([])
       }
     },
     checkIfApplyButtonAvailable () {
@@ -255,6 +259,10 @@ export default {
       this.countryFiltersAction([])
       this.formatFiltersAction([])
       this.networkFiltersAction([])
+      this.appIdsFiltersAction([])
+      this.countryIdsFiltersAction([])
+      this.formatIdsFiltersAction([])
+      this.networkIdsFiltersAction([])
       this.valid = false
     },
     // Get filters info
@@ -288,8 +296,8 @@ export default {
       this.formatIdsFiltersAction(formatsIds)
 
       // Resume queries
-      this.skipDashboardDataQueryAction(false)
-      this.skipDatatableDataQueryAction(false)
+      // this.skipDashboardDataQueryAction(false)
+      // this.skipDatatableDataQueryAction(false)
       this.SET_ALERT_MESSAGE({
         show: true,
         type: 'success',

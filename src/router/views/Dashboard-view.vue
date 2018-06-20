@@ -14,7 +14,7 @@
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 // Mixins
 import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
@@ -39,14 +39,14 @@ export default {
     DashboardTabs,
     LoaderComponent
   },
-  methods: {
-    ...mapActions(['skipDashboardDataQueryAction', 'skipDatatableDataQueryAction'])
-  },
-  mixins: [accountMixin, appMixin, configMixin, reportMixin],
-  created () {
-    this.skipDashboardDataQueryAction(false)
-    this.skipDatatableDataQueryAction(false)
-  }
+  // methods: {
+  //   ...mapActions(['skipDashboardDataQueryAction', 'skipDatatableDataQueryAction'])
+  // },
+  mixins: [accountMixin, appMixin, configMixin, reportMixin]
+  // created () {
+  //   this.skipDashboardDataQueryAction(false)
+  //   this.skipDatatableDataQueryAction(false)
+  // }
 }
 </script>
 

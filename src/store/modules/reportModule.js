@@ -10,8 +10,8 @@ const DATE_DATA = 'DATE_DATA'
 const GROUPBY_VAR_DATA = 'GROUPBY_VAR_DATA'
 const RANGE_DATA = 'RANGE_DATA'
 const STATS_DATA = 'STATS_DATA'
-const SKIP_STATS_QUERY = 'SKIP_STATS_QUERY'
-const SKIP_DATATABLE_QUERY = 'SKIP_DATATABLE_QUERY'
+// const SKIP_STATS_QUERY = 'SKIP_STATS_QUERY'
+// const SKIP_DATATABLE_QUERY = 'SKIP_DATATABLE_QUERY'
 
 const state = {
   activeTab: 'tab-date',
@@ -33,8 +33,8 @@ const state = {
   datatableGroupBy: 'DATE',
   networkStats: [],
   statsDataFormatted: [],
-  skipDashboardDataQuery: true,
-  skipDatatableDataQuery: true,
+  // skipDashboardDataQuery: true,
+  // skipDatatableDataQuery: true,
   range: []
 }
 
@@ -136,12 +136,12 @@ const getters = {
   statsDatatableDataGetter (state, getters) {
     return getters.statsDataGetter.rowData
   },
-  skipDashboardDataQueryGetter (state) {
-    return state.skipDashboardDataQuery
-  },
-  skipDatatableDataQueryGetter (state) {
-    return state.skipDatatableDataQuery
-  },
+  // skipDashboardDataQueryGetter (state) {
+  //   return state.skipDashboardDataQuery
+  // },
+  // skipDatatableDataQueryGetter (state) {
+  //   return state.skipDatatableDataQuery
+  // },
   statsDataFormattedGetter (state, getters, rootState, rootGetters) {
     let labelsFirstKey = state.dateArray
     let labelsSecondKey = ''
@@ -275,13 +275,13 @@ const mutations = {
   },
   [STATS_DATA] (state, data) {
     state.networkStats = data
-  },
-  [SKIP_STATS_QUERY] (state, status) {
-    state.skipDashboardDataQuery = status
-  },
-  [SKIP_DATATABLE_QUERY] (state, status) {
-    state.skipDatatableDataQuery = status
   }
+  // [SKIP_STATS_QUERY] (state, status) {
+  //   state.skipDashboardDataQuery = status
+  // },
+  // [SKIP_DATATABLE_QUERY] (state, status) {
+  //   state.skipDatatableDataQuery = status
+  // }
 }
 
 const actions = {
@@ -314,13 +314,13 @@ const actions = {
   },
   statsDataAction ({commit}, data) {
     commit(STATS_DATA, data)
-  },
-  skipDashboardDataQueryAction ({commit}, status) {
-    commit(SKIP_STATS_QUERY, status)
-  },
-  skipDatatableDataQueryAction ({commit}, status) {
-    commit(SKIP_DATATABLE_QUERY, status)
   }
+  // skipDashboardDataQueryAction ({commit}, status) {
+  //   commit(SKIP_STATS_QUERY, status)
+  // },
+  // skipDatatableDataQueryAction ({commit}, status) {
+  //   commit(SKIP_DATATABLE_QUERY, status)
+  // }
 }
 
 export default {

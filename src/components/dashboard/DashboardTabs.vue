@@ -235,16 +235,16 @@ export default {
       'datatableGroupByAction',
       'groupByVarDataAction',
       'getDateAction',
-      'rangeAction',
-      'skipDashboardDataQueryAction',
-      'skipDatatableDataQueryAction'
+      'rangeAction'
+      // 'skipDashboardDataQueryAction',
+      // 'skipDatatableDataQueryAction'
     ]),
     ...mapMutations(['SET_ALERT_MESSAGE']),
     // Dialog button select date action
     applyDateSelection () {
       // Resume  query
-      this.skipDashboardDataQueryAction(false)
-      this.skipDatatableDataQueryAction(false)
+      // this.skipDashboardDataQueryAction(false)
+      // this.skipDatatableDataQueryAction(false)
 
       this.getDateAction({
         startDate: this.rangeGetter[0],
