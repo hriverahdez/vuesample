@@ -15,6 +15,7 @@ const reportMixin = {
       },
       variables () {
         return {
+          accountId: this.accountIdGetter,
           groupBy: this.groupByGetter,
           filter: {
             // from: '2018-02-01',
@@ -46,6 +47,7 @@ const reportMixin = {
       },
       variables () {
         return {
+          accountId: this.accountIdGetter,
           groupBy: this.datatableGroupByGetter,
           filter: {
             // from: '2018-02-01',
@@ -77,6 +79,7 @@ const reportMixin = {
   computed: {
     ...mapGetters([
       'appFiltersGetter',
+      'accountIdGetter',
       'countryFiltersGetter',
       'datatableGroupByGetter',
       'dateGetter',
