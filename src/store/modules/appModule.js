@@ -40,7 +40,7 @@ const networks = {
 
 const state = {
   apps: [],
-  // Use when app-network config dialos appears
+  // Use when app-network config dialog appears
   appById: {},
   // Comunicate account data between components
   appData: {

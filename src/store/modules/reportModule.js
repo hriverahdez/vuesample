@@ -8,8 +8,10 @@ const DATATABLE_DATA = 'DATATABLE_DATA'
 const DATATABLE_GROUPBY = 'DATATABLE_GROUPBY'
 const DATE_DATA = 'DATE_DATA'
 const GROUPBY_VAR_DATA = 'GROUPBY_VAR_DATA'
-const STATS_DATA = 'STATS_DATA'
 const RANGE_DATA = 'RANGE_DATA'
+const STATS_DATA = 'STATS_DATA'
+const SKIP_STATS_QUERY = 'SKIP_STATS_QUERY'
+const SKIP_DATATABLE_QUERY = 'SKIP_DATATABLE_QUERY'
 
 const state = {
   activeTab: 'tab-date',
@@ -31,6 +33,8 @@ const state = {
   datatableGroupBy: 'DATE',
   networkStats: [],
   statsDataFormatted: [],
+  skipDashboardDataQuery: true,
+  skipDatatableDataQuery: true,
   range: []
 }
 
@@ -47,39 +51,11 @@ const getters = {
     })
     return state.appsNamesAndIdsFormatted
   },
-  rangeGetter (state) {
-    return state.range
-  },
   buttonSelectedGetter (state) {
     return state.buttonSelectedStat
   },
   dashboardLoaderStatusGetter (state) {
     return state.dashboardLoaderStatus
-  },
-  datatableDataGetter (state) {
-    return state.datatableData.rowData
-  },
-  datatableTotalsDataGetter (state, getters) {
-    if (getters.datatableDataGetter) {
-      state.datatableTotals.push(state.datatableData.total)
-    }
-    return state.datatableTotals
-  },
-  datatableGroupByGetter (state) {
-    return state.datatableGroupBy
-  },
-  dateGetter (state) {
-    return state.date
-  },
-  groupByGetter (state) {
-    return state.groupBy
-  },
-  statsDataGetter (state) {
-    return state.networkStats
-  },
-  // Datatable Dashboard data
-  statsDatatableDataGetter (state, getters) {
-    return getters.statsDataGetter.rowData
   },
   dashboardDatatableDataWithFormattedLabelGetter (state, getters, rootState, rootGetters) {
     let newArray = []
@@ -131,6 +107,40 @@ const getters = {
       })
     }
     return newArray
+  },
+  datatableDataGetter (state) {
+    return state.datatableData.rowData
+  },
+  datatableTotalsDataGetter (state, getters) {
+    if (getters.datatableDataGetter) {
+      state.datatableTotals.push(state.datatableData.total)
+    }
+    return state.datatableTotals
+  },
+  datatableGroupByGetter (state) {
+    return state.datatableGroupBy
+  },
+  dateGetter (state) {
+    return state.date
+  },
+  groupByGetter (state) {
+    return state.groupBy
+  },
+  rangeGetter (state) {
+    return state.range
+  },
+  statsDataGetter (state) {
+    return state.networkStats
+  },
+  // Datatable Dashboard data
+  statsDatatableDataGetter (state, getters) {
+    return getters.statsDataGetter.rowData
+  },
+  skipDashboardDataQueryGetter (state) {
+    return state.skipDashboardDataQuery
+  },
+  skipDatatableDataQueryGetter (state) {
+    return state.skipDatatableDataQuery
   },
   statsDataFormattedGetter (state, getters, rootState, rootGetters) {
     let labelsFirstKey = state.dateArray
@@ -265,6 +275,12 @@ const mutations = {
   },
   [STATS_DATA] (state, data) {
     state.networkStats = data
+  },
+  [SKIP_STATS_QUERY] (state, status) {
+    state.skipDashboardDataQuery = status
+  },
+  [SKIP_DATATABLE_QUERY] (state, status) {
+    state.skipDatatableDataQuery = status
   }
 }
 
@@ -298,6 +314,12 @@ const actions = {
   },
   statsDataAction ({commit}, data) {
     commit(STATS_DATA, data)
+  },
+  skipDashboardDataQueryAction ({commit}, status) {
+    commit(SKIP_STATS_QUERY, status)
+  },
+  skipDatatableDataQueryAction ({commit}, status) {
+    commit(SKIP_DATATABLE_QUERY, status)
   }
 }
 

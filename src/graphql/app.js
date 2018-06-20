@@ -2,8 +2,8 @@ import gql from 'graphql-tag'
 
 // Queries
 export const APPS_DATA = gql`
-{
-  apps {
+query ($_idAccount: ID!) {
+  apps (_idAccount: $_idAccount) {
     _id
     name
     description
@@ -53,8 +53,8 @@ query ($_id: ID!) {
 `
 
 export const APPS_IDS_AND_NAMES_BY_ACCOUNT_ID = gql`
-query ($filter: [AppFilter]) {
-  apps(filter: $filter) {
+query ($_idAccount: ID!, $filter: [AppFilter]) {
+  apps(_idAccount: $_idAccount, filter: $filter) {
     name
     _id
   }

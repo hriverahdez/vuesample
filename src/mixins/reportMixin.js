@@ -30,13 +30,15 @@ const reportMixin = {
         }
       },
       skip () {
-        return this.skipDashboardDataQuery
+        return this.skipDashboardDataQueryGetter
       },
       loadingKey: 'loading',
       update (data) {
         this.statsDataAction(data.networkStats).then(() => {
           // Loader control
           this.dashboardLoaderStatusAction(false)
+          // Stop Query
+          this.skipDashboardDataQueryAction(true)
         })
       }
     },
@@ -62,18 +64,14 @@ const reportMixin = {
         }
       },
       skip () {
-        return this.skipDatatableDataQuery
+        return this.skipDatatableDataQueryGetter
       },
       loadingKey: 'loading',
       update (data) {
         this.datatableDataAction(data.networkStats)
+        // Stop Query
+        this.skipDatatableDataQueryAction(true)
       }
-    }
-  },
-  data () {
-    return {
-      skipDashboardDataQuery: true,
-      skipDatatableDataQuery: true
     }
   },
   computed: {
@@ -85,14 +83,18 @@ const reportMixin = {
       'dateGetter',
       'formatFiltersGetter',
       'groupByGetter',
-      'networkFiltersGetter'
+      'networkFiltersGetter',
+      'skipDashboardDataQueryGetter',
+      'skipDatatableDataQueryGetter'
     ])
   },
   methods: {
     ...mapActions([
       'statsDataAction',
       'dashboardLoaderStatusAction',
-      'datatableDataAction'
+      'datatableDataAction',
+      'skipDashboardDataQueryAction',
+      'skipDatatableDataQueryAction'
     ])
   }
   // mounted () {

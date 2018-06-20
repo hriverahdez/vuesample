@@ -17,8 +17,14 @@ const appMixin = {
       context: {
         uri: URI
       },
+      variables () {
+        return {
+          _idAccount: this.accountId
+        }
+      },
       loadingKey: 'loading',
       update (data) {
+        console.log('App query')
         this.appDataAction(data.apps).then(() => {
           this.appsLoaderStatusAction(false)
         })
@@ -45,11 +51,9 @@ const appMixin = {
       context: {
         uri: URI
       },
-      variables: {
-        filter: {
-          filter: {
-            account: '5b10f0ea9a5fd6246022fd55'
-          }
+      variables () {
+        return {
+          _idAccount: this.accountId
         }
       },
       loadingKey: 'loading',
@@ -60,7 +64,9 @@ const appMixin = {
   },
   computed: {
     ...mapGetters({
-      skipAppById: 'skipAppByIdQueryGetter'})
+      accountId: 'accountIdGetter',
+      skipAppById: 'skipAppByIdQueryGetter'
+    })
   },
   methods: {
     ...mapActions([

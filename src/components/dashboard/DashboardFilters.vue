@@ -44,7 +44,7 @@
         v-flex(xs2)
             v-select(
                 v-model="$store.state.configModule.formatFilters"
-                :items="config.formats"
+                :items="formatsArray"
                 :label="this.$t('dashboard_view.format')"
                 tags
                 autocomplete
@@ -172,8 +172,8 @@ export default {
       countries: 'countryFiltersGetter',
       formats: 'formatFiltersGetter',
       networks: 'networkFiltersGetter',
-      networkNames: 'networkNamesGetter'
-
+      networkNames: 'networkNamesGetter',
+      formatsArray: 'formatsArrayForDashboardFiltersGetter'
     })
   },
   methods: {

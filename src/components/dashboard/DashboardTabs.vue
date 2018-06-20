@@ -235,7 +235,9 @@ export default {
       'datatableGroupByAction',
       'groupByVarDataAction',
       'getDateAction',
-      'rangeAction'
+      'rangeAction',
+      'skipDashboardDataQueryAction',
+      'skipDatatableDataQueryAction'
     ]),
     ...mapMutations(['SET_ALERT_MESSAGE']),
     // Dialog button select date action
@@ -273,8 +275,16 @@ export default {
       setTimeout(() => {
         // Stats
         this.groupByVarDataAction(e.target.text.toUpperCase())
+        .then(() => {
+          // Stop Query
+          this.skipDashboardDataQueryAction(false)
+        })
         // Table
         this.datatableGroupByAction(e.target.text.toUpperCase())
+        .then(() => {
+          // Stop Query
+          this.skipDatatableDataQueryAction(false)
+        })
       }, 240)
     }
   },

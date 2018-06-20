@@ -1120,6 +1120,18 @@ const getters = {
   formatsGetter (state) {
     return state.formats
   },
+  formatsArrayForDashboardFiltersGetter (state) {
+    let formatsArray = []
+    if (state.formats) {
+      for (let i in state.formats) {
+        let obj = {}
+        obj['value'] = i
+        obj['text'] = state.formats[i]
+        formatsArray.push(obj)
+      }
+    }
+    return formatsArray
+  },
   networksKeysGetter (state) {
     return state.networks
   },
