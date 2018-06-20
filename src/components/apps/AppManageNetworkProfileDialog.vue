@@ -19,7 +19,6 @@
                       :label="this.$t('apps_view.select_profile')"
                       item-text="name"
                       required
-                      @change="passKeyToInput"
                       v-model="selected"
                     )
                   v-flex(xs2 offset-xs1)
@@ -68,9 +67,6 @@ export default {
   data () {
     return {
       valid: false,
-      api_key: '',
-      report_key: '',
-      sdk_key: '',
       selected: ''
     }
   },
@@ -93,24 +89,45 @@ export default {
     imageSrc () {
       return require(`../../assets/networks/${this.selectednetworkId}.png`)
     }
+    // formattedSelectedVar () {
+    //   if (this.networkProfiles) {
+    //     console.log('computed')
+    //     this.selected = Object.assign({}, this.networkProfiles[0])
+    //   }
+    // }
   },
   methods: {
     ...mapActions([
       'appManageNetworkProfileDialogStatusAction'
     ]),
-    passKeyToInput (e) {
-      this.api_key = e.api_key
-      this.sdk_key = e.sdk_key
-      this.report_key = e.report_key
-    },
     // Close dialog layer
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
     }
+    // formatSelectedObject (e) {
+    //   console.log('formateo', e)
+    //   this.selected = 'kikikikikikikki'
+    // }
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)
     // }
   }
+  // created () {
+  //   console.log('mounted')
+  //   if (this.networkProfiles) {
+  //     console.log('entaaaaaaa')
+  //     this.selected = Object.assign({}, this.networkProfiles[0])
+  //   }
+  // },
+  // beforeDestroy () {
+  //   console.log('destroy')
+  //   this.selected = {}
+  // }
+  // watch: {
+  //   formattedSelectedVar () {
+  //     return
+  //   }
+  // }
 }
 </script>
 
