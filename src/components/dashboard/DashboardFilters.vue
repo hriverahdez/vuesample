@@ -44,10 +44,11 @@
         v-flex(xs2)
             v-select(
                 v-model="$store.state.configModule.formatFilters"
-                :items="formatsArray"
+                :items="formatsToFilters"
                 :label="this.$t('dashboard_view.format')"
                 tags
                 autocomplete
+                item-text="name"
                 clearable
                 @change="checkIfApplyButtonAvailable"
                 @input="addFormatToList"
@@ -126,7 +127,7 @@
           v-list(class="list")
               v-subheader(class="list-title") {{`${$t('dashboard_view.formats')}:`}}
               template(v-for="(format, index) in formats")
-                  v-chip(close @input="removeChip(format, 'formatFilters')") {{ format }}
+                  v-chip(close @input="removeChip(format, 'formatFilters')") {{ format.name }}
 
     transition(name="fade")
       v-flex(xs12 v-if="networks.length" class="list-container")
@@ -173,6 +174,7 @@ export default {
       config: 'dashboardFiltersGetter',
       countries: 'countryFiltersGetter',
       formats: 'formatFiltersGetter',
+      formatsToFilters: 'formatsIdsAndNamesGetter',
       networks: 'networkFiltersGetter',
       networksToFilters: 'networksKeysGetter',
       networkNames: 'networksIdsAndNamesGetter',
@@ -186,6 +188,7 @@ export default {
       'countryFiltersAction',
       'countryIdsFiltersAction',
       'formatFiltersAction',
+      'formatIdsFiltersAction',
       'networkFiltersAction',
       'networkIdsFiltersAction',
       'removeFilterItemAction',
@@ -272,26 +275,27 @@ export default {
       })
       this.countryIdsFiltersAction(countryCodes)
       // Network
-      // let networksToString = []
       let networksIds = []
       this.networks.map((network) => {
         networksIds.push(network.id)
       })
       this.networkIdsFiltersAction(networksIds)
-      console.log('a', this.networks, networksIds)
-      // Resume queries
-      // this.skipDashboardDataQueryAction(false)
-      // this.skipDatatableDataQueryAction(false)
+      // Format
+      let formatsIds = []
+      this.formats.map((format) => {
+        formatsIds.push(format.id)
+      })
+      this.formatIdsFiltersAction(formatsIds)
 
-      // this.formatFiltersAction(this.formats)
-      // this.skipDashboardDataQueryAction(false)
-      // this.skipDatatableDataQueryAction(false)
-      // this.SET_ALERT_MESSAGE({
-      //   show: true,
-      //   type: 'success',
-      //   message: this.$t('dashboard_view.confirm_filters_applied_message'),
-      //   buttonText: this.$t('buttons.close')
-      // })
+      // Resume queries
+      this.skipDashboardDataQueryAction(false)
+      this.skipDatatableDataQueryAction(false)
+      this.SET_ALERT_MESSAGE({
+        show: true,
+        type: 'success',
+        message: this.$t('dashboard_view.confirm_filters_applied_message'),
+        buttonText: this.$t('buttons.close')
+      })
     }
   }
 }

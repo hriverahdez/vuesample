@@ -1085,6 +1085,14 @@ const state = {
     'interstitial_premium': i18n.t('formats.interstitial_premium'),
     'rewarded_video_premium': i18n.t('formats.rewarded_video_premium')
   },
+  formatsIdsAndNames: [
+    {id: 'banner', name: i18n.t('formats.banner')},
+    {id: 'interstitial', name: i18n.t('formats.interstitial')},
+    {id: 'rewarded_video', name: i18n.t('formats.rewarded_video')},
+    {id: 'banner_premium', name: i18n.t('formats.banner_premium')},
+    {id: 'interstitial_premium', name: i18n.t('formats.interstitial_premium')},
+    {id: 'rewarded_video_premium', name: i18n.t('formats.rewarded_video_premium')}
+  ],
   networks: {
     '1001': 'MOBUSI',
     '1002': 'ADMOB',
@@ -1149,6 +1157,9 @@ const getters = {
       }
     }
     return formatsArray
+  },
+  formatsIdsAndNamesGetter (state) {
+    return state.formatsIdsAndNames
   },
   networksKeysGetter (state) {
     return state.networks

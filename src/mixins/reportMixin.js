@@ -23,7 +23,7 @@ const reportMixin = {
             from: this.dateGetter.startDate,
             to: this.dateGetter.endDate,
             app: this.appIdFiltersGetter,
-            format: this.formatFiltersGetter,
+            format: this.formatIdFiltersGetter,
             source: this.netwworkIdFiltersGetter,
             country: this.countryIdFiltersGetter
           }
@@ -57,7 +57,7 @@ const reportMixin = {
             from: this.dateGetter.startDate,
             to: this.dateGetter.endDate,
             app: this.appIdFiltersGetter,
-            format: this.formatFiltersGetter,
+            format: this.formatIdFiltersGetter,
             source: this.netwworkIdFiltersGetter,
             country: this.countryIdFiltersGetter
           }
@@ -83,6 +83,7 @@ const reportMixin = {
       'datatableGroupByGetter',
       'dateGetter',
       'formatFiltersGetter',
+      'formatIdFiltersGetter',
       'groupByGetter',
       // 'networkFiltersGetter',
       'netwworkIdFiltersGetter',

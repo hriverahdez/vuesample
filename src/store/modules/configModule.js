@@ -6,6 +6,7 @@ const COUNTRIES_DATA = 'COUNTRIES_DATA'
 const COUNTRY_ID_FILTERS = 'COUNTRY_ID_FILTERS'
 const DASHBOARD_FILTERS_DATA = 'DASHBOARD_FILTERS_DATA'
 const FORMATS_DATA = 'FORMATS_DATA'
+const FORMAT_ID_FILTERS = 'FORMAT_ID_FILTERS'
 const NETWORKS_DATA = 'NETWORKS_DATA'
 const NETWORK_ID_FILTERS = 'NETWORK_ID_FILTERS'
 const REMOVE_FILTER_ITEM = 'REMOVE_FILTER_ITEM'
@@ -18,6 +19,7 @@ const state = {
   countryFilters: [],
   countryIdFilters: [],
   formatFilters: [],
+  formatIdFilters: [],
   networkFilters: [],
   networkIdFilters: []
 }
@@ -43,6 +45,9 @@ const getters = {
   },
   formatFiltersGetter (state) {
     return state.formatFilters
+  },
+  formatIdFiltersGetter (state) {
+    return state.formatIdFilters
   },
   networkFiltersGetter (state) {
     return state.networkFilters
@@ -77,6 +82,9 @@ const mutations = {
   },
   [FORMATS_DATA] (state, filters) {
     state.formatFilters = filters
+  },
+  [FORMAT_ID_FILTERS] (state, filters) {
+    state.formatIdFilters = filters
   },
   [NETWORKS_DATA] (state, filters) {
     state.networkFilters = filters
@@ -114,6 +122,9 @@ const actions = {
   },
   formatFiltersAction ({commit}, filters) {
     commit(FORMATS_DATA, filters)
+  },
+  formatIdsFiltersAction ({commit}, filters) {
+    commit(FORMAT_ID_FILTERS, filters)
   },
   networkFiltersAction ({commit}, filters) {
     commit(NETWORKS_DATA, filters)
