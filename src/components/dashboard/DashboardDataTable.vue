@@ -26,7 +26,7 @@
             v-alert(
             :value="true"
             color="error"
-            icon="warning") {{ $t('accounts_view.alert_message')}}
+            icon="warning") {{ $t('validations.no_data_available')}}
 
         template(slot="footer" v-if="datatableTotals[0]")
           td.text-xs-left TOTAL

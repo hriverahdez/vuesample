@@ -157,6 +157,7 @@
       "disabled": "Deshabilitado"
     },
     "validations": {
+      "no_data_available": "No hay resultados disponibles",
       "length": "El campo debe tener entre {minLength} y {maxLength} caracteres",
       "required": "Campo obligatorio",
       "same_account_name": "El nombre de la cuenta ya existe"

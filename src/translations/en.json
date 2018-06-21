@@ -157,6 +157,7 @@
       "disabled": "Disabled"
     },
     "validations": {
+      "no_data_available": "No data available",
       "length": "The field must have between {minLength} and {maxLength} characters",
       "required": "Required field",
       "same_account_name": "Account name already exists"

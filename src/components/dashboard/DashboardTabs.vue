@@ -58,7 +58,10 @@
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           :legend="false"
-                          :discrete= "true")
+                          :discrete= "true"
+                        )
+                        dashboard-no-data-filter(v-else)
+
                     // App tab
                     v-tab-item(id="tab-app")
                         dashboard-filters
@@ -67,7 +70,9 @@
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
-                          )
+                        )
+                        dashboard-no-data-filter(v-else)
+
                     // Country tab
                     v-tab-item(id="tab-country")
                         dashboard-filters
@@ -76,7 +81,10 @@
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
-                          :discrete= "true")
+                          :discrete= "true"
+                        )
+                        dashboard-no-data-filter(v-else)
+
                     // Format tab
                     v-tab-item(id="tab-format")
                         dashboard-filters
@@ -86,6 +94,8 @@
                           :colors="['#00A0D3', '#910287', '#00962B', '#FF982A', '#E4371E', '#1A237E']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter][0].data"
                         )
+                        dashboard-no-data-filter(v-else)
+
                     // Network tab
                     v-tab-item(id="tab-network")
                         dashboard-filters
@@ -94,7 +104,8 @@
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
-                          )
+                        )
+                        dashboard-no-data-filter(v-else)
 
                     v-tab-item(id="tab-country")
                       v-card(flat)
@@ -108,6 +119,7 @@ import { format, subDays } from 'date-fns'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 // Import components
 import DashboardFilters from '@/components/dashboard/DashboardFilters'
+import DashboardNoDataFilter from '@/components/dashboard/DashboardNoDataFilter'
 import DashboardStatButtons from '@/components/dashboard/DashboardStatButtons'
 // import DialogAlert from '@/components/DialogAlert'
 
@@ -186,6 +198,7 @@ export default {
   }),
   components: {
     DashboardFilters,
+    DashboardNoDataFilter,
     DashboardStatButtons
     // DialogAlert
   },
