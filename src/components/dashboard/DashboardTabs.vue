@@ -300,22 +300,12 @@ export default {
     },
     // Draw data from server
     requestDataFromAPI (e) {
-      this.groupByVarDataAction(e.target.text.toUpperCase())
-      this.datatableGroupByAction(e.target.text.toUpperCase())
-      // setTimeout(() => {
-        // Stats
-        // this.groupByVarDataAction(e.target.text.toUpperCase())
-        // .then(() => {
-          // Stop Query
-          // this.skipDashboardDataQueryAction(false)
-        // })
-        // Table
-        // this.datatableGroupByAction(e.target.text.toUpperCase())
-        // .then(() => {
-          // Stop Query
-          // this.skipDatatableDataQueryAction(false)
-        // })
-      // }, 240)
+      // this.groupByVarDataAction(e.target.text.toUpperCase())
+      // this.datatableGroupByAction(e.target.text.toUpperCase())
+      setTimeout(() => {
+        this.groupByVarDataAction(e.target.text.toUpperCase())
+        this.datatableGroupByAction(e.target.text.toUpperCase())
+      }, 240)
     }
   },
   mounted () {
