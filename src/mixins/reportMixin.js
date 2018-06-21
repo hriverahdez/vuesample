@@ -36,7 +36,7 @@ const reportMixin = {
       update (data) {
         this.statsDataAction(data.networkStats).then(() => {
           // Loader control
-          this.dashboardLoaderStatusAction(false)
+          // this.dashboardLoaderStatusAction(false)
           // Stop Query
           // this.skipDashboardDataQueryAction(true)
         })

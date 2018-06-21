@@ -1,15 +1,15 @@
 <template lang="pug">
     v-container.dashboard__section
         v-layout(wrap).card__row-title
-          v-flex(xs12)
+          template(v-if="$apollo.queries.networkStats.loading && $apollo.queries.datatableData.loading && $apollo.queries.filters.loading")
+            loader-component
+          v-flex(xs12 v-else)
             //- v-breadcrumbs(divider="/" large)
             //-   v-breadcrumbs-item Dashboard
             v-card
               //- v-card-title.title.headings--text {{ $t('dashboard_view.dashboard_title' )}}
               dashboard-tabs
-            dashboard-data-table(v-if="loaderStatus === false")
-            template(v-else)
-              loader-component
+            dashboard-data-table
 </template>
 
 
@@ -30,8 +30,8 @@ export default {
   computed: {
     ...mapGetters({
       // date: 'dateGetter',
-      dashboardDatatableData: 'dashboardDatatableDataWithFormattedLabelGetter',
-      loaderStatus: 'dashboardLoaderStatusGetter'
+      dashboardDatatableData: 'dashboardDatatableDataWithFormattedLabelGetter'
+      // loaderStatus: 'dashboardLoaderStatusGetter'
     })
   },
   components: {

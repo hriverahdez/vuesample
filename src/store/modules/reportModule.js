@@ -46,10 +46,12 @@ const getters = {
     return state.appsNamesAndIds
   },
   appsNamesAndIdsFormattedGetter (state, getters) {
-    getters.appsNamesAndIdsGetter.map((item) => {
-      state.appsNamesAndIdsFormatted[item._id] = item.name
-    })
-    return state.appsNamesAndIdsFormatted
+    if (getters.appsNamesAndIdsGetter) {
+      getters.appsNamesAndIdsGetter.map((item) => {
+        state.appsNamesAndIdsFormatted[item._id] = item.name
+      })
+      return state.appsNamesAndIdsFormatted
+    }
   },
   buttonSelectedGetter (state) {
     return state.buttonSelectedStat

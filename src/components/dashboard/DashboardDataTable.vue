@@ -28,7 +28,7 @@
             color="error"
             icon="warning") {{ $t('accounts_view.alert_message')}}
 
-        template(slot="footer")
+        template(slot="footer" v-if="datatableTotals[0]")
           td.text-xs-left TOTAL
           td.text-xs-left {{ datatableTotals[0].req }}
           td.text-xs-left {{ datatableTotals[0].imp | currency('', 0) }}

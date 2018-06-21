@@ -298,12 +298,12 @@ export default {
       // Resume queries
       // this.skipDashboardDataQueryAction(false)
       // this.skipDatatableDataQueryAction(false)
-      this.SET_ALERT_MESSAGE({
-        show: true,
-        type: 'success',
-        message: this.$t('dashboard_view.confirm_filters_applied_message'),
-        buttonText: this.$t('buttons.close')
-      })
+      // this.SET_ALERT_MESSAGE({
+      //   show: true,
+      //   type: 'success',
+      //   message: this.$t('dashboard_view.confirm_filters_applied_message'),
+      //   buttonText: this.$t('buttons.close')
+      // })
     }
   }
 }

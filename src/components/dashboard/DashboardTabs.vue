@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-container(class="stats-container" v-if="statsDataFormattedGetter")
+    v-container(class="stats-container")
         v-layout(wrap)
             v-flex(xs12)
                 //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedByGetter} `}}
@@ -31,11 +31,11 @@
 
                 v-tabs(dark color="tab_heading" v-model="$store.state.reportModule.activeTab" hide-slider)
                     v-tabs-slider(color="primary")
-                    v-tab(href="#tab-date" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
-                    v-tab(href="#tab-app" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
-                    v-tab(href="#tab-country" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.country')}}
-                    v-tab(href="#tab-format" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.format')}}
-                    v-tab(href="#tab-network" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.network')}}
+                    v-tab(href="#tab-date" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.date')}}
+                    v-tab(href="#tab-app" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.app')}}
+                    v-tab(href="#tab-country" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.country')}}
+                    v-tab(href="#tab-format" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.format')}}
+                    v-tab(href="#tab-network" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.network')}}
                     v-spacer
                     section.date-container
                       v-btn(color="buttonColor" @click.native.stop="selectDateDialog = true" class="date-button")
@@ -53,6 +53,7 @@
                     v-tab-item(id="tab-date")
                         dashboard-filters
                         line-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
@@ -62,6 +63,7 @@
                     v-tab-item(id="tab-app")
                         dashboard-filters
                         column-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
@@ -70,6 +72,7 @@
                     v-tab-item(id="tab-country")
                         dashboard-filters
                         line-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
@@ -78,6 +81,7 @@
                     v-tab-item(id="tab-format")
                         dashboard-filters
                         pie-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#00A0D3', '#910287', '#00962B', '#FF982A', '#E4371E', '#1A237E']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter][0].data"
@@ -86,14 +90,15 @@
                     v-tab-item(id="tab-network")
                         dashboard-filters
                         column-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           )
 
-                    //- v-tab-item(id="tab-country")
-                    //-     v-card(flat)
-                    //-     column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
+                    v-tab-item(id="tab-country")
+                      v-card(flat)
+                      column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
 
                 dashboard-stat-buttons
 </template>
@@ -282,20 +287,22 @@ export default {
     },
     // Draw data from server
     requestDataFromAPI (e) {
-      setTimeout(() => {
+      this.groupByVarDataAction(e.target.text.toUpperCase())
+      this.datatableGroupByAction(e.target.text.toUpperCase())
+      // setTimeout(() => {
         // Stats
-        this.groupByVarDataAction(e.target.text.toUpperCase())
-        .then(() => {
+        // this.groupByVarDataAction(e.target.text.toUpperCase())
+        // .then(() => {
           // Stop Query
-          this.skipDashboardDataQueryAction(false)
-        })
+          // this.skipDashboardDataQueryAction(false)
+        // })
         // Table
-        this.datatableGroupByAction(e.target.text.toUpperCase())
-        .then(() => {
+        // this.datatableGroupByAction(e.target.text.toUpperCase())
+        // .then(() => {
           // Stop Query
-          this.skipDatatableDataQueryAction(false)
-        })
-      }, 240)
+          // this.skipDatatableDataQueryAction(false)
+        // })
+      // }, 240)
     }
   },
   mounted () {
