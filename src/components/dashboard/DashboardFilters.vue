@@ -94,15 +94,15 @@
                 @click.native="sendFilterValues"
                 :disabled="!valid"
                 ) {{ $t('dashboard_view.apply_filters')}}
-            v-checkbox(
-                class="dau__text"
-                v-model="$store.state.DAU"
-                label="Add DAU/AU data"
-                color="indigo darken-3"
-                value="indigo darken-3"
-                hide-details)
+            //- v-checkbox(
+            //--    class="dau__text"
+            //-    v-model="$store.state.DAU"
+            //-     label="Add DAU/AU data"
+            //-     color="indigo darken-3"
+            //-     value="indigo darken-3"
+            //-     hide-details)
 
-        //Confirm appiled filters
+        //-Confirm appiled filters
         //- dialog-alert
 
     // Lists
