@@ -3,12 +3,65 @@ import {i18n} from '@/config/i18n'
 
 const state = {
   networksInfo: {
+    '1001': {
+      'name': 'Mobusi',
+      'params_by_network': {
+        'api_key': {
+          'label': i18n.t('networks_info.mobusi1001.api_key.label'),
+          'help_text': i18n.t('networks_info.mobusi1001.api_key.help_text')
+        },
+        'user_id': {
+          'label': i18n.t('networks_info.mobusi1001.user_id.label'),
+          'help_text': i18n.t('networks_info.mobusi1001.user_id.help_text')
+        }
+      }
+    },
+    '1002': {
+      'name': 'Admob',
+      'params_by_network': {
+        'api_key': {
+          'label': i18n.t('networks_info.addcolony1003.api_key.label'),
+          'help_text': 'Es diferente'
+        }
+      }
+    },
     '1003': {
       'name': 'Adcolony',
       'params_by_network': {
         'api_key': {
           'label': i18n.t('networks_info.addcolony1003.api_key.label'),
           'help_text': i18n.t('networks_info.addcolony1003.api_key.help_text')
+        }
+      }
+    },
+    '1004': {
+      'name': 'Unityads',
+      'params_by_network': {
+        'api_key': {
+          'label': i18n.t('networks_info.unityads1004.api_key.label'),
+          'help_text': i18n.t('networks_info.unityads1004.api_key.help_text')
+        }
+      }
+    },
+    '1005': {
+      'name': 'Vungle',
+      'params_by_network': {
+        'api_key': {
+          'label': i18n.t('networks_info.vungle1005.api_key.label'),
+          'help_text': i18n.t('networks_info.vungle1005.api_key.help_text')
+        }
+      }
+    },
+    '1007': {
+      'name': 'Chartboost',
+      'params_by_network': {
+        'user_id': {
+          'label': i18n.t('networks_info.chartboost1007.user_id.label'),
+          'help_text': i18n.t('networks_info.chartboost1007.user_id.help_text')
+        },
+        'user_signature': {
+          'label': i18n.t('networks_info.chartboost1007.user_signature.label'),
+          'help_text': i18n.t('networks_info.chartboost1007.user_signature.help_text')
         }
       }
     },
@@ -22,6 +75,83 @@ const state = {
         'sdk_key': {
           'label': i18n.t('networks_info.applovin1008.sdk_key.label'),
           'help_text': i18n.t('networks_info.applovin1008.sdk_key.help_text')
+        }
+      }
+    },
+    '1012': {
+      'name': 'Inmobi',
+      'params_by_network': {
+        'account_id': {
+          'label': i18n.t('networks_info.inmobi1012.account_id.label'),
+          'help_text': i18n.t('networks_info.inmobi1012.account_id.help_text')
+        },
+        'api_key': {
+          'label': i18n.t('networks_info.inmobi1012.api_key.label'),
+          'help_text': i18n.t('networks_info.inmobi1012.api_key.help_text')
+        },
+        'username': {
+          'label': i18n.t('networks_info.inmobi1012.username.label'),
+          'help_text': i18n.t('networks_info.inmobi1012.username.help_text')
+        },
+        'password': {
+          'label': i18n.t('networks_info.inmobi1012.password.label'),
+          'help_text': i18n.t('networks_info.inmobi1012.password.help_text')
+        }
+      }
+    },
+    '1013': {
+      'name': 'Startapp',
+      'params_by_network': {
+        'account_id': {
+          'label': i18n.t('networks_info.startapp1013.account_id.label'),
+          'help_text': i18n.t('networks_info.startapp1013.account_id.help_text')
+        },
+        'token': {
+          'label': i18n.t('networks_info.startapp1013.token.label'),
+          'help_text': i18n.t('networks_info.startapp1013.token.help_text')
+        }
+      }
+    },
+    '1014': {
+      'name': 'Mobvista',
+      'params_by_network': {
+        'skey': {
+          'label': i18n.t('networks_info.mobvista1014.skey.label'),
+          'help_text': i18n.t('networks_info.mobvista1014.skey.help_text')
+        },
+        'secret': {
+          'label': i18n.t('networks_info.mobvista1014.secret.label'),
+          'help_text': i18n.t('networks_info.mobvista1014.secret.help_text')
+        }
+      }
+    },
+    '1016': {
+      'name': 'Mopub',
+      'params_by_network': {
+        'apy_key': {
+          'label': i18n.t('networks_info.mopub1016.api_key.label'),
+          'help_text': i18n.t('networks_info.mopub1016.api_key.help_text')
+        },
+        'inventory_report': {
+          'label': i18n.t('networks_info.mopub1016.inventory_report.label'),
+          'help_text': i18n.t('networks_info.mopub1016.inventory_report.help_text')
+        },
+        'campaign_report': {
+          'label': i18n.t('networks_info.mopub1016.campaign_report.label'),
+          'help_text': i18n.t('networks_info.mopub1016.campaign_report.help_text')
+        }
+      }
+    },
+    '1017': {
+      'name': 'Ironsource',
+      'params_by_network': {
+        'username': {
+          'label': i18n.t('networks_info.ironsource1017.username.label'),
+          'help_text': i18n.t('networks_info.ironsource1017.username.help_text')
+        },
+        'secret_key': {
+          'label': i18n.t('networks_info.ironsource1017.secret_key.label'),
+          'help_text': i18n.t('networks_info.ironsource1017.secret_key.help_text')
         }
       }
     }

@@ -1,5 +1,22 @@
-import { CREATE_NEW_ACCOUNT, GET_ACCOUNTS, DELETE_ACCOUNT, UPDATE_ACCOUNT, NETWORK_PROFILES_ADCOLONY, NETWORK_PROFILES_APPLOVIN } from '@/graphql/account'
-import { mapMutations, mapActions } from 'vuex'
+import {
+  CREATE_NEW_ACCOUNT,
+  GET_ACCOUNTS,
+  DELETE_ACCOUNT,
+  UPDATE_ACCOUNT,
+  NETWORK_PROFILES_ADCOLONY,
+  NETWORK_PROFILES_ADMOB,
+  NETWORK_PROFILES_APPLOVIN,
+  NETWORK_PROFILES_CHARTBOOST,
+  NETWORK_PROFILES_INMOBI,
+  NETWORK_PROFILES_IRONSOURCE,
+  NETWORK_PROFILES_MOBUSI,
+  NETWORK_PROFILES_MOBVISTA,
+  NETWORK_PROFILES_MOPUB,
+  NETWORK_PROFILES_STARTAPP,
+  NETWORK_PROFILES_UNITYADS,
+  NETWORK_PROFILES_VUNGLE
+} from '@/graphql/account'
+import { mapMutations, mapActions, mapGetters } from 'vuex'
 
 const URI = 'account'
 
@@ -17,15 +34,41 @@ const accountMixin = {
         })
       }
     },
+    // ADMOB QUERY
+    networkProfilesAdmob: {
+      query: NETWORK_PROFILES_ADMOB,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesAdmobQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // ADCOLONY QUERY
     networkProfilesAdcolony: {
       query: NETWORK_PROFILES_ADCOLONY,
       context: {
         uri: URI
       },
-      variables: {
-        filter: {
+      variables () {
+        return {
           filter: {
-            _id: '5b10f0e09a5fd6253b119d5d'
+            filter: {
+              _id: this.accountId
+            }
           }
         }
       },
@@ -37,13 +80,230 @@ const accountMixin = {
         this.networkProfilesDataAction(data.accounts)
       }
     },
+    // APPLOVIN QUERY
     networkProfilesApplovin: {
       query: NETWORK_PROFILES_APPLOVIN,
       context: {
         uri: URI
       },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
       skip () {
         return this.skipNetworkProfilesApplovinQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // CHARTBOOST QUERY
+    networkProfilesChartboost: {
+      query: NETWORK_PROFILES_CHARTBOOST,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesChartboostQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // INMOBI QUERY
+    networkProfilesInmobi: {
+      query: NETWORK_PROFILES_INMOBI,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesInmobiQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // IRONSOURCE QUERY
+    networkProfilesIronsource: {
+      query: NETWORK_PROFILES_IRONSOURCE,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesIronsourceQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // MOBUSI QUERY
+    networkProfilesMobusi: {
+      query: NETWORK_PROFILES_MOBUSI,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesMobusiQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // MOBVISTA QUERY
+    networkProfilesMobvista: {
+      query: NETWORK_PROFILES_MOBVISTA,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesMobvistaQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // MOPUB QUERY
+    networkProfilesMopub: {
+      query: NETWORK_PROFILES_MOPUB,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesMopubQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // STARTAPP QUERY
+    networkProfilesStartapp: {
+      query: NETWORK_PROFILES_STARTAPP,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesStartappQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // UNITYADS QUERY
+    networkProfilesUnityads: {
+      query: NETWORK_PROFILES_UNITYADS,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesUnityadsQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accounts)
+      }
+    },
+    // UNITYADS QUERY
+    networkProfilesVungle: {
+      query: NETWORK_PROFILES_VUNGLE,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          filter: {
+            filter: {
+              _id: this.accountId
+            }
+          }
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesVungleQuery
       },
       loadingKey: 'loading',
       update (data) {
@@ -53,9 +313,24 @@ const accountMixin = {
   },
   data () {
     return {
+      skipNetworkProfilesAdmobQuery: true,
       skipNetworkProfilesAdcolonyQuery: true,
-      skipNetworkProfilesApplovinQuery: true
+      skipNetworkProfilesApplovinQuery: true,
+      skipNetworkProfilesChartboostQuery: true,
+      skipNetworkProfilesInmobiQuery: true,
+      skipNetworkProfilesIronsourceQuery: true,
+      skipNetworkProfilesMobusiQuery: true,
+      skipNetworkProfilesMobvistaQuery: true,
+      skipNetworkProfilesMopubQuery: true,
+      skipNetworkProfilesStartappQuery: true,
+      skipNetworkProfilesUnityadsQuery: true,
+      skipNetworkProfilesVungleQuery: true
     }
+  },
+  computed: {
+    ...mapGetters({
+      accountId: this.accountIdGetter
+    })
   },
   methods: {
     ...mapActions([

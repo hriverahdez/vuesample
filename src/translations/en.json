@@ -150,6 +150,100 @@
           "label": "SDK Key",
           "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key."
         }
+      },
+      "chartboost1007": {
+        "user_id": {
+          "label": "User ID",
+          "help_text": "From the API Explorer Page, select the User ID"
+        },
+        "user_signature": {
+          "label": "User Signature",
+          "help_text": "From the API Explorer Page, select the User Signature"
+        }
+      },
+      "inmobi1012": {
+        "account_id": {
+          "label": "Account ID",
+          "help_text": "You can find your Account ID on your InMobi Dashboard. Click the disclosure triangle in the top right to reveal your Account ID."
+        },
+        "api_key": {
+          "label": "Api Key",
+          "help_text": "Email InMobi and request an API Key. Please mention that you need the API Key to use the Mobusi Mediation."
+        },
+        "username": {
+          "label": "Username",
+          "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature."
+        },
+        "password": {
+          "label": "Password",
+          "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature."
+        }
+      },
+      "ironsource1017": {
+        "username": {
+          "label": "Username",
+          "help_text": "The login/email that is used to login to our ironSource account."
+        },
+        "secret_key": {
+          "label": "Secret key",
+          "help_text": "The secret key parameter is unique for your ironSource account. To retrieve it, click on your user profile on the top right corner of the screen, and select 'My Account'. You will find the secret key in the Reporting API section"
+        }
+      },
+      "mobusi1001": {
+        "api_key": {
+          "label": "Api Key",
+          "help_text": ""
+        },
+        "user_id": {
+          "label": "User Signature",
+          "help_text": ""
+        }
+      },
+      "mobvista1014": {
+        "skey": {
+          "label": "SKey",
+          "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Skey."
+        },
+        "secret": {
+          "label": "Secret",
+          "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Secret after validating with your password a security popup alert."
+        }
+      },
+      "mopub1016": {
+        "api_key": {
+          "label": "Api key",
+          "help_text": "From the Reports page, check \"Enable data access through API\". Then click the \"View API Access Details\" link to reveal your API Key."
+        },
+        "inventory_report": {
+          "label": "Inventory report",
+          "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Inventory Report ID."
+        },
+        "campaign_report": {
+          "label": "Campaign report",
+          "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Campaign Report ID."
+        }
+      },
+      "startapp1013": {
+        "account_id": {
+          "label": "Account ID",
+          "help_text": "You can find your Account Id at the right top menu sidebar in this page."
+        },
+        "token": {
+          "label": "Token",
+          "help_text": ""
+        }
+      },
+      "unityads1004": {
+        "api_key": {
+          "label": "API key",
+          "help_text": "Your API key is found on the API keys tab of the UnityAds dashboard"
+        }
+      },
+      "vungle1005": {
+        "api_key": {
+          "label": "Api key",
+          "help_text": "From the Vungle Details Dashboard, find your Reporting API key towards the bottom of the page. If you do not already have an API key, email Vungle at account-managers@vungle.com to request one."
+        }
       }
     },
     "switch": {

@@ -1,6 +1,6 @@
 <template lang="pug">
   div(class="no-data")
-    v-icon cloud_upload
+    v-icon report_problem
     div(class="no-data__text") {{ $t('validations.no_data_available') }}
 </template>
 

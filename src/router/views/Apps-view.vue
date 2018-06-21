@@ -1,11 +1,12 @@
 <template lang="pug">
   v-container(class="apps__section")
       v-layout(wrap class="card__row-title")
-        v-flex(xs12)
+        template(v-if="$apollo.queries.apps.loading")
+          loader-component
+        v-flex(xs12 v-else)
           //- v-breadcrumbs(divider="/" large)
           //-   v-breadcrumbs-item {{ $t('dashboard_view.apps') }}
-          apps-data-table(v-if="loaderStatus === false")
-          template(v-else)
+          apps-data-table
             loader-component
           app-remove-dialog(v-if="$store.state.appModule.appRemoveDialogStatus")
           app-network-configuration-dialog(v-if="$store.state.appModule.appNetworkConfigDialogStatus")
