@@ -17,15 +17,11 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    accountId: '5b10f0d09a5fd6245f658384',
     DAU: false
   },
   getters: {
     checkDAUState (state) {
       return state.DAU
-    },
-    accountIdGetter (state) {
-      return state.accountId
     }
   },
   modules: {

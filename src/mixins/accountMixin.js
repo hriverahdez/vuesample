@@ -329,7 +329,7 @@ const accountMixin = {
   },
   computed: {
     ...mapGetters({
-      accountId: this.accountIdGetter
+      accountId: this.activeAccount
     })
   },
   methods: {

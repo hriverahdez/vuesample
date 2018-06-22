@@ -35,7 +35,7 @@ const appMixin = {
         uri: URI
       },
       variables: {
-        _id: '5b10f0d69a5fd6245f65838d'
+        _id: this.accountId
       },
       skip () {
         return this.skipAppById
@@ -63,7 +63,7 @@ const appMixin = {
   },
   computed: {
     ...mapGetters({
-      accountId: 'accountIdGetter',
+      accountId: 'activeAccount',
       skipAppById: 'skipAppByIdQueryGetter'
     })
   },
@@ -94,7 +94,7 @@ const appMixin = {
             description: description,
             bannerPosition: bannerPosition,
             icon: icon,
-            account: '5b10f0f89a5fd62624137dd5'
+            account: this.accountId
           }
         },
         update: (store, { data: { createApp } }) => {
