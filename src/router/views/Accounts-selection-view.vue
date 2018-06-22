@@ -51,7 +51,6 @@
       ...mapActions(['setActiveUserAccountAction']),
       submit () {
         if (this.$refs.form.validate()) {
-          console.log(this.accountSelection)
           this.setActiveUserAccountAction(this.accountSelection)
           this.$router.push({ name: 'dashboard' })
         }

@@ -25,7 +25,7 @@
                     v-btn(
                         class="white--text"
                         color="buttonColor"
-                        @click.native=""
+                        @click.native="sendCreateAccountNetworkIntegrationEvent"
                     ) {{ $t('apps_view.new_profile') }}
                 v-form(class="manage-network__container__form")
                   div(
@@ -40,18 +40,21 @@
                     p {{ field.help_text }}
 
         v-card-actions
+          v-btn(
+            class="white--text"
+            color="buttonColor"
+            @click.native=""
+            ) {{ $t('buttons.remove_network') }}
           v-spacer
           v-btn(
+            class="white--text"
             color="buttonColor"
-            flats
             @click.native="closeDialog"
             ) {{ $t('buttons.cancel') }}
           v-btn(
             class="white--text"
             color="buttonColor"
-            @click.native="sendDeleteAppEvent"
-            :disabled="!valid"
-            ) {{ $t('buttons.remove')}}
+            ) {{ $t('buttons.edit')}}
 </template>
 
 <script>
@@ -103,6 +106,10 @@ export default {
     // Close dialog layer
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
+    },
+    // Edit profile on click button
+    sendCreateAccountNetworkIntegrationEvent () {
+      this.$root.$emit('createAccountNetworkIntegration')
     }
     // formatSelectedObject (e) {
     //   console.log('formateo', e)
