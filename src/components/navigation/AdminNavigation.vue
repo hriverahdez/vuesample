@@ -77,28 +77,29 @@ export default {
           model: true,
           children: [
             { text: 'navigation.dashboard', action: '/' },
-            { text: 'navigation.waterfall_rules', action: '#' },
+            // { text: 'navigation.waterfall_rules', action: '#' },
             { text: 'navigation.network_integration', action: '#' }
           ]
         },
-        {
-          'icon': 'stay_current_portrait',
-          text: 'navigation.apps',
-          model: true,
-          children: [
-            { text: 'navigation.apps', action: '/apps' },
-            { text: 'navigation.tags', action: '#' }
-          ]
-        },
-        { icon: 'edit', text: 'navigation.custom_campaigns', action: '#' },
+        // {
+        //   'icon': 'stay_current_portrait',
+        //   text: 'navigation.apps',
+        //   model: true,
+        //   children: [
+        //     { text: 'navigation.apps', action: '/apps' },
+        //     { text: 'navigation.tags', action: '#' }
+        //   ]
+        // },
+        // { icon: 'edit', text: 'navigation.custom_campaigns', action: '#' },
         {
           icon: 'list',
           text: 'navigation.account',
           model: true,
           children: [
-            { text: 'navigation.profile', action: '#' },
+            // { text: 'navigation.profile', action: '#' },
             // { icon: 'timeline', text: 'navigation.finance', action: '#' },
-            { text: 'navigation.users', action: '#' }
+            { text: 'navigation.account_users', action: '/apps' },
+            { text: 'navigation.tags', action: '#' }
             // { icon: 'label', text: 'navigation.tags', action: '#' }
           ]
         },
@@ -108,14 +109,14 @@ export default {
           model: true,
           children: [
             { text: 'navigation.users', action: '#' },
-            { text: 'navigation.roles', action: '#' },
+            // { text: 'navigation.roles', action: '#' },
             { text: 'navigation.accounts', action: 'accounts' }
           ]
         }
       ],
       user_menu_options: [
-        { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
-        { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
+        // { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
+        // { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
         { icon: 'face', text: 'navigation.profile', action: '#' },
         { icon: 'exit_to_app', text: 'navigation.logout', action: '#' }
       ],

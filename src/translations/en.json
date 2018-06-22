@@ -113,6 +113,7 @@
     "navigation": {
       "account": "Account",
       "accounts": "Accounts",
+      "account_users": "Accounts users",
       "admin": "Admin",
       "advance": "Advance",
       "apps": "Apps",
@@ -124,7 +125,7 @@
       "dashboard": "Dashboard",
       "finance": "Finance",
       "logout": "Logout",
-      "network_integration": "Network integration",
+      "network_integration": "Network/apps integration",
       "monetization": "Monetization",
       "profile": "Profile",
       "reporting_status": "Reporting status",

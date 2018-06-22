@@ -16,7 +16,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    accountId: '5b10f0e09a5fd6253b119d5d',
+    accountId: '5b10f0d09a5fd6245f658384',
     DAU: false
   },
   getters: {
