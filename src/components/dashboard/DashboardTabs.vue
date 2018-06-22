@@ -65,7 +65,7 @@
                     // App tab
                     v-tab-item(id="tab-app")
                         dashboard-filters
-                        column-chart(
+                        line-chart(
                           v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
@@ -267,13 +267,14 @@ export default {
       this.getDateAction({
         startDate: this.rangeGetter[0],
         endDate: this.rangeGetter[1]
-      }).then(() => {
-        this.SET_ALERT_MESSAGE({
-          show: true,
-          type: 'success',
-          message: this.$t('dashboard_view.confirm_selected_date_range'),
-          buttonText: this.$t('buttons.close')
-        })
+      })
+      .then(() => {
+        // this.SET_ALERT_MESSAGE({
+        //   show: true,
+        //   type: 'success',
+        //   message: this.$t('dashboard_view.confirm_selected_date_range'),
+        //   buttonText: this.$t('buttons.close')
+        // })
         this.selectDateDialog = false
       })
     },
