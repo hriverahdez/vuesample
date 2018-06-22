@@ -442,7 +442,7 @@ const accountMixin = {
         })
       })
     },
-    createAccountNetworkIntegration1003 () {
+    createAccountNetworkIntegration1003 (profileName, input) {
       this.$apollo.mutate({
         mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1003,
         context: {
@@ -453,9 +453,9 @@ const accountMixin = {
             accountId: this.accountId,
             profiles: [
               {
-                name: 'pipiopioipioipioipioi',
+                name: profileName,
                 default: true,
-                api_key: 'Lemmyyyyyyyyyyy'
+                api_key: input
               }
             ]
           }
@@ -489,7 +489,6 @@ const accountMixin = {
               }
             }
           })
-          console.log('entraquery')
         }
       })
       // .then(() => {
@@ -528,9 +527,9 @@ const accountMixin = {
       this.$apollo.queries[queryName].refetch()
     })
     // createAccountNetworkIntegration events
-    this.$root.$on('createAccountNetworkIntegration', (profileName) => {
-      console.log('entra', profileName)
-      // this.createAccountNetworkIntegration1003()
+    this.$root.$on('createAccountNetworkIntegration', (profileName, input) => {
+      console.log('entra', profileName, input)
+      this.createAccountNetworkIntegration1003(profileName, input)
     })
   },
   beforeDestroy () {

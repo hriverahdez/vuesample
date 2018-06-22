@@ -44,7 +44,7 @@
                       :label="field.label"
                       :value="selected[key]"
                       :ref="`inputText${index}`"
-                      v-model="form.parent_id[index]"
+                      v-model="form.input[index]"
                       )
                     p {{ field.help_text }}
 
@@ -63,7 +63,7 @@
           v-btn(
             class="white--text"
             color="buttonColor"
-            @clock="handleButtonAction"
+            @click="handleButtonAction"
             ) {{ newProfileModeActive ? $t('buttons.create') : $t('buttons.edit') }}
 </template>
 
@@ -85,7 +85,7 @@ export default {
       valid: false,
       inputText: '',
       form: {
-        parent_id: []
+        input: []
       }
     }
   },
@@ -123,17 +123,17 @@ export default {
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
     },
-    prueba (e) {
-      this.inputText = e
-    },
     // Controla las dos acciones del botón (Editar y crear)
     handleButtonAction () {
-      this.$root.$emit('createAccountNetworkIntegration', this.profileName)
+      console.log('entra', this.newProfileModeActive)
+      this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form.input[0])
+      this.newProfileModeActive = false
+      console.log('entra', this.newProfileModeActive)
     },
     // Edit profile on click button
     showInputToCreateNewProfile () {
       this.newProfileModeActive = true
-      this.form.parent_id = []
+      this.form.input = []
     }
     // formatSelectedObject (e) {
     //   console.log('formateo', e)
