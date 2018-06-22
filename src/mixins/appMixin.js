@@ -24,6 +24,7 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
+        console.log(data)
         this.appDataAction(data.apps).then(() => {
           this.appsLoaderStatusAction(false)
         })
@@ -94,7 +95,7 @@ const appMixin = {
             description: description,
             bannerPosition: bannerPosition,
             icon: icon,
-            account: this.accountId
+            account: '5b10f0f89a5fd62624137dd5'
           }
         },
         update: (store, { data: { createApp } }) => {
