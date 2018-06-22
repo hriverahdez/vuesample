@@ -12,15 +12,15 @@
           th(v-for="header in props.headers" :key="header.text") {{ header.text === "groupBy" ? `Group by ${datatableGroupBy.toLowerCase()}` : header.text }}
 
         template(slot="items" slot-scope="props")
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.requests }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)" v-if="showDAU") DAU
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imp | currency('', 0) }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.fillRate }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.click | currency('', 0) }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ctr | percentageFormat }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.money | currency }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ecpm | percentageFormat }}
+            td(class="text-xs-left clicked-cell" @click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
+            td.text-xs-left {{ props.item.requests }}
+            td.text-xs-left(v-if="showDAU") DAU
+            td.text-xs-left {{ props.item.imp | currency('', 0) }}
+            td.text-xs-left {{ props.item.fillRate }}
+            td.text-xs-left {{ props.item.click | currency('', 0) }}
+            td.text-xs-left {{ props.item.ctr | percentageFormat }}
+            td.text-xs-left {{ props.item.money | currency }}
+            td.text-xs-left {{ props.item.ecpm | percentageFormat }}
 
         template(slot="no-data")
             v-alert(
@@ -157,7 +157,6 @@ export default {
                 code: item.label
               }
             } else if (originalGroupedByValue === 'FORMAT') {
-              console.log(item)
               sendItemLabel = {
                 name: item.formattedLabel,
                 id: item.label
@@ -176,9 +175,12 @@ export default {
 .dashboard-datatable {
     margin-top: 20px;
 }
-td {
+.clicked-cell {
   cursor: pointer;
-}
+  &:hover {
+    color: #009688;
+  }
+ }
 </style>
 
 
