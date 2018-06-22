@@ -18,18 +18,20 @@
       "alert_message": "No apps available",
       "API_check_config": "API check config",
       "API_failing": "API failing",
+      "app": "App",
       "app_delete": "Delete",
       "app_description": "Description",
       "app_edit": "Edit",
       "app_enable_disable": "Enable / disable:",
       "app_name": "App name",
-      "app_network_configuration": "App-network configuration",
       "app_search": "App search",
       "app_URL": "App URL",
+      "API_key": "API Key",
       "API_no_data": "No API data",
       "API_not_integrated": "Not integrated",
       "API_working": "API working",
       "apps_title": "Apps list",
+      "banner_position": "Banner position",
       "bundle_identifier": "Bundle identifier",
       "create_new_app": "New app",
       "delete_app": "Deleted app succesfully",
@@ -38,12 +40,18 @@
       "enable_disable_network": "Enable / disable:",
       "icon_text": "Icon:",
       "manage_ad_placements": "Manage ad placements",
+      "manage_network_info_text": "In this section you can manage the current integrated networks for your app and its profiless. (This will be the default list of networks you will see in the app creation & edition sections)",
       "manage_network_profiles": "Manage network profiles",
+      "network": "Network",
+      "network_configuration": "Network configuration",
       "new_app": "New app",
       "new_success": "New app created",
+      "new_profile": "New profile",
+      "profile_name": "Profile name",
       "remove_app": "Remove app",
       "remove_app_message": "Write {number} in the text field ",
       "select_platform": "Select platform",
+      "select_profile": "Select profile",
       "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {
@@ -60,6 +68,7 @@
     "copies": {
       "drag_and_drop": "Drag and drop a file or click"
     },
+
     "dashboard_view": {
       "app": "App",
       "apps": "Apps",
@@ -95,6 +104,14 @@
     "footer": {
       "copyright": "© 2018 Fibonad - All rights reserved"
     },
+    "formats": {
+      "banner": "Banner",
+      "interstitial": "Interstitial",
+      "rewarded_video": "Rewarded video",
+      "banner_premium": "Banner premium",
+      "interstitial_premium": "Interstitial premium",
+      "rewarded_video_premium": "Rewarded video premium"
+    },
     "links": {
       "home": "Home"
     },
@@ -112,6 +129,7 @@
     "navigation": {
       "account": "Account",
       "accounts": "Accounts",
+      "account_users": "Accounts users",
       "admin": "Admin",
       "advance": "Advance",
       "apps": "Apps",
@@ -123,7 +141,7 @@
       "dashboard": "Dashboard",
       "finance": "Finance",
       "logout": "Logout",
-      "network_integration": "Network integration",
+      "network_integration": "Network/apps integration",
       "monetization": "Monetization",
       "profile": "Profile",
       "reporting_status": "Reporting status",
@@ -133,7 +151,124 @@
       "users": "Users",
       "waterfall_rules": "Waterfall rules"
     },
+    "networks_info": {
+      "addcolony1003": {
+        "api_key": {
+          "label": "API key",
+          "help_text": "Your API key will be labeled as \"Read-Only API Key\" on this page"
+        }
+      },
+      "applovin1008": {
+        "report_key": {
+          "label": "Report Key",
+          "help_text": "From your Account page, choose \"Keys\" in the left sidebar, then select the Report Key. If you do not see the Report Key field, email support@applovin.com and request your reporting key."
+        },
+        "sdk_key": {
+          "label": "SDK Key",
+          "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key."
+        }
+      },
+      "chartboost1007": {
+        "user_id": {
+          "label": "User ID",
+          "help_text": "From the API Explorer Page, select the User ID"
+        },
+        "user_signature": {
+          "label": "User Signature",
+          "help_text": "From the API Explorer Page, select the User Signature"
+        }
+      },
+      "inmobi1012": {
+        "account_id": {
+          "label": "Account ID",
+          "help_text": "You can find your Account ID on your InMobi Dashboard. Click the disclosure triangle in the top right to reveal your Account ID."
+        },
+        "api_key": {
+          "label": "Api Key",
+          "help_text": "Email InMobi and request an API Key. Please mention that you need the API Key to use the Mobusi Mediation."
+        },
+        "username": {
+          "label": "Username",
+          "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature."
+        },
+        "password": {
+          "label": "Password",
+          "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature."
+        }
+      },
+      "ironsource1017": {
+        "username": {
+          "label": "Username",
+          "help_text": "The login/email that is used to login to our ironSource account."
+        },
+        "secret_key": {
+          "label": "Secret key",
+          "help_text": "The secret key parameter is unique for your ironSource account. To retrieve it, click on your user profile on the top right corner of the screen, and select 'My Account'. You will find the secret key in the Reporting API section"
+        }
+      },
+      "mobusi1001": {
+        "api_key": {
+          "label": "Api Key",
+          "help_text": ""
+        },
+        "user_id": {
+          "label": "User Signature",
+          "help_text": ""
+        }
+      },
+      "mobvista1014": {
+        "skey": {
+          "label": "SKey",
+          "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Skey."
+        },
+        "secret": {
+          "label": "Secret",
+          "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Secret after validating with your password a security popup alert."
+        }
+      },
+      "mopub1016": {
+        "api_key": {
+          "label": "Api key",
+          "help_text": "From the Reports page, check \"Enable data access through API\". Then click the \"View API Access Details\" link to reveal your API Key."
+        },
+        "inventory_report": {
+          "label": "Inventory report",
+          "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Inventory Report ID."
+        },
+        "campaign_report": {
+          "label": "Campaign report",
+          "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Campaign Report ID."
+        }
+      },
+      "startapp1013": {
+        "account_id": {
+          "label": "Account ID",
+          "help_text": "You can find your Account Id at the right top menu sidebar in this page."
+        },
+        "token": {
+          "label": "Token",
+          "help_text": ""
+        }
+      },
+      "unityads1004": {
+        "api_key": {
+          "label": "API key",
+          "help_text": "Your API key is found on the API keys tab of the UnityAds dashboard"
+        }
+      },
+      "vungle1005": {
+        "api_key": {
+          "label": "Api key",
+          "help_text": "From the Vungle Details Dashboard, find your Reporting API key towards the bottom of the page. If you do not already have an API key, email Vungle at account-managers@vungle.com to request one."
+        }
+      }
+    },
+    "switch": {
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
     "validations": {
+      "no_data_available": "No data available",
       "length": "The field must have between {minLength} and {maxLength} characters",
       "required": "Required field",
       "same_account_name": "Account name already exists"

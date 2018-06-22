@@ -1,4 +1,5 @@
 <template lang="pug">
+  section
     v-data-table(
         :headers="showDAU ? headersWithDAU : headers"
         :items="datatableData"
@@ -6,22 +7,37 @@
         hide-actions
         class="elevation-1 dashboard-datatable"
         )
+
+        template(slot="headers" slot-scope="props")
+          th(v-for="header in props.headers" :key="header.text") {{ header.text === "groupBy" ? `Group by ${datatableGroupBy.toLowerCase()}` : header.text }}
+
         template(slot="items" slot-scope="props")
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.requests }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)" v-if="showDAU") DAU
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.imp }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.fillRate }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.click }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ctr }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.money }}
-            td.text-xs-left(@click="selectTableItem(props.item, props.index)") {{ props.item.ecpm }}
+            td(class="text-xs-left clicked-cell" @click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
+            td.text-xs-left {{ props.item.requests }}
+            td.text-xs-left(v-if="showDAU") DAU
+            td.text-xs-left {{ props.item.imp | currency('', 0) }}
+            td.text-xs-left {{ props.item.fillRate }}
+            td.text-xs-left {{ props.item.click | currency('', 0) }}
+            td.text-xs-left {{ props.item.ctr | percentageFormat }}
+            td.text-xs-left {{ props.item.money | currency }}
+            td.text-xs-left {{ props.item.ecpm | percentageFormat }}
 
         template(slot="no-data")
             v-alert(
             :value="true"
             color="error"
-            icon="warning") {{ $t('accounts_view.alert_message')}}
+            icon="warning") {{ $t('validations.no_data_available')}}
+
+        template(slot="footer" v-if="datatableTotals[0]")
+          td.text-xs-left TOTAL
+          td.text-xs-left {{ datatableTotals[0].req }}
+          td.text-xs-left {{ datatableTotals[0].imp | currency('', 0) }}
+          td.text-xs-left {{ datatableTotals[0].fillRate }}
+          td.text-xs-left {{ datatableTotals[0].click | currency('', 0) }}
+          td.text-xs-left {{ datatableTotals[0].ctr | percentageFormat }}
+          td.text-xs-left {{ datatableTotals[0].money | currency }}
+          td.text-xs-left {{ datatableTotals[0].ecpm | percentageFormat }}
+
 </template>
 
 <script>
@@ -32,7 +48,7 @@ export default {
   data: () => ({
     headers: [
       {
-        text: 'Group by date',
+        text: 'groupBy',
         align: 'left',
         value: 'date'
       },
@@ -67,6 +83,8 @@ export default {
       groupedBy: 'groupByGetter',
       networks: 'networksGetter',
       datatableData: 'dashboardDatatableDataWithFormattedLabelGetter',
+      datatableGroupBy: 'datatableGroupByGetter',
+      datatableTotals: 'datatableTotalsDataGetter',
       showDAU: 'checkDAUState'
     })
   },
@@ -74,8 +92,9 @@ export default {
     ...mapActions([
       'activeTabAction',
       'addItemFiltersAction',
+      'datatableGroupByAction',
       'getDateAction',
-      'groupedByVarDataAction',
+      'groupByVarDataAction',
       'rangeAction'
     ]),
     // Show correct formatted label data depending on groupedby type
@@ -98,56 +117,55 @@ export default {
     //     return item.label
     //   }
     // },
-    // Change current tab and filtars when clicked data table row
+    // Change current tab and filters when clicked data table row
     selectTableItem (item, index) {
-      let originalGroupedByValue = this.groupedBy
+      let originalGroupedByValue = this.datatableGroupBy
       let sendItemLabel
       if (originalGroupedByValue === 'DATE') {
-        sendItemLabel = item.label
+        sendItemLabel = item.formattedLabel
         this.activeTabAction('tab-app').then(() => {
+          this.datatableGroupByAction('APP')
+          this.groupByVarDataAction('APP')
+          this.$root.$emit('sendDateToRoot', sendItemLabel)
+          this.rangeAction([sendItemLabel, sendItemLabel])
           this.getDateAction({
-            startDate: item.label,
-            endDate: item.label
+            startDate: sendItemLabel,
+            endDate: sendItemLabel
           })
-          this.$root.$emit('sendDateToRoot', item.label)
-          this.rangeAction([item.label, item.label])
-          this.groupedByVarDataAction('APP')
         })
       } else {
         this.activeTabAction('tab-date')
         .then(() => {
-          this.groupedByVarDataAction('DATE')
+          this.datatableGroupByAction('DATE')
+          this.groupByVarDataAction('DATE')
           .then(() => {
             if (originalGroupedByValue === 'APP') {
-              sendItemLabel = this.apps[index].name
-            } else if (originalGroupedByValue === 'NETWORK') {
+              sendItemLabel = this.apps[index]
+            } else if (originalGroupedByValue === 'SOURCE') {
               for (let key in this.networks) {
                 if (item.label === this.networks[key]) {
-                  sendItemLabel = key
+                  sendItemLabel = {
+                    name: item.formattedLabel,
+                    id: item.label
+                  }
+                  originalGroupedByValue = 'NETWORK'
                 }
               }
-            } else {
-              sendItemLabel = item.label
+            } else if (originalGroupedByValue === 'COUNTRY') {
+              sendItemLabel = {
+                name: item.formattedLabel,
+                code: item.label
+              }
+            } else if (originalGroupedByValue === 'FORMAT') {
+              sendItemLabel = {
+                name: item.formattedLabel,
+                id: item.label
+              }
             }
             this.addItemFiltersAction([sendItemLabel, originalGroupedByValue])
           })
         })
       }
-        // console.log('entra', item)
-        // this.getDateAction({
-        //   startDate: item.label,
-        //   endDate: item.label
-        // })
-
-      // .then(() => {
-      //   this.setAlertMessage({
-      //     show: true,
-      //     type: 'success',
-      //     message: this.$t('dashboard_view.confirm_selected_date_range'),
-      //     buttonText: this.$t('buttons.close')
-      //   })
-      //   this.dialog = false
-      // })
     }
   }
 }
@@ -157,9 +175,12 @@ export default {
 .dashboard-datatable {
     margin-top: 20px;
 }
-td {
+.clicked-cell {
   cursor: pointer;
-}
+  &:hover {
+    color: #009688;
+  }
+ }
 </style>
 
 

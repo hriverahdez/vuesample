@@ -21,15 +21,18 @@
       "API_no_data": "API sin datos",
       "API_not_integrated": "No integrada",
       "API_working": "Funcionando",
+      "app": "App",
       "app_delete": "Eliminar",
       "app_disable_enable": "Habilitar / deshabilitar",
       "app_description": "Descripción",
       "app_edit": "Editar",
       "app_name": "Nombre app",
-      "app_network_configuration": "App-red configuración",
       "app_search": "Buscar app",
       "app_URL": "Aplicación URL",
+      "API_info_text": "",
+      "API_key": "Clave API",
       "apps_title": "Listado de apps",
+      "banner_position": "Posición del banner",
       "bundle_identifier": "Identificador de bundle",
       "create_new_app": "Crear app",
       "delete_app": "App eliminada correctamente",
@@ -39,11 +42,17 @@
       "icon_text": "Icono:",
       "manage_ad_placements": "Configurar zona anuncio",
       "manage_network_profiles": "Configurar perfil de red",
+      "manage_network_info_text": "In this section you can manage the current integrated networks for your app and its profiless. (This will be the default list of networks you will see in the app creation & edition sections)",
+      "network": "Red",
+      "network_configuration": "Configuración de red",
       "new_app": "Nueva app",
+      "new_profile": "Nuevo perfil",
       "new_success": "Nueva app creada",
+      "profile_name": "Nombre de perfil",
       "remove_app": "Eliminar app",
       "remove_app_message": "Escribe {number} en el campo de texto",
       "select_platform": "Selecciona plataforma",
+      "select_profile": "Selecciona perfil",
       "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {
@@ -95,6 +104,14 @@
     "footer": {
       "copyright": "© 2018 Fibonad - Todos los derechos reservados"
     },
+    "formats": {
+      "banner": "Banner-PENDING",
+      "interstitial": "Interstitia-PENDINGl",
+      "rewarded_video": "Rewarded video-PENDING",
+      "banner_premium": "Banner premium-PENDING",
+      "interstitial_premium": "Interstitial premium-PENDING",
+      "rewarded_video_premium": "Rewarded video premium-PENDING"
+    },
     "links": {
       "home": "Inicio"
     },
@@ -112,6 +129,7 @@
     "navigation": {
       "account": "Cuenta",
       "accounts": "Cuentas",
+      "account_users": "Usuarios de cuentas",
       "admin": "Administrador",
       "advance": "Advance",
       "apps": "Aplicaciones",
@@ -123,7 +141,7 @@
       "dashboard": "Panel",
       "finance": "Finanzas",
       "logout": "Salir",
-      "network_integration": "Integración de redes",
+      "network_integration": "Integración de redes/apps",
       "monetization": "Monetización",
       "profile": "Perfil",
       "reporting_status": "Reporte de status",
@@ -133,7 +151,124 @@
       "users": "Usuarios",
       "waterfall_rules": "Reglas de cascada"
     },
+    "networks_info": {
+      "addcolony1003": {
+        "api_key": {
+          "label": "Clave API",
+          "help_text": "Your API key will be labeled as \"Read-Only API Key\" on this page - PENDING"
+        }
+      },
+      "applovin1008": {
+        "report_key": {
+          "label": "Clave reporte",
+          "help_text": "From your Account page, choose \"Keys\" in the left sidebar, then select the Report Key. If you do not see the Report Key field, email support@applovin.com and request your reporting key. - PENDING"
+        },
+        "sdk_key": {
+          "label": "Clave SDK",
+          "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key.-PENDING"
+        }
+      },
+      "chartboost1007": {
+        "user_id": {
+          "label": "ID Usuario",
+          "help_text": "From the API Explorer Page, select the User ID-PENDING"
+        },
+        "user_signature": {
+          "label": "Firma usuario",
+          "help_text": "From the API Explorer Page, select the User Signature-PENDING"
+        }
+      },
+      "inmobi1012": {
+        "account_id": {
+          "label": "ID cuenta",
+          "help_text": "You can find your Account ID on your InMobi Dashboard. Click the disclosure triangle in the top right to reveal your Account ID.-PENDING"
+        },
+        "api_key": {
+          "label": "Clave API",
+          "help_text": "Email InMobi and request an API Key. Please mention that you need the API Key to use the Mobusi Mediation.-PENDING"
+        },
+        "username": {
+          "label": "Nombre de usuario",
+          "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature.-PENDING"
+        },
+        "password": {
+          "label": "Contraseña",
+          "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature.-PENDING"
+        }
+      },
+      "ironsource1017": {
+        "username": {
+          "label": "Nombre de usuario",
+          "help_text": "The login/email that is used to login to our ironSource account.-PENDING"
+        },
+        "secret_key": {
+          "label": "Clave secreta",
+          "help_text": "The secret key parameter is unique for your ironSource account. To retrieve it, click on your user profile on the top right corner of the screen, and select 'My Account'. You will find the secret key in the Reporting API section-PENDING"
+        }
+      },
+      "mobusi1001": {
+        "api_key": {
+          "label": "Clave API",
+          "help_text": ""
+        },
+        "user_id": {
+          "label": "Id usuario",
+          "help_text": ""
+        }
+      },
+      "mobvista1014": {
+        "skey": {
+          "label": "SKey-PENDING",
+          "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Skey.-PENDING"
+        },
+        "secret": {
+          "label": "Secret-PENDING",
+          "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Secret after validating with your password a security popup alert.-PENDING"
+        }
+      },
+      "mopub1016": {
+        "api_key": {
+          "label": "Clave API",
+          "help_text": "From the Reports page, check \"Enable data access through API\". Then click the \"View API Access Details\" link to reveal your API Key.-PENDING"
+        },
+        "inventory_report": {
+          "label": "Reporte de inventario",
+          "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Inventory Report ID.-PENDING"
+        },
+        "campaign_report": {
+          "label": "Reporte de campaña",
+          "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Campaign Report ID.-PENDING"
+        }
+      },
+      "startapp1013": {
+        "account_id": {
+          "label": "Id de cuenta",
+          "help_text": "You can find your Account Id at the right top menu sidebar in this page.-PENDING"
+        },
+        "token": {
+          "label": "Token",
+          "help_text": ""
+        }
+      },
+      "unityads1004": {
+        "api_key": {
+          "label": "Clave API",
+          "help_text": "Your API key is found on the API keys tab of the UnityAds dashboard-PENDING"
+        }
+      },
+      "vungle1005": {
+        "api_key": {
+          "label": "Clave de API",
+          "help_text": "From the Vungle Details Dashboard, find your Reporting API key towards the bottom of the page. If you do not already have an API key, email Vungle at account-managers@vungle.com to request one.-PENDING"
+        }
+      }
+    },
+    "switch": {
+      "enabled": "Habilitado",
+      "disabled": "Deshabilitado"
+    },
     "validations": {
+      "no_data_available": "No hay resultados disponibles",
       "length": "El campo debe tener entre {minLength} y {maxLength} caracteres",
       "required": "Campo obligatorio",
       "same_account_name": "El nombre de la cuenta ya existe"

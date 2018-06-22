@@ -1,30 +1,87 @@
-import { APPS_DATA, CREATE_NEW_APP, DELETE_APP, UPDATE_APP } from '@/graphql/app'
-import { mapActions } from 'vuex'
+import {
+  APP_DATA_BY_ID,
+  APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
+  APPS_DATA,
+  CREATE_NEW_APP,
+  DELETE_APP,
+  UPDATE_APP
+} from '@/graphql/app'
+import { mapActions, mapGetters } from 'vuex'
+
+const URI = 'app'
 
 const appMixin = {
   apollo: {
     apps: {
       query: APPS_DATA,
       context: {
-        uri: 'app'
+        uri: URI
+      },
+      variables () {
+        return {
+          _idAccount: this.accountId
+        }
       },
       loadingKey: 'loading',
       update (data) {
-        this.appDataAction(data.apps)
+        console.log(data)
+        this.appDataAction(data.apps).then(() => {
+          this.appsLoaderStatusAction(false)
+        })
+      }
+    },
+    appById: {
+      query: APP_DATA_BY_ID,
+      context: {
+        uri: URI
+      },
+      variables: {
+        _id: this.accountId
+      },
+      skip () {
+        return this.skipAppById
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.appByIdDataAction(data.appById)
+      }
+    },
+    appsNamesAndIds: {
+      query: APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          _idAccount: this.accountId
+        }
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.appsNamesAndIdsAction(data.apps)
       }
     }
   },
+  computed: {
+    ...mapGetters({
+      accountId: 'activeAccount',
+      skipAppById: 'skipAppByIdQueryGetter'
+    })
+  },
   methods: {
     ...mapActions([
+      'appByIdDataAction',
       'appDataAction',
       'appDialogStatusAction',
       'appIdAction',
+      'appsNamesAndIdsAction',
       'appRemoveDialogStatusAction',
       'appSchemaAction',
+      'appsLoaderStatusAction',
       'editedAppIndexStatusAction',
       'removeAppPermissionInputAction'
     ]),
-    createApp (name, platform, bundle) {
+    createApp (name, platform, bundle, description, bannerPosition, icon) {
       this.$apollo.mutate({
         mutation: CREATE_NEW_APP,
         context: {
@@ -33,9 +90,12 @@ const appMixin = {
         variables: {
           input: {
             name: name,
-            bundle: bundle,
             platform: platform,
-            account: '5b1a34e69a5fd6634e7690a2'
+            bundle: bundle,
+            description: description,
+            bannerPosition: bannerPosition,
+            icon: icon,
+            account: this.accountId
           }
         },
         update: (store, { data: { createApp } }) => {
@@ -59,10 +119,11 @@ const appMixin = {
       this.appDialogStatusAction(false)
       this.appSchemaAction({
         name: '',
-        bundle: '',
         platform: '',
-        URL: '',
-        description: ''
+        bundle: '',
+        description: '',
+        banner_position: '',
+        icon: ''
       })
     },
     // Delete App mutation
@@ -136,8 +197,8 @@ const appMixin = {
   },
   mounted () {
     // Receive events from components
-    this.$root.$on('createApp', (name, platform, bundle) => {
-      this.createApp(name, platform, bundle)
+    this.$root.$on('createApp', (name, platform, bundle, description, bannerPosition, icon) => {
+      this.createApp(name, platform, bundle, description, bannerPosition, icon)
     })
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)

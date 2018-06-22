@@ -4,8 +4,11 @@ import Vue from 'vue'
 // Apollo import
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
+
+// Vue filters
+import Vue2Filters from 'vue2-filters'
 
 // Main component import
 import App from '@/App'
@@ -31,8 +34,16 @@ import Icon from 'vue-awesome/components/Icon'
 
 Vue.component('icon', Icon)
 
+Vue.use(Vue2Filters)
+
 // Apollo config
 const host = 'http://stage.do.linkitox.com/public/graphql'
+
+const introspectionQueryResultData = require('./fragmentTypes.json')
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+})
 
 const customFetch = (uri, options) => fetch(`${host}/${uri}`, options)
 
@@ -42,7 +53,7 @@ const dynLink = createHttpLink({
 
 const apolloClient = new ApolloClient({
   link: dynLink,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({fragmentMatcher}),
   connectToDevTools: true
 })
 
@@ -55,6 +66,14 @@ const apolloProvider = new VueApollo({
 // Filters
 Vue.filter('capitalize', (val) => {
   return val.charAt(0).toUpperCase() + val.slice(1)
+})
+
+Vue.filter('percentageFormat', function (val) {
+  if (val) {
+    return `${val.toFixed(2)}%`
+  } else {
+    return false
+  }
 })
 
 Vue.config.productionTip = false

@@ -4,7 +4,7 @@
       v-flex(xs12)
         //- v-breadcrumbs(divider="/" large)
         //-   v-breadcrumbs-item {{ $t('navigation.accounts') }}
-        accounts-data-table(v-if="accountsDataTable.length")
+        accounts-data-table(v-if="loaderStatus === false")
         template(v-else)
           loader-component
 </template>
@@ -26,7 +26,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      accountsDataTable: 'accountsDataGetter'
+      accountsDataTable: 'accountsDataGetter',
+      loaderStatus: 'accountsLoaderStatusGetter'
     })
   },
   mixins: [accountMixin, appMixin]

@@ -1,45 +1,104 @@
-import { GET_DASHBOARD_REPORT_DATA } from '@/graphql/report'
+import {
+  GET_DASHBOARD_REPORT_DATA,
+  GET_DASHBOARD_DATATABLE_DATA
+  } from '@/graphql/report'
 import { mapGetters, mapActions } from 'vuex'
+
+const URI = 'report'
 
 const reportMixin = {
   apollo: {
     networkStats: {
       query: GET_DASHBOARD_REPORT_DATA,
       context: {
-        uri: 'report'
+        uri: URI
       },
       variables () {
         return {
+          accountId: this.activeAccount,
           groupBy: this.groupByGetter,
           filter: {
-            from: '2018-02-01',
-            to: '2018-02-07',
-            // from: this.dateGetter.startDate,
-            // to: this.dateGetter.endDate,
-            app: this.appFiltersGetter,
-            format: this.formatFiltersGetter,
-            source: this.networkFiltersGetter,
-            country: this.countryFiltersGetter
+            // from: '2018-02-01',
+            // to: '2018-02-10',
+            from: this.dateGetter.startDate,
+            to: this.dateGetter.endDate,
+            app: this.appIdFiltersGetter,
+            format: this.formatIdFiltersGetter,
+            source: this.netwworkIdFiltersGetter,
+            country: this.countryIdFiltersGetter
           }
         }
       },
+      // skip () {
+      //   return this.skipDashboardDataQueryGetter
+      // },
       loadingKey: 'loading',
       update (data) {
-        this.statsDataAction(data.networkStats)
+        this.statsDataAction(data.networkStats).then(() => {
+          // Loader control
+          // this.dashboardLoaderStatusAction(false)
+          // Stop Query
+          // this.skipDashboardDataQueryAction(true)
+        })
+      }
+    },
+    datatableData: {
+      query: GET_DASHBOARD_DATATABLE_DATA,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          accountId: this.activeAccount,
+          groupBy: this.datatableGroupByGetter,
+          filter: {
+            // from: '2018-02-01',
+            // to: '2018-02-10',
+            from: this.dateGetter.startDate,
+            to: this.dateGetter.endDate,
+            app: this.appIdFiltersGetter,
+            format: this.formatIdFiltersGetter,
+            source: this.netwworkIdFiltersGetter,
+            country: this.countryIdFiltersGetter
+          }
+        }
+      },
+      // skip () {
+      //   return this.skipDatatableDataQueryGetter
+      // },
+      loadingKey: 'loading',
+      update (data) {
+        this.datatableDataAction(data.networkStats)
+        // Stop Query
+        // this.skipDatatableDataQueryAction(true)
       }
     }
   },
   computed: {
     ...mapGetters([
-      'appFiltersGetter',
-      'countryFiltersGetter',
+      'appIdFiltersGetter',
+      'activeAccount',
+      // 'countryFiltersGetter',
+      'countryIdFiltersGetter',
+      'datatableGroupByGetter',
+      'dateGetter',
       'formatFiltersGetter',
+      'formatIdFiltersGetter',
       'groupByGetter',
-      'networkFiltersGetter'
+      // 'networkFiltersGetter',
+      'netwworkIdFiltersGetter'
+      // 'skipDashboardDataQueryGetter',
+      // 'skipDatatableDataQueryGetter'
     ])
   },
   methods: {
-    ...mapActions(['statsDataAction'])
+    ...mapActions([
+      'statsDataAction',
+      'dashboardLoaderStatusAction',
+      'datatableDataAction'
+      // 'skipDashboardDataQueryAction',
+      // 'skipDatatableDataQueryAction'
+    ])
   }
   // mounted () {
   //   // Receive events from components

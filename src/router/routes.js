@@ -68,7 +68,6 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // SI EXISTE EN EL LOCAL STORE EL REMEMBER ME y EL TOKEN, CUENTA ACTIVA, SETEARLO ANTES
-  console.log('rememberMe: ' + localStorage.getItem('rememberMe'))
 
   if (!store.getters.isLogged && typeof localStorage.getItem('rememberMe') !== 'undefined' &&
       typeof localStorage.getItem('token') !== 'undefined') {

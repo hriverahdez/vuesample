@@ -13,3 +13,11 @@ export const GET_DATA_FILTERS = gql`
  }
 }
 `
+
+export const BANNER_POSITIONS = gql`
+{
+  config {
+    bannerPositions
+  }
+}
+`

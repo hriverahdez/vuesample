@@ -18,6 +18,7 @@
             single-line
             hide-details
             v-model="search"
+            class="search-field"
             )
     v-data-table(
         :headers="headers"
@@ -100,14 +101,14 @@
                         hide-details
                         class="switch"
                       )
-                    v-list-tile(
-                      class="app-column-menu__list__item"
-                      @click.native.stop=""
-                    ) {{ $t('apps_view.manage_ad_placements') }}
-                    v-list-tile(
-                      class="app-column-menu__list__item"
-                      @click.native.stop=""
-                    ) {{ $t('apps_view.waterfall_debugger') }}
+                    // v-list-tile(
+                    //   class="app-column-menu__list__item"
+                    //   @click.native.stop=""
+                    // ) {{ $t('apps_view.manage_ad_placements') }}
+                    // v-list-tile(
+                    //   class="app-column-menu__list__item"
+                    //   @click.native.stop=""
+                    // ) {{ $t('apps_view.waterfall_debugger') }}
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
@@ -156,11 +157,10 @@ export default {
       { text: 'CHARTBOOST', value: 'CHARTBOOST', sortable: false },
       { text: 'FACEBOOK', value: 'FACEBOOK', sortable: false },
       { text: 'HYPRMX', value: 'HYPRMX', sortable: false },
-      { text: 'KIIP', value: 'KIIP', sortable: false },
       { text: 'INMOBI', value: 'INMOBI', sortable: false },
       { text: 'IRONSOURCE', value: 'IRONSOURCE', sortable: false },
       { text: 'MOBUSI', value: 'MOBUSI', sortable: false },
-      { text: 'MOBUSI SSP', value: 'MOBUSI SSP', sortable: false },
+      // { text: 'MOBUSI SSP', value: 'MOBUSI SSP', sortable: false },
       { text: 'MOBVISTA', value: 'MOBVISTA', sortable: false },
       { text: 'MOPUB', value: 'MOPUB', sortable: false },
       { text: 'UNITYADS', value: 'UNITYADS', sortable: false },
@@ -189,7 +189,9 @@ export default {
       'appIdAction',
       'editedAppIndexStatusAction',
       'selectedAppNetworkInDatatableAction',
-      'selectedNetworkToManageAction'
+      'selectedNetworkToManageAction',
+      'skipAppByIdQueryAction',
+      'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
     showDeleteDialog (app) {
@@ -207,11 +209,13 @@ export default {
     selectedCell (networkName, appName, appId) {
       this.appNetworkConfigDialogStatusAction(true)
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
+      this.skipAppByIdQueryAction(false)
     },
      // Show the corresponding network profile dialog from datatable header
     showManageNetworkProfiles (networkName) {
       this.appManageNetworkProfileDialogStatusAction(true)
       this.selectedNetworkToManageAction(networkName)
+      this.$root.$emit('launchNetworkProfilesQuery', networkName)
     }
   }
 }
@@ -244,7 +248,7 @@ export default {
     border-bottom: 1px solid rgba(0,0,0,0.12);
 
     &:hover {
-      background: rgba(0,0,0,0.12);
+      background: #ededed;
     }
 
     .tooltip {
@@ -362,6 +366,10 @@ export default {
       }
     }
   }
+}
+
+.search-field {
+  padding-right: 21px;
 }
 
 .switch {

@@ -29,13 +29,13 @@
                 // Confirm Apply Filters
                 //- dialog-alert
 
-                v-tabs(dark color="tab_heading" v-model="$store.state.reportModule.activeTab")
+                v-tabs(dark color="tab_heading" v-model="$store.state.reportModule.activeTab" hide-slider)
                     v-tabs-slider(color="primary")
-                    v-tab(href="#tab-date" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.date')}}
-                    v-tab(href="#tab-app" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.app')}}
-                    v-tab(href="#tab-country" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.country')}}
-                    v-tab(href="#tab-format" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.format')}}
-                    v-tab(href="#tab-network" @click="requestDataFromAPI($event)") {{ $t('dashboard_view.network')}}
+                    v-tab(href="#tab-date" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.date')}}
+                    v-tab(href="#tab-app" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.app')}}
+                    v-tab(href="#tab-country" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.country')}}
+                    v-tab(href="#tab-format" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.format')}}
+                    v-tab(href="#tab-network" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.network')}}
                     v-spacer
                     section.date-container
                       v-btn(color="buttonColor" @click.native.stop="selectDateDialog = true" class="date-button")
@@ -50,49 +50,66 @@
 
                     // Tab items
                     // Date tab
-                    v-tab-item(id="tab-date" v-if="statsDataFormattedGetter")
+                    v-tab-item(id="tab-date")
                         dashboard-filters
                         line-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedGetter"
-                          :discrete= "true")
+                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                          :legend="false"
+                          :discrete= "true"
+                        )
+                        dashboard-no-data-filter(v-else)
+
                     // App tab
-                    v-tab-item(id="tab-app" v-if="statsDataFormattedGetter")
+                    v-tab-item(id="tab-app")
                         dashboard-filters
-                        column-chart(
+                        line-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="statsDataFormattedGetter"
-                          )
+                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                        )
+                        dashboard-no-data-filter(v-else)
+
                     // Country tab
                     v-tab-item(id="tab-country")
                         dashboard-filters
                         line-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
-                          :discrete= "true")
+                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                          :discrete= "true"
+                        )
+                        dashboard-no-data-filter(v-else)
+
                     // Format tab
                     v-tab-item(id="tab-format")
                         dashboard-filters
                         pie-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#00A0D3', '#910287', '#00962B', '#FF982A', '#E4371E', '#1A237E']"
-                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
+                          :data="statsDataFormattedGetter[buttonSelectedGetter][0].data"
                         )
+                        dashboard-no-data-filter(v-else)
+
                     // Network tab
                     v-tab-item(id="tab-network")
                         dashboard-filters
                         column-chart(
+                          v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
                           :colors="['#C9651B']"
-                          :data="{'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5}"
-                          )
+                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                        )
+                        dashboard-no-data-filter(v-else)
 
-                    //- v-tab-item(id="tab-country")
-                    //-     v-card(flat)
-                    //-     column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
+                    v-tab-item(id="tab-country")
+                      v-card(flat)
+                      column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
 
                 dashboard-stat-buttons
 </template>
@@ -102,12 +119,14 @@ import { format, subDays } from 'date-fns'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 // Import components
 import DashboardFilters from '@/components/dashboard/DashboardFilters'
+import DashboardNoDataFilter from '@/components/dashboard/DashboardNoDataFilter'
 import DashboardStatButtons from '@/components/dashboard/DashboardStatButtons'
 // import DialogAlert from '@/components/DialogAlert'
 
 export default {
   name: 'dashboard-tabs',
   data: () => ({
+    prueba: {'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5},
     selectDateDialog: false,
     dateRangeOptions: {
       startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
@@ -136,14 +155,50 @@ export default {
           ]
         }
       ]
-    },
-    data2: [
-      {name: 'Workout', data: {'2017-01-01 00:00:00 -0800': 3, '2017-01-02 00:00:00 -0800': 4}},
-      {name: 'Call parents', data: {'2017-01-03 00:00:00 -0800': 5, '2017-01-04 00:00:00 -0800': 3}}
-    ]
+    }
+    // data2: [
+    //   {name: 'Workout', data: {'2017-01-01 00:00:00 -0800': 3, '2017-01-02 00:00:00 -0800': 4}},
+    //   {name: 'Call parents', data: {'2017-01-03 00:00:00 -0800': 5, '2017-01-04 00:00:00 -0800': 3}}
+    // ],
+    // alvaro: [
+    // {
+    //   "name": "App 01",
+    //   "data": {
+    //     "2018-02-01": 3,
+    //     "2018-02-02": 30,
+    //     "2018-02-03": 33,
+    //     "2018-02-07": 1
+    //   }
+    // },
+    // {
+    //   "name": "App 05",
+    //   "data": {
+    //     "2018-02-07": 1
+    //   }
+    // },
+    // {
+    //   "name": "App 03",
+    //   "data": {
+    //     "2018-02-07": 1
+    //   }
+    // },
+    // {
+    //   "name": "App 04",
+    //   "data": {
+    //     "2018-02-01": 11,
+    //     "2018-02-02": 13,
+    //     "2018-02-03": 10,
+    //     "2018-02-04": 10,
+    //     "2018-02-05": 9,
+    //     "2018-02-06": 13,
+    //     "2018-02-07": 13
+    //   }
+    // }
+    // ]
   }),
   components: {
     DashboardFilters,
+    DashboardNoDataFilter,
     DashboardStatButtons
     // DialogAlert
   },
@@ -195,28 +250,38 @@ export default {
   },
   methods: {
     ...mapActions([
+      'datatableGroupByAction',
       'groupByVarDataAction',
       'getDateAction',
       'rangeAction'
+      // 'skipDashboardDataQueryAction',
+      // 'skipDatatableDataQueryAction'
     ]),
-    ...mapMutations(['setAlertMessage']),
+    ...mapMutations(['SET_ALERT_MESSAGE']),
     // Dialog button select date action
     applyDateSelection () {
+      // Resume  query
+      // this.skipDashboardDataQueryAction(false)
+      // this.skipDatatableDataQueryAction(false)
+
       this.getDateAction({
         startDate: this.rangeGetter[0],
         endDate: this.rangeGetter[1]
-      }).then(() => {
-        this.setAlertMessage({
-          show: true,
-          type: 'success',
-          message: this.$t('dashboard_view.confirm_selected_date_range'),
-          buttonText: this.$t('buttons.close')
-        })
+      })
+      .then(() => {
+        // this.SET_ALERT_MESSAGE({
+        //   show: true,
+        //   type: 'success',
+        //   message: this.$t('dashboard_view.confirm_selected_date_range'),
+        //   buttonText: this.$t('buttons.close')
+        // })
         this.selectDateDialog = false
       })
     },
     // Close dialog without apply selection
     exitDialogWithoutSelectRangeOfDates () {
+      // Resume  query
+
       setTimeout(() => {
         this.$refs['dateRange'].startDate = format(subDays(new Date(), 30), 'YYYY-MM-DD')
         this.$refs['dateRange'].endDate = format(new Date(), 'YYYY-MM-DD')
@@ -224,6 +289,10 @@ export default {
           startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
           endDate: format(new Date(), 'YYYY-MM-DD')
         })
+        // .then(() => {
+        //   this.skipDashboardDataQueryAction(false)
+        //   this.skipDatatableDataQueryAction(false)
+        // })
       }, 300)
       this.selectDateDialog = false
     },
@@ -232,7 +301,12 @@ export default {
     },
     // Draw data from server
     requestDataFromAPI (e) {
-      this.groupByVarDataAction(e.target.text.toUpperCase())
+      // this.groupByVarDataAction(e.target.text.toUpperCase())
+      // this.datatableGroupByAction(e.target.text.toUpperCase())
+      setTimeout(() => {
+        this.groupByVarDataAction(e.target.text.toUpperCase())
+        this.datatableGroupByAction(e.target.text.toUpperCase())
+      }, 240)
     }
   },
   mounted () {

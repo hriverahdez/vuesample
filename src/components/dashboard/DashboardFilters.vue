@@ -19,7 +19,7 @@
                         close
                         @input="data.parent.selectItem(data.item)"
                     )
-                        v-avatar(class="accent") 
+                        v-avatar(class="accent")
                         | {{ data.item }}
         v-flex(xs2)
             v-select(
@@ -44,10 +44,11 @@
         v-flex(xs2)
             v-select(
                 v-model="$store.state.configModule.formatFilters"
-                :items="config.formats"
+                :items="formatsToFilters"
                 :label="this.$t('dashboard_view.format')"
                 tags
                 autocomplete
+                item-text="name"
                 clearable
                 @change="checkIfApplyButtonAvailable"
                 @input="addFormatToList"
@@ -67,6 +68,7 @@
                 :label="this.$t('dashboard_view.network')"
                 tags
                 autocomplete
+                item-text="name"
                 clearable
                 @change="checkIfApplyButtonAvailable"
                 @input="addNetworkToList"
@@ -92,15 +94,15 @@
                 @click.native="sendFilterValues"
                 :disabled="!valid"
                 ) {{ $t('dashboard_view.apply_filters')}}
-            v-checkbox(
-                class="dau__text"
-                v-model="$store.state.DAU"
-                label="Add DAU/AU data"
-                color="indigo darken-3"
-                value="indigo darken-3"
-                hide-details)
+            //- v-checkbox(
+            //--    class="dau__text"
+            //-    v-model="$store.state.DAU"
+            //-     label="Add DAU/AU data"
+            //-     color="indigo darken-3"
+            //-     value="indigo darken-3"
+            //-     hide-details)
 
-        //Confirm appiled filters
+        //-Confirm appiled filters
         //- dialog-alert
 
     // Lists
@@ -125,63 +127,27 @@
           v-list(class="list")
               v-subheader(class="list-title") {{`${$t('dashboard_view.formats')}:`}}
               template(v-for="(format, index) in formats")
-                  v-chip(close @input="removeChip(format, 'formatFilters')") {{ format }}
+                  v-chip(close @input="removeChip(format, 'formatFilters')") {{ format.name }}
 
     transition(name="fade")
       v-flex(xs12 v-if="networks.length" class="list-container")
           v-list(class="list")
               v-subheader(class="list-title") {{`${$t('dashboard_view.networks')}:`}}
               template(v-for="(network, index) in networks")
-                  v-chip(close @input="removeChip(network, 'networkFilters')") {{ network }}
-
-
-    //- // Columns
-    //- v-layout(row v-if="checkIfVisibleLists()")
-    //-     v-flex(xs3 v-if="apps.length")
-    //-         v-list
-    //-             template(v-for="(app, index) in apps")
-    //-                 v-list-tile
-    //-                     v-list-tile-content {{ app }}
-    //-     v-flex(xs3)
-    //-         v-list
-    //-             template(v-for="(country, index) in countries")
-    //-                 v-list-tile
-    //-                     v-list-tile-content {{ country.name }}
-
-    //-     v-flex(xs3)
-    //-         v-list
-    //-             template(v-for="(item, index) in apps")
-    //-                 v-list-tile
-    //-                     v-list-tile-content {{ item }}
-
-    //-     v-flex(xs3)
-    //-         v-list
-    //-             template(v-for="(item, index) in apps")
-    //-                 v-list-tile
-    //-                     v-list-tile-content {{ item }}
+                  v-chip(close @input="removeChip(network, 'networkFilters')") {{ network.name }}
 
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-// Import components
-// import DialogAlert from '@/components/DialogAlert'
 
 export default {
   name: 'dashboard-filters',
   data () {
     return {
-      // apps: [],
-      // countries: [],
-      // formats: [],
-      // networks: [],
-      // dau: false,
       valid: false
     }
   },
-  // components: {
-  //   DialogAlert
-  // },
   watch: {
     apps (val) {
       this.checkIfApplyButtonAvailable()
@@ -204,29 +170,39 @@ export default {
     ...mapGetters({
       appNames: 'appNamesGetter',
       apps: 'appFiltersGetter',
+      appsIdAndName: 'appIdAndNameGetter',
       config: 'dashboardFiltersGetter',
       countries: 'countryFiltersGetter',
       formats: 'formatFiltersGetter',
+      formatsToFilters: 'formatsIdsAndNamesGetter',
       networks: 'networkFiltersGetter',
-      networkNames: 'networkNamesGetter'
-
+      networksToFilters: 'networksKeysGetter',
+      networkNames: 'networksIdsAndNamesGetter',
+      formatsArray: 'formatsArrayForDashboardFiltersGetter'
     })
   },
   methods: {
     ...mapActions([
       'appFiltersAction',
+      'appIdsFiltersAction',
       'countryFiltersAction',
+      'countryIdsFiltersAction',
       'formatFiltersAction',
+      'formatIdsFiltersAction',
       'networkFiltersAction',
+      'networkIdsFiltersAction',
       'removeFilterItemAction'
+      // 'skipDashboardDataQueryAction',
+      // 'skipDatatableDataQueryAction'
     ]),
-    ...mapMutations(['setAlertMessage']),
+    ...mapMutations(['SET_ALERT_MESSAGE']),
     // Push selected apps to apps list
     addAppToList () {
       if (this.apps.length) {
         this.$refs['appSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.apps')} (${this.apps.length})`
       } else {
         this.$refs['appSelect'].$el.children[1].children[0].innerText = ''
+        this.appIdsFiltersAction([])
       }
     },
     // Push selected country to countries list
@@ -235,6 +211,7 @@ export default {
         this.$refs['countrySelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.countries')} (${this.countries.length})`
       } else {
         this.$refs['countrySelect'].$el.children[1].children[0].innerText = ''
+        this.countryIdsFiltersAction([])
       }
     },
     // Push selected format to formats list
@@ -243,6 +220,7 @@ export default {
         this.$refs['formatSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.formats')} (${this.formats.length})`
       } else {
         this.$refs['formatSelect'].$el.children[1].children[0].innerText = ''
+        this.formatIdsFiltersAction([])
       }
     },
     // Push selected network to networks list
@@ -251,6 +229,7 @@ export default {
         this.$refs['networkSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.networks')} (${this.networks.length})`
       } else {
         this.$refs['networkSelect'].$el.children[1].children[0].innerText = ''
+        this.networkIdsFiltersAction([])
       }
     },
     checkIfApplyButtonAvailable () {
@@ -280,37 +259,52 @@ export default {
       this.countryFiltersAction([])
       this.formatFiltersAction([])
       this.networkFiltersAction([])
+      this.appIdsFiltersAction([])
+      this.countryIdsFiltersAction([])
+      this.formatIdsFiltersAction([])
+      this.networkIdsFiltersAction([])
       this.valid = false
     },
     // Get filters info
     sendFilterValues () {
+      // App
+      let appIds = []
+      this.appsIdAndName.map((app, index) => {
+        if (app.name === this.apps[index]) {
+          appIds.push(app.id)
+        }
+      })
+      this.appFiltersAction(this.apps)
+      this.appIdsFiltersAction(appIds)
+      // Country
       let countryCodes = []
-      let networksToString = []
       this.countries.map((country) => {
         countryCodes.push(country.code)
       })
+      this.countryIdsFiltersAction(countryCodes)
+      // Network
+      let networksIds = []
       this.networks.map((network) => {
-        networksToString.push(network.toString())
+        networksIds.push(network.id)
       })
-      this.appFiltersAction(this.apps)
-      this.countryFiltersAction(countryCodes)
-      this.formatFiltersAction(this.formats)
-      this.networkFiltersAction(networksToString)
-      this.setAlertMessage({
-        show: true,
-        type: 'success',
-        message: this.$t('dashboard_view.confirm_filters_applied_message'),
-        buttonText: this.$t('buttons.close')
+      this.networkIdsFiltersAction(networksIds)
+      // Format
+      let formatsIds = []
+      this.formats.map((format) => {
+        formatsIds.push(format.id)
       })
+      this.formatIdsFiltersAction(formatsIds)
+
+      // Resume queries
+      // this.skipDashboardDataQueryAction(false)
+      // this.skipDatatableDataQueryAction(false)
+      // this.SET_ALERT_MESSAGE({
+      //   show: true,
+      //   type: 'success',
+      //   message: this.$t('dashboard_view.confirm_filters_applied_message'),
+      //   buttonText: this.$t('buttons.close')
+      // })
     }
-    // Show or hide lists elements
-    // checkIfVisibleLists () {
-    //   if (this.apps.length || this.countries.length) {
-    //     return true
-    //   } else {
-    //     return false
-    //   }
-    // }
   }
 }
 </script>

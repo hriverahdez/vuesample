@@ -3,6 +3,8 @@ const ACCOUNT_DATA = 'ACCOUNT_DATA'
 // Total accounts from query
 const ACCOUNTS_DATA = 'ACCOUNTS_DATA'
 const ACCOUNT_DIALOG_STATUS = 'ACCOUNT_DIALOG_STATUS'
+// Loader control
+const ACCOUNTS_LOADER_STATUS = 'ACCOUNTS_LOADER_STATUS'
 const EDIT_INDEX_STATUS = 'EDIT_INDEX_STATUS'
 
 const state = {
@@ -15,6 +17,7 @@ const state = {
     description: '',
     disabled: false
   },
+  accountsLoaderStatus: true,
   // Index element to know if its edited mode
   editedIndex: -1
 }
@@ -34,6 +37,9 @@ const getters = {
     state.accounts.map((account) => names.push(account.name))
     return names
   },
+  accountsLoaderStatusGetter (state) {
+    return state.accountsLoaderStatus
+  },
   editedIndexGetter (state) {
     return state.editedIndex
   }
@@ -43,11 +49,14 @@ const mutations = {
   [ACCOUNT_DATA] (state, account) {
     state.accountData = account
   },
+  [ACCOUNT_DIALOG_STATUS] (state, status) {
+    state.accountDialogStatus = status
+  },
   [ACCOUNTS_DATA] (state, accounts) {
     state.accounts = accounts
   },
-  [ACCOUNT_DIALOG_STATUS] (state, status) {
-    state.accountDialogStatus = status
+  [ACCOUNTS_LOADER_STATUS] (state, status) {
+    state.accountsLoaderStatus = status
   },
   [EDIT_INDEX_STATUS] (state, indexValue) {
     state.editedIndex = indexValue
@@ -63,6 +72,9 @@ const actions = {
   },
   accountDialogStatusAction ({commit}, showDialog) {
     commit(ACCOUNT_DIALOG_STATUS, showDialog)
+  },
+  accountsLoaderStatusAction ({commit}, status) {
+    commit(ACCOUNTS_LOADER_STATUS, status)
   },
   editedIndexStatusAction ({commit}, indexValue) {
     commit(EDIT_INDEX_STATUS, indexValue)
