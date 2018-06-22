@@ -5,9 +5,7 @@ import Router from 'vue-router'
 import AccountsView from '@/router/views/Accounts-view'
 import AccountsSelectionView from '@/router/views/Accounts-selection-view'
 import AppsView from '@/router/views/Apps-view'
-import Contacto from '@/components/Contacto'
 import DashboardView from '@/router/views/Dashboard-view'
-import DashboardPrueba from '@/components/Dashboard'
 import LoginView from '@/router/views/Login-view'
 import { store } from '@/store/store'
 import userMixin from '@/mixins/userMixin'
@@ -19,29 +17,22 @@ const router = new Router({
     {
       path: '/panel',
       name: 'dashboard',
-      component: DashboardView,
-      children: [
-        {
-          path: 'accounts',
-          name: 'accounts',
-          component: AccountsView
-        },
-        {
-          path: 'apps',
-          name: 'apps',
-          component: AppsView
-        },
-        {
-          path: 'dashboard',
-          name: 'prueba',
-          component: DashboardPrueba
-        },
-        {
-          path: 'contacto',
-          name: 'contacto',
-          component: Contacto
-        }
-      ]
+      component: DashboardView
+    },
+    {
+      path: '/panel/accounts',
+      name: 'accounts',
+      component: AccountsView
+    },
+    {
+      path: '/panel/apps',
+      name: 'apps',
+      component: AppsView
+    },
+    {
+      path: '/panel/apps',
+      name: 'apps',
+      component: AppsView
     },
     {
       path: '/accounts-selection',
