@@ -44,7 +44,6 @@ const getters = {
     getters.userGetter.accounts.forEach((element) => {
       accountsIds.push(element.account)
     })
-    console.log(accountsIds)
     return accountsIds
   },
   userAccounts (state) {
@@ -54,7 +53,6 @@ const getters = {
 
 const mutations = {
   [LOGOUT] (state) {
-    console.log('logout')
     state.activeAccount = ''
     state.token = ''
     state.user = []

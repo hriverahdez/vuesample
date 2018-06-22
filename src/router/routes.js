@@ -10,40 +10,43 @@ import DashboardView from '@/router/views/Dashboard-view'
 import DashboardPrueba from '@/components/Dashboard'
 import LoginView from '@/router/views/Login-view'
 import { store } from '@/store/store'
+import userMixin from '@/mixins/userMixin'
 
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {
-      path: '/',
+      path: '/panel',
       name: 'dashboard',
-      component: DashboardView
-    },
-    {
-      path: '/accounts',
-      name: 'accounts',
-      component: AccountsView
+      component: DashboardView,
+      children: [
+        {
+          path: 'accounts',
+          name: 'accounts',
+          component: AccountsView
+        },
+        {
+          path: 'apps',
+          name: 'apps',
+          component: AppsView
+        },
+        {
+          path: 'dashboard',
+          name: 'prueba',
+          component: DashboardPrueba
+        },
+        {
+          path: 'contacto',
+          name: 'contacto',
+          component: Contacto
+        }
+      ]
     },
     {
       path: '/accounts-selection',
       name: 'accounts_selection',
       component: AccountsSelectionView
-    },
-    {
-      path: '/apps',
-      name: 'apps',
-      component: AppsView
-    },
-    {
-      path: '/dashboard',
-      name: 'prueba',
-      component: DashboardPrueba
-    },
-    {
-      path: '/contacto',
-      name: 'contacto',
-      component: Contacto
     },
     {
       path: '/login',
@@ -53,11 +56,7 @@ const router = new Router({
     {
       path: '/logout',
       name: 'logout',
-      component: LoginView,
-      beforeEnter (to, from, next) {
-        store.dispatch('logout')
-        next('/login')
-      }
+      component: LoginView
     }
   ],
   mode: 'history',
@@ -67,12 +66,24 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  if (to.name === 'logout') {
+    store.dispatch('logout')
+    next()
+  }
+
+  // TODO: landing
+
   // SI EXISTE EN EL LOCAL STORE EL REMEMBER ME y EL TOKEN, CUENTA ACTIVA, SETEARLO ANTES
 
+  // console.log('rememberMe: ' + localStorage.getItem('rememberMe'))
+  // console.log('is logged')
+  // console.log(store.getters.isLogged)
+  // console.log(localStorage.getItem('rememberMe'))
+  // console.log(localStorage.getItem('token'))
+
   if (!store.getters.isLogged && typeof localStorage.getItem('rememberMe') !== 'undefined' &&
-      typeof localStorage.getItem('token') !== 'undefined') {
-    // TODO: hacer una consulta al servidor y cargar de nuevo el user en el store / cuenta activa
-    // remember me y token -> pasando el token en una consulta graphql, que nos devuelva el user asociado si existe
+      localStorage.getItem('rememberMe') !== null && typeof localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null) {
+    userMixin.apollo.userByToken.skip = false
   }
 
   // comprobamos a que ruta debe ir
@@ -80,7 +91,7 @@ router.beforeEach((to, from, next) => {
     next('/login')
   } else {
     if (to.name === 'login' && store.getters.isLogged) {
-      next('/')
+      next('/panel')
     }
     next()
   }
