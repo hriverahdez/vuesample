@@ -528,9 +528,9 @@ const accountMixin = {
       this.$apollo.queries[queryName].refetch()
     })
     // createAccountNetworkIntegration events
-    this.$root.$on('createAccountNetworkIntegration', () => {
-      console.log('entra')
-      this.createAccountNetworkIntegration1003()
+    this.$root.$on('createAccountNetworkIntegration', (profileName) => {
+      console.log('entra', profileName)
+      // this.createAccountNetworkIntegration1003()
     })
   },
   beforeDestroy () {

@@ -14,7 +14,13 @@
                   img(:src="imageSrc" class="network-logo")
                 div(class="manage-network__container__actions-row")
                   v-flex(xs8)
+                    v-text-field(
+                      v-if="newProfileModeActive"
+                      :label="$t('apps_view.profile_name')"
+                      v-model="profileName"
+                      )
                     v-select(
+                      v-else
                       :items="networkProfiles"
                       :label="this.$t('apps_view.select_profile')"
                       item-text="name"
@@ -25,17 +31,20 @@
                     v-btn(
                         class="white--text"
                         color="buttonColor"
-                        @click.native="sendCreateAccountNetworkIntegrationEvent"
+                        @click.native="showInputToCreateNewProfile"
                     ) {{ $t('apps_view.new_profile') }}
-                v-form(class="manage-network__container__form")
+                v-form(class="manage-network__container__form" ref="form")
                   div(
                     v-for="(field, key, index) in networksInfo[selectednetworkId].params_by_network"
                     :key="index"
                     class="manage-network__container__form__input-container"
                     )
                     v-text-field(
+                      data="tñhjrnlrtijblribjeflbjerlbviwjbvlriwjvwlivjlbivjhwlbivjdalbvida"
                       :label="field.label"
                       :value="selected[key]"
+                      :ref="`inputText${index}`"
+                      v-model="form.parent_id[index]"
                       )
                     p {{ field.help_text }}
 
@@ -54,7 +63,8 @@
           v-btn(
             class="white--text"
             color="buttonColor"
-            ) {{ $t('buttons.edit')}}
+            @clock="handleButtonAction"
+            ) {{ newProfileModeActive ? $t('buttons.create') : $t('buttons.edit') }}
 </template>
 
 <script>
@@ -69,8 +79,14 @@ export default {
   // },
   data () {
     return {
+      newProfileModeActive: false,
+      profileName: '',
+      selected: '',
       valid: false,
-      selected: ''
+      inputText: '',
+      form: {
+        parent_id: []
+      }
     }
   },
   // watch: {
@@ -107,9 +123,17 @@ export default {
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
     },
+    prueba (e) {
+      this.inputText = e
+    },
+    // Controla las dos acciones del botón (Editar y crear)
+    handleButtonAction () {
+      this.$root.$emit('createAccountNetworkIntegration', this.profileName)
+    },
     // Edit profile on click button
-    sendCreateAccountNetworkIntegrationEvent () {
-      this.$root.$emit('createAccountNetworkIntegration')
+    showInputToCreateNewProfile () {
+      this.newProfileModeActive = true
+      this.form.parent_id = []
     }
     // formatSelectedObject (e) {
     //   console.log('formateo', e)
