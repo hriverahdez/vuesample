@@ -78,7 +78,7 @@ export default {
           children: [
             { text: 'navigation.dashboard', action: '/' },
             // { text: 'navigation.waterfall_rules', action: '#' },
-            { text: 'navigation.network_integration', action: '#' }
+            { text: 'navigation.network_integration', action: '/apps' }
           ]
         },
         // {
@@ -98,7 +98,7 @@ export default {
           children: [
             // { text: 'navigation.profile', action: '#' },
             // { icon: 'timeline', text: 'navigation.finance', action: '#' },
-            { text: 'navigation.account_users', action: '/apps' },
+            { text: 'navigation.account_users', action: '#' },
             { text: 'navigation.tags', action: '#' }
             // { icon: 'label', text: 'navigation.tags', action: '#' }
           ]
