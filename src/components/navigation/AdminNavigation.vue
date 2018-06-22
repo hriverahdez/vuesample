@@ -76,9 +76,9 @@ export default {
           text: 'navigation.monetization',
           model: true,
           children: [
-            { text: 'navigation.dashboard', action: '/' },
+            { text: 'navigation.dashboard', action: '/panel' },
             // { text: 'navigation.waterfall_rules', action: '#' },
-            { text: 'navigation.network_integration', action: '/apps' }
+            { text: 'navigation.network_integration', action: '/panel/apps' }
           ]
         },
         // {
