@@ -5,6 +5,7 @@ import Vue from 'vue'
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloLink, concat } from 'apollo-link'
 import VueApollo from 'vue-apollo'
 
 // Main component import
@@ -40,8 +41,18 @@ const dynLink = createHttpLink({
   fetch: customFetch
 })
 
+// add the authorization to the headers
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      authorization: localStorage.getItem('token') || null
+    }
+  })
+  return forward(operation)
+})
+
 const apolloClient = new ApolloClient({
-  link: dynLink,
+  link: concat(authMiddleware, dynLink),
   cache: new InMemoryCache(),
   connectToDevTools: true
 })

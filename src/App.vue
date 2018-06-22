@@ -38,9 +38,6 @@ export default {
         return true
       }
     }
-  },
-  mounted () {
-    console.log('hola')
   }
 }
 </script>
