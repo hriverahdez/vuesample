@@ -40,9 +40,10 @@
       fixed
       height="54"
       )
-      v-toolbar-side-icon(@click.stop='drawer = !drawer')
-      div.logo__container
-        img(src='@/assets/logo.png', alt='Labcave logo').logo
+      div.logo
+        div.logo__container
+          img(src='@/assets/logo.png', alt='Labcave logo').logo
+        v-toolbar-side-icon(@click.stop='drawer = !drawer')
       v-spacer
       v-toolbar-items
         v-avatar(slot="activator" size="32")
@@ -144,6 +145,12 @@ export default {
 <style lang="scss">
   .list__group__items {
     background-color: #333;
+  }
+
+  .logo {
+    display: flex;
+    width: 275px;
+    margin-left: 0!important;
   }
 
   .toolbar__title {
