@@ -101,14 +101,14 @@
                         hide-details
                         class="switch"
                       )
-                    v-list-tile(
-                      class="app-column-menu__list__item"
-                      @click.native.stop=""
-                    ) {{ $t('apps_view.manage_ad_placements') }}
-                    v-list-tile(
-                      class="app-column-menu__list__item"
-                      @click.native.stop=""
-                    ) {{ $t('apps_view.waterfall_debugger') }}
+                    // v-list-tile(
+                    //   class="app-column-menu__list__item"
+                    //   @click.native.stop=""
+                    // ) {{ $t('apps_view.manage_ad_placements') }}
+                    // v-list-tile(
+                    //   class="app-column-menu__list__item"
+                    //   @click.native.stop=""
+                    // ) {{ $t('apps_view.waterfall_debugger') }}
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
