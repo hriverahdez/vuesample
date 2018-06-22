@@ -268,6 +268,14 @@ query ($filter: [AccountFilter]) {
 `
 
 /* -------------- Mutations ------------ */
+export const GET_ACCOUNTS_FILTERING = gql`
+    query accountsByFilter($filter: [AccountFilter]) {
+        accounts(orderBy: [name_DESC], filter: $filter) {
+           _id
+           name
+        }
+    }
+`
 export const CREATE_NEW_ACCOUNT = gql`
   mutation createAccount($input: CreateAccountInput!){
     createAccount(input: $input) {

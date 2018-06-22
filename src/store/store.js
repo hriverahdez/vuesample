@@ -10,6 +10,7 @@ import globalModule from '@/store/modules/globalModule'
 // import endpointModule from '@/store/modules/endpoint'
 import reportModule from '@/store/modules/reportModule'
 import translationsModule from '@/store/modules/translations'
+import userModule from '@/store/modules/userModule'
 
 // Vuex
 Vue.use(Vuex)
@@ -35,6 +36,7 @@ export const store = new Vuex.Store({
     globalModule,
     // endpointModule,
     reportModule,
-    translationsModule
+    translationsModule,
+    userModule
   }
 })

@@ -1,5 +1,11 @@
 
 {
+    "accounts_selection_view": {
+      "title": "Selección de cuenta",
+      "p1": "Por favor selecciona la cuenta en la que quieres logarte.",
+      "p2": "Cuentas disponibles",
+      "select_account": "Selecciona una cuenta"
+    },
     "accounts_view": {
       "account_title": "Listado de cuentas",
       "alert_message": "Ninguna cuenta disponible",
@@ -56,7 +62,9 @@
       "create": "Crear",
       "edit": "Editar",
       "exit": "Salir",
-      "remove": "Eliminar"
+      "remove": "Eliminar",
+      "signin": "Login",
+      "signup": "Registrarse"
     },
     "copies": {
       "drag_and_drop": "Arrastre un fichero o haga click"
@@ -109,6 +117,14 @@
     },
     "loader": {
       "loading_text": "Cargando..."
+    },
+    "login_view": {
+      "click_here": "Haz click aquí",
+      "email" : "E-mail",
+      "error": "Hay un error en tu cuenta. Por favor, contacta con el equipo técnico para más ayuda.",
+      "password" : "Contraseña",
+      "not_register": "¿Aún no te has registrado?",
+      "remember" : "Recordarme"
     },
     "navigation": {
       "account": "Cuenta",

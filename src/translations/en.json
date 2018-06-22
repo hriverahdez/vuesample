@@ -1,5 +1,11 @@
 
 {
+    "accounts_selection_view": {
+      "title": "Account selection",
+      "p1": "Please, select the account you want to sign in.",
+      "p2": "Available accounts",
+      "select_account": "Select an account"
+    },
     "accounts_view": {
       "account_title": "Account list",
       "alert_message": "No accounts available",
@@ -55,7 +61,9 @@
       "create": "Create",
       "edit": "Edit",
       "exit": "Exit",
-      "remove": "Remove"
+      "remove": "Remove",
+      "signin": "Sign in",
+      "signup": "Sign up"
     },
     "copies": {
       "drag_and_drop": "Drag and drop a file or click"
@@ -109,6 +117,14 @@
     },
     "loader": {
       "loading_text": "Loading..."
+    },
+    "login_view": {
+      "click_here": "Click here",
+      "email" : "E-mail",
+      "error": "An error has occured with your account. Please contact the technical team for support.",
+      "password" : "Password",
+      "not_register": "Not registered yet?",
+      "remember" : "Remember me"
     },
     "navigation": {
       "account": "Account",

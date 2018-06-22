@@ -4,15 +4,13 @@
     v-content
       v-container(grid-list-xl text-xs-center align-content-center class="view__container")
         router-view
-        template(v-if="checkIfVisibleDependingOnRoute()")
-          account-dialog(v-if="$store.state.accountModule.accountDialogStatus")
-          app-dialog(v-if="$store.state.appModule.appDialogStatus")
-          dialog-alert
+        account-dialog(v-if="$store.state.accountModule.accountDialogStatus")
+        app-dialog(v-if="$store.state.appModule.appDialogStatus")
+        dialog-alert
     v-layout(class="floating-button-container" v-if="checkIfVisibleDependingOnRoute()")
       floating-button
     v-footer(class="footer-container blue_dark" v-if="checkIfVisibleDependingOnRoute()")
      span.copyright {{ $t('footer.copyright') }}
-
 
 </template>
 
@@ -34,12 +32,15 @@ export default {
   },
   methods: {
     checkIfVisibleDependingOnRoute () {
-      if (this.$route.name === 'login') {
+      if (this.$route.name === 'login' || this.$route.name === 'accounts_selection') {
         return false
       } else {
         return true
       }
     }
+  },
+  mounted () {
+    console.log('hola')
   }
 }
 </script>

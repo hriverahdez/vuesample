@@ -118,7 +118,7 @@ export default {
         // { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
         // { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
         { icon: 'face', text: 'navigation.profile', action: '#' },
-        { icon: 'exit_to_app', text: 'navigation.logout', action: '#' }
+        { icon: 'exit_to_app', text: 'navigation.logout', action: '/logout' }
       ],
       items_select: [
         'English', 'Spanish'
