@@ -57,7 +57,7 @@
         v-btn(icon slot="activator" dark)
           v-icon more_vert
         v-list.options__list
-          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" @click="").option
+          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" router :to="item.action").option
             v-list-tile-action
               v-icon {{ item.icon }}
             v-list-tile-content {{ $t(item.text) }}
