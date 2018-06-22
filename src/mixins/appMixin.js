@@ -19,7 +19,7 @@ const appMixin = {
       },
       variables () {
         return {
-          _idAccount: this.accountId
+          _idAccount: '5b10f0f89a5fd62624137dd5'
         }
       },
       loadingKey: 'loading',
@@ -136,7 +136,9 @@ const appMixin = {
           _id: app
         },
         update: (store) => {
+          console.log(store)
           const data = store.readQuery({ query: APPS_DATA })
+          console.log('a', store, 'b', data)
           data.apps = data.apps.filter((item) => {
             return item._id !== app
           })

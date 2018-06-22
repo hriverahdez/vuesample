@@ -393,6 +393,7 @@ const accountMixin = {
         },
         update: (store) => {
           const data = store.readQuery({ query: GET_ACCOUNTS })
+          console.log('a', store, 'b', data)
           data.accounts = data.accounts.filter((item) => {
             return item._id !== account._id
           })
