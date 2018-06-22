@@ -1,3 +1,5 @@
 <template lang="pug">
-  h1 Contacto
+  div
+    h1 Contacto
+    h2 Prueba desde "Casa"
 </template>
