@@ -1,13 +1,17 @@
 // Vars
+border_color = #F4F4F4
+black = #000
 blue_darken_4 = #0D47A1
 blue_lighten_4 = #BBDEFB
 primary = #00A0D3
 gray_dark = #27333C
 gray = #212121
+green = #58C0B7
 white = #fff
 blue_calendar = #1565C0
-content_background-color = #efefef
-tabs_height = 36px
+content_background-color = #FAFBFC
+tabs_color = #fff
+tabs_height = 42px
 teal = #009688
 data_table_color = #1A237E
 
@@ -24,14 +28,19 @@ $data-table-heading-text = white
 @import '../../node_modules/vuetify/src/stylus/app.styl'
 
 // General
+.application--wrap > div
+    z-index: 9
+
 .content--wrap
     background-color: content_background-color
     // padding: 10px;
-.container
-    max-width: 1600px
 
-.application--wrap > div
-    z-index: 9
+.container.grid-list-xl
+    max-width: 1600px
+    padding: 30px 60px
+
+.strong
+    color: black
 
 // Breadcrumbs
 .breadcrumbs
@@ -137,6 +146,10 @@ table.table thead tr
   height: tabs_height
 
 // Tabs styles
+.tabs__wrapper
+  border: 1px solid border_color
+  border-top: 3px solid #E6E8ED;
+
 .tabs__container
     height: tabs_height
 
@@ -148,12 +161,22 @@ table.table thead tr
         @media $display-breakpoints.sm-and-up
           min-width: 100px
 
-.tabs__item--active
-    background-color: primary
+// .tabs__item--active
+//     background-color: primary
+
+.tabs__item
+  border-bottom 4px solid white
+  border-top 4px solid white
 
 .tabs__items
-    padding: 3px 10px
-    background-color: #FAFAFA
-    border: 1px solid  rgba(0,0,0,0.12)
+    padding: 0 20px
+    background-color: tabs_color
+    border-left: 1px solid  rgba(0,0,0,0.12)
+    border-right: 1px solid  rgba(0,0,0,0.12)
+
+.tabs__item--active
+    box-sizing: border-box
+    border-bottom 4px solid green
+
 
 

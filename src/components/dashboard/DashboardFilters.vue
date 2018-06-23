@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-container(text-xs-center)
+  v-container(text-xs-center  class="filters-container")
     v-layout(row wrap)
         v-flex(xs2)
             v-select(
@@ -323,6 +323,11 @@ export default {
         align-items: center;
     }
 }
+
+.filters-container {
+  padding: 10px 16px;
+}
+
 .list {
     display: flex;
     overflow: auto;

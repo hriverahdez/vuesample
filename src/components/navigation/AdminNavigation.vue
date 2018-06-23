@@ -4,7 +4,7 @@
       fixed,
       :clipped='$vuetify.breakpoint.lgAndUp',
       app,
-      dark,
+      class="nav"
       v-model='drawer'
       width="275"
       )
@@ -13,8 +13,9 @@
           v-list-group(
             v-if='item.children',
             v-model='item.model',
-            :key='item.text',
-            :prepend-icon="item.icon"
+            :prepend-icon="item.icon",
+            class="white--text",
+            :key='item.text'
             )
             v-list-tile(slot='activator')
               v-list-tile-content
@@ -22,7 +23,7 @@
                   | {{ $t(item.text) }}
             v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
               v-list-tile-action(v-if='child.icon')
-                v-icon(color="floatingButton") {{ child.icon }}
+                v-icon {{ child.icon }}
               v-list-tile-content
                 v-list-tile-title
                   | {{ $t(child.text) }}
@@ -34,31 +35,30 @@
                   | {{ $t(item.text) }}
     v-toolbar(
       color='toolbar',
-      dark,
       app,
       :clipped-left='$vuetify.breakpoint.lgAndUp',
       fixed
       height="54"
       )
       div.logo
-        div.logo__container
-          img(src='@/assets/logo.png', alt='Labcave logo').logo
-        v-toolbar-side-icon(@click.stop='drawer = !drawer')
+        div(class="logo__container")
+          img(src='@/assets/logo-labcave.png', alt='Labcave logo').logo
+        v-toolbar-side-icon(@click.stop='drawer = !drawer' light)
       v-spacer
       v-toolbar-items
         v-avatar(slot="activator" size="32")
           //- img(src='@/assets/spiderman.png' alt="User")
-          v-icon(dark) account_circle
-        div.user__info
-          div.user__info__user  {{ $t('navigation.user') }}:
-            span.user__info__label.primary--text Spiderman
-          div.user__info__account {{ $t('navigation.account') }}:
-            span.user__info__label.primary--text Marvel group
+          v-icon(light) account_circle
+        div(class="user__info")
+          div(class="user__info__user") {{ $t('navigation.user') }}:
+            span(class="user__info__label") Spiderman
+          div(class="user__info__accouny") {{ $t('navigation.account') }}:
+            span(class="user__info__label") Marvel group
       v-menu(bottom left dark offset-y)
         v-btn(icon slot="activator" dark)
-          v-icon more_vert
-        v-list.options__list
-          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" @click="").option
+          v-icon(light) more_vert
+        v-list(class="options__list")
+          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" @click="" class="option")
             v-list-tile-action
               v-icon {{ item.icon }}
             v-list-tile-content {{ $t(item.text) }}
@@ -143,28 +143,59 @@ export default {
 </script>
 
 <style lang="scss">
-  .list__group__items {
-    background-color: #333;
+  .list__group__header {
+    background: #424852!important;
+    i {
+      color: #818A9B!important;
+    }
+  }
+
+  .list__tile:hover {
+    color: #A9B0BF!important;
+    background: transparent!important;
+  }
+
+  .list__tile--active {
+    color: #58C0B7!important;
   }
 
   .logo {
     display: flex;
-    width: 275px;
+    width: 275px!important;
     margin-left: 0!important;
-  }
+    justify-content: space-between;
+    align-items: center;
+    height: 54px;
+    border-right: 1px solid #F4F4F4;
 
-  .toolbar__title {
-    display: flex;
+    img {
+      max-width: 100%;
+      height: auto;
+      border: none;
+    }
   }
 
   .logo__container {
     display: flex;
     align-items: center;
     padding-left: 10px;
+    width: 50%;
   }
 
-  .logo {
-    width: 65%;
+  .options__list {
+    background: #383D47!important;
+
+    i {
+      color: #818A9B!important;
+    }
+
+    .list__tile__content {
+        font-size: 12px;
+    }
+  }
+
+  .toolbar__title {
+    display: flex;
   }
 
   .toolbar__items {
@@ -174,23 +205,13 @@ export default {
 
   .user__info {
     padding: 12px 0 12px 12px;
+    color: rgba(0,0,0,0.54);
     font-size: 12px;
 
     &__label {
+      color: #000;
       display: inline-block;
       margin-left: 4px;
-      font-weight: bold;
-    }
-  }
-
-  // .list__group__header__prepend-icon {
-  //   color: #00A0D3!important;
-  // }
-
-  .options__list {
-
-    .list__tile__content {
-        font-size: 12px;
     }
   }
 

@@ -101,20 +101,25 @@ Vue.use(Vuetify, {
   //   gray_lighten_4: '#F5F5F5'
   // }
 
-// Fibonad Theme
+// Labcave Theme
   theme: {
+    black: '#000',
     blue_dark: '#232E37',
     blue_light: '#01579B',
     buttonColor: '#009688',
     formElementColor: '#00A0D3',
-    floatingButton: '#E65100',
+    floatingButton: '#EF8C34',
     gray_dark: '#27333C',
+    green: '#58C0B7',
     headings: '#1A237E',
-    loader: '#FFC107',
+    list_header: '#424852',
+    loader: '#EF8C34',
+    nav: '383D47',
+    orange: '#EF8C34',
     primary: '#00A0D3',
-    tab_heading: '#1A237E',
+    tab_heading: '#fff',
     teal: '#009688',
-    toolbar: '#232E37'
+    toolbar: '#fff'
     // secondary: '#ee44aa',
     // accent: '#FF8A65',
     // error: '#EF5350',
