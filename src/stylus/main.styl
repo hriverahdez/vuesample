@@ -7,13 +7,17 @@ blue_calendar = #1565C0
 blue_darken_4 = #0D47A1
 blue_lighten_4 = #BBDEFB
 content_background-color = #FAFBFC
-datatable_header_color = #E6E8ED
+datatable_header_color_type1 = #E6E8ED
+datatable_header_color_type2 = #F6F8FC
 datatable_row_hover = #FFFAF4!important
 header_components_height = 42px
 gray_dark = #27333C
 gray = #212121
+gray_type2 = #BFBFBF!important
 green = #58C0B7
+orange = #F4B781
 primary = #00A0D3
+red = #E6A3C3
 tabs_color = #fff
 teal = #009688
 text_color = rgba(0,0,0,0.54)
@@ -92,7 +96,6 @@ $data-table-heading-text = white
 
 // Datatable style
 .datatable
-    border-top: 3px solid #BDD0FB
     background-color: white!important
     color: text_color
 
@@ -100,16 +103,22 @@ $data-table-heading-text = white
         background: datatable_row_hover
 
     th
-        background-color: datatable_header_color
         height: header_components_height
 
-        i
-            color: white!important
-            padding-left: 1px
+.dashboard-datatable
+
+    .datatable
+        border-top: 3px solid #BDD0FB
+
+        th
+            background-color: datatable_header_color_type1
 
 .apps-datatable
 
     .datatable
+        color: text_color
+        th
+            background-color: datatable_header_color_type2
 
         th:first-of-type
             position: absolute
@@ -120,6 +129,10 @@ $data-table-heading-text = white
 
         th:nth-child(2)
             padding-left: 300px
+
+        i
+            color: gray_type2
+            padding-left: 1px
 
     // .datatable__actions
     //     background-color: data_table_color!important
