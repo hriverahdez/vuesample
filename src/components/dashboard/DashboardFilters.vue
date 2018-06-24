@@ -8,6 +8,7 @@
                 :label="this.$t('dashboard_view.app')"
                 tags
                 autocomplete
+                hide-details
                 clearable
                 @change="checkIfApplyButtonAvailable"
                 @input="addAppToList"
@@ -29,6 +30,7 @@
                 :label="this.$t('dashboard_view.country')"
                 tags
                 autocomplete
+                hide-details
                 clearable
                 @input="addCountryToList"
                 ref="countrySelect"
@@ -47,6 +49,7 @@
                 :items="formatsToFilters"
                 :label="this.$t('dashboard_view.format')"
                 tags
+                hide-details
                 autocomplete
                 item-text="name"
                 clearable
@@ -67,6 +70,7 @@
                 :items="networkNames"
                 :label="this.$t('dashboard_view.network')"
                 tags
+                hide-details
                 autocomplete
                 item-text="name"
                 clearable
@@ -312,10 +316,11 @@ export default {
 <style lang="scss" scoped>
 .buttons-container {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     .btn {
         font-size: 11px;
+        margin-bottom: 0!important;
     }
     .dau {
         display: flex;
