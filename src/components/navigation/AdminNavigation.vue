@@ -169,7 +169,7 @@ export default {
     border-right: 1px solid #F4F4F4;
 
     img {
-      max-width: 100%;
+      max-width: 90%;
       height: auto;
       border: none;
     }
