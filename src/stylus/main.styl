@@ -1,19 +1,23 @@
 // Vars
 border_color = #F4F4F4
+border = 1px solid rgba(0,0,0,0.12)
+border_bottom = 1px solid rgba(0,0,0,0.12)
 black = #000
+blue_calendar = #1565C0
 blue_darken_4 = #0D47A1
 blue_lighten_4 = #BBDEFB
-primary = #00A0D3
+content_background-color = #FAFBFC
+datatable_header_color = #E6E8ED
+datatable_row_hover = #FFFAF4!important
+header_components_height = 42px
 gray_dark = #27333C
 gray = #212121
 green = #58C0B7
-white = #fff
-blue_calendar = #1565C0
-content_background-color = #FAFBFC
+primary = #00A0D3
 tabs_color = #fff
-tabs_height = 42px
 teal = #009688
-data_table_color = #1A237E
+text_color = rgba(0,0,0,0.54)
+white = #fff
 
 
 $body-font-family = 'Ubuntu', sans-serif
@@ -88,11 +92,16 @@ $data-table-heading-text = white
 
 // Datatable style
 .datatable
+    border-top: 3px solid #BDD0FB
     background-color: white!important
+    color: text_color
+
+    tr:hover
+        background: datatable_row_hover
 
     th
-        background-color: data_table_color
-        color: white!important
+        background-color: datatable_header_color
+        height: header_components_height
 
         i
             color: white!important
@@ -143,7 +152,7 @@ $data-table-heading-text = white
 
 //Table styles
 table.table thead tr
-  height: tabs_height
+  height: header_components_height
 
 // Tabs styles
 .tabs__wrapper
@@ -161,18 +170,18 @@ table.table thead tr
         @media $display-breakpoints.sm-and-up
           min-width: 100px
 
-// .tabs__item--active
-//     background-color: primary
-
 .tabs__item
   border-bottom 4px solid white
   border-top 4px solid white
 
+    ^[0]:hover
+      border-bottom 4px solid green
+
 .tabs__items
     padding: 0 20px
     background-color: tabs_color
-    border-left: 1px solid  rgba(0,0,0,0.12)
-    border-right: 1px solid  rgba(0,0,0,0.12)
+    border-left: border
+    border-right: border
 
 .tabs__item--active
     box-sizing: border-box

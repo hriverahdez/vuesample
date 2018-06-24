@@ -51,7 +51,7 @@
 
                     // Tab items
                     // Date tab
-                    v-tab-item(id="tab-date")
+                    v-tab-item(id="tab-date" transition="false")
                         dashboard-filters
                         div(class="graph")
                           line-chart(
@@ -65,7 +65,7 @@
                           dashboard-no-data-filter(v-else)
 
                     // App tab
-                    v-tab-item(id="tab-app")
+                    v-tab-item(id="tab-app" ransition="false")
                         dashboard-filters
                         column-chart(
                           v-if="statsDataFormattedGetter"
