@@ -1,7 +1,7 @@
 <template lang="pug">
   v-container(text-xs-center  class="filters-container")
     v-layout(row wrap)
-        v-flex(xs2)
+        v-flex(xs6 sm3 md2)
             v-select(
                 v-model="$store.state.configModule.appFilters"
                 :items="appNames"
@@ -21,7 +21,7 @@
                     )
                         v-avatar(class="accent")
                         | {{ data.item }}
-        v-flex(xs2)
+        v-flex(xs6 sm3 md2)
             v-select(
                 v-model="$store.state.configModule.countryFilters"
                 :items="config.countries"
@@ -41,7 +41,7 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs2)
+        v-flex(xs6 sm3 md2)
             v-select(
                 v-model="$store.state.configModule.formatFilters"
                 :items="formatsToFilters"
@@ -61,7 +61,7 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs2)
+        v-flex(xs6 sm3 md2)
             v-select(
                 v-model="$store.state.configModule.networkFilters"
                 :items="networkNames"
@@ -81,7 +81,7 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs4 class="dau buttons-container")
+        v-flex(sm12 md4 class="dau buttons-container")
             v-btn(
                 :disabled="!valid"
                 class="white--text"
@@ -321,6 +321,12 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    @media only screen and (max-width: 960px) {
+      padding: 0!important;
+      display: flex;
+      justify-content: flex-end;
     }
 }
 
