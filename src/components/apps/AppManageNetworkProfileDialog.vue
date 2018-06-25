@@ -40,11 +40,16 @@
                     class="manage-network__container__form__input-container"
                     )
                     v-text-field(
-                      data="tñhjrnlrtijblribjeflbjerlbviwjbvlriwjvwlivjlbivjhwlbivjdalbvida"
+                      v-if="newProfileModeActive"
+                      :label="field.label"
+                      :ref="`inputText${index}`"
+                      v-model="form.input[index]"
+                      )
+                    v-text-field(
+                      v-else
                       :label="field.label"
                       :value="selected[key]"
                       :ref="`inputText${index}`"
-                      v-model="form.input[index]"
                       )
                     p {{ field.help_text }}
 
@@ -125,14 +130,13 @@ export default {
     },
     // Controla las dos acciones del botón (Editar y crear)
     handleButtonAction () {
-      console.log('entra', this.newProfileModeActive)
       this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form.input[0])
       this.newProfileModeActive = false
-      console.log('entra', this.newProfileModeActive)
     },
     // Remove network profile
     sendRemoveNetworkProfileEvent () {
-      this.$root.$emit('removeNetworkProfile')
+      this.$root.$emit('removeNetworkProfile', this.selected.name, this.selectednetworkId)
+      this.selected = ''
     },
     // Edit profile on click button
     showInputToCreateNewProfile () {

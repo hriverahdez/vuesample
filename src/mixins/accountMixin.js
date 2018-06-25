@@ -510,16 +510,16 @@ const accountMixin = {
       })
     },
     // Remove network profile
-    removeNetworkProfile () {
+    removeNetworkProfile (profileName, selectedNetworkId) {
       this.$apollo.mutate({
         mutation: DELETE_NETWORK_PROFILE,
         context: {
           uri: URI
         },
         variables: {
-          _idAccount: '5b10f0d09a5fd6245f658384',
-          _idNetwork: 1003,
-          _profileName: 'Luneeeeeeeeeeesssssssss'
+          _idAccount: this.accountId,
+          _idNetwork: selectedNetworkId,
+          _profileName: profileName
         },
         update: (store) => {
           // Actualizamos la query correspondiente
@@ -530,13 +530,13 @@ const accountMixin = {
             variables: {
               filter: {
                 filter: {
-                  _id: '5b10f0d09a5fd6245f658384'
+                  _id: this.accountId
                 }
               }
             }
           })
           data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== '5b10f0d09a5fd6245f658384'
+            return item._idAccount !== this.accountId
           })
           store.writeQuery({
             query: NETWORK_PROFILES_ADCOLONY,
@@ -544,7 +544,7 @@ const accountMixin = {
             variables: {
               filter: {
                 filter: {
-                  _id: '5b10f0d09a5fd6245f658384'
+                  _id: this.accountId
                 }
               }
             }
@@ -561,10 +561,6 @@ const accountMixin = {
     this.$root.$on('deleteAccount', (account) => {
       this.deleteAccount(account)
     })
-    this.$root.$on('removeNetworkProfile', () => {
-      console.log('remove')
-      this.removeNetworkProfile()
-    })
     this.$root.$on('editAccount', (id, name, description, disabled) => {
       this.editAccount(id, name, description, disabled)
     })
@@ -577,8 +573,10 @@ const accountMixin = {
     })
     // createAccountNetworkIntegration events
     this.$root.$on('createAccountNetworkIntegration', (profileName, input) => {
-      console.log('entra', profileName, input)
       this.createAccountNetworkIntegration1003(profileName, input)
+    })
+    this.$root.$on('removeNetworkProfile', (profileName, selectedNetworkId) => {
+      this.removeNetworkProfile(profileName, parseInt(selectedNetworkId))
     })
   },
   beforeDestroy () {
