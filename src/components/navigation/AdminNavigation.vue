@@ -92,33 +92,33 @@ export default {
         //   ]
         // },
         // { icon: 'edit', text: 'navigation.custom_campaigns', action: '#' },
-        {
-          icon: 'list',
-          text: 'navigation.account',
-          model: true,
-          children: [
+        // {
+        //   icon: 'list',
+        //   text: 'navigation.account',
+        //   model: true,
+        //   children: [
             // { text: 'navigation.profile', action: '#' },
             // { icon: 'timeline', text: 'navigation.finance', action: '#' },
-            { text: 'navigation.account_users', action: '#' },
-            { text: 'navigation.tags', action: '#' }
+            // { text: 'navigation.account_users', action: '#' },
+            // { text: 'navigation.tags', action: '#' }
             // { icon: 'label', text: 'navigation.tags', action: '#' }
-          ]
-        },
+        //   ]
+        // },
         {
           icon: 'account_box',
           text: 'navigation.admin',
           model: true,
           children: [
-            { text: 'navigation.users', action: '#' },
+            // { text: 'navigation.users', action: '#' },
             // { text: 'navigation.roles', action: '#' },
-            { text: 'navigation.accounts', action: 'accounts' }
+            { text: 'navigation.accounts', action: '/panel/accounts' }
           ]
         }
       ],
       user_menu_options: [
         // { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
         // { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
-        { icon: 'face', text: 'navigation.profile', action: '#' },
+        // { icon: 'face', text: 'navigation.profile', action: '#' },
         { icon: 'exit_to_app', text: 'navigation.logout', action: '/logout' }
       ],
       items_select: [
