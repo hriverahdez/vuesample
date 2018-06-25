@@ -143,6 +143,7 @@ export default {
     handleButtonAction () {
       if (this.newProfileModeActive) {
         this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form)
+        this.profileName = ''
         this.newProfileModeActive = false
       } else {
         this.$root.$emit('editAccountNetworkIntegration', this.selected.name, this.edittedValue, this.selected)

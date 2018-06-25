@@ -665,7 +665,8 @@ const accountMixin = {
         }
       })
     },
-    updateNetwork1003Profile (profileName, edittedValue) {
+    updateNetwork1003Profile (profileName, edittedValue, selected) {
+      console.log(edittedValue)
       this.$apollo.mutate({
         mutation: UPDATE_NETWORK_1003_PROFILE,
         context: {
@@ -678,12 +679,11 @@ const accountMixin = {
             profile: {
               name: profileName,
               default: true,
-              api_key: edittedValue
+              api_key: edittedValue[0] ? edittedValue[0] : selected.api_key
             }
           }
         },
         update: (store) => {
-          console.log(edittedValue)
           // Actualizamos la query correspondiente
           this.skipNetworkProfilesAdcolonyQuery = false
           this.$apollo.queries.networkProfilesAdcolony.refetch()
@@ -701,7 +701,7 @@ const accountMixin = {
             if (item._id === this.accountId) {
               item.name = profileName
               item.default = true
-              item.api_key = edittedValue
+              item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
             }
           })
           store.writeQuery({
