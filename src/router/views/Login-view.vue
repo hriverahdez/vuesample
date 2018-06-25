@@ -2,7 +2,7 @@
     v-container(class="login__body fullscreen")
         v-layout(wrap class="card__row-title")
             v-flex().login
-                img(src="@/assets/logo-labcave.png").logo
+                img(src="@/assets/logo-labcave-login.png").logo_labcave
                 h2.t1 Sign in to start your sesion
                 v-form(
                     ref="form"
@@ -157,7 +157,7 @@
             padding:10vh 7.5% 0
         }
     }
-    .login .logo{
+    .login .logo_labcave{
         display:block;
         max-width:100%;
         margin:0 auto
