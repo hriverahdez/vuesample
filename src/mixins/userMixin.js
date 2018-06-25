@@ -68,6 +68,7 @@ const userMixin = {
         return this.skipQueryUserByToken
       },
       error () {
+        this.setUserTokenChecking(false)
         localStorage.removeItem('activeAccount')
         localStorage.removeItem('token')
         localStorage.removeItem('rememberMe')
@@ -86,6 +87,7 @@ const userMixin = {
       'userDataAction',
       'setUserAccounts',
       'setActiveUserAccountAction',
+      'setUserTokenChecking',
       'tokenDataAction'
     ]),
     queryUser (email) {

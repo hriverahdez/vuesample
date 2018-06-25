@@ -117,7 +117,6 @@ const actions = {
     commit(USER_ACCOUNTS, accounts)
   },
   setUserTokenChecking ({commit}, checking) {
-    console.log(checking)
     commit(USER_TOKEN_CHECKING, checking)
   }
 }
