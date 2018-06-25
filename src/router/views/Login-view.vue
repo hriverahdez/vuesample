@@ -1,7 +1,7 @@
 <template lang="pug">
     v-container(class="login__body fullscreen")
         v-layout(wrap class="card__row-title")
-            v-flex().login
+            v-flex(v-if="!isUserTokenChecking").login
                 img(src="@/assets/logo-labcave-login.png").logo_labcave
                 h2.t1 Sign in to start your sesion
                 v-form(
@@ -65,7 +65,8 @@
       ...mapGetters({
         getUrlLogin: 'urlLogin',
         getUser: 'userGetter',
-        getUserAccountsNum: 'userAccountsNumberGetter'
+        getUserAccountsNum: 'userAccountsNumberGetter',
+        isUserTokenChecking: 'userTokenChecking'
       })
     },
     methods: {
