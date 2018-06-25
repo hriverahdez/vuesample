@@ -19,12 +19,11 @@ const appMixin = {
       },
       variables () {
         return {
-          _idAccount: this.accountId
+          _idAccount: '5b10f0f89a5fd62624137dd5'
         }
       },
       loadingKey: 'loading',
       update (data) {
-        console.log(data)
         this.appDataAction(data.apps).then(() => {
           this.appsLoaderStatusAction(false)
         })

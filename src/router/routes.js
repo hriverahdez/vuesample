@@ -30,11 +30,6 @@ const router = new Router({
       component: AppsView
     },
     {
-      path: '/panel/apps',
-      name: 'apps',
-      component: AppsView
-    },
-    {
       path: '/accounts-selection',
       name: 'accounts_selection',
       component: AccountsSelectionView
