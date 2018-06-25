@@ -83,7 +83,8 @@ mutation updateAccountNetworkIntegration1003byIdAccount ($_idAccount: ID!, $_pro
 }
 `
 
-// APPLOVIN
+/* ------------------------- APPLOVIN --------------------------- */
+// Query
 export const NETWORK_PROFILES_APPLOVIN = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -102,6 +103,32 @@ query ($filter: [AccountFilter]) {
     }
   }
  }
+`
+
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1008 = gql`
+mutation createAccountNetworkIntegration1008 ($input: CreateAccountNetIntegration1008Input!){
+  createAccountNetworkIntegration1008(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1008_PROFILE = gql`
+mutation updateAccountNetworkIntegration1008byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1008Input!){
+  updateAccountNetworkIntegration1008byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
 `
 
 // CHARTBOOST

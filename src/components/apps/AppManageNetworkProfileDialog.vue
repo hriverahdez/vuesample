@@ -47,7 +47,7 @@
                       )
                     v-text-field(
                       v-else
-                      @input="getNewEdittedValue"
+                      @change="getNewEdittedValue($event, index)"
                       :label="field.label"
                       :value="selected[key]"
                       :ref="`inputText${index}`"
@@ -85,7 +85,7 @@ export default {
   // },
   data () {
     return {
-      edittedValue: '',
+      edittedValue: {},
       newProfileModeActive: false,
       profileName: '',
       selected: '',
@@ -136,8 +136,8 @@ export default {
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
     },
-    getNewEdittedValue (e) {
-      this.edittedValue = e
+    getNewEdittedValue (e, index) {
+      this.edittedValue[index] = e
     },
     // Controla las dos acciones del botón (Editar y crear)
     handleButtonAction () {
@@ -145,7 +145,8 @@ export default {
         this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form)
         this.newProfileModeActive = false
       } else {
-        this.$root.$emit('editAccountNetworkIntegration', this.selected.name, this.edittedValue)
+        this.$root.$emit('editAccountNetworkIntegration', this.selected.name, this.edittedValue, this.selected)
+        this.selected = ''
       }
     },
     // Remove network profile
