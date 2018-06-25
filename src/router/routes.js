@@ -69,8 +69,10 @@ router.beforeEach((to, from, next) => {
   // console.log(localStorage.getItem('rememberMe'))
   // console.log(localStorage.getItem('token'))
 
+  store.dispatch('setUserTokenChecking', false)
   if (!store.getters.isLogged && typeof localStorage.getItem('rememberMe') !== 'undefined' &&
       localStorage.getItem('rememberMe') !== null && typeof localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null) {
+    store.dispatch('setUserTokenChecking', true)
     userMixin.apollo.userByToken.skip = false
   }
 
