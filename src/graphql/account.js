@@ -291,6 +291,21 @@ export const DELETE_ACCOUNT = gql`
     deleteAccountById(_id: $ids) }
 `
 
+export const DELETE_NETWORK_PROFILE = gql`
+mutation deleteAccountNetworkIntegrationProfile ($_idAccount: ID!, $_idNetwork: Int!, $_profileName: String!) {
+  deleteAccountNetworkIntegrationProfile(
+    _idAccount: $_idAccount,
+    _idNetwork: $_idNetwork,
+    _profileName: $_profileName
+  ) {
+      account {
+          _id
+          name
+      }
+  }
+}
+`
+
 export const UPDATE_ACCOUNT = gql`
 mutation updateAccountById ($id: ID!, $input: UpdateAccountInput!){
   updateAccountById(_id: $id, input: $input) {

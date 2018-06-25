@@ -52,7 +52,7 @@
           v-btn(
             class="white--text"
             color="buttonColor"
-            @click.native=""
+            @click.native="sendRemoveNetworkProfileEvent"
             ) {{ $t('buttons.remove_network') }}
           v-spacer
           v-btn(
@@ -129,6 +129,10 @@ export default {
       this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form.input[0])
       this.newProfileModeActive = false
       console.log('entra', this.newProfileModeActive)
+    },
+    // Remove network profile
+    sendRemoveNetworkProfileEvent () {
+      this.$root.$emit('removeNetworkProfile')
     },
     // Edit profile on click button
     showInputToCreateNewProfile () {
