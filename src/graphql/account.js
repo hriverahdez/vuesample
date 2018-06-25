@@ -324,7 +324,8 @@ mutation updateAccountNetworkIntegration1001byIdAccount ($_idAccount: ID!, $_pro
 }
 `
 
-// MOBVISTA
+/* ------------------------- MOBVISTA --------------------------- */
+// Query
 export const NETWORK_PROFILES_MOBVISTA = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -343,6 +344,32 @@ query ($filter: [AccountFilter]) {
     }
   }
  }
+`
+
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1014 = gql`
+mutation createAccountNetworkIntegration1014 ($input: CreateAccountNetIntegration1014Input!){
+  createAccountNetworkIntegration1014(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1014_PROFILE = gql`
+mutation updateAccountNetworkIntegration1014byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1014Input!){
+  updateAccountNetworkIntegration1014byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
 `
 
 // MOPUB

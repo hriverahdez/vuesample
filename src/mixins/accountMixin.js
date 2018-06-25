@@ -5,6 +5,7 @@ import {
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1007,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1008,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1012,
+  CREATE_ACCOUNT_NETWORK_INTEGRATION_1014,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1017,
   GET_ACCOUNTS,
   DELETE_ACCOUNT,
@@ -27,6 +28,7 @@ import {
   UPDATE_NETWORK_1007_PROFILE,
   UPDATE_NETWORK_1008_PROFILE,
   UPDATE_NETWORK_1012_PROFILE,
+  UPDATE_NETWORK_1014_PROFILE,
   UPDATE_NETWORK_1017_PROFILE
 } from '@/graphql/account'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
@@ -788,6 +790,72 @@ const accountMixin = {
         // })
       })
     },
+    createAccountNetworkIntegration1014 (profileName, input) {
+      this.$apollo.mutate({
+        mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1014,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            accountId: this.accountId,
+            profiles: [
+              {
+                name: profileName,
+                default: true,
+                skey: input.input[0],
+                secret: input.input[1]
+              }
+            ]
+          }
+        },
+        update: (store, { data: { createAccountNetworkIntegration1014 } }) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesMobvistaQuery = false
+          this.$apollo.queries.networkProfilesMobvista.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_MOBVISTA,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          // Add our tag from the mutation to the end
+          data.accounts.push(createAccountNetworkIntegration1014)
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: NETWORK_PROFILES_MOBVISTA,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        // this.editedIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.new_profile_created'),
+          buttonText: this.$t('buttons.close')
+        })
+        // this.appManageNetworkProfileDialogStatusAction(false)
+        // this.accountSchemaAction({
+        //   name: '',
+        //   description: '',
+        //   disabled: ''
+        // })
+      })
+    },
     createAccountNetworkIntegration1017 (profileName, input) {
       this.$apollo.mutate({
         mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1017,
@@ -1065,6 +1133,48 @@ const accountMixin = {
         }
       })
     },
+    removeNetworkProfile1014 (profileName, selectedNetworkId, skipVar, queryName) {
+      this.$apollo.mutate({
+        mutation: DELETE_NETWORK_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _idNetwork: selectedNetworkId,
+          _profileName: profileName
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this[skipVar] = false
+          this.$apollo.queries[queryName].refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_MOBVISTA,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts = data.accounts.filter((item) => {
+            return item._idAccount !== this.accountId
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_MOBVISTA,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+    },
     removeNetworkProfile1017 (profileName, selectedNetworkId, skipVar, queryName) {
       this.$apollo.mutate({
         mutation: DELETE_NETWORK_PROFILE,
@@ -1107,6 +1217,7 @@ const accountMixin = {
         }
       })
     },
+    // Update network profiles
     updateNetwork1001Profile (profileName, edittedValue, selected) {
       this.$apollo.mutate({
         mutation: UPDATE_NETWORK_1001_PROFILE,
@@ -1121,7 +1232,7 @@ const accountMixin = {
               name: profileName,
               default: true,
               api_key: edittedValue[0] ? edittedValue[0] : selected.api_key,
-              user_id: edittedValue[0] ? edittedValue[0] : selected.user_id
+              user_id: edittedValue[1] ? edittedValue[1] : selected.user_id
             }
           }
         },
@@ -1144,7 +1255,7 @@ const accountMixin = {
               item.name = profileName
               item.default = true
               item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
-              item.user_id = edittedValue[0] ? edittedValue[0] : selected.user_id
+              item.user_id = edittedValue[1] ? edittedValue[1] : selected.user_id
             }
           })
           store.writeQuery({
@@ -1455,6 +1566,75 @@ const accountMixin = {
         // })
       })
     },
+    updateNetwork1014Profile (profileName, edittedValue, selected) {
+      this.$apollo.mutate({
+        mutation: UPDATE_NETWORK_1014_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _profileName: profileName,
+          input: {
+            profile: {
+              name: profileName,
+              default: true,
+              skey: edittedValue[0] ? edittedValue[0] : selected.skey,
+              secret: edittedValue[1] ? edittedValue[1] : selected.secret
+            }
+          }
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesMobvistaQuery = false
+          this.$apollo.queries.networkProfilesMobvista.refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_MOBVISTA,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts.map((item) => {
+            if (item._id === this.accountId) {
+              item.name = profileName
+              item.default = true
+              item.skey = edittedValue[0] ? edittedValue[0] : selected.skey
+              item.secret = edittedValue[1] ? edittedValue[1] : selected.secret
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_MOBVISTA,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        // this.editedIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_network_profile'),
+          buttonText: this.$t('buttons.close')
+        })
+        this.accountDialogStatusAction(false)
+        // this.accountSchemaAction({
+        //   name: '',
+        //   description: '',
+        //   disabled: ''
+        // })
+      })
+    },
     updateNetwork1017Profile (profileName, edittedValue, selected) {
       this.$apollo.mutate({
         mutation: UPDATE_NETWORK_1017_PROFILE,
@@ -1571,6 +1751,8 @@ const accountMixin = {
         this.removeNetworkProfile1017(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
       } else if ((name === 'MOBUSI')) {
         this.removeNetworkProfile1001(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
+      } else if ((name === 'MOBVISTA')) {
+        this.removeNetworkProfile1014(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
       }
     })
   },
