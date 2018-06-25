@@ -54,6 +54,7 @@
       "remove_app_message": "Escribe {number} en el campo de texto",
       "select_platform": "Selecciona plataforma",
       "select_profile": "Selecciona perfil",
+      "updated_network_profile": "Perfil de red actualizado",
       "waterfall_debugger": "Regulador cascada"
     },
     "buttons": {

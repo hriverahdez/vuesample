@@ -53,6 +53,7 @@
       "remove_app_message": "Write {number} in the text field ",
       "select_platform": "Select platform",
       "select_profile": "Select profile",
+      "updated_network_profile": "Network profile editted",
       "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {

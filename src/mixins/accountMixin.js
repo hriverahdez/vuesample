@@ -16,7 +16,8 @@ import {
   NETWORK_PROFILES_MOPUB,
   NETWORK_PROFILES_STARTAPP,
   NETWORK_PROFILES_UNITYADS,
-  NETWORK_PROFILES_VUNGLE
+  NETWORK_PROFILES_VUNGLE,
+  UPDATE_NETWORK_1003_PROFILE
 } from '@/graphql/account'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 
@@ -331,7 +332,9 @@ const accountMixin = {
   },
   computed: {
     ...mapGetters({
-      accountId: this.activeAccount
+      accountId: this.activeAccount,
+      selectedNetworkId: 'selectedNetworkIdToManageGetter',
+      selectedNetworkName: 'selectedNetworkToManageGetter'
     })
   },
   methods: {
@@ -457,7 +460,7 @@ const accountMixin = {
               {
                 name: profileName,
                 default: true,
-                api_key: input
+                api_key: input.input[0]
               }
             ]
           }
@@ -510,7 +513,7 @@ const accountMixin = {
       })
     },
     // Remove network profile
-    removeNetworkProfile (profileName, selectedNetworkId) {
+    removeNetworkProfile (profileName, selectedNetworkId, skipVar, queryName) {
       this.$apollo.mutate({
         mutation: DELETE_NETWORK_PROFILE,
         context: {
@@ -523,8 +526,8 @@ const accountMixin = {
         },
         update: (store) => {
           // Actualizamos la query correspondiente
-          this.skipNetworkProfilesAdcolonyQuery = false
-          this.$apollo.queries.networkProfilesAdcolony.refetch()
+          this[skipVar] = false
+          this.$apollo.queries[queryName].refetch()
           const data = store.readQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             variables: {
@@ -551,6 +554,74 @@ const accountMixin = {
           })
         }
       })
+    },
+    updateNetwork1003Profile (profileName, edittedValue) {
+      this.$apollo.mutate({
+        mutation: UPDATE_NETWORK_1003_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _profileName: profileName,
+          input: {
+            profile: {
+              name: profileName,
+              default: true,
+              api_key: edittedValue
+            }
+          }
+        },
+        update: (store) => {
+          console.log(edittedValue)
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesAdcolonyQuery = false
+          this.$apollo.queries.networkProfilesAdcolony.refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_ADCOLONY,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts.map((item) => {
+            if (item._id === this.accountId) {
+              item.name = profileName
+              item.defaukt = true
+              item.api_key = edittedValue
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_ADCOLONY,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        // this.editedIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_network_profile'),
+          buttonText: this.$t('buttons.close')
+        })
+        this.accountDialogStatusAction(false)
+        // this.accountSchemaAction({
+        //   name: '',
+        //   description: '',
+        //   disabled: ''
+        // })
+      })
     }
   },
   mounted () {
@@ -573,10 +644,19 @@ const accountMixin = {
     })
     // createAccountNetworkIntegration events
     this.$root.$on('createAccountNetworkIntegration', (profileName, input) => {
-      this.createAccountNetworkIntegration1003(profileName, input)
+      let currentNetwork = `createAccountNetworkIntegration${this.selectedNetworkId}`
+      this[currentNetwork](profileName, input)
+    })
+    // editAccountNetworkIntegration events
+    this.$root.$on('editAccountNetworkIntegration', (profileName, edittedValue) => {
+      let currentNetwork = `updateNetwork${this.selectedNetworkId}Profile`
+      this[currentNetwork](profileName, edittedValue)
     })
     this.$root.$on('removeNetworkProfile', (profileName, selectedNetworkId) => {
-      this.removeNetworkProfile(profileName, parseInt(selectedNetworkId))
+      let formattedName = this.selectedNetworkName.charAt(0).toUpperCase() + this.selectedNetworkName.slice(1).toLowerCase()
+      let skipVar = `skipNetworkProfiles${formattedName}Query`
+      let queryName = `networkProfiles${formattedName}`
+      this.removeNetworkProfile(profileName, parseInt(selectedNetworkId), skipVar, queryName)
     })
   },
   beforeDestroy () {

@@ -16,7 +16,7 @@
         :headers="headers"
         :items="accounts"
         :search="search"
-        class="elevation-1"
+        class="elevation-1 account-datatable"
         :rows-per-page-items="[10,20, 30]"
         )
         template(slot="items" slot-scope="props")

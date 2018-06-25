@@ -37,7 +37,8 @@ query ($filter: [AccountFilter]) {
  }
 `
 
-// ADCOLONY
+/* ------------------------- ADCOLONY --------------------------- */
+// Query
 export const NETWORK_PROFILES_ADCOLONY = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -55,6 +56,31 @@ query ($filter: [AccountFilter]) {
     }
   }
  }
+`
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1003 = gql`
+mutation createAccountNetworkIntegration1003 ($input: CreateAccountNetIntegration1003Input!){
+  createAccountNetworkIntegration1003(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1003_PROFILE = gql`
+mutation updateAccountNetworkIntegration1003byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1003Input!){
+  updateAccountNetworkIntegration1003byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
 `
 
 // APPLOVIN
@@ -267,7 +293,7 @@ query ($filter: [AccountFilter]) {
  }
 `
 
-/* -------------- Mutations ------------ */
+/* -------------- General Mutations ------------ */
 export const GET_ACCOUNTS_FILTERING = gql`
     query accountsByFilter($filter: [AccountFilter]) {
         accounts(orderBy: [name_DESC], filter: $filter) {
@@ -309,17 +335,6 @@ mutation deleteAccountNetworkIntegrationProfile ($_idAccount: ID!, $_idNetwork: 
 export const UPDATE_ACCOUNT = gql`
 mutation updateAccountById ($id: ID!, $input: UpdateAccountInput!){
   updateAccountById(_id: $id, input: $input) {
-    account {
-      _id
-      name
-    }
-  }
-}
-`
-
-export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1003 = gql`
-mutation createAccountNetworkIntegration1003 ($input: CreateAccountNetIntegration1003Input!){
-  createAccountNetworkIntegration1003(input: $input) {
     account {
       _id
       name

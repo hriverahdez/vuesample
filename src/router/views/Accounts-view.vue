@@ -1,7 +1,7 @@
 <template lang="pug">
   v-container(class="accounts__section")
     v-layout(wrap class="card__row-title")
-      v-flex(xs12)
+      v-flex(xs12 class="accounts__section__card")
         //- v-breadcrumbs(divider="/" large)
         //-   v-breadcrumbs-item {{ $t('navigation.accounts') }}
         accounts-data-table(v-if="loaderStatus === false")
@@ -33,3 +33,10 @@ export default {
   mixins: [accountMixin, appMixin]
 }
 </script>
+
+<style lang="scss" scoped>
+.accounts__section__card .card {
+  border-top: 3px solid #BDD0FB;
+}
+</style>
+

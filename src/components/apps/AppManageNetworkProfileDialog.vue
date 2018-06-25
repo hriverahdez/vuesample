@@ -47,6 +47,7 @@
                       )
                     v-text-field(
                       v-else
+                      @input="getNewEdittedValue"
                       :label="field.label"
                       :value="selected[key]"
                       :ref="`inputText${index}`"
@@ -84,6 +85,7 @@ export default {
   // },
   data () {
     return {
+      edittedValue: '',
       newProfileModeActive: false,
       profileName: '',
       selected: '',
@@ -110,6 +112,12 @@ export default {
       selectedNetworkName: 'selectedNetworkToManageGetter',
       networkProfiles: 'networkProfilesListGetter'
     }),
+    // edittedValue () {
+    //   return ''
+    // },
+    // selected () {
+    //   return ''
+    // },
     imageSrc () {
       return require(`../../assets/networks/${this.selectednetworkId}.png`)
     }
@@ -128,10 +136,17 @@ export default {
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
     },
+    getNewEdittedValue (e) {
+      this.edittedValue = e
+    },
     // Controla las dos acciones del botón (Editar y crear)
     handleButtonAction () {
-      this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form.input[0])
-      this.newProfileModeActive = false
+      if (this.newProfileModeActive) {
+        this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form)
+        this.newProfileModeActive = false
+      } else {
+        this.$root.$emit('editAccountNetworkIntegration', this.selected.name, this.edittedValue)
+      }
     },
     // Remove network profile
     sendRemoveNetworkProfileEvent () {
