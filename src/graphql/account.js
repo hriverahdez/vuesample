@@ -179,7 +179,8 @@ mutation updateAccountNetworkIntegration1007byIdAccount ($_idAccount: ID!, $_pro
 }
 `
 
-// INMOBI
+/* ------------------------- INMOBI --------------------------- */
+// Query
 export const NETWORK_PROFILES_INMOBI = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -200,6 +201,32 @@ query ($filter: [AccountFilter]) {
     }
   }
  }
+`
+
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1012 = gql`
+mutation createAccountNetworkIntegration1012 ($input: CreateAccountNetIntegration1012Input!){
+  createAccountNetworkIntegration1012(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1012_PROFILE = gql`
+mutation updateAccountNetworkIntegration1012byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1012Input!){
+  updateAccountNetworkIntegration1012byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
 `
 
 // IRONSOURCE
