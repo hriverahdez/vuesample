@@ -7,7 +7,7 @@
           :key="index"
           :class="{'active-button': activeButtonIndex === index}"
           class="stat-button"
-          color="buttonColor"
+          flat
           @click="showStat($event, index)"
           dark)
           | {{ $t(button.title) }}
@@ -79,13 +79,16 @@ export default {
 
 <style lang="scss" scoped>
 .stat-buttons-container {
-  padding: 30px 0 8px 0;
+  padding: 30px 0;
 }
-.active-button {
-  background: #00A0D3!important;
-}
+
 .stat-button {
   margin: 0 16px;
+  color: #818A9B!important;
+
+    &.active-button {
+      color: #58C0B7!important;
+    }
 }
 </style>
 

@@ -1,5 +1,6 @@
 import {
   CREATE_NEW_ACCOUNT,
+  CREATE_ACCOUNT_NETWORK_INTEGRATION_1003,
   GET_ACCOUNTS,
   DELETE_ACCOUNT,
   UPDATE_ACCOUNT,
@@ -347,7 +348,7 @@ const accountMixin = {
       this.$apollo.mutate({
         mutation: CREATE_NEW_ACCOUNT,
         context: {
-          uri: 'account'
+          uri: URI
         },
         variables: {
           input: {
@@ -386,13 +387,14 @@ const accountMixin = {
       this.$apollo.mutate({
         mutation: DELETE_ACCOUNT,
         context: {
-          uri: 'account'
+          uri: URI
         },
         variables: {
           ids: account._id
         },
         update: (store) => {
           const data = store.readQuery({ query: GET_ACCOUNTS })
+          console.log('a', store, 'b', data)
           data.accounts = data.accounts.filter((item) => {
             return item._id !== account._id
           })
@@ -404,7 +406,7 @@ const accountMixin = {
       this.$apollo.mutate({
         mutation: UPDATE_ACCOUNT,
         context: {
-          uri: 'account'
+          uri: URI
         },
         variables: {
           id: id,
@@ -440,6 +442,71 @@ const accountMixin = {
           disabled: ''
         })
       })
+    },
+    createAccountNetworkIntegration1003 (profileName, input) {
+      this.$apollo.mutate({
+        mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1003,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            accountId: this.accountId,
+            profiles: [
+              {
+                name: profileName,
+                default: true,
+                api_key: input
+              }
+            ]
+          }
+        },
+        update: (store, { data: { createAccountNetworkIntegration1003 } }) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesAdcolonyQuery = false
+          this.$apollo.queries.networkProfilesAdcolony.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_ADCOLONY,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          // Add our tag from the mutation to the end
+          data.accounts.push(createAccountNetworkIntegration1003)
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: NETWORK_PROFILES_ADCOLONY,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      // .then(() => {
+      //   this.editedIndexStatusAction(-1)
+      //   this.SET_ALERT_MESSAGE({
+      //     show: true,
+      //     type: 'success',
+      //     message: this.$t('accounts_view.edit_success'),
+      //     buttonText: this.$t('buttons.close')
+      //   })
+      //   this.accountDialogStatusAction(false)
+      //   this.accountSchemaAction({
+      //     name: '',
+      //     description: '',
+      //     disabled: ''
+      //   })
+      // })
     }
   },
   mounted () {
@@ -459,6 +526,11 @@ const accountMixin = {
       let queryName = `networkProfiles${formattedName}`
       this[skipVar] = false
       this.$apollo.queries[queryName].refetch()
+    })
+    // createAccountNetworkIntegration events
+    this.$root.$on('createAccountNetworkIntegration', (profileName, input) => {
+      console.log('entra', profileName, input)
+      this.createAccountNetworkIntegration1003(profileName, input)
     })
   },
   beforeDestroy () {

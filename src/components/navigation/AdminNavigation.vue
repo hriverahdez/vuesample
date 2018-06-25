@@ -4,7 +4,7 @@
       fixed,
       :clipped='$vuetify.breakpoint.lgAndUp',
       app,
-      dark,
+      class="nav"
       v-model='drawer'
       width="275"
       )
@@ -13,8 +13,9 @@
           v-list-group(
             v-if='item.children',
             v-model='item.model',
-            :key='item.text',
-            :prepend-icon="item.icon"
+            :prepend-icon="item.icon",
+            class="white--text",
+            :key='item.text'
             )
             v-list-tile(slot='activator')
               v-list-tile-content
@@ -22,7 +23,7 @@
                   | {{ $t(item.text) }}
             v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
               v-list-tile-action(v-if='child.icon')
-                v-icon(color="floatingButton") {{ child.icon }}
+                v-icon {{ child.icon }}
               v-list-tile-content
                 v-list-tile-title
                   | {{ $t(child.text) }}
@@ -34,30 +35,30 @@
                   | {{ $t(item.text) }}
     v-toolbar(
       color='toolbar',
-      dark,
       app,
       :clipped-left='$vuetify.breakpoint.lgAndUp',
       fixed
       height="54"
       )
-      v-toolbar-side-icon(@click.stop='drawer = !drawer')
-      div.logo__container
-        img(src='@/assets/logo.png', alt='Labcave logo').logo
+      div.logo
+        div(class="logo__container")
+          img(src='@/assets/logo-labcave.png', alt='Labcave logo').logo
+        v-toolbar-side-icon(@click.stop='drawer = !drawer' light)
       v-spacer
       v-toolbar-items
         v-avatar(slot="activator" size="32")
           //- img(src='@/assets/spiderman.png' alt="User")
-          v-icon(dark) account_circle
-        div.user__info
-          div.user__info__user  {{ $t('navigation.user') }}:
-            span.user__info__label.primary--text Spiderman
-          div.user__info__account {{ $t('navigation.account') }}:
-            span.user__info__label.primary--text Marvel group
+          v-icon(light) account_circle
+        div(class="user__info")
+          div(class="user__info__user") {{ $t('navigation.user') }}:
+            span(class="user__info__label") Spiderman
+          div(class="user__info__accouny") {{ $t('navigation.account') }}:
+            span(class="user__info__label") Marvel group
       v-menu(bottom left dark offset-y)
         v-btn(icon slot="activator" dark)
-          v-icon more_vert
-        v-list.options__list
-          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" router :to="item.action").option
+          v-icon(light) more_vert
+        v-list(class="options__list")
+          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" @click="" class="option")
             v-list-tile-action
               v-icon {{ item.icon }}
             v-list-tile-content {{ $t(item.text) }}
@@ -76,9 +77,9 @@ export default {
           text: 'navigation.monetization',
           model: true,
           children: [
-            { text: 'navigation.dashboard', action: '/' },
+            { text: 'navigation.dashboard', action: '/panel' },
             // { text: 'navigation.waterfall_rules', action: '#' },
-            { text: 'navigation.network_integration', action: '/apps' }
+            { text: 'navigation.network_integration', action: '/panel/apps' }
           ]
         },
         // {
@@ -91,33 +92,33 @@ export default {
         //   ]
         // },
         // { icon: 'edit', text: 'navigation.custom_campaigns', action: '#' },
-        {
-          icon: 'list',
-          text: 'navigation.account',
-          model: true,
-          children: [
+        // {
+        //   icon: 'list',
+        //   text: 'navigation.account',
+        //   model: true,
+        //   children: [
             // { text: 'navigation.profile', action: '#' },
             // { icon: 'timeline', text: 'navigation.finance', action: '#' },
-            { text: 'navigation.account_users', action: '#' },
-            { text: 'navigation.tags', action: '#' }
+            // { text: 'navigation.account_users', action: '#' },
+            // { text: 'navigation.tags', action: '#' }
             // { icon: 'label', text: 'navigation.tags', action: '#' }
-          ]
-        },
+        //   ]
+        // },
         {
           icon: 'account_box',
           text: 'navigation.admin',
           model: true,
           children: [
-            { text: 'navigation.users', action: '#' },
+            // { text: 'navigation.users', action: '#' },
             // { text: 'navigation.roles', action: '#' },
-            { text: 'navigation.accounts', action: 'accounts' }
+            { text: 'navigation.accounts', action: '/panel/accounts' }
           ]
         }
       ],
       user_menu_options: [
         // { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
         // { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
-        { icon: 'face', text: 'navigation.profile', action: '#' },
+        // { icon: 'face', text: 'navigation.profile', action: '#' },
         { icon: 'exit_to_app', text: 'navigation.logout', action: '/logout' }
       ],
       items_select: [
@@ -142,22 +143,59 @@ export default {
 </script>
 
 <style lang="scss">
-  .list__group__items {
-    background-color: #333;
+  .list__group__header {
+    background: #424852!important;
+    i {
+      color: #818A9B!important;
+    }
   }
 
-  .toolbar__title {
+  .list__tile:hover {
+    color: #A9B0BF!important;
+    background: transparent!important;
+  }
+
+  .list__tile--active {
+    color: #58C0B7!important;
+  }
+
+  .logo {
     display: flex;
+    width: 275px!important;
+    margin-left: 0!important;
+    justify-content: space-between;
+    align-items: center;
+    height: 54px;
+    border-right: 1px solid #F4F4F4;
+
+    img {
+      max-width: 90%;
+      height: auto;
+      border: none;
+    }
   }
 
   .logo__container {
     display: flex;
     align-items: center;
     padding-left: 10px;
+    width: 50%;
   }
 
-  .logo {
-    width: 65%;
+  .options__list {
+    background: #383D47!important;
+
+    i {
+      color: #818A9B!important;
+    }
+
+    .list__tile__content {
+        font-size: 12px;
+    }
+  }
+
+  .toolbar__title {
+    display: flex;
   }
 
   .toolbar__items {
@@ -167,23 +205,13 @@ export default {
 
   .user__info {
     padding: 12px 0 12px 12px;
+    color: rgba(0,0,0,0.54);
     font-size: 12px;
 
     &__label {
+      color: #000;
       display: inline-block;
       margin-left: 4px;
-      font-weight: bold;
-    }
-  }
-
-  // .list__group__header__prepend-icon {
-  //   color: #00A0D3!important;
-  // }
-
-  .options__list {
-
-    .list__tile__content {
-        font-size: 12px;
     }
   }
 

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-// Queries
+/* ----------------- QUERIES ---------------------- */
 export const GET_ACCOUNTS = gql`
 {
  accounts(orderBy: [name_DESC]) {
@@ -294,6 +294,17 @@ export const DELETE_ACCOUNT = gql`
 export const UPDATE_ACCOUNT = gql`
 mutation updateAccountById ($id: ID!, $input: UpdateAccountInput!){
   updateAccountById(_id: $id, input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1003 = gql`
+mutation createAccountNetworkIntegration1003 ($input: CreateAccountNetIntegration1003Input!){
+  createAccountNetworkIntegration1003(input: $input) {
     account {
       _id
       name

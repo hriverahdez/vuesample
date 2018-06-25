@@ -1,9 +1,9 @@
 <template lang="pug">
-  v-card
+  v-card(class="app-card")
     v-container
       v-layout(wrap xs12 class="card__row-title")
         v-flex(xs2)
-            v-card-title(class="title headings--text") {{ $t('apps_view.apps_title' )}}
+            v-card-title(class="app-title") {{ $t('apps_view.apps_title' )}}
         v-flex(xs6)
             div(class="help-colors")
               div(class="API-working help-text") {{ $t('apps_view.API_working') }}
@@ -32,7 +32,7 @@
           span {{ props.header.text }}
           v-menu(offset-y bottom @click.native.stop="" class="network-header-menu")
             a(slot="activator" class="header-activator")
-              icon(name="cog" color="white" class="cog-icon")
+              icon(name="cog" class="cog-icon")
             v-list(class="apps-view-list")
               //- v-list-tile(
               //-   v-for="(item, index) in networkMenuOptions"
@@ -62,12 +62,12 @@
         template(slot="items" slot-scope="props")
             td(class="text-xs-left app")
               div(class="app-container")
-                icon(v-if="props.item.platform === 'android'" name="android" color="DimGray")
-                icon(v-if="props.item.platform === 'ios'" name="apple" color="LimeGreen ")
+                icon(v-if="props.item.platform === 'android'" name="android" color="gray")
+                icon(v-if="props.item.platform === 'ios'" name="apple" color="gray")
                 span(class="app__text") {{ props.item.name }}
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
-                    icon(name="cog" color="indigo" class="cog-icon")
+                    icon(name="cog" class="cog-icon")
                   v-list(class="app-column-menu__list apps-view-list")
                     //- v-list-tile(
                     //-   class="app-column-menu__list__item"
@@ -112,7 +112,7 @@
 
             td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
-                icon(name="cog" color="indigo" slot="activator" class="cog-icon")
+                icon(name="cog" slot="activator" class="cog-icon")
 
         template(slot="no-data")
             v-alert(
@@ -224,11 +224,24 @@ export default {
 @mixin help-text-content {
   content: '';
   display: inline-block;
-  margin-right: 4px;
-  width: 14px;
-  height: 14px;
+  margin-right: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
+.app-card {
+  border-top: 3px solid #BDD0FB;
+}
+
+.app-title {
+   font-size: 18px;
+   color: rgba(0,0,0,0.54);
+}
+
+.menu__activator a {
+  color: #BFBFBF!important;
+}
+
 .apps-datatable {
   /deep/ td {
     border-right: 1px solid rgba(0,0,0,0.12);
@@ -266,6 +279,7 @@ export default {
   .padding-scroll {
     padding-left: 300px!important;
   }
+
   .app-container {
     display: flex;
     align-items: center;
@@ -294,6 +308,7 @@ export default {
   .header-activator {
     height: 12px;
     margin-left: 4px;
+    color: #BFBFBF!important;
   }
   .cog-icon {
     height: 12px;
@@ -303,6 +318,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #BFBFBF!important;
+
+    .cog-icon {
+      height: 22px;
+    }
 
       svg {
         margin-left: 4px;
@@ -329,10 +349,11 @@ export default {
     align-items: center;
     font-size: 12px;
     margin-right: 12px;
+    color: rgba(0,0,0,0.54);
 
     &.API-working {
       &:before {
-          background: #A8DAA7;
+          background: #58C0B7;
           @include help-text-content
       }
     }
@@ -346,7 +367,7 @@ export default {
 
     &.API-failing {
       &:before {
-          background: #FFC6C7;
+          background: #E6A3C3;
           @include help-text-content
       }
     }
@@ -361,7 +382,7 @@ export default {
 
     &.API-not-integrated {
       &:before {
-          background: #CECECE;
+          background: #BFBFBF;
           @include help-text-content
       }
     }
