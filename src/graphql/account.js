@@ -229,7 +229,8 @@ mutation updateAccountNetworkIntegration1012byIdAccount ($_idAccount: ID!, $_pro
 }
 `
 
-// IRONSOURCE
+/* ------------------------- IRONSOURCE --------------------------- */
+// Query
 export const NETWORK_PROFILES_IRONSOURCE = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -249,8 +250,34 @@ query ($filter: [AccountFilter]) {
   }
  }
 `
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1017 = gql`
+mutation createAccountNetworkIntegration1017 ($input: CreateAccountNetIntegration1017Input!){
+  createAccountNetworkIntegration1017(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
 
-// MOBUSI
+export const UPDATE_NETWORK_1017_PROFILE = gql`
+mutation updateAccountNetworkIntegration1017byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1017Input!){
+  updateAccountNetworkIntegration1017byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+/* ------------------------- MOBUSI --------------------------- */
+// Query
 export const NETWORK_PROFILES_MOBUSI = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -269,6 +296,32 @@ query ($filter: [AccountFilter]) {
     }
   }
  }
+`
+
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1001 = gql`
+mutation createAccountNetworkIntegration1001 ($input: CreateAccountNetIntegration1001Input!){
+  createAccountNetworkIntegration1001(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1001_PROFILE = gql`
+mutation updateAccountNetworkIntegration1001byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1001Input!){
+  updateAccountNetworkIntegration1001byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
 `
 
 // MOBVISTA

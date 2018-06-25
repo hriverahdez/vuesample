@@ -1,9 +1,11 @@
 import {
   CREATE_NEW_ACCOUNT,
+  CREATE_ACCOUNT_NETWORK_INTEGRATION_1001,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1003,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1007,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1008,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1012,
+  CREATE_ACCOUNT_NETWORK_INTEGRATION_1017,
   GET_ACCOUNTS,
   DELETE_ACCOUNT,
   DELETE_NETWORK_PROFILE,
@@ -20,10 +22,12 @@ import {
   NETWORK_PROFILES_STARTAPP,
   NETWORK_PROFILES_UNITYADS,
   NETWORK_PROFILES_VUNGLE,
+  UPDATE_NETWORK_1001_PROFILE,
   UPDATE_NETWORK_1003_PROFILE,
   UPDATE_NETWORK_1007_PROFILE,
   UPDATE_NETWORK_1008_PROFILE,
-  UPDATE_NETWORK_1012_PROFILE
+  UPDATE_NETWORK_1012_PROFILE,
+  UPDATE_NETWORK_1017_PROFILE
 } from '@/graphql/account'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 
@@ -453,6 +457,72 @@ const accountMixin = {
         })
       })
     },
+    createAccountNetworkIntegration1001 (profileName, input) {
+      this.$apollo.mutate({
+        mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1001,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            accountId: this.accountId,
+            profiles: [
+              {
+                name: profileName,
+                default: true,
+                api_key: input.input[0],
+                user_id: input.input[1]
+              }
+            ]
+          }
+        },
+        update: (store, { data: { createAccountNetworkIntegration1001 } }) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesMobusiQuery = false
+          this.$apollo.queries.networkProfilesMobusi.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_MOBUSI,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          // Add our tag from the mutation to the end
+          data.accounts.push(createAccountNetworkIntegration1001)
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: NETWORK_PROFILES_MOBUSI,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        // this.editedIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.new_profile_created'),
+          buttonText: this.$t('buttons.close')
+        })
+        // this.appManageNetworkProfileDialogStatusAction(false)
+        // this.accountSchemaAction({
+        //   name: '',
+        //   description: '',
+        //   disabled: ''
+        // })
+      })
+    },
     createAccountNetworkIntegration1003 (profileName, input) {
       this.$apollo.mutate({
         mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1003,
@@ -718,7 +788,115 @@ const accountMixin = {
         // })
       })
     },
+    createAccountNetworkIntegration1017 (profileName, input) {
+      this.$apollo.mutate({
+        mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1017,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            accountId: this.accountId,
+            profiles: [
+              {
+                name: profileName,
+                default: true,
+                username: input.input[0],
+                secret_key: input.input[1]
+              }
+            ]
+          }
+        },
+        update: (store, { data: { createAccountNetworkIntegration1017 } }) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesIronsourceQuery = false
+          this.$apollo.queries.networkProfilesIronsource.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_IRONSOURCE,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          // Add our tag from the mutation to the end
+          data.accounts.push(createAccountNetworkIntegration1017)
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: NETWORK_PROFILES_IRONSOURCE,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        // this.editedIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.new_profile_created'),
+          buttonText: this.$t('buttons.close')
+        })
+        // this.appManageNetworkProfileDialogStatusAction(false)
+        // this.accountSchemaAction({
+        //   name: '',
+        //   description: '',
+        //   disabled: ''
+        // })
+      })
+    },
     // Remove network profile
+    removeNetworkProfile1001 (profileName, selectedNetworkId, skipVar, queryName) {
+      this.$apollo.mutate({
+        mutation: DELETE_NETWORK_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _idNetwork: selectedNetworkId,
+          _profileName: profileName
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this[skipVar] = false
+          this.$apollo.queries[queryName].refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_MOBUSI,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts = data.accounts.filter((item) => {
+            return item._idAccount !== this.accountId
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_MOBUSI,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+    },
     removeNetworkProfile1003 (profileName, selectedNetworkId, skipVar, queryName) {
       this.$apollo.mutate({
         mutation: DELETE_NETWORK_PROFILE,
@@ -885,6 +1063,117 @@ const accountMixin = {
             }
           })
         }
+      })
+    },
+    removeNetworkProfile1017 (profileName, selectedNetworkId, skipVar, queryName) {
+      this.$apollo.mutate({
+        mutation: DELETE_NETWORK_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _idNetwork: selectedNetworkId,
+          _profileName: profileName
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this[skipVar] = false
+          this.$apollo.queries[queryName].refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_IRONSOURCE,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts = data.accounts.filter((item) => {
+            return item._idAccount !== this.accountId
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_IRONSOURCE,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+    },
+    updateNetwork1001Profile (profileName, edittedValue, selected) {
+      this.$apollo.mutate({
+        mutation: UPDATE_NETWORK_1001_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _profileName: profileName,
+          input: {
+            profile: {
+              name: profileName,
+              default: true,
+              api_key: edittedValue[0] ? edittedValue[0] : selected.api_key,
+              user_id: edittedValue[0] ? edittedValue[0] : selected.user_id
+            }
+          }
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesMobusiQuery = false
+          this.$apollo.queries.networkProfilesMobusi.refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_MOBUSI,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts.map((item) => {
+            if (item._id === this.accountId) {
+              item.name = profileName
+              item.default = true
+              item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
+              item.user_id = edittedValue[0] ? edittedValue[0] : selected.user_id
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_MOBUSI,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        // this.editedIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_network_profile'),
+          buttonText: this.$t('buttons.close')
+        })
+        this.accountDialogStatusAction(false)
+        // this.accountSchemaAction({
+        //   name: '',
+        //   description: '',
+        //   disabled: ''
+        // })
       })
     },
     updateNetwork1003Profile (profileName, edittedValue, selected) {
@@ -1165,6 +1454,75 @@ const accountMixin = {
         //   disabled: ''
         // })
       })
+    },
+    updateNetwork1017Profile (profileName, edittedValue, selected) {
+      this.$apollo.mutate({
+        mutation: UPDATE_NETWORK_1017_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _profileName: profileName,
+          input: {
+            profile: {
+              name: profileName,
+              default: true,
+              username: edittedValue[0] ? edittedValue[0] : selected.username,
+              secret_key: edittedValue[1] ? edittedValue[1] : selected.secret_key
+            }
+          }
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesIronsourceQuery = false
+          this.$apollo.queries.networkProfilesIronsource.refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_IRONSOURCE,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts.map((item) => {
+            if (item._id === this.accountId) {
+              item.name = profileName
+              item.default = true
+              item.username = edittedValue[0] ? edittedValue[0] : selected.username
+              item.secret_key = edittedValue[1] ? edittedValue[1] : selected.secret_key
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_IRONSOURCE,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        // this.editedIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_network_profile'),
+          buttonText: this.$t('buttons.close')
+        })
+        // this.accountDialogStatusAction(false)
+        // this.accountSchemaAction({
+        //   name: '',
+        //   description: '',
+        //   disabled: ''
+        // })
+      })
     }
   },
   mounted () {
@@ -1209,6 +1567,10 @@ const accountMixin = {
         this.removeNetworkProfile1007(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
       } else if ((name === 'INMOBI')) {
         this.removeNetworkProfile1012(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
+      } else if ((name === 'IRONSOURCE')) {
+        this.removeNetworkProfile1017(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
+      } else if ((name === 'MOBUSI')) {
+        this.removeNetworkProfile1001(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
       }
     })
   },
