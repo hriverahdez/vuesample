@@ -14,7 +14,13 @@
                   img(:src="imageSrc" class="network-logo")
                 div(class="manage-network__container__actions-row")
                   v-flex(xs8)
+                    v-text-field(
+                      v-if="newProfileModeActive"
+                      :label="$t('apps_view.profile_name')"
+                      v-model="profileName"
+                      )
                     v-select(
+                      v-else
                       :items="networkProfiles"
                       :label="this.$t('apps_view.select_profile')"
                       item-text="name"
@@ -25,33 +31,40 @@
                     v-btn(
                         class="white--text"
                         color="buttonColor"
-                        @click.native=""
+                        @click.native="showInputToCreateNewProfile"
                     ) {{ $t('apps_view.new_profile') }}
-                v-form(class="manage-network__container__form")
+                v-form(class="manage-network__container__form" ref="form")
                   div(
                     v-for="(field, key, index) in networksInfo[selectednetworkId].params_by_network"
                     :key="index"
                     class="manage-network__container__form__input-container"
                     )
                     v-text-field(
+                      data="tñhjrnlrtijblribjeflbjerlbviwjbvlriwjvwlivjlbivjhwlbivjdalbvida"
                       :label="field.label"
                       :value="selected[key]"
+                      :ref="`inputText${index}`"
+                      v-model="form.input[index]"
                       )
                     p {{ field.help_text }}
 
         v-card-actions
+          v-btn(
+            class="white--text"
+            color="buttonColor"
+            @click.native=""
+            ) {{ $t('buttons.remove_network') }}
           v-spacer
           v-btn(
+            class="white--text"
             color="buttonColor"
-            flats
             @click.native="closeDialog"
             ) {{ $t('buttons.cancel') }}
           v-btn(
             class="white--text"
             color="buttonColor"
-            @click.native="sendDeleteAppEvent"
-            :disabled="!valid"
-            ) {{ $t('buttons.remove')}}
+            @click="handleButtonAction"
+            ) {{ newProfileModeActive ? $t('buttons.create') : $t('buttons.edit') }}
 </template>
 
 <script>
@@ -66,8 +79,14 @@ export default {
   // },
   data () {
     return {
+      newProfileModeActive: false,
+      profileName: '',
+      selected: '',
       valid: false,
-      selected: ''
+      inputText: '',
+      form: {
+        input: []
+      }
     }
   },
   // watch: {
@@ -103,6 +122,18 @@ export default {
     // Close dialog layer
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
+    },
+    // Controla las dos acciones del botón (Editar y crear)
+    handleButtonAction () {
+      console.log('entra', this.newProfileModeActive)
+      this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form.input[0])
+      this.newProfileModeActive = false
+      console.log('entra', this.newProfileModeActive)
+    },
+    // Edit profile on click button
+    showInputToCreateNewProfile () {
+      this.newProfileModeActive = true
+      this.form.input = []
     }
     // formatSelectedObject (e) {
     //   console.log('formateo', e)

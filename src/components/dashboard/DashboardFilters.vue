@@ -1,13 +1,14 @@
 <template lang="pug">
-  v-container(text-xs-center)
+  v-container(text-xs-center  class="filters-container")
     v-layout(row wrap)
-        v-flex(xs2)
+        v-flex(xs6 sm3 md2)
             v-select(
                 v-model="$store.state.configModule.appFilters"
                 :items="appNames"
                 :label="this.$t('dashboard_view.app')"
                 tags
                 autocomplete
+                hide-details
                 clearable
                 @change="checkIfApplyButtonAvailable"
                 @input="addAppToList"
@@ -21,7 +22,7 @@
                     )
                         v-avatar(class="accent")
                         | {{ data.item }}
-        v-flex(xs2)
+        v-flex(xs6 sm3 md2)
             v-select(
                 v-model="$store.state.configModule.countryFilters"
                 :items="config.countries"
@@ -29,6 +30,7 @@
                 :label="this.$t('dashboard_view.country')"
                 tags
                 autocomplete
+                hide-details
                 clearable
                 @input="addCountryToList"
                 ref="countrySelect"
@@ -41,12 +43,13 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs2)
+        v-flex(xs6 sm3 md2)
             v-select(
                 v-model="$store.state.configModule.formatFilters"
                 :items="formatsToFilters"
                 :label="this.$t('dashboard_view.format')"
                 tags
+                hide-details
                 autocomplete
                 item-text="name"
                 clearable
@@ -61,12 +64,13 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs2)
+        v-flex(xs6 sm3 md2)
             v-select(
                 v-model="$store.state.configModule.networkFilters"
                 :items="networkNames"
                 :label="this.$t('dashboard_view.network')"
                 tags
+                hide-details
                 autocomplete
                 item-text="name"
                 clearable
@@ -81,7 +85,7 @@
                         @input="data.parent.selectItem(data.item)"
                     ) {{ data.item }}
 
-        v-flex(xs4 class="dau buttons-container")
+        v-flex(sm12 md4 class="dau buttons-container")
             v-btn(
                 :disabled="!valid"
                 class="white--text"
@@ -312,17 +316,29 @@ export default {
 <style lang="scss" scoped>
 .buttons-container {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     .btn {
         font-size: 11px;
+        margin-bottom: 0!important;
     }
     .dau {
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
+    @media only screen and (max-width: 960px) {
+      padding: 0!important;
+      display: flex;
+      justify-content: flex-end;
+    }
 }
+
+.filters-container {
+  padding: 10px 16px;
+}
+
 .list {
     display: flex;
     overflow: auto;

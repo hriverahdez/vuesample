@@ -1,7 +1,7 @@
 <template lang="pug">
     v-container(class="stats-container")
-        v-layout(wrap)
-            v-flex(xs12)
+        v-layout(row wrap stats-container__layout)
+            v-flex(xs12 pa-0)
                 //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedByGetter} `}}
                 v-dialog(v-model="selectDateDialog" width="800")
                     v-daterange(
@@ -38,32 +38,34 @@
                     v-tab(href="#tab-network" @click="requestDataFromAPI($event)" ripple) {{ $t('dashboard_view.network')}}
                     v-spacer
                     section.date-container
-                      v-btn(color="buttonColor" @click.native.stop="selectDateDialog = true" class="date-button")
-                          v-icon(left small) event
-                          | {{ $t('dashboard_view.select_date')}}
+                      div(class="date-container__btn-date")
+                        v-btn(@click.native.stop="selectDateDialog = true" class="date-button")
+                            v-icon(left small) event
+                            | {{ $t('dashboard_view.select_date')}}
                       div.date-container__startDate
                           span {{ $t('dashboard_view.from') }}
-                          strong {{ ` ${startDateText}` }}
+                          span(class="strong") {{ ` ${startDateText}` }}
                       div.date-container__endDate
                           span {{ $t('dashboard_view.to') }}
-                          strong {{ ` ${endDateText}` }}
+                          span(class="strong") {{ ` ${endDateText}` }}
 
                     // Tab items
                     // Date tab
-                    v-tab-item(id="tab-date")
+                    v-tab-item(id="tab-date" transition="false")
                         dashboard-filters
-                        line-chart(
-                          v-if="statsDataFormattedGetter"
-                          :ytitle="statYText | capitalize"
-                          :colors="['#C9651B']"
-                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
-                          :legend="false"
-                          :discrete= "true"
-                        )
-                        dashboard-no-data-filter(v-else)
+                        div(class="graph")
+                          line-chart(
+                            v-if="statsDataFormattedGetter"
+                            :ytitle="statYText | capitalize"
+                            :colors="['#C9651B']"
+                            :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                            :legend="false"
+                            :discrete= "true"
+                          )
+                          dashboard-no-data-filter(v-else)
 
                     // App tab
-                    v-tab-item(id="tab-app")
+                    v-tab-item(id="tab-app" ransition="false")
                         dashboard-filters
                         line-chart(
                           v-if="statsDataFormattedGetter"
@@ -321,7 +323,7 @@ export default {
 <style lang="scss">
 .date-container {
     text-transform: lowercase;
-    color: white;
+    color: rgba(0, 0, 0, 0.54);
     display: flex;
     align-items: center;
     padding-right: 14px;
@@ -338,12 +340,45 @@ export default {
         text-transform: capitalize;
     }
 }
+.date-container__btn-date {
+  border-left: 1px solid #F4F4F4;
+  border-right: 1px solid #F4F4F4;
+}
+
 .date-button {
   margin: 4px;
   height: 30px;
+  box-shadow: none!important;
+
+  .btn__content {
+    background: #fff!important;
+    padding: 0 18px;
+    color: rgba(0,0,0,0.54)!important;
+  }
 }
+
+.stat-buttons-container {
+  background: white!important;
+  border-left: 1px solid  rgba(0,0,0,0.12);
+  border-right: 1px solid  rgba(0,0,0,0.12);
+}
+
 .stats-container {
-  padding: 24px;
+  padding: 0;
+}
+
+.stats-container__layout {
+  max-width: 100%;
+  margin: 0!important;;
+}
+
+.graph {
+  background: #FAFBFC;
+  padding: 30px;
+}
+
+.tabs__div {
+  color: rgba(0,0,0,0.54)!important;
 }
 </style>
 

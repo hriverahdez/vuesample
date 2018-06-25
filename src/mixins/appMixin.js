@@ -19,12 +19,11 @@ const appMixin = {
       },
       variables () {
         return {
-          _idAccount: this.accountId
+          _idAccount: '5b10f0f89a5fd62624137dd5'
         }
       },
       loadingKey: 'loading',
       update (data) {
-        console.log(data)
         this.appDataAction(data.apps).then(() => {
           this.appsLoaderStatusAction(false)
         })
@@ -85,7 +84,7 @@ const appMixin = {
       this.$apollo.mutate({
         mutation: CREATE_NEW_APP,
         context: {
-          uri: 'app'
+          uri: URI
         },
         variables: {
           input: {
@@ -100,11 +99,18 @@ const appMixin = {
         },
         update: (store, { data: { createApp } }) => {
           // Read the data from our cache for this query.
-          const data = store.readQuery({ query: APPS_DATA })
+          const data = store.readQuery({
+            query: APPS_DATA,
+            variables: { _idAccount: this.accountId }
+          })
           // Add our tag from the mutation to the end
           data.apps.push(createApp)
           // Write our data back to the cache.
-          store.writeQuery({ query: APPS_DATA, data })
+          store.writeQuery({
+            query: APPS_DATA,
+            data,
+            variables: { _idAccount: this.accountId }
+          })
         }
       })
       .then(() => {
@@ -131,17 +137,24 @@ const appMixin = {
       this.$apollo.mutate({
         mutation: DELETE_APP,
         context: {
-          uri: 'app'
+          uri: URI
         },
         variables: {
           _id: app
         },
         update: (store) => {
-          const data = store.readQuery({ query: APPS_DATA })
+          const data = store.readQuery({
+            query: APPS_DATA,
+            variables: { _idAccount: this.accountId }
+          })
           data.apps = data.apps.filter((item) => {
             return item._id !== app
           })
-          store.writeQuery({ query: APPS_DATA, data })
+          store.writeQuery({
+            query: APPS_DATA,
+            data,
+            variables: { _idAccount: this.accountId }
+          })
         }
       }).then(() => {
         this.SET_ALERT_MESSAGE({
@@ -154,28 +167,35 @@ const appMixin = {
         this.removeAppPermissionInputAction('')
       })
     },
-    editApp (id, name, description) {
+    editApp (id, name, platform, bundle, description, bannerPosition, icon) {
       this.$apollo.mutate({
         mutation: UPDATE_APP,
         context: {
-          uri: 'app'
+          uri: URI
         },
         variables: {
           _id: id,
           input: {
-            name: name,
-            description: description
+            name,
+            platform
           }
         },
         update: (store) => {
-          const data = store.readQuery({ query: APPS_DATA })
+          const data = store.readQuery({
+            query: APPS_DATA,
+            variables: { _idAccount: this.accountId }
+          })
           data.apps.map((item) => {
             if (item._id === id) {
               item.name = name
               item.description = description
             }
           })
-          store.writeQuery({ query: APPS_DATA, data })
+          store.writeQuery({
+            query: APPS_DATA,
+            data,
+            variables: { _idAccount: this.accountId }
+          })
         }
       })
       .then(() => {
@@ -204,8 +224,8 @@ const appMixin = {
       this.deleteApp(app)
       this.appIdAction('')
     })
-    this.$root.$on('editApp', (id, name, description) => {
-      this.editApp(id, name, description)
+    this.$root.$on('editApp', (id, name, platform, bundle, description, bannerPosition, icon) => {
+      this.editApp(id, name, platform, bundle, description, bannerPosition, icon)
     })
   },
   beforeDestroy () {

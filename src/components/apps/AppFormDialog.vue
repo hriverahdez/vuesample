@@ -153,7 +153,15 @@ export default {
     },
     // Send event to edit account
     sendEditAppEvent () {
-      this.$root.$emit('editApp', this.appData._id, this.appData.name, this.appData.description)
+      this.$root.$emit('editApp',
+      this.appData._id,
+      this.appData.name,
+      this.appData.platform,
+      this.appData.bundle,
+      this.appData.description,
+      this.appData.bannerPosition,
+      this.appData.icon
+      )
     }
   }
   // beforeDestroy () {

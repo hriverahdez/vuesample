@@ -63,7 +63,8 @@
       "exit": "Exit",
       "remove": "Remove",
       "signin": "Sign in",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "remove_network": "Remove network"
     },
     "copies": {
       "drag_and_drop": "Drag and drop a file or click"
