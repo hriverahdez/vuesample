@@ -63,6 +63,7 @@
     }),
     computed: {
       ...mapGetters({
+        getUrlLogin: 'urlLogin',
         getUser: 'userGetter',
         getUserAccountsNum: 'userAccountsNumberGetter'
       })
@@ -77,7 +78,7 @@
         if (this.$refs.form.validate()) {
           this.isLoading = true
           axios
-            .post('http://stage.do.linkitox.com/api/token', {}, {
+            .post(this.getUrlLogin, {}, {
               auth: {
                 username: this.email,
                 password: this.password

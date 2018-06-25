@@ -5,9 +5,7 @@ import Router from 'vue-router'
 import AccountsView from '@/router/views/Accounts-view'
 import AccountsSelectionView from '@/router/views/Accounts-selection-view'
 import AppsView from '@/router/views/Apps-view'
-import Contacto from '@/components/Contacto'
 import DashboardView from '@/router/views/Dashboard-view'
-import DashboardPrueba from '@/components/Dashboard'
 import LoginView from '@/router/views/Login-view'
 import { store } from '@/store/store'
 import userMixin from '@/mixins/userMixin'
@@ -19,44 +17,36 @@ const router = new Router({
     {
       path: '/panel',
       name: 'dashboard',
-      component: DashboardView,
-      children: [
-        {
-          path: 'accounts',
-          name: 'accounts',
-          component: AccountsView
-        },
-        {
-          path: 'apps',
-          name: 'apps',
-          component: AppsView
-        },
-        {
-          path: 'dashboard',
-          name: 'prueba',
-          component: DashboardPrueba
-        },
-        {
-          path: 'contacto',
-          name: 'contacto',
-          component: Contacto
-        }
-      ]
+      component: DashboardView
     },
     {
-      path: '/accounts-selection',
+      path: '/panel/accounts',
+      name: 'accounts',
+      component: AccountsView
+    },
+    {
+      path: '/panel/apps',
+      name: 'apps',
+      component: AppsView
+    },
+    {
+      path: '/panel/accounts-selection',
       name: 'accounts_selection',
       component: AccountsSelectionView
     },
     {
-      path: '/login',
+      path: '/panel/login',
       name: 'login',
       component: LoginView
     },
     {
-      path: '/logout',
+      path: '/panel/logout',
       name: 'logout',
       component: LoginView
+    },
+    {
+      path: '/',
+      redirect: '/panel'
     }
   ],
   mode: 'history',
@@ -70,8 +60,6 @@ router.beforeEach((to, from, next) => {
     store.dispatch('logout')
     next()
   }
-
-  // TODO: landing
 
   // SI EXISTE EN EL LOCAL STORE EL REMEMBER ME y EL TOKEN, CUENTA ACTIVA, SETEARLO ANTES
 
@@ -88,7 +76,7 @@ router.beforeEach((to, from, next) => {
 
   // comprobamos a que ruta debe ir
   if (to.name !== 'login' && to.name !== 'accounts_selection' && !store.getters.isLogged) {
-    next('/login')
+    next('/panel/login')
   } else {
     if (to.name === 'login' && store.getters.isLogged) {
       next('/panel')

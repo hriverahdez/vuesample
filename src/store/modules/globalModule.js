@@ -1258,7 +1258,8 @@ const state = {
     {id: '1015', name: 'HYPRMX'},
     {id: '1016', name: 'MOPUB'},
     {id: '1017', name: 'IRONSOURCE'}
-  ]
+  ],
+  urlLogin: 'http://stage.do.linkitox.com/api/token'
 }
 
 const getters = {
@@ -1299,6 +1300,9 @@ const getters = {
   },
   networksIdsAndNamesGetter (state) {
     return state.networksIdsAndNames
+  },
+  urlLogin (state) {
+    return state.urlLogin
   }
 }
 
