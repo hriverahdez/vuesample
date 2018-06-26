@@ -47,11 +47,13 @@
       "new_app": "New app",
       "new_success": "New app created",
       "new_profile": "New profile",
+      "new_profile_created": "New profile created",
       "profile_name": "Profile name",
       "remove_app": "Remove app",
       "remove_app_message": "Write {number} in the text field ",
       "select_platform": "Select platform",
       "select_profile": "Select profile",
+      "updated_network_profile": "Network profile editted",
       "waterfall_debugger": "Waterfall debugger"
     },
     "buttons": {

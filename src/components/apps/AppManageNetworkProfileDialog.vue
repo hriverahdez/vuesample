@@ -40,11 +40,17 @@
                     class="manage-network__container__form__input-container"
                     )
                     v-text-field(
-                      data="tñhjrnlrtijblribjeflbjerlbviwjbvlriwjvwlivjlbivjhwlbivjdalbvida"
+                      v-if="newProfileModeActive"
+                      :label="field.label"
+                      :ref="`inputText${index}`"
+                      v-model="form.input[index]"
+                      )
+                    v-text-field(
+                      v-else
+                      @change="getNewEdittedValue($event, index)"
                       :label="field.label"
                       :value="selected[key]"
                       :ref="`inputText${index}`"
-                      v-model="form.input[index]"
                       )
                     p {{ field.help_text }}
 
@@ -52,7 +58,7 @@
           v-btn(
             class="white--text"
             color="buttonColor"
-            @click.native=""
+            @click.native="sendRemoveNetworkProfileEvent"
             ) {{ $t('buttons.remove_network') }}
           v-spacer
           v-btn(
@@ -79,6 +85,7 @@ export default {
   // },
   data () {
     return {
+      edittedValue: {},
       newProfileModeActive: false,
       profileName: '',
       selected: '',
@@ -105,6 +112,12 @@ export default {
       selectedNetworkName: 'selectedNetworkToManageGetter',
       networkProfiles: 'networkProfilesListGetter'
     }),
+    // edittedValue () {
+    //   return ''
+    // },
+    // selected () {
+    //   return ''
+    // },
     imageSrc () {
       return require(`../../assets/networks/${this.selectednetworkId}.png`)
     }
@@ -123,12 +136,24 @@ export default {
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
     },
+    getNewEdittedValue (e, index) {
+      this.edittedValue[index] = e
+    },
     // Controla las dos acciones del botón (Editar y crear)
     handleButtonAction () {
-      console.log('entra', this.newProfileModeActive)
-      this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form.input[0])
-      this.newProfileModeActive = false
-      console.log('entra', this.newProfileModeActive)
+      if (this.newProfileModeActive) {
+        this.$root.$emit('createAccountNetworkIntegration', this.profileName, this.form)
+        this.profileName = ''
+        this.newProfileModeActive = false
+      } else {
+        this.$root.$emit('editAccountNetworkIntegration', this.selected.name, this.edittedValue, this.selected)
+        this.selected = ''
+      }
+    },
+    // Remove network profile
+    sendRemoveNetworkProfileEvent () {
+      this.$root.$emit('removeNetworkProfile', this.selected.name, this.selectednetworkId)
+      this.selected = ''
     },
     // Edit profile on click button
     showInputToCreateNewProfile () {
