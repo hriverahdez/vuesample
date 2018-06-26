@@ -2,9 +2,12 @@ import {
   CREATE_NEW_ACCOUNT,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1001,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1003,
+  CREATE_ACCOUNT_NETWORK_INTEGRATION_1004,
+  CREATE_ACCOUNT_NETWORK_INTEGRATION_1005,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1007,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1008,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1012,
+  CREATE_ACCOUNT_NETWORK_INTEGRATION_1013,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1014,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1016,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1017,
@@ -26,9 +29,12 @@ import {
   NETWORK_PROFILES_VUNGLE,
   UPDATE_NETWORK_1001_PROFILE,
   UPDATE_NETWORK_1003_PROFILE,
+  UPDATE_NETWORK_1004_PROFILE,
+  UPDATE_NETWORK_1005_PROFILE,
   UPDATE_NETWORK_1007_PROFILE,
   UPDATE_NETWORK_1008_PROFILE,
   UPDATE_NETWORK_1012_PROFILE,
+  UPDATE_NETWORK_1013_PROFILE,
   UPDATE_NETWORK_1014_PROFILE,
   UPDATE_NETWORK_1016_PROFILE,
   UPDATE_NETWORK_1017_PROFILE
@@ -592,6 +598,122 @@ const accountMixin = {
         // })
       })
     },
+    createAccountNetworkIntegration1004 (profileName, input) {
+      this.$apollo.mutate({
+        mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1004,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            accountId: this.accountId,
+            profiles: [
+              {
+                name: profileName,
+                default: true,
+                api_key: input.input[0]
+              }
+            ]
+          }
+        },
+        update: (store, { data: { createAccountNetworkIntegration1004 } }) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesUnityadsQuery = false
+          this.$apollo.queries.networkProfilesUnityads.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_UNITYADS,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          // Add our tag from the mutation to the end
+          data.accounts.push(createAccountNetworkIntegration1004)
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: NETWORK_PROFILES_UNITYADS,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.new_profile_created'),
+          buttonText: this.$t('buttons.close')
+        })
+      })
+    },
+    createAccountNetworkIntegration1005 (profileName, input) {
+      this.$apollo.mutate({
+        mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1005,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            accountId: this.accountId,
+            profiles: [
+              {
+                name: profileName,
+                default: true,
+                api_key: input.input[0]
+              }
+            ]
+          }
+        },
+        update: (store, { data: { createAccountNetworkIntegration1005 } }) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesVungleQuery = false
+          this.$apollo.queries.networkProfilesVungle.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_VUNGLE,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          // Add our tag from the mutation to the end
+          data.accounts.push(createAccountNetworkIntegration1005)
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: NETWORK_PROFILES_VUNGLE,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.new_profile_created'),
+          buttonText: this.$t('buttons.close')
+        })
+      })
+    },
     createAccountNetworkIntegration1007 (profileName, input) {
       this.$apollo.mutate({
         mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1007,
@@ -790,6 +912,65 @@ const accountMixin = {
         //   description: '',
         //   disabled: ''
         // })
+      })
+    },
+    createAccountNetworkIntegration1013 (profileName, input) {
+      this.$apollo.mutate({
+        mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1013,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            accountId: this.accountId,
+            profiles: [
+              {
+                name: profileName,
+                default: true,
+                acountId: input.input[0],
+                token: input.input[1]
+              }
+            ]
+          }
+        },
+        update: (store, { data: { createAccountNetworkIntegration1013 } }) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesStartappQuery = false
+          this.$apollo.queries.networkProfilesStartapp.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_STARTAPP,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          // Add our tag from the mutation to the end
+          data.accounts.push(createAccountNetworkIntegration1013)
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: NETWORK_PROFILES_STARTAPP,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.new_profile_created'),
+          buttonText: this.$t('buttons.close')
+        })
       })
     },
     createAccountNetworkIntegration1014 (profileName, input) {
@@ -1076,6 +1257,90 @@ const accountMixin = {
         }
       })
     },
+    removeNetworkProfile1004 (profileName, selectedNetworkId, skipVar, queryName) {
+      this.$apollo.mutate({
+        mutation: DELETE_NETWORK_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _idNetwork: selectedNetworkId,
+          _profileName: profileName
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this[skipVar] = false
+          this.$apollo.queries[queryName].refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_UNITYADS,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts = data.accounts.filter((item) => {
+            return item._idAccount !== this.accountId
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_UNITYADS,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+    },
+    removeNetworkProfile1005 (profileName, selectedNetworkId, skipVar, queryName) {
+      this.$apollo.mutate({
+        mutation: DELETE_NETWORK_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _idNetwork: selectedNetworkId,
+          _profileName: profileName
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this[skipVar] = false
+          this.$apollo.queries[queryName].refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_VUNGLE,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts = data.accounts.filter((item) => {
+            return item._idAccount !== this.accountId
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_VUNGLE,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+    },
     removeNetworkProfile1007 (profileName, selectedNetworkId, skipVar, queryName) {
       this.$apollo.mutate({
         mutation: DELETE_NETWORK_PROFILE,
@@ -1190,6 +1455,48 @@ const accountMixin = {
           })
           store.writeQuery({
             query: NETWORK_PROFILES_INMOBI,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+    },
+    removeNetworkProfile1013 (profileName, selectedNetworkId, skipVar, queryName) {
+      this.$apollo.mutate({
+        mutation: DELETE_NETWORK_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _idNetwork: selectedNetworkId,
+          _profileName: profileName
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this[skipVar] = false
+          this.$apollo.queries[queryName].refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_STARTAPP,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts = data.accounts.filter((item) => {
+            return item._idAccount !== this.accountId
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_STARTAPP,
             data,
             variables: {
               filter: {
@@ -1399,7 +1706,6 @@ const accountMixin = {
       })
     },
     updateNetwork1003Profile (profileName, edittedValue, selected) {
-      console.log(edittedValue)
       this.$apollo.mutate({
         mutation: UPDATE_NETWORK_1003_PROFILE,
         context: {
@@ -1464,6 +1770,127 @@ const accountMixin = {
         //   description: '',
         //   disabled: ''
         // })
+      })
+    },
+    updateNetwork1004Profile (profileName, edittedValue, selected) {
+      console.log(edittedValue[0], selected.api_key)
+      this.$apollo.mutate({
+        mutation: UPDATE_NETWORK_1004_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _profileName: profileName,
+          input: {
+            profile: {
+              name: profileName,
+              default: true,
+              api_key: edittedValue[0] ? edittedValue[0] : selected.api_key
+            }
+          }
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesUnityadsQuery = false
+          this.$apollo.queries.networkProfilesUnityads.refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_UNITYADS,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts.map((item) => {
+            if (item._id === this.accountId) {
+              item.name = profileName
+              item.default = true
+              item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_UNITYADS,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_network_profile'),
+          buttonText: this.$t('buttons.close')
+        })
+      })
+    },
+    updateNetwork1005Profile (profileName, edittedValue, selected) {
+      this.$apollo.mutate({
+        mutation: UPDATE_NETWORK_1005_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _profileName: profileName,
+          input: {
+            profile: {
+              name: profileName,
+              default: true,
+              api_key: edittedValue[0] ? edittedValue[0] : selected.api_key
+            }
+          }
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesVungleQuery = false
+          this.$apollo.queries.networkProfilesVungle.refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_VUNGLE,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts.map((item) => {
+            if (item._id === this.accountId) {
+              item.name = profileName
+              item.default = true
+              item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_VUNGLE,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_network_profile'),
+          buttonText: this.$t('buttons.close')
+        })
       })
     },
     updateNetwork1007Profile (profileName, edittedValue, selected) {
@@ -1677,6 +2104,68 @@ const accountMixin = {
         // })
       })
     },
+    updateNetwork1013Profile (profileName, edittedValue, selected) {
+      this.$apollo.mutate({
+        mutation: UPDATE_NETWORK_1013_PROFILE,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _profileName: profileName,
+          input: {
+            profile: {
+              name: profileName,
+              default: true,
+              acountId: edittedValue[0] ? edittedValue[0] : selected.acountId,
+              token: edittedValue[1] ? edittedValue[1] : selected.token
+            }
+          }
+        },
+        update: (store) => {
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesStartappQuery = false
+          this.$apollo.queries.networkProfilesStartapp.refetch()
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_STARTAPP,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+          data.accounts.map((item) => {
+            if (item._id === this.accountId) {
+              item.name = profileName
+              item.default = true
+              item.acountId = edittedValue[0] ? edittedValue[0] : selected.acountId
+              item.token = edittedValue[1] ? edittedValue[1] : selected.token
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_STARTAPP,
+            data,
+            variables: {
+              filter: {
+                filter: {
+                  _id: this.accountId
+                }
+              }
+            }
+          })
+        }
+      })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_network_profile'),
+          buttonText: this.$t('buttons.close')
+        })
+      })
+    },
     updateNetwork1014Profile (profileName, edittedValue, selected) {
       this.$apollo.mutate({
         mutation: UPDATE_NETWORK_1014_PROFILE,
@@ -1747,7 +2236,6 @@ const accountMixin = {
       })
     },
     updateNetwork1016Profile (profileName, edittedValue, selected) {
-      console.log(profileName, edittedValue[0], edittedValue[1], edittedValue[2], selected)
       this.$apollo.mutate({
         mutation: UPDATE_NETWORK_1016_PROFILE,
         context: {
@@ -1931,6 +2419,12 @@ const accountMixin = {
         this.removeNetworkProfile1014(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
       } else if ((name === 'MOPUB')) {
         this.removeNetworkProfile1016(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
+      } else if ((name === 'UNITYADS')) {
+        this.removeNetworkProfile1004(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
+      } else if ((name === 'STARTAPP')) {
+        this.removeNetworkProfile1013(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
+      } else if ((name === 'VUNGLE')) {
+        this.removeNetworkProfile1005(profileName, parseInt(selectedNetworkId), skipVar, queryName, name)
       }
     })
   },

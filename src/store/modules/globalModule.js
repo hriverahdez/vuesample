@@ -102,7 +102,7 @@ const state = {
     '1013': {
       'name': 'Startapp',
       'params_by_network': {
-        'account_id': {
+        'acountId': {
           'label': i18n.t('networks_info.startapp1013.account_id.label'),
           'help_text': i18n.t('networks_info.startapp1013.account_id.help_text')
         },
