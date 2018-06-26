@@ -110,7 +110,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
+            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADCOLONY' }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -177,7 +177,7 @@ export default {
   computed: {
     ...mapGetters({
       apps: 'appsDataGetter',
-      networks: 'networkNamesGetter'
+      networks: 'networksIdsAndNamesGetter'
     })
   },
   methods: {
@@ -190,7 +190,7 @@ export default {
       'editedAppIndexStatusAction',
       'selectedAppNetworkInDatatableAction',
       'selectedNetworkToManageAction',
-      'skipAppByIdQueryAction',
+      'skipAppByIdAndNetworkQueryAction',
       'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
@@ -209,7 +209,7 @@ export default {
     selectedCell (networkName, appName, appId) {
       this.appNetworkConfigDialogStatusAction(true)
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
-      this.skipAppByIdQueryAction(false)
+      this.skipAppByIdAndNetworkQueryAction(false)
     },
      // Show the corresponding network profile dialog from datatable header
     showManageNetworkProfiles (networkName) {

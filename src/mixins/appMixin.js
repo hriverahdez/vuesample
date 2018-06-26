@@ -1,5 +1,6 @@
 import {
   APP_DATA_BY_ID,
+  APP_DATA_BY_ID_AND_NETWORK,
   APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
   APPS_DATA,
   CREATE_NEW_APP,
@@ -19,7 +20,7 @@ const appMixin = {
       },
       variables () {
         return {
-          _idAccount: '5b10f0f89a5fd62624137dd5'
+          _idAccount: this.accountId
         }
       },
       loadingKey: 'loading',
@@ -45,6 +46,28 @@ const appMixin = {
         this.appByIdDataAction(data.appById)
       }
     },
+    appByIdAndNetwork: {
+      query: APP_DATA_BY_ID_AND_NETWORK,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          _id: this.appAndNetworkData.appId,
+          _idAccount: this.accountId,
+          _IdNetwork: parseInt(this.appAndNetworkData.networkName.id)
+        }
+      },
+      skip () {
+        return this.skipAppByIdAndNetworkQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.appByIdAndNetworkDataAction(data.appByIdAndNetwork).then(() => {
+          this.skipAppByIdAndNetworkQueryAction(true)
+        })
+      }
+    },
     appsNamesAndIds: {
       query: APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
       context: {
@@ -64,12 +87,15 @@ const appMixin = {
   computed: {
     ...mapGetters({
       accountId: 'activeAccount',
-      skipAppById: 'skipAppByIdQueryGetter'
+      appAndNetworkData: 'selectedAppNetworkInDatatableGetter',
+      // skipAppById: 'skipAppByIdQueryGetter',
+      skipAppByIdAndNetworkQuery: 'skipAppByIdAndNetworkGetter'
     })
   },
   methods: {
     ...mapActions([
-      'appByIdDataAction',
+      // 'appByIdDataAction',
+      'appByIdAndNetworkDataAction',
       'appDataAction',
       'appDialogStatusAction',
       'appIdAction',
@@ -78,7 +104,8 @@ const appMixin = {
       'appSchemaAction',
       'appsLoaderStatusAction',
       'editedAppIndexStatusAction',
-      'removeAppPermissionInputAction'
+      'removeAppPermissionInputAction',
+      'skipAppByIdAndNetworkQueryAction'
     ]),
     createApp (name, platform, bundle, description, bannerPosition, icon) {
       this.$apollo.mutate({

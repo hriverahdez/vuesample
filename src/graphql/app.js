@@ -52,6 +52,30 @@ query ($_id: ID!) {
 }
 `
 
+export const APP_DATA_BY_ID_AND_NETWORK = gql`
+query ($_id: ID!, $_idAccount: ID!, $_IdNetwork: Int!) {
+  appByIdAndNetwork(_id: $_id, _idAccount: $_idAccount, _IdNetwork: $_IdNetwork) {
+    name
+    _id
+    disabled
+    networks {
+      active
+      profile
+      networkId
+      formats {
+        format
+        active
+        premium
+        formatFields{
+          key
+          value
+        }
+      }
+    }
+  }
+}
+`
+
 export const APPS_IDS_AND_NAMES_BY_ACCOUNT_ID = gql`
 query ($_idAccount: ID!, $filter: [AppFilter]) {
   apps(_idAccount: $_idAccount, filter: $filter) {

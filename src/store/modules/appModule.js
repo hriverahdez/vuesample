@@ -1,4 +1,5 @@
 const APP_BY_ID_DATA = 'APP_BY_ID_DATA'
+const APP_BY_ID_AND_NETWORK_DATA = 'APP_BY_ID_AND_NETWORK_DATA'
 // Current account schema
 const APP_DATA = 'APP_DATA'
 // Total apps from query
@@ -17,6 +18,7 @@ const REMOVE_APP_PERMISSION_INPUT = 'REMOVE_APP_PERMISSION_INPUT'
 const SELECTED_APP_NETWORK_DATATABLE = 'SELECTED_APP_NETWORK_DATATABLE'
 const SELECTED_NETWORK_TO_MANAGE = 'SELECTED_NETWORK_TO_MANAGE'
 const SKIP_APP_BY_ID_QUERY = 'SKIP_APP_BY_ID_QUERY'
+const SKIP_APP_BY_ID_AND_NETWORK_QUERY = 'SKIP_APP_BY_ID_AND_NETWORK_QUERY'
 // const SKIP_NETWORK_PROFILES_QUERY = 'SKIP_NETWORK_PROFILES_QUERY'
 
 const networks = {
@@ -40,6 +42,8 @@ const state = {
   apps: [],
   // Use when app-network config dialog appears
   appById: {},
+  // Se usa en la vista de apps para configurar networks
+  appByIdAndNetwork: {},
   // Comunicate account data between components
   appData: {
     name: '',
@@ -69,14 +73,18 @@ const state = {
   networkProfiles: '',
   removeAppPermissionInput: '',
   selectedAppNetworkInDatatable: {},
-  selectedNetworkToManage: ''
+  selectedNetworkToManage: '',
   // skipAppByIdQuery: true,
+  skipAppByIdAndNetworkQuery: true
   // skipNetworkProfiles: true
 }
 
 const getters = {
   appByIdDataGetter (state) {
     return state.appById
+  },
+  appByIdAndNetworkDataGetter (state) {
+    return state.appByIdAndNetwork
   },
   appByIdNetworksGetter (state, getters) {
     return getters.appByIdDataGetter.networks
@@ -175,6 +183,9 @@ const getters = {
   },
   skipAppByIdQueryGetter (state) {
     return state.skipAppByIdQuery
+  },
+  skipAppByIdAndNetworkGetter (state) {
+    return state.skipAppByIdAndNetworkQuery
   }
   // skipNetworkProfilesGetter (state) {
   //   return state.skipNetworkProfiles
@@ -184,6 +195,9 @@ const getters = {
 const mutations = {
   [APP_BY_ID_DATA] (state, appData) {
     state.appById = appData
+  },
+  [APP_BY_ID_AND_NETWORK_DATA] (state, data) {
+    state.appByIdAndNetwork = data
   },
   [APP_DATA] (state, app) {
     state.appData = app
@@ -229,6 +243,9 @@ const mutations = {
   },
   [SKIP_APP_BY_ID_QUERY] (state, status) {
     state.skipAppByIdQuery = status
+  },
+  [SKIP_APP_BY_ID_AND_NETWORK_QUERY] (state, status) {
+    state.skipAppByIdAndNetworkQuery = status
   }
   // [SKIP_NETWORK_PROFILES_QUERY] (state, status) {
   //   state.skipNetworkProfiles = status
@@ -238,6 +255,9 @@ const mutations = {
 const actions = {
   appByIdDataAction ({commit}, appData) {
     commit(APP_BY_ID_DATA, appData)
+  },
+  appByIdAndNetworkDataAction ({commit}, data) {
+    commit(APP_BY_ID_AND_NETWORK_DATA, data)
   },
   appDataAction ({commit}, data) {
     commit(APPS_DATA, data)
@@ -283,6 +303,9 @@ const actions = {
   },
   skipAppByIdQueryAction ({commit}, status) {
     commit(SKIP_APP_BY_ID_QUERY, status)
+  },
+  skipAppByIdAndNetworkQueryAction ({commit}, status) {
+    commit(SKIP_APP_BY_ID_AND_NETWORK_QUERY, status)
   }
   // skipNetworkProfilesAction ({commit}, status) {
   //   commit(SKIP_NETWORK_PROFILES_QUERY, status)
