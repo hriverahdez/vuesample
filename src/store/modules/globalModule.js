@@ -81,11 +81,11 @@ const state = {
     '1012': {
       'name': 'Inmobi',
       'params_by_network': {
-        'account_id': {
+        'acountId': {
           'label': i18n.t('networks_info.inmobi1012.account_id.label'),
           'help_text': i18n.t('networks_info.inmobi1012.account_id.help_text')
         },
-        'api_key': {
+        'apiKey': {
           'label': i18n.t('networks_info.inmobi1012.api_key.label'),
           'help_text': i18n.t('networks_info.inmobi1012.api_key.help_text')
         },
@@ -128,15 +128,15 @@ const state = {
     '1016': {
       'name': 'Mopub',
       'params_by_network': {
-        'apy_key': {
+        'apiKey': {
           'label': i18n.t('networks_info.mopub1016.api_key.label'),
           'help_text': i18n.t('networks_info.mopub1016.api_key.help_text')
         },
-        'inventory_report': {
+        'inventoryReport': {
           'label': i18n.t('networks_info.mopub1016.inventory_report.label'),
           'help_text': i18n.t('networks_info.mopub1016.inventory_report.help_text')
         },
-        'campaign_report': {
+        'campaignReport': {
           'label': i18n.t('networks_info.mopub1016.campaign_report.label'),
           'help_text': i18n.t('networks_info.mopub1016.campaign_report.help_text')
         }

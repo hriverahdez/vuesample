@@ -372,7 +372,8 @@ mutation updateAccountNetworkIntegration1014byIdAccount ($_idAccount: ID!, $_pro
 }
 `
 
-// MOPUB
+/* ------------------------- MOPUB --------------------------- */
+// Query
 export const NETWORK_PROFILES_MOPUB = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -393,6 +394,33 @@ query ($filter: [AccountFilter]) {
   }
  }
 `
+
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1016 = gql`
+mutation createAccountNetworkIntegration1016 ($input: CreateAccountNetIntegration1016Input!){
+  createAccountNetworkIntegration1016(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1016_PROFILE = gql`
+mutation updateAccountNetworkIntegration1016byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1016Input!){
+  updateAccountNetworkIntegration1016byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
 // STARTAPP
 export const NETWORK_PROFILES_STARTAPP = gql`
 query ($filter: [AccountFilter]) {
