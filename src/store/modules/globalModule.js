@@ -20,7 +20,7 @@ const state = {
       'name': 'Admob',
       'params_by_network': {
         'api_key': {
-          'label': i18n.t('networks_info.addcolony1003.api_key.label'),
+          'label': i18n.t('networks_info.adcolony1003.api_key.label'),
           'help_text': 'Es diferente'
         }
       }
@@ -29,9 +29,12 @@ const state = {
       'name': 'Adcolony',
       'params_by_network': {
         'api_key': {
-          'label': i18n.t('networks_info.addcolony1003.api_key.label'),
-          'help_text': i18n.t('networks_info.addcolony1003.api_key.help_text')
+          'label': i18n.t('networks_info.adcolony1003.api_key.label'),
+          'help_text': i18n.t('networks_info.adcolony1003.api_key.help_text')
         }
+      },
+      'format_profile_text': {
+        'appId': i18n.t('networks_info.adcolony1003.format_profile_text.appId')
       }
     },
     '1004': {

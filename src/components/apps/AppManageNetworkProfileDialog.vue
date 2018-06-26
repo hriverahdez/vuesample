@@ -86,14 +86,14 @@ export default {
   data () {
     return {
       edittedValue: {},
+      form: {
+        input: []
+      },
       newProfileModeActive: false,
       profileName: '',
       selected: '',
       valid: false,
-      inputText: '',
-      form: {
-        input: []
-      }
+      inputText: ''
     }
   },
   // watch: {

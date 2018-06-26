@@ -38,6 +38,7 @@
       "edit_app": "Edit app",
       "edit_success": "Edited app",
       "enable_disable_network": "Enable / disable:",
+      "format_config": "Formats configuration",
       "icon_text": "Icon:",
       "manage_ad_placements": "Manage ad placements",
       "manage_network_info_text": "In this section you can manage the current integrated networks for your app and its profiless. (This will be the default list of networks you will see in the app creation & edition sections)",
@@ -155,10 +156,14 @@
       "waterfall_rules": "Waterfall rules"
     },
     "networks_info": {
-      "addcolony1003": {
+      "adcolony1003": {
         "api_key": {
           "label": "API key",
           "help_text": "Your API key will be labeled as \"Read-Only API Key\" on this page"
+        },
+        "format_profile_text": {
+          "id": "From the AdColony dashboard, choose your app. Select an existing Zone to view its ID, or create a new zone by choosing \"Setup New Ad Zone\" and selecting the \"Interstitial\" zone type.",
+          "appId": "From the AdColony dashboard, choose your app. Your App ID will be labeled as \"AdColony App ID\" on this page."
         }
       },
       "applovin1008": {
@@ -268,7 +273,9 @@
     },
     "switch": {
       "enabled": "Enabled",
-      "disabled": "Disabled"
+      "disabled": "Disabled",
+      "off": "Off",
+      "on": "On"
     },
     "validations": {
       "no_data_available": "No data available",
