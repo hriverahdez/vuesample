@@ -140,6 +140,11 @@ const getters = {
   editedAppIndexGetter (state) {
     return state.editedAppIndex
   },
+  formatsSelectedAppAndNetworkGetter (state, getters) {
+    if (getters.appByIdAndNetworkDataGetter && getters.appByIdAndNetworkDataGetter.networks) {
+      return getters.appByIdAndNetworkDataGetter.networks[0].formats
+    }
+  },
   networkNamesGetter (state, getters) {
     const networkNames = []
     for (let key in getters.networksGetter) {

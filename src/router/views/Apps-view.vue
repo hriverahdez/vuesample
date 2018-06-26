@@ -48,7 +48,10 @@ export default {
     accountMixin,
     appMixin,
     configMixin
-  ]
+  ],
+  updated () {
+    this.$apollo.queries.appByIdAndNetwork.refetch()
+  }
 }
 </script>
 

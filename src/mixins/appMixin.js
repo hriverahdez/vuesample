@@ -63,9 +63,7 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.appByIdAndNetworkDataAction(data.appByIdAndNetwork).then(() => {
-          this.skipAppByIdAndNetworkQueryAction(true)
-        })
+        this.appByIdAndNetworkDataAction(data.appByIdAndNetwork)
       }
     },
     appsNamesAndIds: {
