@@ -1,8 +1,8 @@
 <template lang="pug">
     v-container(class="login__body fullscreen")
         v-layout(wrap class="card__row-title")
-            v-flex().login
-                img(src="@/assets/logo-labcave.png").logo
+            v-flex(v-if="!isUserTokenChecking").login
+                img(src="@/assets/logo-labcave-login.png").logo_labcave
                 h2.t1 Sign in to start your sesion
                 v-form(
                     ref="form"
@@ -63,8 +63,10 @@
     }),
     computed: {
       ...mapGetters({
+        getUrlLogin: 'urlLogin',
         getUser: 'userGetter',
-        getUserAccountsNum: 'userAccountsNumberGetter'
+        getUserAccountsNum: 'userAccountsNumberGetter',
+        isUserTokenChecking: 'userTokenChecking'
       })
     },
     methods: {
@@ -77,7 +79,7 @@
         if (this.$refs.form.validate()) {
           this.isLoading = true
           axios
-            .post('http://stage.do.linkitox.com/api/token', {}, {
+            .post(this.getUrlLogin, {}, {
               auth: {
                 username: this.email,
                 password: this.password
@@ -156,7 +158,7 @@
             padding:10vh 7.5% 0
         }
     }
-    .login .logo{
+    .login .logo_labcave{
         display:block;
         max-width:100%;
         margin:0 auto

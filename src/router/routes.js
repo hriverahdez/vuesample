@@ -30,19 +30,23 @@ const router = new Router({
       component: AppsView
     },
     {
-      path: '/accounts-selection',
+      path: '/panel/accounts-selection',
       name: 'accounts_selection',
       component: AccountsSelectionView
     },
     {
-      path: '/login',
+      path: '/panel/login',
       name: 'login',
       component: LoginView
     },
     {
-      path: '/logout',
+      path: '/panel/logout',
       name: 'logout',
       component: LoginView
+    },
+    {
+      path: '/',
+      redirect: '/panel'
     }
   ],
   mode: 'history',
@@ -57,24 +61,17 @@ router.beforeEach((to, from, next) => {
     next()
   }
 
-  // TODO: landing
-
   // SI EXISTE EN EL LOCAL STORE EL REMEMBER ME y EL TOKEN, CUENTA ACTIVA, SETEARLO ANTES
-
-  // console.log('rememberMe: ' + localStorage.getItem('rememberMe'))
-  // console.log('is logged')
-  // console.log(store.getters.isLogged)
-  // console.log(localStorage.getItem('rememberMe'))
-  // console.log(localStorage.getItem('token'))
-
+  store.dispatch('setUserTokenChecking', false)
   if (!store.getters.isLogged && typeof localStorage.getItem('rememberMe') !== 'undefined' &&
       localStorage.getItem('rememberMe') !== null && typeof localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null) {
+    store.dispatch('setUserTokenChecking', true)
     userMixin.apollo.userByToken.skip = false
   }
 
   // comprobamos a que ruta debe ir
   if (to.name !== 'login' && to.name !== 'accounts_selection' && !store.getters.isLogged) {
-    next('/login')
+    next('/panel/login')
   } else {
     if (to.name === 'login' && store.getters.isLogged) {
       next('/panel')

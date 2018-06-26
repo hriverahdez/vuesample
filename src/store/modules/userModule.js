@@ -5,6 +5,7 @@ const SET_ACTIVE_ACCOUNT = 'SET_ACTIVE_ACCOUNT'
 const TOKEN_DATA = 'TOKEN_DATA'
 const USER_DATA = 'USER_DATA'
 const USER_ACCOUNTS = 'USER_ACCOUNTS'
+const USER_TOKEN_CHECKING = 'USER_TOKEN_CHECKING'
 
 const state = {
   activeAccount: '',
@@ -12,7 +13,8 @@ const state = {
   rememberMe: false,
   user: [],
   userAccountsNumber: 0,
-  userAccounts: []
+  userAccounts: [],
+  userTokenChecking: false
 }
 
 const getters = {
@@ -48,6 +50,9 @@ const getters = {
   },
   userAccounts (state) {
     return state.userAccounts
+  },
+  userTokenChecking (state) {
+    return state.userTokenChecking
   }
 }
 
@@ -86,6 +91,9 @@ const mutations = {
   },
   [USER_ACCOUNTS] (state, accounts) {
     state.userAccounts = accounts
+  },
+  [USER_TOKEN_CHECKING] (state, checking) {
+    state.userTokenChecking = checking
   }
 }
 
@@ -107,6 +115,9 @@ const actions = {
   },
   setUserAccounts ({commit}, accounts) {
     commit(USER_ACCOUNTS, accounts)
+  },
+  setUserTokenChecking ({commit}, checking) {
+    commit(USER_TOKEN_CHECKING, checking)
   }
 }
 
