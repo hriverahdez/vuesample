@@ -104,6 +104,18 @@ export const DELETE_APP = gql`
   }
 `
 
+export const ENABLE_DISABLE_APP = gql`
+mutation updateAppById ($_id: ID!, $input: UpdateAppInput!){
+  updateAppById(_id: $_id, input: $input) {
+    app {
+      _id
+      name
+      disabled
+    }
+  }
+}
+`
+
 export const UPDATE_APP = gql`
 mutation updateAppById ($_id: ID!, $input: UpdateAppInput!){
   updateAppById(_id: $_id, input: $input) {
@@ -116,9 +128,9 @@ mutation updateAppById ($_id: ID!, $input: UpdateAppInput!){
 }
 `
 
-export const ENABLE_DISABLE_APP = gql`
-mutation updateAppById ($_id: ID!, $input: UpdateAppInput!){
-  updateAppById(_id: $_id, input: $input) {
+export const UPDATE_APP_NETWORK = gql`
+mutation updateAppNetwork($idApp: ID!, $idAccount: ID!, $idNetwork: Int!, $input: UpdateAppNetworkInput!) {
+  updateAppNetwork(idApp: $idApp, idAccount: $idAccount, idNetwork: $idNetwork, input: $input) {
     app {
       _id
       name

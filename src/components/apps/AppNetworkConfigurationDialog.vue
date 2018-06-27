@@ -70,6 +70,7 @@
                   v-btn(
                     color="buttonColor"
                     class="white--text"
+                    @click.native.stop="sendEditAppNetworkProfileEvent(app._id, app.networks[0].networkId, selected)"
                     ) {{ $t('buttons.cancel') }}
 
                 //- p {{ selectedAppNetworkConfig.appId }}
@@ -171,7 +172,11 @@ export default {
     // Get values from input texts
     getNewValue (e) {
       console.log(e)
-    }
+    },
+    // Send event to update app-network
+    sendEditAppNetworkProfileEvent (appId, networkId, profile) {
+      this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile)
+    },
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)
     // }
