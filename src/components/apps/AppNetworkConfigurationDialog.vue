@@ -1,5 +1,6 @@
 <template lang="pug">
-    v-dialog(v-model="$store.state.appModule.appNetworkConfigDialogStatus" max-width="700" light)
+    v-dialog(
+      v-model="$store.state.appModule.appNetworkConfigDialogStatus" max-width="700" light)
       v-card
         v-card-title(
           class="formElementColor py-4 title white--text"
@@ -16,7 +17,7 @@
                       //- {{ selectedAppNetworkConfig.networkName }}
                     div(class="network-config-container__data__app")
                       span {{ $t('apps_view.app')}}:
-                      //- img(:src="app.icon" alt="" class="app-logo")
+                      img(:src="app.icon" alt="" class="app-logo")
                       span {{ selectedAppNetworkConfig.appName }}
                     div(class="network-config-container__data__platform")
                       span {{ $t('apps_view.platform') }}:

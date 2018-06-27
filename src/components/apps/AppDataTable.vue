@@ -208,9 +208,10 @@ export default {
     },
     // Send data to show the app-network configuration corresponding dialog from datatable cell
     selectedCell (networkName, appName, appId) {
-      this.appNetworkConfigDialogStatusAction(true)
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
+      this.appNetworkConfigDialogStatusAction(true)
       this.skipAppByIdAndNetworkQueryAction(false)
+      this.$root.$emit('launchNetworkProfilesQuery', networkName.name)
     },
      // Show the corresponding network profile dialog from datatable header
     showManageNetworkProfiles (networkName) {
