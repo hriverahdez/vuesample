@@ -49,6 +49,7 @@
       "new_success": "New app created",
       "new_profile": "New profile",
       "new_profile_created": "New profile created",
+      "platform": "Platform",
       "profile_name": "Profile name",
       "remove_app": "Remove app",
       "remove_app_message": "Write {number} in the text field ",

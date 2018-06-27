@@ -57,6 +57,8 @@ query ($_id: ID!, $_idAccount: ID!, $_IdNetwork: Int!) {
   appByIdAndNetwork(_id: $_id, _idAccount: $_idAccount, _IdNetwork: $_IdNetwork) {
     name
     _id
+    icon
+    platform
     disabled
     networks {
       active

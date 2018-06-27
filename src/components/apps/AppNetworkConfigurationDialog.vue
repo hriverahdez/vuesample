@@ -14,8 +14,14 @@
                       span {{ $t('apps_view.network')}}:
                       img(:src="imageSrc" class="network-logo")
                       //- {{ selectedAppNetworkConfig.networkName }}
-                    div
-                      span {{ $t('apps_view.app')}}: {{ selectedAppNetworkConfig.appName }}
+                    div(class="network-config-container__data__app")
+                      span {{ $t('apps_view.app')}}:
+                      img(:src="app.icon" alt="" class="app-logo")
+                      span {{ selectedAppNetworkConfig.appName }}
+                    div(class="network-config-container__data__platform")
+                      span {{ $t('apps_view.platform') }}:
+                      icon(v-if="app.platform === 'android'" name="android" color="gray" class="platform-icon")
+                      icon(v-if="app.platform === 'ios'" name="apple" color="gray" class="platform-icon")
                   div
                     v-switch(
                       light
@@ -118,11 +124,11 @@ export default {
   // },
   computed: {
     ...mapGetters({
-      app: 'appByIdDataGetter',
+      app: 'appByIdAndNetworkDataGetter',
       formats: 'formatsSelectedAppAndNetworkGetter',
       networkProfiles: 'networkProfilesListGetter',
-      selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter',
-      skippedQuery: 'skipAppByIdQueryGetter'
+      selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
+      // skippedQuery: 'skipAppByIdQueryGetter'
     }),
     nameAndIdNetworkFormatted () {
       return `${this.selectedAppNetworkConfig.networkName.name.toLowerCase()}${this.selectedAppNetworkConfig.networkName.id}`
@@ -159,6 +165,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.network-config-container__data__app {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+    .app-logo {
+      display: block;
+      width: 20px;
+      margin: 0 10px;
+  }
+}
+
+.network-config-container__data__platform {
+  display: flex;
+  align-items: center;
+
+  .platform-icon {
+    margin: 0 10px;
+  }
+}
+
 .network-config-container {
   display: flex;
   align-items: center;
