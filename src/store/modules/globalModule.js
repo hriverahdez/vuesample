@@ -34,6 +34,7 @@ const state = {
         }
       },
       'format_profile_text': {
+        'id': i18n.t('networks_info.adcolony1003.format_profile_text.id'),
         'appId': i18n.t('networks_info.adcolony1003.format_profile_text.appId')
       }
     },
