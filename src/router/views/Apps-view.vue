@@ -50,7 +50,7 @@ export default {
     configMixin
   ],
   updated () {
-    this.$apollo.queries.appByIdAndNetwork.refetch()
+    this.$apollo.queries.appByIdNetworkProfile.refetch()
   }
 }
 </script>

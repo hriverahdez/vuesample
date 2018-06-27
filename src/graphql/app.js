@@ -53,8 +53,8 @@ query ($_id: ID!) {
 `
 
 export const APP_DATA_BY_ID_AND_NETWORK = gql`
-query ($_id: ID!, $_idAccount: ID!, $_IdNetwork: Int!) {
-  appByIdAndNetwork(_id: $_id, _idAccount: $_idAccount, _IdNetwork: $_IdNetwork) {
+query ($_id: ID!, $_idAccount: ID!, $_IdNetwork: Int!, $_profileName: String!) {
+  appByIdNetworkProfile(_id: $_id, _idAccount: $_idAccount, _IdNetwork: $_IdNetwork, _profileName: $_profileName) {
     name
     _id
     icon

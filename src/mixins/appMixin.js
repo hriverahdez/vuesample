@@ -47,7 +47,7 @@ const appMixin = {
         this.appByIdDataAction(data.appById)
       }
     },
-    appByIdAndNetwork: {
+    appByIdNetworkProfile: {
       query: APP_DATA_BY_ID_AND_NETWORK,
       context: {
         uri: URI
@@ -56,7 +56,8 @@ const appMixin = {
         return {
           _id: this.appAndNetworkData.appId,
           _idAccount: this.accountId,
-          _IdNetwork: parseInt(this.appAndNetworkData.networkName.id)
+          _IdNetwork: parseInt(this.appAndNetworkData.networkName.id),
+          _profileName: 'default'
         }
       },
       skip () {
@@ -64,7 +65,7 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.appByIdAndNetworkDataAction(data.appByIdAndNetwork)
+        this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile)
       }
     },
     appsNamesAndIds: {

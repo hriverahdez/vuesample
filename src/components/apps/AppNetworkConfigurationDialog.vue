@@ -16,7 +16,7 @@
                       //- {{ selectedAppNetworkConfig.networkName }}
                     div(class="network-config-container__data__app")
                       span {{ $t('apps_view.app')}}:
-                      img(:src="app.icon" alt="" class="app-logo")
+                      //- img(:src="app.icon" alt="" class="app-logo")
                       span {{ selectedAppNetworkConfig.appName }}
                     div(class="network-config-container__data__platform")
                       span {{ $t('apps_view.platform') }}:
