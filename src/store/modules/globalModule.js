@@ -19,9 +19,9 @@ const state = {
     '1002': {
       'name': 'Admob',
       'params_by_network': {
-        'api_key': {
-          'label': i18n.t('networks_info.adcolony1003.api_key.label'),
-          'help_text': 'Es diferente'
+        'publisher_id': {
+          'label': i18n.t('networks_info.admob1002.publisher_id.label'),
+          'help_text': i18n.t('networks_info.admob1002.publisher_id.help_text')
         }
       }
     },
@@ -81,6 +81,19 @@ const state = {
         }
       }
     },
+    '1009': {
+      'name': 'Facebook',
+      'params_by_network': {
+        'access_token': {
+          'label': i18n.t('networks_info.applovin1008.report_key.label'),
+          'help_text': i18n.t('networks_info.applovin1008.report_key.help_text')
+        },
+        'app_id': {
+          'label': i18n.t('networks_info.applovin1008.sdk_key.label'),
+          'help_text': i18n.t('networks_info.applovin1008.sdk_key.help_text')
+        }
+      }
+    },
     '1012': {
       'name': 'Inmobi',
       'params_by_network': {
@@ -126,6 +139,12 @@ const state = {
           'label': i18n.t('networks_info.mobvista1014.secret.label'),
           'help_text': i18n.t('networks_info.mobvista1014.secret.help_text')
         }
+      }
+    },
+    '1015': {
+      'name': 'Hyprmx',
+      'params_by_network': {
+        'help_text': i18n.t('networks_info.hyprmx1015.help_text')
       }
     },
     '1016': {

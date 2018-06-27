@@ -49,6 +49,9 @@ const getters = {
   formatIdFiltersGetter (state) {
     return state.formatIdFilters
   },
+  networkIdsGetter (state) {
+    return state.config.networkIds
+  },
   networkFiltersGetter (state) {
     return state.networkFilters
   },

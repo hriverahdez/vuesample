@@ -11,7 +11,7 @@
                 section(class="network-config-container")
                   div(class="network-config-container__data")
                     div(class="network-config-container__data__network")
-                      span {{ $t('apps_view.network')}}: 
+                      span {{ $t('apps_view.network')}}:
                       img(:src="imageSrc" class="network-logo")
                       //- {{ selectedAppNetworkConfig.networkName }}
                     div

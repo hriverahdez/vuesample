@@ -21,7 +21,7 @@
             class="search-field"
             )
     v-data-table(
-        :headers="headers"
+        :headers="datatableHeaders"
         :items="apps"
         :search="search"
         class="elevation-1 apps-datatable"
@@ -62,6 +62,7 @@
         template(slot="items" slot-scope="props")
             td(class="text-xs-left app")
               div(class="app-container")
+                img(:src="props.item.icon" class="app-logo")
                 icon(v-if="props.item.platform === 'android'" name="android" color="gray")
                 icon(v-if="props.item.platform === 'ios'" name="apple" color="gray")
                 span(class="app__text") {{ props.item.name }}
@@ -110,7 +111,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADCOLONY' }")
+            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB' }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -143,42 +144,62 @@ export default {
       URL: '',
       description: ''
     },
-    headers: [
-      {
-        text: 'Name',
-        align: 'left',
-        value: 'name',
-        color: 'red'
-      },
-      // { text: 'Impressions', value: 'impressions' },
-      { text: 'ADCOLONY', value: 'ADCOLONY', sortable: false },
-      { text: 'ADMOB', value: 'ADMOB', sortable: false },
-      { text: 'APPLOVIN', value: 'APPLOVIN', sortable: false },
-      { text: 'CHARTBOOST', value: 'CHARTBOOST', sortable: false },
-      { text: 'FACEBOOK', value: 'FACEBOOK', sortable: false },
-      { text: 'HYPRMX', value: 'HYPRMX', sortable: false },
-      { text: 'INMOBI', value: 'INMOBI', sortable: false },
-      { text: 'IRONSOURCE', value: 'IRONSOURCE', sortable: false },
-      { text: 'MOBUSI', value: 'MOBUSI', sortable: false },
-      // { text: 'MOBUSI SSP', value: 'MOBUSI SSP', sortable: false },
-      { text: 'MOBVISTA', value: 'MOBVISTA', sortable: false },
-      { text: 'MOPUB', value: 'MOPUB', sortable: false },
-      { text: 'UNITYADS', value: 'UNITYADS', sortable: false },
-      { text: 'STARTAPP', value: 'STARTAPP', sortable: false },
-      { text: 'VUNGLE', value: 'VUNGLE', sortable: false }
-    ],
-    // networkMenuOptions: [
-    //   'apps_view.manage_network_profiles',
-    //   'apps_view.enable_disable_network'
-    // ],
     networkSwitchStatus: false,
     search: ''
   }),
   computed: {
     ...mapGetters({
       apps: 'appsDataGetter',
-      networks: 'networksIdsAndNamesGetter'
-    })
+      // networks: 'networksIdsAndNamesGetter',
+      networkIds: 'networkIdsGetter',
+      networksInfo: 'networksInfoGetter'
+    }),
+    // Get cuurrent netqork actives
+    currentNetworksActive () {
+      if (this.networksInfo && this.networkIds) {
+        let currentNetworksActive = []
+        for (let key in this.networksInfo) {
+          if (this.networkIds.includes(parseInt(key))) {
+            currentNetworksActive.push(key)
+          }
+        }
+        return currentNetworksActive
+      }
+    },
+    // Get datatable headers
+    datatableHeaders () {
+      if (this.networksInfo && this.currentNetworksActive) {
+        let headers = [
+          {
+            text: 'Name',
+            align: 'left',
+            value: 'name',
+            color: 'red'
+          }
+        ]
+        this.currentNetworksActive.map((network) => {
+          let newObject = {}
+          newObject['text'] = this.networksInfo[parseInt(network)].name.toUpperCase()
+          newObject['value'] = this.networksInfo[parseInt(network)].name.toUpperCase()
+          newObject['sortable'] = false
+          headers.push(newObject)
+        })
+        return headers
+      }
+    },
+    // Get data networks for datatable cells
+    networks () {
+      if (this.networksInfo && this.currentNetworksActive) {
+        let networks = []
+        this.currentNetworksActive.map((network) => {
+          let newObject = {}
+          newObject['id'] = network
+          newObject['name'] = this.networksInfo[parseInt(network)].name.toUpperCase()
+          networks.push(newObject)
+        })
+        return networks
+      }
+    }
   },
   methods: {
     ...mapActions([
@@ -233,6 +254,13 @@ export default {
   border-top: 3px solid #BDD0FB;
 }
 
+.app-logo {
+  display: block;
+  width: 20px;
+  margin-right: 10px;
+  height: auto;
+}
+
 .app-title {
    font-size: 18px;
    color: rgba(0,0,0,0.54);
@@ -258,7 +286,6 @@ export default {
     display: flex;
     align-items: center;
     border-right: 1px solid rgba(0,0,0,0.12);
-    border-bottom: 1px solid rgba(0,0,0,0.12);
 
     &:hover {
       background: #ededed;
@@ -277,7 +304,7 @@ export default {
     border-bottom: none;
   }
   .padding-scroll {
-    padding-left: 300px!important;
+    padding-left: 335px!important;
   }
 
   .app-container {
