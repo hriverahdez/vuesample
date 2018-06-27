@@ -48,14 +48,14 @@
                   //-     ) {{ $t('buttons.cancel') }}
                 section(class="network-config-container__formats-config")
                   h4 {{ $t('apps_view.format_config')}}
-                  div(v-for="(format, index) in formats" v-if="formats" :key="index" class="network-config-container__formats-config__block")
+                  div(:ref="`format${index}`" v-for="(format, index) in formats" v-if="formats" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
                       div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format)}}
                       v-switch(
                           light
                           :label="check"
                           color="success"
-                          v-model="form.input[index]"
+                          v-model="switchStatus.status[index]"
                           hide-details
                         )
                     div(v-for="(formatField, index) in format.formatFields")
@@ -109,22 +109,22 @@ export default {
   data () {
     return {
       configStatus: false,
-      form: {
-        input: []
+      switchStatus: {
+        status: []
       },
       selected: 'default',
       valid: false
     }
   },
-  // watch: {
-  //   remove_permission (val) {
-  //     if (val === this.randomNumber.toString()) {
-  //       this.valid = true
-  //     } else {
-  //       this.valid = false
-  //     }
-  //   }
-  // },
+  watch: {
+    // remove_permission (val) {
+    //   if (val === this.randomNumber.toString()) {
+    //     this.valid = true
+    //   } else {
+    //     this.valid = false
+    //   }
+    // }
+  },
   computed: {
     ...mapGetters({
       app: 'appByIdAndNetworkDataGetter',
@@ -134,6 +134,20 @@ export default {
       selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
       // skippedQuery: 'skipAppByIdQueryGetter'
     }),
+    prueba () {
+      let input = {}
+      let copy = Object.assign({}, this.formats)
+      input['active'] = this.configStatus
+      input['profile'] = this.selected
+      input['formats'] = copy
+      input['switchs'] = this.switchStatus
+      // let fake = []
+      this.switchStatus.status.map((item, index) => {
+        input['formats'][index] = 'lolololo'
+        // fake.push(index)
+      })
+      return input
+    },
     nameAndIdNetworkFormatted () {
       return `${this.selectedAppNetworkConfig.networkName.name.toLowerCase()}${this.selectedAppNetworkConfig.networkName.id}`
     },
@@ -175,8 +189,8 @@ export default {
     },
     // Send event to update app-network
     sendEditAppNetworkProfileEvent (appId, networkId, profile) {
-      this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile)
-    },
+      this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.prueba)
+    }
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)
     // }

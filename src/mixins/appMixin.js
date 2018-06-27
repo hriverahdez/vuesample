@@ -288,9 +288,10 @@ const appMixin = {
           uri: URI
         },
         variables: {
-          idApp: '5b10f0d89a5fd624626b8e78',
-          idAccount: '5b10f0d09a5fd6245f658384',
-          idNetwork: 1003,
+          idApp: appId,
+          idAccount: this.accountId,
+          idNetwork: networkId,
+          idProfile: profile,
           input: {
             active: false,
             profile: 'default',
@@ -300,7 +301,7 @@ const appMixin = {
               premium: false,
               formatFields: [{
                 key: 'id',
-                value: 'A verrrrrrrr'
+                value: 'Lemmyyyyyyyyyyyy'
               }, {
                 key: 'appId',
                 value: 'bottom'
@@ -327,8 +328,7 @@ const appMixin = {
           })
           data.apps.map((item) => {
             if (item._id === '5b10f0d89a5fd624626b8e78') {
-              console.log(item)
-              item.networks[0].formats[0].formatFields[0].value = 'A verrrrrrrr'
+              item.networks[0].formats[0].formatFields[0].value = 'Lemmyyyyyyyyyyyy'
             }
           })
           store.writeQuery({
@@ -370,9 +370,9 @@ const appMixin = {
     this.$root.$on('enableDisableApp', (_id, platform, status) => {
       this.enableDisableApp(_id, platform, !status)
     })
-    this.$root.$on('updateAppNetworkProfile', (appId, networkId, profile) => {
-      console.log(appId, networkId, profile)
-      this.updateAppNetwork(appId, networkId, profile)
+    this.$root.$on('updateAppNetworkProfile', (appId, networkId, profile, input) => {
+      console.log(input)
+      // this.updateAppNetwork(appId, networkId, profile, input)
     })
   },
   beforeDestroy () {
