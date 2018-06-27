@@ -36,6 +36,7 @@
                     v-select(
                       :items="networkProfiles"
                       item-text="name"
+                      item-value="name"
                       :label="this.$t('apps_view.select_profile')"
                       v-model="selected"
                       required
@@ -110,7 +111,7 @@ export default {
       form: {
         input: []
       },
-      selected: '',
+      selected: 'default',
       valid: false
     }
   },
