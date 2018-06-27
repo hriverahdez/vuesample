@@ -122,7 +122,8 @@ Vue.use(Vuetify, {
     red: '#E6A3C3',
     tab_heading: '#fff',
     teal: '#009688',
-    toolbar: '#fff'
+    toolbar: '#fff',
+    success: '#58C0B7'
     // secondary: '#ee44aa',
     // accent: '#FF8A65',
     // error: '#EF5350',

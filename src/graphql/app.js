@@ -115,3 +115,15 @@ mutation updateAppById ($_id: ID!, $input: UpdateAppInput!){
   }
 }
 `
+
+export const ENABLE_DISABLE_APP = gql`
+mutation updateAppById ($_id: ID!, $input: UpdateAppInput!){
+  updateAppById(_id: $_id, input: $input) {
+    app {
+      _id
+      name
+      disabled
+    }
+  }
+}
+`

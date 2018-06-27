@@ -56,7 +56,7 @@ const dynLink = createHttpLink({
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      authorization: 'mazinga ' + localStorage.getItem('token') || null,
+      auth: 'mazinga ' + localStorage.getItem('token') || null,
       account: localStorage.getItem('activeAccount') || null
     }
   })

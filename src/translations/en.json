@@ -33,6 +33,7 @@
       "apps_title": "Apps list",
       "banner_position": "Banner position",
       "bundle_identifier": "Bundle identifier",
+      "updated_app_status": "Changed app status",
       "create_new_app": "New app",
       "delete_app": "Deleted app succesfully",
       "edit_app": "Edit app",

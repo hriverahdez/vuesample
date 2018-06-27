@@ -34,18 +34,6 @@
             a(slot="activator" class="header-activator")
               icon(name="cog" class="cog-icon")
             v-list(class="apps-view-list")
-              //- v-list-tile(
-              //-   v-for="(item, index) in networkMenuOptions"
-              //-   :key="index"
-              //-   @click.native.stop="prueba") {{ $t(item) }}
-              //-   v-switch(
-              //-     v-if="index === 1"
-              //-     light
-              //-     color="success"
-              //-     v-model="networkSwitchStatus"
-              //-     hide-details
-              //-     class="switch"
-              //-     )
               v-list-tile(
                 @click.native.stop="showManageNetworkProfiles(props.header.text)"
                 class="header-tile"
@@ -65,24 +53,12 @@
                 img(:src="props.item.icon" class="app-logo")
                 icon(v-if="props.item.platform === 'android'" name="android" color="gray")
                 icon(v-if="props.item.platform === 'ios'" name="apple" color="gray")
-                span(class="app__text") {{ props.item.name }}
+                span(class="app__text") {{ props.item._id }}
+                //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
                     icon(name="cog" class="cog-icon")
                   v-list(class="app-column-menu__list apps-view-list")
-                    //- v-list-tile(
-                    //-   class="app-column-menu__list__item"
-                    //-   v-for="(item, index) in appMenuOptions"
-                    //-   :key="index"
-                    //-   @click.native.stop="menuAction") {{ $t(item) }}
-                    //-   v-switch(
-                    //-     v-if="index === 2"
-                    //-     light
-                    //-     color="success"
-                    //-     v-model="appSwitchStatus"
-                    //-     hide-details
-                    //-     class="switch"
-                    //-     )
                     v-list-tile(
                       class="app-column-menu__list__item"
                       @click.native.stop="showEditAppDialog(props.item)"
@@ -98,7 +74,9 @@
                       v-switch(
                         light
                         color="success"
-                        v-model="appSwitchStatus"
+                        :value="true"
+                        :input-value="props.item.disabled"
+                        @change="toggleEnableDisableApp(props.item._id, props.item.platform, props.item.disabled)"
                         hide-details
                         class="switch"
                       )
@@ -136,13 +114,15 @@ export default {
     //   'apps_view.manage_ad_placements',
     //   'apps_view.waterfall_debugger'
     // ],
-    appSwitchStatus: false,
     editedApp: {
       name: '',
       bundle: '',
       platform: '',
       URL: '',
       description: ''
+    },
+    appSwitchStatus: {
+      switch: [true]
     },
     networkSwitchStatus: false,
     search: ''
@@ -237,6 +217,10 @@ export default {
       this.appManageNetworkProfileDialogStatusAction(true)
       this.selectedNetworkToManageAction(networkName)
       this.$root.$emit('launchNetworkProfilesQuery', networkName)
+    },
+    // Enable/disable app status
+    toggleEnableDisableApp (appId, platform, status) {
+      this.$root.$emit('enableDisableApp', appId, platform, status)
     }
   }
 }

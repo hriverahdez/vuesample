@@ -5,6 +5,7 @@ import {
   APPS_DATA,
   CREATE_NEW_APP,
   DELETE_APP,
+  ENABLE_DISABLE_APP,
   UPDATE_APP
 } from '@/graphql/app'
 import { mapActions, mapGetters } from 'vuex'
@@ -238,6 +239,46 @@ const appMixin = {
           disabled: ''
         })
       })
+    },
+    enableDisableApp (_id, platform, status) {
+      this.$apollo.mutate({
+        mutation: ENABLE_DISABLE_APP,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _id,
+          input: {
+            disabled: status,
+            platform
+          }
+        },
+        update: (store) => {
+          const data = store.readQuery({
+            query: APPS_DATA,
+            variables: { _idAccount: this.accountId }
+          })
+          data.apps.map((item) => {
+            if (item._id === _id) {
+              item.name = name
+              item.disabled = status
+            }
+          })
+          store.writeQuery({
+            query: APPS_DATA,
+            data,
+            variables: { _idAccount: this.accountId }
+          })
+        }
+      })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_app_status'),
+          buttonText: this.$t('buttons.close')
+        })
+      })
     }
   },
   mounted () {
@@ -251,6 +292,9 @@ const appMixin = {
     })
     this.$root.$on('editApp', (id, name, platform, bundle, description, bannerPosition, icon) => {
       this.editApp(id, name, platform, bundle, description, bannerPosition, icon)
+    })
+    this.$root.$on('enableDisableApp', (_id, platform, status) => {
+      this.enableDisableApp(_id, platform, !status)
     })
   },
   beforeDestroy () {

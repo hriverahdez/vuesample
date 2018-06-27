@@ -43,6 +43,9 @@ const getters = {
   dashboardFiltersGetter (state) {
     return state.config
   },
+  formatsTypesGetter (state) {
+    return state.config.formats
+  },
   formatFiltersGetter (state) {
     return state.formatFilters
   },

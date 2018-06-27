@@ -48,7 +48,7 @@
                   h4 {{ $t('apps_view.format_config')}}
                   div(v-for="(format, index) in formats" v-if="formats" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
-                      div(class="network-config-container__formats-config__header__title") {{ format.format }}
+                      div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format)}}
                       v-switch(
                           light
                           :label="check"
@@ -126,6 +126,7 @@ export default {
     ...mapGetters({
       app: 'appByIdAndNetworkDataGetter',
       formats: 'formatsSelectedAppAndNetworkGetter',
+      formatTypes: 'formatsIdsAndNamesGetter',
       networkProfiles: 'networkProfilesListGetter',
       selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
       // skippedQuery: 'skipAppByIdQueryGetter'
@@ -152,6 +153,18 @@ export default {
     // Close dialog layer
     closeDialog () {
       this.appNetworkConfigDialogStatusAction(false)
+    },
+    // Get translation format label
+    getFormatLabel (format) {
+      if (this.formatTypes) {
+        let label = ''
+        this.formatTypes.map((item) => {
+          if (format === item.id) {
+            label = item.name
+          }
+        })
+        return label
+      }
     },
     // Get values from input texts
     getNewValue (e) {

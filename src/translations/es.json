@@ -35,6 +35,7 @@
       "banner_position": "Posición del banner",
       "bundle_identifier": "Identificador de bundle",
       "create_new_app": "Crear app",
+      "updated_app_status": "Actualizado estado de app",
       "delete_app": "App eliminada correctamente",
       "edit_app": "Editar app",
       "edit_success": "App editada",
