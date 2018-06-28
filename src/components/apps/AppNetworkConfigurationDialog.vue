@@ -205,6 +205,11 @@ export default {
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)
     // }
+  },
+  mounted () {
+    this.formats.map((item) => {
+      this.switchStatus.status.push(item.active)
+    })
   }
 }
 </script>
