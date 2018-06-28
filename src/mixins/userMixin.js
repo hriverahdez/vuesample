@@ -118,6 +118,7 @@ const userMixin = {
         } else {
           // si tenemos en el local storage una cuenta por defecto y existe en las cuentas de usuario,le redirigimos atumaticamente a ella
           if (localStorage.getItem('activeAccount') && this.$store.getters.userAccountsIds.includes(localStorage.getItem('activeAccount'))) {
+            this.setActiveUserAccountAction(localStorage.getItem('activeAccount'))
             this.$router.push({ name: 'dashboard' })
           } else {
             // si tiene mas de una redirigimos o es admin a la pantalla de selección de cuentas

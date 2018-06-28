@@ -88,7 +88,6 @@ const mutations = {
     localStorage.setItem('activeAccount', account)
   },
   [USER_ACCOUNTS] (state, accounts) {
-    console.log(accounts)
     state.userAccounts = accounts
   },
   [USER_TOKEN_CHECKING] (state, checking) {
