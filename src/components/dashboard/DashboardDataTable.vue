@@ -9,14 +9,14 @@
         )
 
         template(slot="headers" slot-scope="props")
-          th(v-for="header in props.headers" :key="header.text") {{ header.text === "groupBy" ? `Group by ${datatableGroupBy.toLowerCase()}` : header.text }}
+          th(v-for="header in props.headers" :key="header.text" align="left") {{ header.text === "groupBy" ? `Group by ${datatableGroupBy.toLowerCase()}` : header.text }}
 
         template(slot="items" slot-scope="props")
             td(class="text-xs-left clicked-cell" @click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
-            td.text-xs-left {{ props.item.requests }}
+            //- td.text-xs-left {{ props.item.requests }}
             td.text-xs-left(v-if="showDAU") DAU
             td.text-xs-left {{ props.item.imp | currency('', 0) }}
-            td.text-xs-left {{ props.item.fillRate }}
+            //- td.text-xs-left {{ props.item.fillRate }}
             td.text-xs-left {{ props.item.click | currency('', 0) }}
             td.text-xs-left {{ props.item.ctr | percentageFormat }}
             td.text-xs-left {{ props.item.money | currency }}
@@ -30,9 +30,9 @@
 
         template(slot="footer" v-if="datatableTotals[0]")
           td.text-xs-left TOTAL
-          td.text-xs-left {{ datatableTotals[0].req }}
+          //- td.text-xs-left {{ datatableTotals[0].req }}
           td.text-xs-left {{ datatableTotals[0].imp | currency('', 0) }}
-          td.text-xs-left {{ datatableTotals[0].fillRate }}
+          //- td.text-xs-left {{ datatableTotals[0].fillRate }}
           td.text-xs-left {{ datatableTotals[0].click | currency('', 0) }}
           td.text-xs-left {{ datatableTotals[0].ctr | percentageFormat }}
           td.text-xs-left {{ datatableTotals[0].money | currency }}
@@ -52,9 +52,9 @@ export default {
         align: 'left',
         value: 'date'
       },
-      { text: 'Request', value: 'request' },
+      // { text: 'Request', value: 'request' },
       { text: 'Impressions', value: 'impressions' },
-      { text: 'Fill rate', value: 'rate' },
+      // { text: 'Fill rate', value: 'rate' },
       { text: 'Clicks', value: 'clicks' },
       { text: 'CTR', value: 'ctr' },
       { text: 'Revenue', value: 'revenue' },

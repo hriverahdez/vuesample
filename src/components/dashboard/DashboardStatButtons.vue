@@ -22,9 +22,9 @@ export default {
     activeButtonIndex: 0,
     buttons: [
       {title: 'dashboard_view.revenue'},
-      {title: 'dashboard_view.requests'},
+      // {title: 'dashboard_view.requests'},
       {title: 'dashboard_view.impressions'},
-      {title: 'dashboard_view.fill_rate'},
+      // {title: 'dashboard_view.fill_rate'},
       {title: 'dashboard_view.clicks'},
       {title: 'dashboard_view.ctr'},
       {title: 'dashboard_view.ecpm'}
