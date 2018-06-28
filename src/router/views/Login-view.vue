@@ -29,6 +29,11 @@
                             :label="this.$t('login_view.remember')"
                             :disabled="checkIsLoading()"
                         ).checkbox
+                        div
+                            v-alert(v-model="alertFlag" type="error" dismissible)
+                                span {{ mesageError }}
+                                div(class="text-xs-center")
+                                   v-btn(v-if="!alertFlag" color="error" dark @click="alert = true") Reset
                         v-btn(
                             @click.stop.prevent="submit"
                             :disabled="checkIsLoading()"
@@ -36,6 +41,7 @@
                         br
                         p.t2 {{ $t('login_view.not_register') }}&nbsp;
                             a(href="mailto:mediation@labcavegames.com") {{ $t('login_view.click_here') }}
+                        p {{ alertFlag }}
 </template>
 
 <script>
@@ -47,6 +53,8 @@
     name: 'login-view',
     mixins: [userMixin],
     data: () => ({
+      alertFlag: false,
+      mesageError: '',
       valid: true,
       password: '',
       passwordRules: [
@@ -91,24 +99,15 @@
                 // vamos a consultar en graphQL por los datos de usuario
                 this.queryUser(this.email)
               } else {
-                // TODO: no se ven los alerts de mensajes de error
-                this.SET_ALERT_MESSAGE({
-                  show: true,
-                  type: 'success',
-                  message: this.$t('login_view.error_user_not_valid'),
-                  buttonText: this.$t('buttons.close')
-                })
+                this.alertFlag = true
+                this.mesageError = this.$t('login_view.error_user_not_valid')
               }
             })
             .catch(error => {
+              this.alertFlag = true
               console.log(error)
+              this.mesageError = this.$t('login_view.error_user_not_valid')
               this.isLoading = false
-              this.SET_ALERT_MESSAGE({
-                show: true,
-                type: 'success',
-                message: this.$t('login_view.error_user_not_valid'),
-                buttonText: this.$t('buttons.close')
-              })
             })
             .finally(() => (this.isLoading = false))
         }
@@ -118,6 +117,10 @@
 </script>
 
 <style lang="scss" scoped>
+
+    .alert{
+        margin-bottom: 15px;
+    }
 
     .login__body{
         font-family:'brandon-grotesque', sans-serif !important;

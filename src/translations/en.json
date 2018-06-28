@@ -125,6 +125,7 @@
       "click_here": "Click here",
       "email" : "E-mail",
       "error": "An error has occured with your account. Please contact the technical team for support.",
+      "error_user_not_valid": "Incorrect username or password.",
       "password" : "Password",
       "not_register": "Not registered yet?",
       "remember" : "Remember me"
