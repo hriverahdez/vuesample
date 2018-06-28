@@ -1,10 +1,13 @@
 import {
   APP_DATA_BY_ID,
+  APP_DATA_BY_ID_AND_NETWORK,
   APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
   APPS_DATA,
   CREATE_NEW_APP,
   DELETE_APP,
-  UPDATE_APP
+  ENABLE_DISABLE_APP,
+  UPDATE_APP,
+  UPDATE_APP_NETWORK
 } from '@/graphql/app'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -19,7 +22,7 @@ const appMixin = {
       },
       variables () {
         return {
-          _idAccount: '5b10f0f89a5fd62624137dd5'
+          _idAccount: this.accountId
         }
       },
       loadingKey: 'loading',
@@ -45,6 +48,27 @@ const appMixin = {
         this.appByIdDataAction(data.appById)
       }
     },
+    appByIdNetworkProfile: {
+      query: APP_DATA_BY_ID_AND_NETWORK,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          _id: this.appAndNetworkData.appId,
+          _idAccount: this.accountId,
+          _IdNetwork: parseInt(this.appAndNetworkData.networkName.id),
+          _profileName: 'default'
+        }
+      },
+      skip () {
+        return this.skipAppByIdAndNetworkQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile)
+      }
+    },
     appsNamesAndIds: {
       query: APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
       context: {
@@ -64,12 +88,15 @@ const appMixin = {
   computed: {
     ...mapGetters({
       accountId: 'activeAccount',
-      skipAppById: 'skipAppByIdQueryGetter'
+      appAndNetworkData: 'selectedAppNetworkInDatatableGetter',
+      // skipAppById: 'skipAppByIdQueryGetter',
+      skipAppByIdAndNetworkQuery: 'skipAppByIdAndNetworkGetter'
     })
   },
   methods: {
     ...mapActions([
-      'appByIdDataAction',
+      // 'appByIdDataAction',
+      'appByIdAndNetworkDataAction',
       'appDataAction',
       'appDialogStatusAction',
       'appIdAction',
@@ -78,7 +105,8 @@ const appMixin = {
       'appSchemaAction',
       'appsLoaderStatusAction',
       'editedAppIndexStatusAction',
-      'removeAppPermissionInputAction'
+      'removeAppPermissionInputAction',
+      'skipAppByIdAndNetworkQueryAction'
     ]),
     createApp (name, platform, bundle, description, bannerPosition, icon) {
       this.$apollo.mutate({
@@ -213,6 +241,91 @@ const appMixin = {
           disabled: ''
         })
       })
+    },
+    enableDisableApp (_id, platform, status) {
+      this.$apollo.mutate({
+        mutation: ENABLE_DISABLE_APP,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _id,
+          input: {
+            disabled: status,
+            platform
+          }
+        },
+        update: (store) => {
+          const data = store.readQuery({
+            query: APPS_DATA,
+            variables: { _idAccount: this.accountId }
+          })
+          data.apps.map((item) => {
+            if (item._id === _id) {
+              item.disabled = status
+            }
+          })
+          store.writeQuery({
+            query: APPS_DATA,
+            data,
+            variables: { _idAccount: this.accountId }
+          })
+        }
+      })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.updated_app_status'),
+          buttonText: this.$t('buttons.close')
+        })
+      })
+    },
+    updateAppNetwork (appId, networkId, profile, input) {
+      this.$apollo.mutate({
+        mutation: UPDATE_APP_NETWORK,
+        context: {
+          uri: URI
+        },
+        variables: {
+          idApp: appId,
+          idAccount: this.accountId,
+          idNetwork: networkId,
+          idProfile: profile,
+          input: input
+        },
+        update: (store) => {
+          const data = store.readQuery({
+            query: APPS_DATA,
+            variables: { _idAccount: this.accountId }
+          })
+          data.apps.map((item) => {
+            if (item._id === appId) {
+              item.networks[0].formats[0].formatFields[0].value = 'Lemmyyyyyyyyyyyy'
+            }
+          })
+          store.writeQuery({
+            query: APPS_DATA,
+            data,
+            variables: { _idAccount: this.accountId }
+          })
+        }
+      })
+      .then(() => {
+        this.editedAppIndexStatusAction(-1)
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.edit_success'),
+          buttonText: this.$t('buttons.close')
+        })
+        this.appDialogStatusAction(false)
+        this.appSchemaAction({
+          name: '',
+          description: '',
+          disabled: ''
+        })
+      })
     }
   },
   mounted () {
@@ -226,6 +339,13 @@ const appMixin = {
     })
     this.$root.$on('editApp', (id, name, platform, bundle, description, bannerPosition, icon) => {
       this.editApp(id, name, platform, bundle, description, bannerPosition, icon)
+    })
+    this.$root.$on('enableDisableApp', (_id, platform, status) => {
+      this.enableDisableApp(_id, platform, !status)
+    })
+    this.$root.$on('updateAppNetworkProfile', (appId, networkId, profile, input) => {
+      console.log(input)
+      this.updateAppNetwork(appId, networkId, profile, input)
     })
   },
   beforeDestroy () {

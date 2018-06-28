@@ -19,9 +19,9 @@ const state = {
     '1002': {
       'name': 'Admob',
       'params_by_network': {
-        'api_key': {
-          'label': i18n.t('networks_info.addcolony1003.api_key.label'),
-          'help_text': 'Es diferente'
+        'publisher_id': {
+          'label': i18n.t('networks_info.admob1002.publisher_id.label'),
+          'help_text': i18n.t('networks_info.admob1002.publisher_id.help_text')
         }
       }
     },
@@ -29,9 +29,13 @@ const state = {
       'name': 'Adcolony',
       'params_by_network': {
         'api_key': {
-          'label': i18n.t('networks_info.addcolony1003.api_key.label'),
-          'help_text': i18n.t('networks_info.addcolony1003.api_key.help_text')
+          'label': i18n.t('networks_info.adcolony1003.api_key.label'),
+          'help_text': i18n.t('networks_info.adcolony1003.api_key.help_text')
         }
+      },
+      'format_profile_text': {
+        'id': i18n.t('networks_info.adcolony1003.format_profile_text.id'),
+        'appId': i18n.t('networks_info.adcolony1003.format_profile_text.appId')
       }
     },
     '1004': {
@@ -78,14 +82,27 @@ const state = {
         }
       }
     },
+    '1009': {
+      'name': 'Facebook',
+      'params_by_network': {
+        'access_token': {
+          'label': i18n.t('networks_info.applovin1008.report_key.label'),
+          'help_text': i18n.t('networks_info.applovin1008.report_key.help_text')
+        },
+        'app_id': {
+          'label': i18n.t('networks_info.applovin1008.sdk_key.label'),
+          'help_text': i18n.t('networks_info.applovin1008.sdk_key.help_text')
+        }
+      }
+    },
     '1012': {
       'name': 'Inmobi',
       'params_by_network': {
-        'account_id': {
+        'acountId': {
           'label': i18n.t('networks_info.inmobi1012.account_id.label'),
           'help_text': i18n.t('networks_info.inmobi1012.account_id.help_text')
         },
-        'api_key': {
+        'apiKey': {
           'label': i18n.t('networks_info.inmobi1012.api_key.label'),
           'help_text': i18n.t('networks_info.inmobi1012.api_key.help_text')
         },
@@ -102,7 +119,7 @@ const state = {
     '1013': {
       'name': 'Startapp',
       'params_by_network': {
-        'account_id': {
+        'acountId': {
           'label': i18n.t('networks_info.startapp1013.account_id.label'),
           'help_text': i18n.t('networks_info.startapp1013.account_id.help_text')
         },
@@ -125,18 +142,24 @@ const state = {
         }
       }
     },
+    '1015': {
+      'name': 'Hyprmx',
+      'params_by_network': {
+        'help_text': i18n.t('networks_info.hyprmx1015.help_text')
+      }
+    },
     '1016': {
       'name': 'Mopub',
       'params_by_network': {
-        'apy_key': {
+        'apiKey': {
           'label': i18n.t('networks_info.mopub1016.api_key.label'),
           'help_text': i18n.t('networks_info.mopub1016.api_key.help_text')
         },
-        'inventory_report': {
+        'inventoryReport': {
           'label': i18n.t('networks_info.mopub1016.inventory_report.label'),
           'help_text': i18n.t('networks_info.mopub1016.inventory_report.help_text')
         },
-        'campaign_report': {
+        'campaignReport': {
           'label': i18n.t('networks_info.mopub1016.campaign_report.label'),
           'help_text': i18n.t('networks_info.mopub1016.campaign_report.help_text')
         }
@@ -1242,22 +1265,20 @@ const state = {
     '1017': 'IRONSOURCE'
   },
   networksIdsAndNames: [
-    {id: '1001', name: 'MOBUSI'},
-    {id: '1002', name: 'ADMOB'},
     {id: '1003', name: 'ADCOLONY'},
-    {id: '1004', name: 'UNITYADS'},
-    {id: '1005', name: 'VUNGLE'},
-    {id: '1006', name: 'KIIP'},
-    {id: '1007', name: 'CHARTBOOST'},
+    {id: '1002', name: 'ADMOB'},
     {id: '1008', name: 'APPLOVIN'},
+    {id: '1007', name: 'CHARTBOOST'},
     {id: '1009', name: 'FACEBOOK'},
-    {id: '1010', name: 'MOBUSI_SSP'},
-    {id: '1012', name: 'INMOBI'},
-    {id: '1013', name: 'STARTAPP'},
-    {id: '1014', name: 'MOBVISTA'},
     {id: '1015', name: 'HYPRMX'},
+    {id: '1012', name: 'INMOBI'},
+    {id: '1017', name: 'IRONSOURCE'},
+    {id: '1001', name: 'MOBUSI'},
+    {id: '1014', name: 'MOBVISTA'},
     {id: '1016', name: 'MOPUB'},
-    {id: '1017', name: 'IRONSOURCE'}
+    {id: '1004', name: 'UNITYADS'},
+    {id: '1013', name: 'STARTAPP'},
+    {id: '1005', name: 'VUNGLE'}
   ],
   urlLogin: 'http://stage.do.linkitox.com/api/token'
 }

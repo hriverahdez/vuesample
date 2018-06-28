@@ -21,7 +21,7 @@
             class="search-field"
             )
     v-data-table(
-        :headers="headers"
+        :headers="datatableHeaders"
         :items="apps"
         :search="search"
         class="elevation-1 apps-datatable"
@@ -34,18 +34,6 @@
             a(slot="activator" class="header-activator")
               icon(name="cog" class="cog-icon")
             v-list(class="apps-view-list")
-              //- v-list-tile(
-              //-   v-for="(item, index) in networkMenuOptions"
-              //-   :key="index"
-              //-   @click.native.stop="prueba") {{ $t(item) }}
-              //-   v-switch(
-              //-     v-if="index === 1"
-              //-     light
-              //-     color="success"
-              //-     v-model="networkSwitchStatus"
-              //-     hide-details
-              //-     class="switch"
-              //-     )
               v-list-tile(
                 @click.native.stop="showManageNetworkProfiles(props.header.text)"
                 class="header-tile"
@@ -62,26 +50,15 @@
         template(slot="items" slot-scope="props")
             td(class="text-xs-left app")
               div(class="app-container")
+                img(:src="props.item.icon" class="app-logo")
                 icon(v-if="props.item.platform === 'android'" name="android" color="gray")
                 icon(v-if="props.item.platform === 'ios'" name="apple" color="gray")
                 span(class="app__text") {{ props.item.name }}
+                //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
                     icon(name="cog" class="cog-icon")
                   v-list(class="app-column-menu__list apps-view-list")
-                    //- v-list-tile(
-                    //-   class="app-column-menu__list__item"
-                    //-   v-for="(item, index) in appMenuOptions"
-                    //-   :key="index"
-                    //-   @click.native.stop="menuAction") {{ $t(item) }}
-                    //-   v-switch(
-                    //-     v-if="index === 2"
-                    //-     light
-                    //-     color="success"
-                    //-     v-model="appSwitchStatus"
-                    //-     hide-details
-                    //-     class="switch"
-                    //-     )
                     v-list-tile(
                       class="app-column-menu__list__item"
                       @click.native.stop="showEditAppDialog(props.item)"
@@ -97,7 +74,9 @@
                       v-switch(
                         light
                         color="success"
-                        v-model="appSwitchStatus"
+                        :value="true"
+                        :input-value="props.item.disabled"
+                        @change="toggleEnableDisableApp(props.item._id, props.item.platform, props.item.disabled)"
                         hide-details
                         class="switch"
                       )
@@ -110,7 +89,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="network in networks" v-bind:class="{ 'padding-scroll': network === 'ADCOLONY' }")
+            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB' }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -135,7 +114,6 @@ export default {
     //   'apps_view.manage_ad_placements',
     //   'apps_view.waterfall_debugger'
     // ],
-    appSwitchStatus: false,
     editedApp: {
       name: '',
       bundle: '',
@@ -143,42 +121,65 @@ export default {
       URL: '',
       description: ''
     },
-    headers: [
-      {
-        text: 'Name',
-        align: 'left',
-        value: 'name',
-        color: 'red'
-      },
-      // { text: 'Impressions', value: 'impressions' },
-      { text: 'ADCOLONY', value: 'ADCOLONY', sortable: false },
-      { text: 'ADMOB', value: 'ADMOB', sortable: false },
-      { text: 'APPLOVIN', value: 'APPLOVIN', sortable: false },
-      { text: 'CHARTBOOST', value: 'CHARTBOOST', sortable: false },
-      { text: 'FACEBOOK', value: 'FACEBOOK', sortable: false },
-      { text: 'HYPRMX', value: 'HYPRMX', sortable: false },
-      { text: 'INMOBI', value: 'INMOBI', sortable: false },
-      { text: 'IRONSOURCE', value: 'IRONSOURCE', sortable: false },
-      { text: 'MOBUSI', value: 'MOBUSI', sortable: false },
-      // { text: 'MOBUSI SSP', value: 'MOBUSI SSP', sortable: false },
-      { text: 'MOBVISTA', value: 'MOBVISTA', sortable: false },
-      { text: 'MOPUB', value: 'MOPUB', sortable: false },
-      { text: 'UNITYADS', value: 'UNITYADS', sortable: false },
-      { text: 'STARTAPP', value: 'STARTAPP', sortable: false },
-      { text: 'VUNGLE', value: 'VUNGLE', sortable: false }
-    ],
-    // networkMenuOptions: [
-    //   'apps_view.manage_network_profiles',
-    //   'apps_view.enable_disable_network'
-    // ],
+    appSwitchStatus: {
+      switch: [true]
+    },
     networkSwitchStatus: false,
     search: ''
   }),
   computed: {
     ...mapGetters({
       apps: 'appsDataGetter',
-      networks: 'networkNamesGetter'
-    })
+      // networks: 'networksIdsAndNamesGetter',
+      networkIds: 'networkIdsGetter',
+      networksInfo: 'networksInfoGetter'
+    }),
+    // Get cuurrent netqork actives
+    currentNetworksActive () {
+      if (this.networksInfo && this.networkIds) {
+        let currentNetworksActive = []
+        for (let key in this.networksInfo) {
+          if (this.networkIds.includes(parseInt(key))) {
+            currentNetworksActive.push(key)
+          }
+        }
+        return currentNetworksActive
+      }
+    },
+    // Get datatable headers
+    datatableHeaders () {
+      if (this.networksInfo && this.currentNetworksActive) {
+        let headers = [
+          {
+            text: 'Name',
+            align: 'left',
+            value: 'name',
+            color: 'red'
+          }
+        ]
+        this.currentNetworksActive.map((network) => {
+          let newObject = {}
+          newObject['text'] = this.networksInfo[parseInt(network)].name.toUpperCase()
+          newObject['value'] = this.networksInfo[parseInt(network)].name.toUpperCase()
+          newObject['sortable'] = false
+          headers.push(newObject)
+        })
+        return headers
+      }
+    },
+    // Get data networks for datatable cells
+    networks () {
+      if (this.networksInfo && this.currentNetworksActive) {
+        let networks = []
+        this.currentNetworksActive.map((network) => {
+          let newObject = {}
+          newObject['id'] = network
+          newObject['name'] = this.networksInfo[parseInt(network)].name.toUpperCase()
+          networks.push(newObject)
+        })
+        return networks
+      }
+    }
   },
   methods: {
     ...mapActions([
@@ -190,7 +191,7 @@ export default {
       'editedAppIndexStatusAction',
       'selectedAppNetworkInDatatableAction',
       'selectedNetworkToManageAction',
-      'skipAppByIdQueryAction',
+      'skipAppByIdAndNetworkQueryAction',
       'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
@@ -207,15 +208,21 @@ export default {
     },
     // Send data to show the app-network configuration corresponding dialog from datatable cell
     selectedCell (networkName, appName, appId) {
-      this.appNetworkConfigDialogStatusAction(true)
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
-      this.skipAppByIdQueryAction(false)
+      this.appNetworkConfigDialogStatusAction(true)
+      this.skipAppByIdAndNetworkQueryAction(false)
+      this.$root.$emit('launchNetworkProfilesQuery', networkName.name)
     },
      // Show the corresponding network profile dialog from datatable header
     showManageNetworkProfiles (networkName) {
       this.appManageNetworkProfileDialogStatusAction(true)
       this.selectedNetworkToManageAction(networkName)
       this.$root.$emit('launchNetworkProfilesQuery', networkName)
+    },
+    // Enable/disable app status
+    toggleEnableDisableApp (appId, platform, status) {
+      console.log(status)
+      this.$root.$emit('enableDisableApp', appId, platform, status)
     }
   }
 }
@@ -231,6 +238,13 @@ export default {
 }
 .app-card {
   border-top: 3px solid #BDD0FB;
+}
+
+.app-logo {
+  display: block;
+  width: 20px;
+  margin-right: 10px;
+  height: auto;
 }
 
 .app-title {
@@ -258,7 +272,6 @@ export default {
     display: flex;
     align-items: center;
     border-right: 1px solid rgba(0,0,0,0.12);
-    border-bottom: 1px solid rgba(0,0,0,0.12);
 
     &:hover {
       background: #ededed;
@@ -277,7 +290,7 @@ export default {
     border-bottom: none;
   }
   .padding-scroll {
-    padding-left: 300px!important;
+    padding-left: 335px!important;
   }
 
   .app-container {

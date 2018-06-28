@@ -372,7 +372,8 @@ mutation updateAccountNetworkIntegration1014byIdAccount ($_idAccount: ID!, $_pro
 }
 `
 
-// MOPUB
+/* ------------------------- MOPUB --------------------------- */
+// Query
 export const NETWORK_PROFILES_MOPUB = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -393,7 +394,35 @@ query ($filter: [AccountFilter]) {
   }
  }
 `
-// STARTAPP
+
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1016 = gql`
+mutation createAccountNetworkIntegration1016 ($input: CreateAccountNetIntegration1016Input!){
+  createAccountNetworkIntegration1016(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1016_PROFILE = gql`
+mutation updateAccountNetworkIntegration1016byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1016Input!){
+  updateAccountNetworkIntegration1016byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+/* ------------------------- STARTAPP --------------------------- */
+// Query
 export const NETWORK_PROFILES_STARTAPP = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -414,7 +443,34 @@ query ($filter: [AccountFilter]) {
  }
 `
 
-// UNITYADS
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1013 = gql`
+mutation createAccountNetworkIntegration1013 ($input: CreateAccountNetIntegration1013Input!){
+  createAccountNetworkIntegration1013(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1013_PROFILE = gql`
+mutation updateAccountNetworkIntegration1013byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1013Input!){
+  updateAccountNetworkIntegration1013byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+/* ------------------------- UNITYADS --------------------------- */
+// Query
 export const NETWORK_PROFILES_UNITYADS = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -434,7 +490,34 @@ query ($filter: [AccountFilter]) {
  }
 `
 
-// VUNGLE
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1004 = gql`
+mutation createAccountNetworkIntegration1004 ($input: CreateAccountNetIntegration1004Input!){
+  createAccountNetworkIntegration1004(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1004_PROFILE = gql`
+mutation updateAccountNetworkIntegration1004byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1004Input!){
+  updateAccountNetworkIntegration1004byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+/* ------------------------- VUNGLE --------------------------- */
+// Query
 export const NETWORK_PROFILES_VUNGLE = gql`
 query ($filter: [AccountFilter]) {
   accounts(filter: $filter) {
@@ -452,6 +535,31 @@ query ($filter: [AccountFilter]) {
     }
   }
  }
+`
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1005 = gql`
+mutation createAccountNetworkIntegration1005 ($input: CreateAccountNetIntegration1005Input!){
+  createAccountNetworkIntegration1005(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+
+export const UPDATE_NETWORK_1005_PROFILE = gql`
+mutation updateAccountNetworkIntegration1005byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1005Input!){
+  updateAccountNetworkIntegration1005byIdAccount(
+    _idAccount: $_idAccount,
+    _profileName: $_profileName,
+    input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
 `
 
 /* -------------- General Mutations ------------ */

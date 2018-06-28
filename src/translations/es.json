@@ -35,10 +35,12 @@
       "banner_position": "Posición del banner",
       "bundle_identifier": "Identificador de bundle",
       "create_new_app": "Crear app",
+      "updated_app_status": "Actualizado estado de app",
       "delete_app": "App eliminada correctamente",
       "edit_app": "Editar app",
       "edit_success": "App editada",
       "enable_disable_network": "Habilitar / deshabilitar",
+      "format_config": "Configuración de formatos",
       "icon_text": "Icono:",
       "manage_ad_placements": "Configurar zona anuncio",
       "manage_network_profiles": "Configurar perfil de red",
@@ -49,6 +51,7 @@
       "new_profile": "Nuevo perfil",
       "new_profile_created": "Nuevo perfil creado correctamente",
       "new_success": "Nueva app creada",
+      "platform": "Plataforma",
       "profile_name": "Nombre de perfil",
       "remove_app": "Eliminar app",
       "remove_app_message": "Escribe {number} en el campo de texto",
@@ -155,120 +158,146 @@
       "waterfall_rules": "Reglas de cascada"
     },
     "networks_info": {
-      "addcolony1003": {
-        "api_key": {
-          "label": "Clave API",
-          "help_text": "Your API key will be labeled as \"Read-Only API Key\" on this page - PENDING"
+      "networks_info": {
+        "mobusi1001": {
+          "api_key": {
+            "label": "clave API",
+            "help_text": ""
+          },
+          "user_id": {
+            "label": "Firma de usuario",
+            "help_text": ""
+          }
+        },
+        "admob1002": {
+          "publisher_id": {
+            "label": "Id anunciante",
+            "help_text": "From this page, select the \"Publisher ID\". Make sure you use the same account as you do for the \"Grant Access\" button above otherwise the access will not be granted.-PENDING"
+          }
+        },
+        "adcolony1003": {
+          "api_key": {
+            "label": "Clave API",
+            "help_text": "Your API key will be labeled as \"Read-Only API Key\" on this page-PENDING"
+          },
+          "format_profile_text": {
+            "id": "From the AdColony dashboard, choose your app. Select an existing Zone to view its ID, or create a new zone by choosing \"Setup New Ad Zone\" and selecting the \"Interstitial\" zone type.-PENDING",
+            "appId": "From the AdColony dashboard, choose your app. Your App ID will be labeled as \"AdColony App ID\" on this page.-PENDING"
+          }
+        },
+        "unityads1004": {
+          "api_key": {
+            "label": "Clave API",
+            "help_text": "Your API key is found on the API keys tab of the UnityAds dashboard-PENDING"
+          }
+        },
+        "vungle1005": {
+          "api_key": {
+            "label": "Clave API",
+            "help_text": "From the Vungle Details Dashboard, find your Reporting API key towards the bottom of the page. If you do not already have an API key, email Vungle at account-managers@vungle.com to request one.-PENDING"
+          }
+        },
+        "chartboost1007": {
+          "user_id": {
+            "label": "ID de usuario",
+            "help_text": "From the API Explorer Page, select the User ID-PENDING"
+          },
+          "user_signature": {
+            "label": "Firma de usuario",
+            "help_text": "From the API Explorer Page, select the User Signature-PENDING"
+          }
+        },
+        "applovin1008": {
+          "report_key": {
+            "label": "Clave de reporte",
+            "help_text": "From your Account page, choose \"Keys\" in the left sidebar, then select the Report Key. If you do not see the Report Key field, email support@applovin.com and request your reporting key.-PENDING"
+          },
+          "sdk_key": {
+            "label": "Clave SDK",
+            "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key.-PENDING"
+          }
+        },
+        "facebook1009": {
+          "access_token": {
+            "label": "Token de acceso",
+            "help_text": "Access tokens for all of your apps are listed here. You must be an administrator of the app to see them.-PENDING"
+          },
+          "app_id": {
+            "label": "Id de ap",
+            "help_text": "You can find your App ID on your app's settings page.-PENDING"
+          }
+        },
+        "inmobi1012": {
+          "account_id": {
+            "label": "ID de cuenta",
+            "help_text": "You can find your Account ID on your InMobi Dashboard. Click the disclosure triangle in the top right to reveal your Account ID.-PENDING"
+          },
+          "api_key": {
+            "label": "Clave API",
+            "help_text": "Email InMobi and request an API Key. Please mention that you need the API Key to use the Mobusi Mediation.-PENDING"
+          },
+          "username": {
+            "label": "Nombre de usuario",
+            "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature.-PENDING"
+          },
+          "password": {
+            "label": "Contraseña",
+            "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature.-PENDING"
+          }
+        },
+        "startapp1013": {
+          "account_id": {
+            "label": "ID de cuenta",
+            "help_text": "You can find your Account Id at the right top menu sidebar in this page.-PENDING"
+          },
+          "token": {
+            "label": "Token",
+            "help_text": ""
+          }
+        },
+        "mobvista1014": {
+          "skey": {
+            "label": "SKey",
+            "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Skey.-PENDING"
+          },
+          "secret": {
+            "label": "Secreto",
+            "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Secret after validating with your password a security popup alert.-PENDING"
+          }
+        },
+        "hyprmx1015": {
+          "help_text": "This network does not require any data for integration.-PENDING"
+        },
+        "mopub1016": {
+          "api_key": {
+            "label": "Clave de API",
+            "help_text": "From the Reports page, check \"Enable data access through API\". Then click the \"View API Access Details\" link to reveal your API Key.-PENDING"
+          },
+          "inventory_report": {
+            "label": "Reporte de inventario",
+            "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Inventory Report ID.-PENDING"
+          },
+          "campaign_report": {
+            "label": "Reporte de campaña",
+            "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Campaign Report ID.-PENDING"
+          }
+        },
+        "ironsource1017": {
+          "username": {
+            "label": "Nombre de usuario",
+            "help_text": "The login/email that is used to login to our ironSource account.-PENDING"
+          },
+          "secret_key": {
+            "label": "Clave secreta",
+            "help_text": "The secret key parameter is unique for your ironSource account. To retrieve it, click on your user profile on the top right corner of the screen, and select 'My Account'. You will find the secret key in the Reporting API section-PENDING"
+          }
         }
       },
-      "applovin1008": {
-        "report_key": {
-          "label": "Clave reporte",
-          "help_text": "From your Account page, choose \"Keys\" in the left sidebar, then select the Report Key. If you do not see the Report Key field, email support@applovin.com and request your reporting key. - PENDING"
-        },
-        "sdk_key": {
-          "label": "Clave SDK",
-          "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key.-PENDING"
-        }
-      },
-      "chartboost1007": {
-        "user_id": {
-          "label": "ID Usuario",
-          "help_text": "From the API Explorer Page, select the User ID-PENDING"
-        },
-        "user_signature": {
-          "label": "Firma usuario",
-          "help_text": "From the API Explorer Page, select the User Signature-PENDING"
-        }
-      },
-      "inmobi1012": {
-        "account_id": {
-          "label": "ID cuenta",
-          "help_text": "You can find your Account ID on your InMobi Dashboard. Click the disclosure triangle in the top right to reveal your Account ID.-PENDING"
-        },
-        "api_key": {
-          "label": "Clave API",
-          "help_text": "Email InMobi and request an API Key. Please mention that you need the API Key to use the Mobusi Mediation.-PENDING"
-        },
-        "username": {
-          "label": "Nombre de usuario",
-          "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature.-PENDING"
-        },
-        "password": {
-          "label": "Contraseña",
-          "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature.-PENDING"
-        }
-      },
-      "ironsource1017": {
-        "username": {
-          "label": "Nombre de usuario",
-          "help_text": "The login/email that is used to login to our ironSource account.-PENDING"
-        },
-        "secret_key": {
-          "label": "Clave secreta",
-          "help_text": "The secret key parameter is unique for your ironSource account. To retrieve it, click on your user profile on the top right corner of the screen, and select 'My Account'. You will find the secret key in the Reporting API section-PENDING"
-        }
-      },
-      "mobusi1001": {
-        "api_key": {
-          "label": "Clave API",
-          "help_text": ""
-        },
-        "user_id": {
-          "label": "Id usuario",
-          "help_text": ""
-        }
-      },
-      "mobvista1014": {
-        "skey": {
-          "label": "SKey-PENDING",
-          "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Skey.-PENDING"
-        },
-        "secret": {
-          "label": "Secret-PENDING",
-          "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Secret after validating with your password a security popup alert.-PENDING"
-        }
-      },
-      "mopub1016": {
-        "api_key": {
-          "label": "Clave API",
-          "help_text": "From the Reports page, check \"Enable data access through API\". Then click the \"View API Access Details\" link to reveal your API Key.-PENDING"
-        },
-        "inventory_report": {
-          "label": "Reporte de inventario",
-          "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Inventory Report ID.-PENDING"
-        },
-        "campaign_report": {
-          "label": "Reporte de campaña",
-          "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Campaign Report ID.-PENDING"
-        }
-      },
-      "startapp1013": {
-        "account_id": {
-          "label": "Id de cuenta",
-          "help_text": "You can find your Account Id at the right top menu sidebar in this page.-PENDING"
-        },
-        "token": {
-          "label": "Token",
-          "help_text": ""
-        }
-      },
-      "unityads1004": {
-        "api_key": {
-          "label": "Clave API",
-          "help_text": "Your API key is found on the API keys tab of the UnityAds dashboard-PENDING"
-        }
-      },
-      "vungle1005": {
-        "api_key": {
-          "label": "Clave de API",
-          "help_text": "From the Vungle Details Dashboard, find your Reporting API key towards the bottom of the page. If you do not already have an API key, email Vungle at account-managers@vungle.com to request one.-PENDING"
-        }
-      }
-    },
     "switch": {
       "enabled": "Habilitado",
-      "disabled": "Deshabilitado"
+      "disabled": "Deshabilitado",
+      "off": "Off",
+      "on": "On"
     },
     "validations": {
       "no_data_available": "No hay resultados disponibles",
@@ -277,3 +306,4 @@
       "same_account_name": "El nombre de la cuenta ya existe"
     }
   }
+}

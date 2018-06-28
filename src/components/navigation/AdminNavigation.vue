@@ -58,7 +58,7 @@
         v-btn(icon slot="activator" dark)
           v-icon(light) more_vert
         v-list(class="options__list")
-          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" @click="" class="option")
+          v-list-tile(v-for="(item, i) in user_menu_options" :key="i" @click="" class="option" :to="item.action")
             v-list-tile-action
               v-icon {{ item.icon }}
             v-list-tile-content {{ $t(item.text) }}
@@ -79,7 +79,7 @@ export default {
           children: [
             { text: 'navigation.dashboard', action: '/panel' },
             // { text: 'navigation.waterfall_rules', action: '#' },
-            { text: 'navigation.network_integration', action: '/panel/apps' }
+            { text: 'navigation.apps', action: '/panel/apps' }
           ]
         },
         // {
@@ -119,7 +119,7 @@ export default {
         // { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
         // { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
         // { icon: 'face', text: 'navigation.profile', action: '#' },
-        { icon: 'exit_to_app', text: 'navigation.logout', action: '/logout' }
+        { icon: 'exit_to_app', text: 'navigation.logout', action: '/panel/logout' }
       ],
       items_select: [
         'English', 'Spanish'

@@ -9,6 +9,7 @@ blue_lighten_4 = #BBDEFB
 content_background-color = #FAFBFC
 datatable_header_color_type1 = #E6E8ED
 datatable_header_color_type2 = #F6F8FC
+datatable_padding = 338px
 datatable_row_hover = #FFFAF4!important
 header_components_height = 42px
 gray_dark = #27333C
@@ -126,13 +127,13 @@ $data-table-heading-text = white
 
         th:first-of-type
             position: absolute
-            width: 291px
+            width: datatable_padding
             height: 36px
             display: flex
             align-items: center
 
         th:nth-child(2)
-            padding-left: 300px
+            padding-left: datatable_padding
 
         i
             color: gray_type2
