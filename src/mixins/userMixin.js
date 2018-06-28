@@ -100,6 +100,10 @@ const userMixin = {
       this.$apollo.queries.userByToken.refetch()
     },
     login (data) {
+      if (typeof data === 'undefined' && typeof localStorage.getItem('rememberMe') !== 'undefined' &&
+          localStorage.getItem('rememberMe') !== null) {
+        localStorage.removeItem('token')
+      }
       // guardamos en el store (vuex)
       this.userDataAction(data)
       if (this.getUserAccountsNum === 0 && this.getUser.isAdmin === false) {
