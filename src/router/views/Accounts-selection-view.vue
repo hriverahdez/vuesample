@@ -43,7 +43,7 @@
     }),
     computed: {
       ...mapGetters({
-        getUserAccountsIds: 'userAccountsIds',
+        getUser: 'userGetter',
         getUserAccounts: 'userAccounts'
       })
     },

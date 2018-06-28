@@ -1,5 +1,5 @@
 import { GET_USER, GET_USER_BY_TOKEN } from '@/graphql/user'
-import { GET_ACCOUNTS_FILTERING } from '@/graphql/account'
+import { GET_ACCOUNTS_BY_USER_ID } from '@/graphql/account'
 import { mapActions } from 'vuex'
 
 const userMixin = {
@@ -24,22 +24,18 @@ const userMixin = {
       }
     },
     userAccounts: {
-      query: GET_ACCOUNTS_FILTERING,
+      query: GET_ACCOUNTS_BY_USER_ID,
       context: {
         uri: 'account'
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id_in: this.getUserAccountsIds
-            }
-          }
+          userId: this.getUser._id
         }
       },
       loadingKey: 'loading',
       update (data) {
-        this.setUserAccounts(data.accounts)
+        this.setUserAccounts(data.accountsByUserId)
       },
       // Deshabilitamos la query,para lanzarla cuando queramos
       skip () {
