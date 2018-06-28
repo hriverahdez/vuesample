@@ -85,9 +85,7 @@ const mutations = {
   },
   [SET_ACTIVE_ACCOUNT] (state, account) {
     state.activeAccount = account
-    if (state.rememberMe) {
-      localStorage.setItem('activeAccount', account)
-    }
+    localStorage.setItem('activeAccount', account)
   },
   [USER_ACCOUNTS] (state, accounts) {
     state.userAccounts = accounts
