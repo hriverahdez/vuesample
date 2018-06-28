@@ -43,11 +43,17 @@ const getters = {
   dashboardFiltersGetter (state) {
     return state.config
   },
+  formatsTypesGetter (state) {
+    return state.config.formats
+  },
   formatFiltersGetter (state) {
     return state.formatFilters
   },
   formatIdFiltersGetter (state) {
     return state.formatIdFilters
+  },
+  networkIdsGetter (state) {
+    return state.config.networkIds
   },
   networkFiltersGetter (state) {
     return state.networkFilters
