@@ -281,7 +281,7 @@ const appMixin = {
         })
       })
     },
-    updateAppNetwork (appId, networkId, profile) {
+    updateAppNetwork (appId, networkId, profile, input) {
       this.$apollo.mutate({
         mutation: UPDATE_APP_NETWORK,
         context: {
@@ -292,34 +292,7 @@ const appMixin = {
           idAccount: this.accountId,
           idNetwork: networkId,
           idProfile: profile,
-          input: {
-            active: false,
-            profile: 'default',
-            formats: [{
-              format: 'interstitial',
-              active: false,
-              premium: false,
-              formatFields: [{
-                key: 'id',
-                value: 'Lemmyyyyyyyyyyyy'
-              }, {
-                key: 'appId',
-                value: 'bottom'
-              }]
-            },
-            {
-              format: 'rewarded_video',
-              active: true,
-              premium: true,
-              formatFields: [{
-                key: 'id',
-                value: 'AleeMar'
-              }, {
-                key: 'appId',
-                value: 'top-right'
-              }]
-            }]
-          }
+          input: input
         },
         update: (store) => {
           const data = store.readQuery({
@@ -327,7 +300,7 @@ const appMixin = {
             variables: { _idAccount: this.accountId }
           })
           data.apps.map((item) => {
-            if (item._id === '5b10f0d89a5fd624626b8e78') {
+            if (item._id === appId) {
               item.networks[0].formats[0].formatFields[0].value = 'Lemmyyyyyyyyyyyy'
             }
           })
@@ -372,7 +345,7 @@ const appMixin = {
     })
     this.$root.$on('updateAppNetworkProfile', (appId, networkId, profile, input) => {
       console.log(input)
-      // this.updateAppNetwork(appId, networkId, profile, input)
+      this.updateAppNetwork(appId, networkId, profile, input)
     })
   },
   beforeDestroy () {

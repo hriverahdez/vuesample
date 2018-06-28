@@ -62,7 +62,7 @@
                       v-text-field(
                         :label="formatField.key"
                         :value="formatField.value"
-                        @change="getNewValue($event)"
+                        @change="getNewValue($event, index, format.format)"
                         hide-details
                         )
                       p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`) }}
@@ -109,6 +109,7 @@ export default {
   data () {
     return {
       configStatus: false,
+      newInputValue: false,
       switchStatus: {
         status: []
       },
@@ -134,18 +135,26 @@ export default {
       selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
       // skippedQuery: 'skipAppByIdQueryGetter'
     }),
-    prueba () {
+    createInputVariables () {
       let input = {}
-      let copy = Object.assign({}, this.formats)
+      let cloneFormats = JSON.parse(JSON.stringify(this.formats))
+
       input['active'] = this.configStatus
       input['profile'] = this.selected
-      input['formats'] = copy
-      input['switchs'] = this.switchStatus
-      // let fake = []
+      input['formats'] = cloneFormats
+      // input['switchs'] = this.switchStatus
+
       this.switchStatus.status.map((item, index) => {
-        input['formats'][index] = 'lolololo'
-        // fake.push(index)
+        input['formats'][index].active = item
       })
+
+      if (this.newInputValue) {
+        input['formats'].map((item, index) => {
+          if (item.format === this.newInputValue.format) {
+            item.formatFields[this.newInputValue.index].value = this.newInputValue.value
+          }
+        })
+      }
       return input
     },
     nameAndIdNetworkFormatted () {
@@ -184,12 +193,13 @@ export default {
       }
     },
     // Get values from input texts
-    getNewValue (e) {
-      console.log(e)
+    getNewValue (value, index, format) {
+      console.log(value, index, format)
+      this.newInputValue = { value, index, format }
     },
     // Send event to update app-network
     sendEditAppNetworkProfileEvent (appId, networkId, profile) {
-      this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.prueba)
+      this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.createInputVariables)
     }
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)

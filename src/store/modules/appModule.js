@@ -152,6 +152,11 @@ const getters = {
     }
     return networkNames
   },
+  networkStatusGetter (state, getters) {
+    if (getters.appByIdAndNetworkDataGetter && getters.appByIdAndNetworkDataGetter.networks) {
+      return getters.appByIdAndNetworkDataGetter.networks[0].active
+    }
+  },
   networksGetter (state) {
     return state.networks
   },

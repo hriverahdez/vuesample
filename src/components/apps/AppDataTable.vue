@@ -53,7 +53,7 @@
                 img(:src="props.item.icon" class="app-logo")
                 icon(v-if="props.item.platform === 'android'" name="android" color="gray")
                 icon(v-if="props.item.platform === 'ios'" name="apple" color="gray")
-                span(class="app__text") {{ props.item._id }}
+                span(class="app__text") {{ props.item.name }}
                 //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
@@ -221,6 +221,7 @@ export default {
     },
     // Enable/disable app status
     toggleEnableDisableApp (appId, platform, status) {
+      console.log(status)
       this.$root.$emit('enableDisableApp', appId, platform, status)
     }
   }
