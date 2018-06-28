@@ -65,11 +65,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -88,11 +84,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -111,11 +103,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -134,11 +122,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -157,11 +141,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -180,11 +160,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -203,11 +179,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -226,11 +198,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -249,11 +217,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -272,11 +236,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -295,11 +255,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -318,11 +274,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {

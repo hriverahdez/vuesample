@@ -137,7 +137,8 @@ export default {
     }),
     createInputVariables () {
       let input = {}
-      let cloneFormats = JSON.parse(JSON.stringify(this.formats))
+      const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
+      let cloneFormats = JSON.parse(JSON.stringify(this.formats), omitTypename)
 
       input['active'] = this.configStatus
       input['profile'] = this.selected

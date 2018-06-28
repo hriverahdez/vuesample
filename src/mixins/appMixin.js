@@ -301,7 +301,10 @@ const appMixin = {
           })
           data.apps.map((item) => {
             if (item._id === appId) {
-              item.networks[0].formats[0].formatFields[0].value = 'Lemmyyyyyyyyyyyy'
+              console.log(item)
+              console.log('--------------------')
+              console.log(input)
+              item.networks[0].formats = input
             }
           })
           store.writeQuery({
