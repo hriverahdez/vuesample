@@ -61,16 +61,18 @@ router.beforeEach((to, from, next) => {
     next()
   }
 
+  let rememberMe = (typeof localStorage.getItem('rememberMe') !== 'undefined' && localStorage.getItem('rememberMe') !== null)
+  let existToken = (typeof localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null)
+
   // SI EXISTE EN EL LOCAL STORE EL REMEMBER ME y EL TOKEN, CUENTA ACTIVA, SETEARLO ANTES
   store.dispatch('setUserTokenChecking', false)
-  if (!store.getters.isLogged && typeof localStorage.getItem('rememberMe') !== 'undefined' &&
-      localStorage.getItem('rememberMe') !== null && typeof localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null) {
+  if (!store.getters.isLogged && rememberMe && existToken) {
     store.dispatch('setUserTokenChecking', true)
     userMixin.apollo.userByToken.skip = false
   }
 
   // comprobamos a que ruta debe ir
-  if (to.name !== 'login' && to.name !== 'accounts_selection' && !store.getters.isLogged) {
+  if (to.name !== 'login' && (to.name !== 'accounts_selection' || (to.name === 'accounts_selection' && !rememberMe)) && !store.getters.isLogged) {
     next('/panel/login')
   } else {
     if (to.name === 'login' && store.getters.isLogged) {

@@ -76,18 +76,16 @@ const mutations = {
     state.token = data.token
     if (data.rememberMe) {
       state.rememberMe = true
-      localStorage.setItem('token', data.token)
       localStorage.setItem('rememberMe', data.rememberMe)
     }
+    localStorage.setItem('token', data.token)
   },
   [USER_DATA] (state, user) {
     state.user = user
   },
   [SET_ACTIVE_ACCOUNT] (state, account) {
     state.activeAccount = account
-    if (state.rememberMe) {
-      localStorage.setItem('activeAccount', account)
-    }
+    localStorage.setItem('activeAccount', account)
   },
   [USER_ACCOUNTS] (state, accounts) {
     state.userAccounts = accounts

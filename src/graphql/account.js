@@ -611,3 +611,12 @@ mutation updateAccountById ($id: ID!, $input: UpdateAccountInput!){
   }
 }
 `
+
+export const GET_ACCOUNTS_BY_USER_ID = gql`
+    query accountsByUserId($userId: ID!) {
+        accountsByUserId(_id: $userId) {
+           _id
+           name
+        }
+    }
+`

@@ -1,5 +1,5 @@
 import { GET_USER, GET_USER_BY_TOKEN } from '@/graphql/user'
-import { GET_ACCOUNTS_FILTERING } from '@/graphql/account'
+import { GET_ACCOUNTS_BY_USER_ID } from '@/graphql/account'
 import { mapActions } from 'vuex'
 
 const userMixin = {
@@ -24,22 +24,18 @@ const userMixin = {
       }
     },
     userAccounts: {
-      query: GET_ACCOUNTS_FILTERING,
+      query: GET_ACCOUNTS_BY_USER_ID,
       context: {
         uri: 'account'
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id_in: this.getUserAccountsIds
-            }
-          }
+          userId: this.getUser._id
         }
       },
       loadingKey: 'loading',
       update (data) {
-        this.setUserAccounts(data.accounts)
+        this.setUserAccounts(data.accountsByUserId)
       },
       // Deshabilitamos la query,para lanzarla cuando queramos
       skip () {
@@ -100,6 +96,10 @@ const userMixin = {
       this.$apollo.queries.userByToken.refetch()
     },
     login (data) {
+      if (typeof data === 'undefined' && typeof localStorage.getItem('rememberMe') !== 'undefined' &&
+          localStorage.getItem('rememberMe') !== null) {
+        localStorage.removeItem('token')
+      }
       // guardamos en el store (vuex)
       this.userDataAction(data)
       if (this.getUserAccountsNum === 0 && this.getUser.isAdmin === false) {
@@ -118,6 +118,7 @@ const userMixin = {
         } else {
           // si tenemos en el local storage una cuenta por defecto y existe en las cuentas de usuario,le redirigimos atumaticamente a ella
           if (localStorage.getItem('activeAccount') && this.$store.getters.userAccountsIds.includes(localStorage.getItem('activeAccount'))) {
+            this.setActiveUserAccountAction(localStorage.getItem('activeAccount'))
             this.$router.push({ name: 'dashboard' })
           } else {
             // si tiene mas de una redirigimos o es admin a la pantalla de selección de cuentas
