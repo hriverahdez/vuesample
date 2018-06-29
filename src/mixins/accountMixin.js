@@ -50,6 +50,9 @@ const accountMixin = {
       context: {
         uri: URI
       },
+      skip () {
+        return this.skipAccounts
+      },
       loadingKey: 'loading',
       update (data) {
         this.accountsDataAction(data.accounts).then(() => {
@@ -288,6 +291,7 @@ const accountMixin = {
   },
   data () {
     return {
+      skipAccounts: true,
       skipNetworkProfilesAdmobQuery: true,
       skipNetworkProfilesAdcolonyQuery: true,
       skipNetworkProfilesApplovinQuery: true,
