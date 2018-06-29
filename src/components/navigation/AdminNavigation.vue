@@ -51,9 +51,9 @@
           v-icon(light) account_circle
         div(class="user__info")
           div(class="user__info__user") {{ $t('navigation.user') }}:
-            span(class="user__info__label") Spiderman
+            span(class="user__info__label") {{ userData.name }}
           div(class="user__info__accouny") {{ $t('navigation.account') }}:
-            span(class="user__info__label") Marvel group
+            span(class="user__info__label") {{ userAccountName }}
       v-menu(bottom left dark offset-y)
         v-btn(icon slot="activator" dark)
           v-icon(light) more_vert
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -126,6 +128,12 @@ export default {
       ],
       lang: 'English'
     }
+  },
+  computed: {
+    ...mapGetters({
+      userData: 'userGetter',
+      userAccountName: 'userActiveAccountNameGetter'
+    })
   },
   methods: {
     selectedLanguage (lang) {
