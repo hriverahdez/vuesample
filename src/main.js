@@ -80,6 +80,14 @@ Vue.filter('capitalize', (val) => {
   return val.charAt(0).toUpperCase() + val.slice(1)
 })
 
+Vue.filter('noneValueCharacter', (val) => {
+  if (val) {
+    return val
+  } else {
+    return '-'
+  }
+})
+
 Vue.filter('percentageFormat', function (val) {
   if (val) {
     return `${val.toFixed(2)}%`
