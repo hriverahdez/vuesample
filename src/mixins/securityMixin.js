@@ -21,11 +21,13 @@ const securityMixin = {
         if (userRoles.length > 0 && this.checkRolesInPath(route.meta.roles, userRoles)) { // route.meta.roles.includes(userRoles)) {
           console.log('Autorizado')
           return true
+        } else {
+          console.log('No autorizado')
+          return false
         }
       }
 
-      console.log('No autorizado')
-      return false
+      return true
     },
     isGrantedComponent (roles, store) {
       if (store.getters.userGetter.isAdmin) {
@@ -39,6 +41,9 @@ const securityMixin = {
       if (userRoles.length > 0 && this.checkRolesInPath(roles, userRoles)) { // route.meta.roles.includes(userRoles)) {
         console.log('Autorizado')
         return true
+      } else {
+        console.log('No autorizado')
+        return false
       }
     },
     checkRolesInPath (pathRoles, userRoles) {

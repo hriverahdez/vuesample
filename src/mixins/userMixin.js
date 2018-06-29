@@ -2,7 +2,7 @@ import { GET_USER, GET_USER_BY_TOKEN } from '@/graphql/user'
 import { GET_ACCOUNTS_BY_USER_ID } from '@/graphql/account'
 import { mapActions } from 'vuex'
 
-cot userMixin = {
+const userMixin = {
   apollo: {
     user: {
       query: GET_USER,
