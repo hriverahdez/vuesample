@@ -51,6 +51,15 @@ const getters = {
   userAccounts (state) {
     return state.userAccounts
   },
+  userActiveAccountNameGetter (state, getters) {
+    if (getters.userAccounts && getters.activeAccount) {
+      getters.userAccounts.forEach((element) => {
+        if (element._id === getters.activeAccount) {
+          return element.name
+        }
+      })
+    }
+  },
   userTokenChecking (state) {
     return state.userTokenChecking
   }

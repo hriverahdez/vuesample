@@ -18,8 +18,8 @@ export const GET_ACCOUNTS = gql`
 `
 // ADMOB
 export const NETWORK_PROFILES_ADMOB = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -40,8 +40,8 @@ query ($filter: [AccountFilter]) {
 /* ------------------------- ADCOLONY --------------------------- */
 // Query
 export const NETWORK_PROFILES_ADCOLONY = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -86,8 +86,8 @@ mutation updateAccountNetworkIntegration1003byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- APPLOVIN --------------------------- */
 // Query
 export const NETWORK_PROFILES_APPLOVIN = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -134,8 +134,8 @@ mutation updateAccountNetworkIntegration1008byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- APPLOVIN --------------------------- */
 // Query
 export const NETWORK_PROFILES_CHARTBOOST = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -182,8 +182,8 @@ mutation updateAccountNetworkIntegration1007byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- INMOBI --------------------------- */
 // Query
 export const NETWORK_PROFILES_INMOBI = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -232,8 +232,8 @@ mutation updateAccountNetworkIntegration1012byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- IRONSOURCE --------------------------- */
 // Query
 export const NETWORK_PROFILES_IRONSOURCE = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -279,8 +279,8 @@ mutation updateAccountNetworkIntegration1017byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- MOBUSI --------------------------- */
 // Query
 export const NETWORK_PROFILES_MOBUSI = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -327,8 +327,8 @@ mutation updateAccountNetworkIntegration1001byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- MOBVISTA --------------------------- */
 // Query
 export const NETWORK_PROFILES_MOBVISTA = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -375,8 +375,8 @@ mutation updateAccountNetworkIntegration1014byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- MOPUB --------------------------- */
 // Query
 export const NETWORK_PROFILES_MOPUB = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -424,8 +424,8 @@ mutation updateAccountNetworkIntegration1016byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- STARTAPP --------------------------- */
 // Query
 export const NETWORK_PROFILES_STARTAPP = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -472,8 +472,8 @@ mutation updateAccountNetworkIntegration1013byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- UNITYADS --------------------------- */
 // Query
 export const NETWORK_PROFILES_UNITYADS = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {
@@ -519,8 +519,8 @@ mutation updateAccountNetworkIntegration1004byIdAccount ($_idAccount: ID!, $_pro
 /* ------------------------- VUNGLE --------------------------- */
 // Query
 export const NETWORK_PROFILES_VUNGLE = gql`
-query ($filter: [AccountFilter]) {
-  accounts(filter: $filter) {
+query ($id: ID!) {
+  accountById(_id: $id) {
       _id
       name
       networkProfiles {

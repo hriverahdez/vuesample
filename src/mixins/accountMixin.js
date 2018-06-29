@@ -50,6 +50,9 @@ const accountMixin = {
       context: {
         uri: URI
       },
+      skip () {
+        return this.skipAccounts
+      },
       loadingKey: 'loading',
       update (data) {
         this.accountsDataAction(data.accounts).then(() => {
@@ -65,11 +68,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -77,7 +76,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // ADCOLONY QUERY
@@ -88,11 +87,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -100,7 +95,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // APPLOVIN QUERY
@@ -111,11 +106,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -123,7 +114,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // CHARTBOOST QUERY
@@ -134,11 +125,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -146,7 +133,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // INMOBI QUERY
@@ -157,11 +144,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -169,7 +152,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // IRONSOURCE QUERY
@@ -180,11 +163,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -192,7 +171,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // MOBUSI QUERY
@@ -203,11 +182,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -215,7 +190,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // MOBVISTA QUERY
@@ -226,11 +201,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -238,7 +209,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // MOPUB QUERY
@@ -249,11 +220,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -261,7 +228,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // STARTAPP QUERY
@@ -272,11 +239,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -284,7 +247,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // UNITYADS QUERY
@@ -295,11 +258,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -307,7 +266,7 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
     // UNITYADS QUERY
@@ -318,11 +277,7 @@ const accountMixin = {
       },
       variables () {
         return {
-          filter: {
-            filter: {
-              _id: this.accountId
-            }
-          }
+          id: this.accountId
         }
       },
       skip () {
@@ -330,12 +285,13 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.networkProfilesDataAction(data.accounts)
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     }
   },
   data () {
     return {
+      skipAccounts: true,
       skipNetworkProfilesAdmobQuery: true,
       skipNetworkProfilesAdcolonyQuery: true,
       skipNetworkProfilesApplovinQuery: true,
@@ -494,25 +450,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_MOBUSI,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1001)
+          // data.accounts.push(createAccountNetworkIntegration1001)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_MOBUSI,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -559,25 +507,18 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1003)
+          // let profiles = data.accountById.networkProfiles.find(e => e.profiles)
+          // profiles.push(createAccountNetworkIntegration1003)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -624,25 +565,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_UNITYADS,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1004)
+          // data.accounts.push(createAccountNetworkIntegration1004)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_UNITYADS,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -682,25 +615,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_VUNGLE,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1005)
+          // data.accounts.push(createAccountNetworkIntegration1005)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_VUNGLE,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -741,25 +666,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_CHARTBOOST,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1007)
+          // data.accounts.push(createAccountNetworkIntegration1007)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_CHARTBOOST,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -807,25 +724,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_APPLOVIN,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1008)
+          // data.accounts.push(createAccountNetworkIntegration1008)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_APPLOVIN,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -875,25 +784,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_INMOBI,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1012)
+          // data.accounts.push(createAccountNetworkIntegration1012)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_INMOBI,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -941,25 +842,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_STARTAPP,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1013)
+          // data.accounts.push(createAccountNetworkIntegration1013)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_STARTAPP,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1000,25 +893,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_MOBVISTA,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1014)
+          // data.accounts.push(createAccountNetworkIntegration1014)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_MOBVISTA,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1067,25 +952,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_MOPUB,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1016)
+          // data.accounts.push(createAccountNetworkIntegration1016)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_MOPUB,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1133,25 +1010,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_IRONSOURCE,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           // Add our tag from the mutation to the end
-          data.accounts.push(createAccountNetworkIntegration1017)
+          // data.accounts.push(createAccountNetworkIntegration1017)
           // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_IRONSOURCE,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1191,25 +1060,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_MOBUSI,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_MOBUSI,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1233,25 +1094,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1275,25 +1128,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_UNITYADS,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_UNITYADS,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1317,25 +1162,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_VUNGLE,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_VUNGLE,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1359,25 +1196,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_CHARTBOOST,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_CHARTBOOST,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1401,25 +1230,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_APPLOVIN,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_APPLOVIN,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1443,25 +1264,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_INMOBI,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_INMOBI,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1485,25 +1298,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_STARTAPP,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_STARTAPP,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1527,25 +1332,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_MOBVISTA,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_MOBVISTA,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1569,25 +1366,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_MOPUB,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_MOPUB,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1611,25 +1400,17 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_IRONSOURCE,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts = data.accounts.filter((item) => {
-            return item._idAccount !== this.accountId
-          })
+          // data.accounts = data.accounts.filter((item) => {
+          //   return item._idAccount !== this.accountId
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_IRONSOURCE,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1661,11 +1442,7 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_MOBUSI,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           data.accounts.map((item) => {
@@ -1680,11 +1457,7 @@ const accountMixin = {
             query: NETWORK_PROFILES_MOBUSI,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1729,29 +1502,21 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts.map((item) => {
-            if (item._id === this.accountId) {
-              item.name = profileName
-              item.default = true
-              item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
-            }
-          })
+          // data.accounts.map((item) => {
+          //   if (item._id === this.accountId) {
+          //     item.name = profileName
+          //     item.default = true
+          //     item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
+          //   }
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1773,7 +1538,6 @@ const accountMixin = {
       })
     },
     updateNetwork1004Profile (profileName, edittedValue, selected) {
-      console.log(edittedValue[0], selected.api_key)
       this.$apollo.mutate({
         mutation: UPDATE_NETWORK_1004_PROFILE,
         context: {
@@ -1797,29 +1561,21 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_UNITYADS,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts.map((item) => {
-            if (item._id === this.accountId) {
-              item.name = profileName
-              item.default = true
-              item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
-            }
-          })
+          // data.accounts.map((item) => {
+          //   if (item._id === this.accountId) {
+          //     item.name = profileName
+          //     item.default = true
+          //     item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
+          //   }
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_UNITYADS,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1857,29 +1613,21 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_VUNGLE,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
-          data.accounts.map((item) => {
-            if (item._id === this.accountId) {
-              item.name = profileName
-              item.default = true
-              item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
-            }
-          })
+          // data.accounts.map((item) => {
+          //   if (item._id === this.accountId) {
+          //     item.name = profileName
+          //     item.default = true
+          //     item.api_key = edittedValue[0] ? edittedValue[0] : selected.api_key
+          //   }
+          // })
           store.writeQuery({
             query: NETWORK_PROFILES_VUNGLE,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1918,11 +1666,7 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_CHARTBOOST,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           data.accounts.map((item) => {
@@ -1937,11 +1681,7 @@ const accountMixin = {
             query: NETWORK_PROFILES_CHARTBOOST,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -1987,11 +1727,7 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_APPLOVIN,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           data.accounts.map((item) => {
@@ -2006,11 +1742,7 @@ const accountMixin = {
             query: NETWORK_PROFILES_APPLOVIN,
             data,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
         }
@@ -2058,11 +1790,7 @@ const accountMixin = {
           const data = store.readQuery({
             query: NETWORK_PROFILES_INMOBI,
             variables: {
-              filter: {
-                filter: {
-                  _id: this.accountId
-                }
-              }
+              id: this.accountId
             }
           })
           data.accounts.map((item) => {
