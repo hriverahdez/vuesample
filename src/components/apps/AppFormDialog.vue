@@ -47,11 +47,11 @@
                       :label="this.$t('apps_view.banner_position')"
                       v-model="appData.bannerPosition"
                     )
-                    div(class="select-icon-container")
-                      span(class="icon-text") {{ $t('apps_view.icon_text')}}
-                      div(class="draganddrop-container" v-model="appData.icon")
-                        v-icon cloud_upload
-                        span {{ $t('copies.drag_and_drop')}}
+                    //- div(class="select-icon-container")
+                    //-   span(class="icon-text") {{ $t('apps_view.icon_text')}}
+                    //-   div(class="draganddrop-container" v-model="appData.icon")
+                    //-     v-icon cloud_upload
+                    //-    span {{ $t('copies.drag_and_drop')}}
         v-card-actions
           v-spacer
           v-btn(
