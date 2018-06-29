@@ -1,6 +1,9 @@
 <template lang="pug">
     v-dialog(
-      v-model="$store.state.appModule.appNetworkConfigDialogStatus" max-width="700" light)
+      persistent
+      v-model="$store.state.appModule.appNetworkConfigDialogStatus"
+      max-width="700"
+      light)
       v-card
         v-card-title(
           class="formElementColor py-4 title white--text"
@@ -17,7 +20,7 @@
                       //- {{ selectedAppNetworkConfig.networkName }}
                     div(class="network-config-container__data__app")
                       span {{ $t('apps_view.app')}}:
-                      img(:src="app.icon" alt="" class="app-logo")
+                      img(:src="app.icon" alt="" class="app-logo" v-if="app.icon")
                       span {{ selectedAppNetworkConfig.appName }}
                     div(class="network-config-container__data__platform")
                       span {{ $t('apps_view.platform') }}:
@@ -46,7 +49,7 @@
                   //-   v-btn(
                   //-     color="buttonColor"
                   //-     ) {{ $t('buttons.cancel') }}
-                section(class="network-config-container__formats-config")
+                section(class="network-config-container__formats-config" v-if="!queryError")
                   h4 {{ $t('apps_view.format_config')}}
                   div(:ref="`format${index}`" v-for="(format, index) in formats" v-if="formats" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
@@ -66,12 +69,20 @@
                         hide-details
                         )
                       p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`) }}
+                p(v-else) Implementar cuestionario vacio TODO
                 section(class="network-config-container__btn")
                   v-btn(
+                    v-if="!queryError"
                     color="buttonColor"
                     class="white--text"
                     @click.native.stop="sendEditAppNetworkProfileEvent(app._id, app.networks[0].networkId, selected)"
                     ) {{ $t('buttons.edit') }}
+                  v-btn(
+                    v-else
+                    color="buttonColor"
+                    class="white--text"
+                    @click.native.stop="closeDialog"
+                    ) {{ $t('buttons.cancel') }}
 
                 //- p {{ selectedAppNetworkConfig.appId }}
         //-         v-text-field(
@@ -117,6 +128,12 @@ export default {
       valid: false
     }
   },
+  props: {
+    error: {
+      type: Boolean,
+      default: false
+    }
+  },
   watch: {
     // remove_permission (val) {
     //   if (val === this.randomNumber.toString()) {
@@ -133,6 +150,7 @@ export default {
       formatTypes: 'formatsIdsAndNamesGetter',
       networkProfiles: 'networkProfilesListGetter',
       networkStatus: 'networkStatusGetter',
+      queryError: 'queryErrorGetter',
       selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
       // skippedQuery: 'skipAppByIdQueryGetter'
     }),
@@ -176,7 +194,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'appNetworkConfigDialogStatusAction'
+      'appNetworkConfigDialogStatusAction',
+      'queryErrorAction'
     ]),
     // Close dialog layer
     closeDialog () {
@@ -200,8 +219,11 @@ export default {
     },
     // Send event to update app-network
     sendEditAppNetworkProfileEvent (appId, networkId, profile) {
-      console.log(appId, networkId, profile)
-      this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.createInputVariables)
+      if (!this.queryError) {
+        this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.createInputVariables)
+      } else {
+        this.queryErrorAction(false)
+      }
     }
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)

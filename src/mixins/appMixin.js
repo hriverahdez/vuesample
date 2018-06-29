@@ -69,7 +69,8 @@ const appMixin = {
         this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile)
       },
       error (error) {
-        console.log(error)
+        console.info(error)
+        this.queryErrorAction(true)
       }
     },
     appsNamesAndIds: {
@@ -108,6 +109,7 @@ const appMixin = {
       'appSchemaAction',
       'appsLoaderStatusAction',
       'editedAppIndexStatusAction',
+      'queryErrorAction',
       'removeAppPermissionInputAction',
       'skipAppByIdAndNetworkQueryAction'
     ]),

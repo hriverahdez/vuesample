@@ -53,7 +53,10 @@
                 img(:src="props.item.icon" class="app-logo")
                 icon(v-if="props.item.platform === 'android'" name="android" color="gray")
                 icon(v-if="props.item.platform === 'ios'" name="apple" color="gray")
-                span(class="app__text") {{ props.item.name }}
+                span(
+                  class="app__text"
+                  :data="props.item._id"
+                  ) {{ props.item.name }}
                 //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
@@ -75,7 +78,7 @@
                         light
                         color="success"
                         :value="true"
-                        :input-value="props.item.disabled"
+                        :input-value="!props.item.disabled"
                         @change="toggleEnableDisableApp(props.item._id, props.item.platform, props.item.disabled)"
                         hide-details
                         class="switch"

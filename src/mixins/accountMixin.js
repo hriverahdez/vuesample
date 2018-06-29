@@ -58,6 +58,10 @@ const accountMixin = {
         this.accountsDataAction(data.accounts).then(() => {
           this.accountsLoaderStatusAction(false)
         })
+        this.skipAccounts = true
+      },
+      error () {
+        this.skipAccounts = true
       }
     },
     // ADMOB QUERY

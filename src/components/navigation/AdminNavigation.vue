@@ -53,7 +53,7 @@
           div(class="user__info__user") {{ $t('navigation.user') }}:
             span(class="user__info__label") {{ userData.name }}
           div(class="user__info__accouny") {{ $t('navigation.account') }}:
-            span(class="user__info__label") {{ userAccountName }}
+            span(class="user__info__label") Marvel
       v-menu(bottom left dark offset-y)
         v-btn(icon slot="activator" dark)
           v-icon(light) more_vert
