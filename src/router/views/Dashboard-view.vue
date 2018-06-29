@@ -15,6 +15,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+
 // Mixins
 import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'

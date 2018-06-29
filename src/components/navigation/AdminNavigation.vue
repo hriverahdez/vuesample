@@ -8,8 +8,11 @@
       v-model='drawer'
       width="275"
       )
-      v-list(dense)
-        template(v-for='item in items')
+      v-list(
+        v-if="checkIsGranted",
+        dense
+        )
+        template(v-for='item in granted_items')
           v-list-group(
             v-if='item.children',
             v-model='item.model',
@@ -33,6 +36,38 @@
             v-list-tile-content
               v-list-tile-title
                   | {{ $t(item.text) }}
+
+      v-list(
+        v-else,
+        dense
+        )
+        template(v-for='item in none_granted_items')
+          v-list-group(
+            v-if='item.children',
+            v-model='item.model',
+            :prepend-icon="item.icon",
+            class="white--text",
+            :key='item.text'
+            )
+            v-list-tile(slot='activator')
+              v-list-tile-content
+                v-list-tile-title
+                  | {{ $t(item.text) }}
+            v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
+              v-list-tile-action(v-if='child.icon')
+                v-icon {{ child.icon }}
+              v-list-tile-content
+                v-list-tile-title
+                  | {{ $t(child.text) }}
+          v-list-tile(v-else, :key='item.text' router :to="item.action")
+            v-list-tile-action
+              v-icon {{ item.icon }}
+            v-list-tile-content
+              v-list-tile-title
+                  | {{ $t(item.text) }}
+
+
+
     v-toolbar(
       color='toolbar',
       app,
@@ -69,11 +104,14 @@
 <script>
 import { mapGetters } from 'vuex'
 
+// Mixin imports
+import securityMixin from '@/mixins/securityMixin'
+
 export default {
   data () {
     return {
       drawer: null,
-      items: [
+      granted_items: [
         {
           'icon': 'monetization_on',
           text: 'navigation.monetization',
@@ -117,10 +155,18 @@ export default {
           ]
         }
       ],
+      none_granted_items: [
+        {
+          'icon': 'monetization_on',
+          text: 'navigation.monetization',
+          model: true,
+          children: [
+            { text: 'navigation.dashboard', action: '/panel' },
+            { text: 'navigation.apps', action: '/panel/apps' }
+          ]
+        }
+      ],
       user_menu_options: [
-        // { icon: 'how_to_reg', text: 'navigation.change_user', action: '#' },
-        // { icon: 'swap_horiz', text: 'navigation.change_account', action: '#' },
-        // { icon: 'face', text: 'navigation.profile', action: '#' },
         { icon: 'exit_to_app', text: 'navigation.logout', action: '/panel/logout' }
       ],
       items_select: [
@@ -133,7 +179,10 @@ export default {
     ...mapGetters({
       userData: 'userGetter',
       userAccountName: 'userActiveAccountNameGetter'
-    })
+    }),
+    checkIsGranted () {
+      return this.isGrantedComponent(['ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTIACCOUNT_MANAGER'], this.$store)
+    }
   },
   methods: {
     selectedLanguage (lang) {
@@ -146,7 +195,8 @@ export default {
       }
       this.$store.dispatch('getWords')
     }
-  }
+  },
+  mixins: [ securityMixin ]
 }
 </script>
 

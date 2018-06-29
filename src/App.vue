@@ -8,7 +8,7 @@
         app-dialog(v-if="$store.state.appModule.appDialogStatus")
         dialog-alert
     v-layout(class="floating-button-container" v-if="checkIfVisibleDependingOnRoute()")
-      floating-button
+      floating-button(v-if="checkIsGranted")
     v-footer(class="footer-container blue_dark" v-if="checkIfVisibleDependingOnRoute()")
      span.copyright {{ $t('footer.copyright') }}
 
@@ -21,6 +21,9 @@ import AdminNavigation from '@/components/navigation/AdminNavigation'
 import AppDialog from '@/components/apps/AppFormDialog'
 import DialogAlert from '@/components/DialogAlert'
 import FloatingButton from '@/components/FloatingButton'
+
+// Mixin imports
+import securityMixin from '@/mixins/securityMixin'
 
 export default {
   components: {
@@ -38,7 +41,13 @@ export default {
         return true
       }
     }
-  }
+  },
+  computed: {
+    checkIsGranted () {
+      return this.isGrantedComponent(['ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTIACCOUNT_MANAGER'], this.$store)
+    }
+  },
+  mixins: [ securityMixin ]
 }
 </script>
 
