@@ -1,6 +1,5 @@
 <template lang="pug">
     v-dialog(
-      persistent
       v-model="$store.state.appModule.appNetworkConfigDialogStatus"
       max-width="700"
       light)
