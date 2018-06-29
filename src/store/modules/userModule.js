@@ -48,6 +48,21 @@ const getters = {
     })
     return accountsIds
   },
+  userAccountRoles (state, getters) {
+    let accountsRoles = []
+
+    if (!getters.userGetter.accounts) {
+      return []
+    }
+
+    getters.userGetter.accounts.forEach((element) => {
+      if (element.account === getters.activeAccount) {
+        accountsRoles = element.roles
+      }
+    })
+
+    return accountsRoles
+  },
   userAccounts (state) {
     return state.userAccounts
   },
