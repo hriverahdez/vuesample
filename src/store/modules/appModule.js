@@ -163,16 +163,21 @@ const getters = {
   networkProfilesDataGetter (state) {
     return state.networkProfiles
   },
+  // networkProfilesListGetter (state, getters) {
+  //   if (getters.networkProfilesDataGetter) {
+  //     let networkProfiles = []
+  //     getters.networkProfilesDataGetter.map((item) => {
+  //       networkProfiles.push(item.networkProfiles)
+  //     })
+  //     let currentNetworkProfile = networkProfiles[0].find(e => e.profiles)
+  //     let profiles = currentNetworkProfile.profiles
+  //     return profiles
+  //   }
+  // },
   networkProfilesListGetter (state, getters) {
     if (getters.networkProfilesDataGetter) {
-      let networkProfiles = []
-      getters.networkProfilesDataGetter.map((item) => {
-        networkProfiles.push(item.networkProfiles)
-      })
-      // item.networkProfiles.find(e => e.profiles)
-      let currentNetworkProfile = networkProfiles[0].find(e => e.profiles)
-      let profiles = currentNetworkProfile.profiles
-      return profiles
+      let networkProfiles = getters.networkProfilesDataGetter.profiles
+      return networkProfiles
     }
   },
   removeAppPermissionInputGetter (state) {

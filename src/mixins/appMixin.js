@@ -67,6 +67,9 @@ const appMixin = {
       loadingKey: 'loading',
       update (data) {
         this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile)
+      },
+      error (error) {
+        console.log(error)
       }
     },
     appsNamesAndIds: {

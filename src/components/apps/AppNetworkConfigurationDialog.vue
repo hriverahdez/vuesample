@@ -71,7 +71,7 @@
                     color="buttonColor"
                     class="white--text"
                     @click.native.stop="sendEditAppNetworkProfileEvent(app._id, app.networks[0].networkId, selected)"
-                    ) {{ $t('buttons.cancel') }}
+                    ) {{ $t('buttons.edit') }}
 
                 //- p {{ selectedAppNetworkConfig.appId }}
         //-         v-text-field(
@@ -132,6 +132,7 @@ export default {
       formats: 'formatsSelectedAppAndNetworkGetter',
       formatTypes: 'formatsIdsAndNamesGetter',
       networkProfiles: 'networkProfilesListGetter',
+      networkStatus: 'networkStatusGetter',
       selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
       // skippedQuery: 'skipAppByIdQueryGetter'
     }),
@@ -195,11 +196,11 @@ export default {
     },
     // Get values from input texts
     getNewValue (value, index, format) {
-      console.log(value, index, format)
       this.newInputValue = { value, index, format }
     },
     // Send event to update app-network
     sendEditAppNetworkProfileEvent (appId, networkId, profile) {
+      console.log(appId, networkId, profile)
       this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.createInputVariables)
     }
     // sendDeleteAppEvent () {
@@ -207,9 +208,13 @@ export default {
     // }
   },
   mounted () {
-    this.formats.map((item) => {
-      this.switchStatus.status.push(item.active)
-    })
+    // Asignamos el valor que viene por defecto de las queries a los switches (activo/inactivo)
+    this.configStatus = this.networkStatus
+    if (this.formats) {
+      this.formats.map((item) => {
+        this.switchStatus.status.push(item.active)
+      })
+    }
   }
 }
 </script>
