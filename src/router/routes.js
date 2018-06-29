@@ -9,6 +9,7 @@ import DashboardView from '@/router/views/Dashboard-view'
 import LoginView from '@/router/views/Login-view'
 import { store } from '@/store/store'
 import userMixin from '@/mixins/userMixin'
+import securityMixin from '@/mixins/securityMixin'
 
 Vue.use(Router)
 
@@ -17,17 +18,20 @@ const router = new Router({
     {
       path: '/panel',
       name: 'dashboard',
-      component: DashboardView
+      component: DashboardView,
+      meta: { requiresAuth: true, roles: ['ROLE_USER', 'ROLE_STATS', 'ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTI_ACCOUNT_MANAGER', 'ROLE_BLIND'] }
     },
     {
       path: '/panel/accounts',
       name: 'accounts',
-      component: AccountsView
+      component: AccountsView,
+      meta: { requiresAuth: true, roles: ['ROLE_ADMIN'] }
     },
     {
       path: '/panel/apps',
       name: 'apps',
-      component: AppsView
+      component: AppsView,
+      meta: { requiresAuth: true, roles: ['ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTI_ACCOUNT_MANAGER'] }
     },
     {
       path: '/panel/accounts-selection',
@@ -75,7 +79,8 @@ router.beforeEach((to, from, next) => {
   if (to.name !== 'login' && (to.name !== 'accounts_selection' || (to.name === 'accounts_selection' && !rememberMe)) && !store.getters.isLogged) {
     next('/panel/login')
   } else {
-    if (to.name === 'login' && store.getters.isLogged) {
+    if ((to.name === 'login' || !securityMixin.methods.isGranted(to, store)) && store.getters.isLogged) {
+      console.log('redirijo al panel')
       next('/panel')
     }
     next()
