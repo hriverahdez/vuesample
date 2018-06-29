@@ -30,7 +30,11 @@ export default {
       loaderStatus: 'accountsLoaderStatusGetter'
     })
   },
-  mixins: [accountMixin, appMixin]
+  mixins: [accountMixin, appMixin],
+  mounted () {
+    this.$apollo.queries.accounts.skip = false
+    // this.$apollo.queries.user.refetch()
+  }
 }
 </script>
 

@@ -13,6 +13,7 @@ const APP_MANAGE_NETWORK_PROFILE_DIALOG_STATUS = 'APP_MANAGE_NETWORK_PROFILE_DIA
 const APP_NETWORK_CONFIG_DIALOG_STATUS = 'APP_NETWORK_CONFIG_DIALOG_STATUS'
 const APP_REMOVE_DIALOG_STATUS = 'APP_REMOVE_DIALOG_STATUS'
 const EDIT_APP_INDEX_STATUS = 'EDIT_APP_INDEX_STATUS'
+const QUERY_ERROR = 'QUERY_ERROR'
 const NETWORK_PROFILES_DATA = 'NETWORK_PROFILES_DATA'
 const REMOVE_APP_PERMISSION_INPUT = 'REMOVE_APP_PERMISSION_INPUT'
 const SELECTED_APP_NETWORK_DATATABLE = 'SELECTED_APP_NETWORK_DATATABLE'
@@ -68,6 +69,7 @@ const state = {
   //   var01: 'report_key',
   //   var02: 'sdk_key'
   // },
+  queryError: false,
   networks,
   // Info network profiles when launch dialog manage profiles from app view datatable
   networkProfiles: '',
@@ -180,6 +182,9 @@ const getters = {
       return networkProfiles
     }
   },
+  queryErrorGetter (state) {
+    return state.queryError
+  },
   removeAppPermissionInputGetter (state) {
     return state.removeAppPermissionInput
   },
@@ -247,6 +252,9 @@ const mutations = {
   [NETWORK_PROFILES_DATA] (state, profiles) {
     state.networkProfiles = profiles
   },
+  [QUERY_ERROR] (state, status) {
+    state.queryError = status
+  },
   [REMOVE_APP_PERMISSION_INPUT] (state, data) {
     state.removeAppPermissionInput = data
   },
@@ -306,6 +314,9 @@ const actions = {
   },
   networkProfilesDataAction ({commit}, profiles) {
     commit(NETWORK_PROFILES_DATA, profiles)
+  },
+  queryErrorAction ({commit}, status) {
+    commit(QUERY_ERROR, status)
   },
   removeAppPermissionInputAction ({commit}, data) {
     commit(REMOVE_APP_PERMISSION_INPUT, data)
