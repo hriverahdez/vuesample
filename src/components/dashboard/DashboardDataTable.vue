@@ -30,7 +30,7 @@
           td.text-xs-left {{ props.item.click | currency('', 0) | noneValueCharacter }}
           td.text-xs-left {{ props.item.ctr | percentageFormat | noneValueCharacter }}
           td.text-xs-left {{ props.item.money | currency | noneValueCharacter }}
-          td.text-xs-left {{ props.item.ecpm | percentageFormat | noneValueCharacter }}
+          td.text-xs-left {{ props.item.ecpm | currency | noneValueCharacter }}
 
 
         template(slot="no-data")
@@ -47,7 +47,7 @@
           td.text-xs-left {{ datatableTotals[0].click | currency('', 0) | noneValueCharacter }}
           td.text-xs-left {{ datatableTotals[0].ctr | percentageFormat | noneValueCharacter }}
           td.text-xs-left {{ datatableTotals[0].money | currency | noneValueCharacter }}
-          td.text-xs-left {{ datatableTotals[0].ecpm | percentageFormat | noneValueCharacter }}
+          td.text-xs-left {{ datatableTotals[0].ecpm | currency | noneValueCharacter }}
 
 </template>
 
