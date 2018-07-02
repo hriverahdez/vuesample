@@ -28,6 +28,7 @@ import {
   NETWORK_PROFILES_UNITYADS,
   NETWORK_PROFILES_VUNGLE,
   UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1003,
+  UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1004,
   UPDATE_NETWORK_1001_PROFILE,
   UPDATE_NETWORK_1003_PROFILE,
   UPDATE_NETWORK_1004_PROFILE,
@@ -544,7 +545,7 @@ const accountMixin = {
         // })
       })
     },
-    updateAccountNetworkIntegrationStatus1003 (status) {
+    updateAccountNetworkIntegrationStatusAdcolony (status) {
       this.$apollo.mutate({
         mutation: UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1003,
         context: {
@@ -555,7 +556,7 @@ const accountMixin = {
             active: status
           }
         },
-        update: (store, { data: { updateAccountNetworkIntegrationStatus1003 } }) => {
+        update: (store, { data: { updateAccountNetworkIntegrationStatusAdcolony } }) => {
           console.log(status)
           // Actualizamos la query correspondiente
           this.skipNetworkProfilesAdcolonyQuery = false
@@ -567,10 +568,6 @@ const accountMixin = {
               id: '5b10f0d09a5fd6245f658384'
             }
           })
-          // Add our tag from the mutation to the end
-          // let profiles = data.accountById.networkProfiles.find(e => e.profiles)
-          // profiles.push(createAccountNetworkIntegration1003)
-          // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             data,
@@ -629,6 +626,39 @@ const accountMixin = {
           message: this.$t('apps_view.new_profile_created'),
           buttonText: this.$t('buttons.close')
         })
+      })
+    },
+    updateAccountNetworkIntegrationStatusUnityads (status) {
+      this.$apollo.mutate({
+        mutation: UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1004,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            active: status
+          }
+        },
+        update: (store, { data: { updateAccountNetworkIntegrationStatusUnityads } }) => {
+          console.log(status)
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesUnityadsQuery = false
+          this.$apollo.queries.networkProfilesUnityads.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_UNITYADS,
+            variables: {
+              id: '5b10f0d09a5fd6245f658384'
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_UNITYADS,
+            data,
+            variables: {
+              id: '5b10f0d09a5fd6245f658384'
+            }
+          })
+        }
       })
     },
     createAccountNetworkIntegration1005 (profileName, input) {
@@ -2157,17 +2187,20 @@ const accountMixin = {
       this[skipVar] = false
       this.$apollo.queries[queryName].refetch()
     })
-    this.$root.$on('launchNetworkStatusQuery', (networkName) => {
-      // let formattedName = networkName.charAt(0).toUpperCase() + networkName.slice(1).toLowerCase()
-      // let skipVar = `skipNetworkProfiles${formattedName}Query`
-      // let queryName = `networkProfiles${formattedName}`
-      // this[skipVar] = false
-      // this.$apollo.queries[queryName].refetch()
-      this.skipNetworkProfilesAdcolonyQuery = false
-      this.$apollo.queries.networkProfilesAdcolony.refetch()
-    })
-    this.$root.$on('enableDisableNetwork', (status) => {
-      this.updateAccountNetworkIntegrationStatus1003(!status)
+    // this.$root.$on('launchNetworkStatusQuery', (networkName) => {
+    //   let formattedName = networkName.charAt(0).toUpperCase() + networkName.slice(1).toLowerCase()
+    //   let skipVar = `skipNetworkProfiles${formattedName}Query`
+    //   let queryName = `networkProfiles${formattedName}`
+    //   this[skipVar] = false
+    //   this.$apollo.queries[queryName].refetch()
+    //   this.skipNetworkProfilesAdcolonyQuery = false
+    //   this.$apollo.queries.networkProfilesAdcolony.refetch()
+    // })
+    this.$root.$on('enableDisableNetwork', (status, networkName) => {
+      console.log('enable', status, networkName)
+      let formattedName = networkName.charAt(0).toUpperCase() + networkName.slice(1).toLowerCase()
+      let queryName = `updateAccountNetworkIntegrationStatus${formattedName}`
+      this[queryName](!status)
     })
     // createAccountNetworkIntegration events
     this.$root.$on('createAccountNetworkIntegration', (profileName, input) => {

@@ -78,14 +78,8 @@ mutation updateAccountNetworkIntegrationStatus ($input: updateAccountNetworkInte
       name
       networkProfiles {
         ... on NetworkIntegration1003 {
-          networkId
           active
-          profiles {
-            name
-            default
-            api_key
-          }
-            }
+        }
       }
     }
   }
@@ -501,6 +495,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1004 {
+          active
           networkId
           profiles {
             name
@@ -520,6 +515,21 @@ mutation createAccountNetworkIntegration1004 ($input: CreateAccountNetIntegratio
     account {
       _id
       name
+    }
+  }
+}
+`
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1004 = gql`
+mutation updateAccountNetworkIntegrationStatus ($input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount:"5b10f0d09a5fd6245f658384", _idNetwork:1004, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1004 {
+          active
+        }
+      }
     }
   }
 }

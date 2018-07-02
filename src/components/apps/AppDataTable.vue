@@ -44,7 +44,7 @@
                   color="success"
                   hide-details
                   class="switch"
-                  @change="toggleEnableDisableNetwork(networkProfile.active)"
+                  @change="toggleEnableDisableNetwork(networkProfile.active, props.header.text)"
                   :value="true"
                   :input-value="networkProfile.active"
                   )
@@ -201,12 +201,13 @@ export default {
       'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
+    // Obtenemos el estado de red en la cabecera de la tabla de apps (enble/disable)
+    getNetworkStatus (networkName) {
+      this.$root.$emit('launchNetworkProfilesQuery', networkName)
+    },
     showDeleteDialog (app) {
       this.appRemoveDialogStatusAction(true)
       .then(() => this.appIdAction(app._id))
-    },
-    getNetworkStatus (networkName) {
-      this.$root.$emit('launchNetworkStatusQuery', networkName)
     },
     // Show edit app dialog
     showEditAppDialog (app) {
@@ -233,8 +234,9 @@ export default {
       this.$root.$emit('enableDisableApp', appId, platform, status)
     },
     // Enable/disable network status
-    toggleEnableDisableNetwork (status) {
-      this.$root.$emit('enableDisableNetwork', status)
+    toggleEnableDisableNetwork (status, networkName) {
+      console.log('togle', status, networkName)
+      this.$root.$emit('enableDisableNetwork', status, networkName)
     }
   }
 }
