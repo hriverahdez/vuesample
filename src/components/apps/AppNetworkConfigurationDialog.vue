@@ -68,7 +68,32 @@
                         hide-details
                         )
                       p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`) }}
-                p(v-else) Implementar cuestionario vacio TODO
+
+                //- Cuestionario vacío si la app no está habilitada para esa red
+                section(
+                  v-else
+                  class="network-config-container__formats-config")
+                  h4 {{ $t('apps_view.format_config')}}
+                  div(:ref="`format${index}`" v-for="(format, index) in formats" v-if="formats" :key="index" class="network-config-container__formats-config__block")
+                    div(class="network-config-container__formats-config__header")
+                      div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format)}}
+                      v-switch(
+                          light
+                          :label="check"
+                          color="success"
+                          v-model="switchStatus.status[index]"
+                          hide-details
+                        )
+                    div(v-for="(formatField, index) in format.formatFields")
+                      v-text-field(
+                        :label="formatField.key"
+                        :value="formatField.value"
+                        @change="getNewValue($event, index, format.format)"
+                        hide-details
+                        )
+                      p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`) }}
+
+
                 section(class="network-config-container__btn")
                   v-btn(
                     v-if="!queryError"

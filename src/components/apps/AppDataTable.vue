@@ -30,7 +30,7 @@
         )
         template(slot="headerCell" slot-scope="props")
           span {{ props.header.text }}
-          v-menu(offset-y bottom @click.native.stop="" class="network-header-menu")
+          v-menu(offset-y bottom @click.native.stop="getNetworkStatus(props.header.text)" class="network-header-menu")
             a(slot="activator" class="header-activator")
               icon(name="cog" class="cog-icon")
             v-list(class="apps-view-list")
@@ -42,9 +42,11 @@
                 v-switch(
                   light
                   color="success"
-                  v-model="appSwitchStatus"
                   hide-details
                   class="switch"
+                  @change="toggleEnableDisableNetwork(networkProfile.active)"
+                  :value="true"
+                  :input-value="networkProfile.active"
                   )
 
         template(slot="items" slot-scope="props")
@@ -56,7 +58,7 @@
                 span(
                   class="app__text"
                   :data="props.item._id"
-                  ) {{ props.item.name }}
+                  ) {{ props.item._id }}
                 //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
@@ -135,7 +137,8 @@ export default {
       apps: 'appsDataGetter',
       // networks: 'networksIdsAndNamesGetter',
       networkIds: 'networkIdsGetter',
-      networksInfo: 'networksInfoGetter'
+      networksInfo: 'networksInfoGetter',
+      networkProfile: 'networkProfilesDataGetter'
     }),
     // Get cuurrent netqork actives
     currentNetworksActive () {
@@ -202,6 +205,9 @@ export default {
       this.appRemoveDialogStatusAction(true)
       .then(() => this.appIdAction(app._id))
     },
+    getNetworkStatus (networkName) {
+      this.$root.$emit('launchNetworkStatusQuery', networkName)
+    },
     // Show edit app dialog
     showEditAppDialog (app) {
       this.editedAppIndexStatusAction(this.apps.indexOf(app))
@@ -211,7 +217,6 @@ export default {
     },
     // Send data to show the app-network configuration corresponding dialog from datatable cell
     selectedCell (networkName, appName, appId) {
-      console.log(networkName, appName, appId)
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
       this.appNetworkConfigDialogStatusAction(true)
       this.skipAppByIdAndNetworkQueryAction(false)
@@ -225,8 +230,11 @@ export default {
     },
     // Enable/disable app status
     toggleEnableDisableApp (appId, platform, status) {
-      console.log(status)
       this.$root.$emit('enableDisableApp', appId, platform, status)
+    },
+    // Enable/disable network status
+    toggleEnableDisableNetwork (status) {
+      this.$root.$emit('enableDisableNetwork', status)
     }
   }
 }

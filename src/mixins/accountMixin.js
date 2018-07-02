@@ -27,6 +27,7 @@ import {
   NETWORK_PROFILES_STARTAPP,
   NETWORK_PROFILES_UNITYADS,
   NETWORK_PROFILES_VUNGLE,
+  UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1003,
   UPDATE_NETWORK_1001_PROFILE,
   UPDATE_NETWORK_1003_PROFILE,
   UPDATE_NETWORK_1004_PROFILE,
@@ -541,6 +542,43 @@ const accountMixin = {
         //   description: '',
         //   disabled: ''
         // })
+      })
+    },
+    updateAccountNetworkIntegrationStatus1003 (status) {
+      this.$apollo.mutate({
+        mutation: UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1003,
+        context: {
+          uri: URI
+        },
+        variables: {
+          input: {
+            active: status
+          }
+        },
+        update: (store, { data: { updateAccountNetworkIntegrationStatus1003 } }) => {
+          console.log(status)
+          // Actualizamos la query correspondiente
+          this.skipNetworkProfilesAdcolonyQuery = false
+          this.$apollo.queries.networkProfilesAdcolony.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_ADCOLONY,
+            variables: {
+              id: '5b10f0d09a5fd6245f658384'
+            }
+          })
+          // Add our tag from the mutation to the end
+          // let profiles = data.accountById.networkProfiles.find(e => e.profiles)
+          // profiles.push(createAccountNetworkIntegration1003)
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: NETWORK_PROFILES_ADCOLONY,
+            data,
+            variables: {
+              id: '5b10f0d09a5fd6245f658384'
+            }
+          })
+        }
       })
     },
     createAccountNetworkIntegration1004 (profileName, input) {
@@ -2118,6 +2156,18 @@ const accountMixin = {
       let queryName = `networkProfiles${formattedName}`
       this[skipVar] = false
       this.$apollo.queries[queryName].refetch()
+    })
+    this.$root.$on('launchNetworkStatusQuery', (networkName) => {
+      // let formattedName = networkName.charAt(0).toUpperCase() + networkName.slice(1).toLowerCase()
+      // let skipVar = `skipNetworkProfiles${formattedName}Query`
+      // let queryName = `networkProfiles${formattedName}`
+      // this[skipVar] = false
+      // this.$apollo.queries[queryName].refetch()
+      this.skipNetworkProfilesAdcolonyQuery = false
+      this.$apollo.queries.networkProfilesAdcolony.refetch()
+    })
+    this.$root.$on('enableDisableNetwork', (status) => {
+      this.updateAccountNetworkIntegrationStatus1003(!status)
     })
     // createAccountNetworkIntegration events
     this.$root.$on('createAccountNetworkIntegration', (profileName, input) => {
