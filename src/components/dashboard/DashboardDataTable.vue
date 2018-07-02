@@ -4,23 +4,34 @@
         :headers="showDAU ? headersWithDAU : headers"
         :items="datatableData"
         :search="search"
+        :class="['column sortable', pagination.descending ? 'desc' : 'asc']"
         hide-actions
+        item-key="text"
         class="elevation-1 dashboard-datatable"
         )
 
-        template(slot="headers" slot-scope="props")
-          th(v-for="header in props.headers" :key="header.text" align="left") {{ header.text === "groupBy" ? `Group by ${datatableGroupBy.toLowerCase()}` : header.text }}
+        // template(slot="headers" slot-scope="props")
+        //   tr
+        //     th(
+        //       v-for="header in props.headers"
+        //       :key="header.text"
+        //       align="left"
+        //       @click="changeSort(header.value)"
+        //       :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
+        //       ) {{ header.text === "groupBy" ? `Group by ${datatableGroupBy.toLowerCase()}` : header.text }}
+        //       v-icon(small) arrow_upward
 
         template(slot="items" slot-scope="props")
-            td(class="text-xs-left clicked-cell" @click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
-            //- td.text-xs-left {{ props.item.requests }}
-            td.text-xs-left(v-if="showDAU") DAU
-            td.text-xs-left {{ props.item.imp | currency('', 0) |  noneValueCharacter }}
-            //- td.text-xs-left {{ props.item.fillRate }}
-            td.text-xs-left {{ props.item.click | currency('', 0) | noneValueCharacter }}
-            td.text-xs-left {{ props.item.ctr | percentageFormat | noneValueCharacter }}
-            td.text-xs-left {{ props.item.money | currency | noneValueCharacter }}
-            td.text-xs-left {{ props.item.ecpm | percentageFormat | noneValueCharacter }}
+          td(class="text-xs-left clicked-cell" @click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
+          //- td.text-xs-left {{ props.item.requests }}
+          td.text-xs-left(v-if="showDAU") DAU
+          td.text-xs-left {{ props.item.imp | currency('', 0) |  noneValueCharacter }}
+          //- td.text-xs-left {{ props.item.fillRate }}
+          td.text-xs-left {{ props.item.click | currency('', 0) | noneValueCharacter }}
+          td.text-xs-left {{ props.item.ctr | percentageFormat | noneValueCharacter }}
+          td.text-xs-left {{ props.item.money | currency | noneValueCharacter }}
+          td.text-xs-left {{ props.item.ecpm | percentageFormat | noneValueCharacter }}
+
 
         template(slot="no-data")
             v-alert(
@@ -46,6 +57,10 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'dashboard-data-table',
   data: () => ({
+    pagination: {
+      sortBy: 'groupBy',
+      descending: true
+    },
     headers: [
       {
         text: 'groupBy',
@@ -118,6 +133,17 @@ export default {
     //   }
     // },
     // Change current tab and filters when clicked data table row
+    changeSort (column) {
+      if (this.pagination.sortBy === column) {
+        console.log('entra')
+        this.pagination.descending = !this.pagination.descending
+        console.log(this.pagination.descending)
+      } else {
+        console.log('entra2')
+        this.pagination.sortBy = column
+        this.pagination.descending = false
+      }
+    },
     selectTableItem (item, index) {
       let originalGroupedByValue = this.datatableGroupBy
       let sendItemLabel
