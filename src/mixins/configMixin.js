@@ -1,4 +1,10 @@
-import { BANNER_POSITIONS, GET_DATA_FILTERS, GET_ROLES_ADMIN } from '@/graphql/config'
+import {
+  BANNER_POSITIONS,
+  CONFIG_APP_NETWORK_FORM,
+  GET_DATA_FILTERS,
+  GET_ROLES_ADMIN
+} from '@/graphql/config'
+
 import { mapActions, mapGetters } from 'vuex'
 
 const URI = 'config'
@@ -25,6 +31,29 @@ const configMixin = {
         this.dashboardFiltersAction(data.config)
       }
     },
+    configAppNetworkForm: {
+      query: CONFIG_APP_NETWORK_FORM,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          _id: parseInt(this.selectedNetwork.networkName.id)
+        }
+      },
+      skip () {
+        return this.skipAppNetworkFormFields
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.configAppNetworkFormFieldsAction(data.configAppNetworkForm)
+        this.skipAppNetworkFormFieldsAction(true)
+      },
+      error (error) {
+        console.info(error)
+        this.skipAppNetworkFormFieldsAction(true)
+      }
+    },
     rolesAdmin: {
       query: GET_ROLES_ADMIN,
       context: {
@@ -45,6 +74,13 @@ const configMixin = {
       }
     }
   },
+  computed: {
+    ...mapGetters({
+      skipAppNetworkFormFields: 'skipAppNetworkFormFieldsGetter',
+      selectedNetwork: 'selectedAppNetworkInDatatableGetter',
+      skipQueryRolesAdminGetter: 'skipQueryRolesAdminGetter'
+    })
+  },
   methods: {
     ...mapActions([
       'bannerPositionsDataAction',
@@ -52,13 +88,7 @@ const configMixin = {
       'rolesAdminAction',
       'skipQueryRolesAdminAction'
     ])
-  },
-  computed: {
-    ...mapGetters([
-      'skipQueryRolesAdminGetter'
-    ])
   }
-
 }
 
 export default configMixin

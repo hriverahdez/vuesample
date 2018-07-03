@@ -2,6 +2,7 @@ const APP_DATA = 'APP_DATA'
 const APP_ID_FILTERS = 'APP_ID_FILTERS'
 const ADD_ITEM_FILTER_DATA = 'ADD_ITEM_FILTER_DATA'
 const BANNER_POSITIONS_DATA = 'BANNER_POSTIONS_DATA'
+const CONFIG_APP_NETWORK_FORM_FIELDS = 'CONFIG_APP_NETWORK_FORM_FIELDS'
 const COUNTRIES_DATA = 'COUNTRIES_DATA'
 const COUNTRY_ID_FILTERS = 'COUNTRY_ID_FILTERS'
 const DASHBOARD_FILTERS_DATA = 'DASHBOARD_FILTERS_DATA'
@@ -11,6 +12,7 @@ const NETWORKS_DATA = 'NETWORKS_DATA'
 const NETWORK_ID_FILTERS = 'NETWORK_ID_FILTERS'
 const REMOVE_FILTER_ITEM = 'REMOVE_FILTER_ITEM'
 const ROLES_ADMIN_DATA = 'ROLES_ADMIN_DATA'
+const SKIP_APP_NETWORK_FORM_FIELDS = 'SKIP_APP_NETWORK_FORM_FIELDS'
 const SKIP_QUERY_ROLES_ADMIN = 'SKIP_QUERY_ROLES_ADMIN'
 
 const state = {
@@ -18,6 +20,7 @@ const state = {
   appIdFilters: [],
   bannerPositions: [],
   config: [],
+  configAppNetworkFormFields: '',
   countryFilters: [],
   countryIdFilters: [],
   formatFilters: [],
@@ -25,6 +28,7 @@ const state = {
   networkFilters: [],
   networkIdFilters: [],
   rolesAdmin: [],
+  skipAppNetworkFormFields: true,
   skipRolesAdmin: true
 }
 
@@ -37,6 +41,9 @@ const getters = {
   },
   bannerPositionsGetter (state) {
     return state.bannerPositions.bannerPositions
+  },
+  configAppNetworkFormFieldsGetter (state) {
+    return state.configAppNetworkFormFields
   },
   countryFiltersGetter (state) {
     return state.countryFilters
@@ -70,9 +77,10 @@ const getters = {
     console.log(state.rolesAdmin)
     return state.rolesAdmin
   },
+  skipAppNetworkFormFieldsGetter (state) {
+    return state.skipAppNetworkFormField
+  },
   skipQueryRolesAdminGetter (state) {
-    console.log('entro skipRolesAdmin')
-    console.log(state.skipRolesAdmin)
     return state.skipRolesAdmin
   }
 }
@@ -104,6 +112,9 @@ const mutations = {
   [BANNER_POSITIONS_DATA] (state, position) {
     state.bannerPositions = position
   },
+  [CONFIG_APP_NETWORK_FORM_FIELDS] (state, data) {
+    state.configAppNetworkFormFields = data
+  },
   [COUNTRIES_DATA] (state, filters) {
     state.countryFilters = filters
   },
@@ -132,6 +143,9 @@ const mutations = {
   [ROLES_ADMIN_DATA] (state, roles) {
     state.rolesAdmin = roles
   },
+  [SKIP_APP_NETWORK_FORM_FIELDS] (state, status) {
+    state.skipAppNetworkFormFields = status
+  },
   [SKIP_QUERY_ROLES_ADMIN] (state, skip) {
     console.log(skip)
     state.skipRolesAdmin = skip
@@ -150,6 +164,9 @@ const actions = {
   },
   bannerPositionsDataAction ({commit}, position) {
     commit(BANNER_POSITIONS_DATA, position)
+  },
+  configAppNetworkFormFieldsAction ({commit}, fields) {
+    commit(CONFIG_APP_NETWORK_FORM_FIELDS, fields)
   },
   countryFiltersAction ({commit}, filters) {
     commit(COUNTRIES_DATA, filters)
@@ -178,9 +195,10 @@ const actions = {
   rolesAdminAction ({commit}, roles) {
     commit(ROLES_ADMIN_DATA, roles)
   },
+  skipAppNetworkFormFieldsAction ({commit}, status) {
+    commit(SKIP_APP_NETWORK_FORM_FIELDS, status)
+  },
   skipQueryRolesAdminAction ({commit}, skip) {
-    console.log('entro accion')
-    console.log(skip)
     commit(SKIP_QUERY_ROLES_ADMIN, skip)
   }
 }

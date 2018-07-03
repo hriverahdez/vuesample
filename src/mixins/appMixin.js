@@ -37,8 +37,10 @@ const appMixin = {
       context: {
         uri: URI
       },
-      variables: {
-        _id: this.accountId
+      variables () {
+        return {
+          _id: this.appAndNetworkData.appId
+        }
       },
       skip () {
         return this.skipAppById
@@ -46,6 +48,11 @@ const appMixin = {
       loadingKey: 'loading',
       update (data) {
         this.appByIdDataAction(data.appById)
+        this.skipAppByIdQueryAction(true)
+      },
+      error (error) {
+        console.info(error)
+        this.skipAppByIdQueryAction(true)
       }
     },
     appByIdNetworkProfile: {
@@ -66,11 +73,17 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile)
+        this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile).then(() => {
+          this.queryErrorAction(false)
+        })
+        this.skipAppByIdAndNetworkQueryAction(true)
       },
       error (error) {
         console.info(error)
-        this.queryErrorAction(true)
+        this.appByIdAndNetworkDataAction({}).then(() => {
+          this.queryErrorAction(true)
+        })
+        this.skipAppByIdAndNetworkQueryAction(true)
       }
     },
     appsNamesAndIds: {
@@ -93,13 +106,13 @@ const appMixin = {
     ...mapGetters({
       accountId: 'activeAccount',
       appAndNetworkData: 'selectedAppNetworkInDatatableGetter',
-      // skipAppById: 'skipAppByIdQueryGetter',
+      skipAppById: 'skipAppByIdQueryGetter',
       skipAppByIdAndNetworkQuery: 'skipAppByIdAndNetworkGetter'
     })
   },
   methods: {
     ...mapActions([
-      // 'appByIdDataAction',
+      'appByIdDataAction',
       'appByIdAndNetworkDataAction',
       'appDataAction',
       'appDialogStatusAction',
@@ -111,6 +124,7 @@ const appMixin = {
       'editedAppIndexStatusAction',
       'queryErrorAction',
       'removeAppPermissionInputAction',
+      'skipAppByIdQueryAction',
       'skipAppByIdAndNetworkQueryAction'
     ]),
     createApp (name, platform, bundle, description, bannerPosition, icon) {

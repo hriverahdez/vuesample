@@ -33,6 +33,8 @@ query ($_id: ID!) {
   appById(_id: $_id) {
     name
     _id
+    icon
+    platform
     disabled
     networks {
       active
