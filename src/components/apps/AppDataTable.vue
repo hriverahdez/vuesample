@@ -44,7 +44,7 @@
                   color="success"
                   hide-details
                   class="switch"
-                  @change="toggleEnableDisableNetwork(networkProfile.active, props.header.text)"
+                  @change="toggleEnableDisableNetwork(networkProfile.active, props.header.text, networkProfile.networkId)"
                   :value="true"
                   :input-value="networkProfile.active"
                   )
@@ -234,9 +234,8 @@ export default {
       this.$root.$emit('enableDisableApp', appId, platform, status)
     },
     // Enable/disable network status
-    toggleEnableDisableNetwork (status, networkName) {
-      console.log('togle', status, networkName)
-      this.$root.$emit('enableDisableNetwork', status, networkName)
+    toggleEnableDisableNetwork (status, networkName, networkId) {
+      this.$root.$emit('enableDisableNetwork', status, networkName, networkId)
     }
   }
 }

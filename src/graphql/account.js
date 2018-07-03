@@ -16,7 +16,9 @@ export const GET_ACCOUNTS = gql`
   }
 }
 `
-// ADMOB
+/* ------------------------- ADMOB --------------------------- */
+
+// Queries
 export const NETWORK_PROFILES_ADMOB = gql`
 query ($id: ID!) {
   accountById(_id: $id) {
@@ -24,6 +26,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1002 {
+          active
           networkId
           profiles {
             name
@@ -35,6 +38,23 @@ query ($id: ID!) {
     }
   }
  }
+`
+
+// Mutations
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1002 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1002 {
+          active
+        }
+      }
+    }
+  }
+}
 `
 
 /* ------------------------- ADCOLONY --------------------------- */
@@ -71,8 +91,8 @@ mutation createAccountNetworkIntegration1003 ($input: CreateAccountNetIntegratio
 `
 
 export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1003 = gql`
-mutation updateAccountNetworkIntegrationStatus ($input: updateAccountNetworkIntegrationStatusInput!) {
-  updateAccountNetworkIntegrationStatus(_idAccount:"5b10f0d09a5fd6245f658384", _idNetwork:1003, input:$input) {
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
     account{
       _id
       name
@@ -109,6 +129,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1008 {
+          active
           networkId
           profiles {
             name
@@ -133,7 +154,21 @@ mutation createAccountNetworkIntegration1008 ($input: CreateAccountNetIntegratio
   }
 }
 `
-
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1008 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1008 {
+          active
+        }
+      }
+    }
+  }
+}
+`
 export const UPDATE_NETWORK_1008_PROFILE = gql`
 mutation updateAccountNetworkIntegration1008byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1008Input!){
   updateAccountNetworkIntegration1008byIdAccount(
@@ -148,7 +183,7 @@ mutation updateAccountNetworkIntegration1008byIdAccount ($_idAccount: ID!, $_pro
 }
 `
 
-/* ------------------------- APPLOVIN --------------------------- */
+/* ------------------------- CHARTBOOST --------------------------- */
 // Query
 export const NETWORK_PROFILES_CHARTBOOST = gql`
 query ($id: ID!) {
@@ -157,6 +192,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1007 {
+          active
           networkId
           profiles {
             name
@@ -177,6 +213,21 @@ mutation createAccountNetworkIntegration1007 ($input: CreateAccountNetIntegratio
     account {
       _id
       name
+    }
+  }
+}
+`
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1007 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1007 {
+          active
+        }
+      }
     }
   }
 }
@@ -205,6 +256,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1012 {
+          active
           networkId
           profiles {
             name
@@ -227,6 +279,21 @@ mutation createAccountNetworkIntegration1012 ($input: CreateAccountNetIntegratio
     account {
       _id
       name
+    }
+  }
+}
+`
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1012 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1012 {
+          active
+        }
+      }
     }
   }
 }
@@ -255,6 +322,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1017 {
+          active
           networkId
           profiles {
             name
@@ -274,6 +342,22 @@ mutation createAccountNetworkIntegration1017 ($input: CreateAccountNetIntegratio
     account {
       _id
       name
+    }
+  }
+}
+`
+
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1017 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1017 {
+          active
+        }
+      }
     }
   }
 }
@@ -350,6 +434,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1014 {
+          active
           networkId
           profiles {
             name
@@ -370,6 +455,21 @@ mutation createAccountNetworkIntegration1014 ($input: CreateAccountNetIntegratio
     account {
       _id
       name
+    }
+  }
+}
+`
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1014 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1014 {
+          active
+        }
+      }
     }
   }
 }
@@ -398,6 +498,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1016 {
+          active
           networkId
           profiles {
             name
@@ -419,6 +520,22 @@ mutation createAccountNetworkIntegration1016 ($input: CreateAccountNetIntegratio
     account {
       _id
       name
+    }
+  }
+}
+`
+
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1016 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1016 {
+          active
+        }
+      }
     }
   }
 }
@@ -447,6 +564,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1013 {
+          active
           networkId
           profiles {
             name
@@ -471,7 +589,21 @@ mutation createAccountNetworkIntegration1013 ($input: CreateAccountNetIntegratio
   }
 }
 `
-
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1013 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1013 {
+          active
+        }
+      }
+    }
+  }
+}
+`
 export const UPDATE_NETWORK_1013_PROFILE = gql`
 mutation updateAccountNetworkIntegration1013byIdAccount ($_idAccount: ID!, $_profileName: String!, $input: UpdateAccountNetIntegration1013Input!){
   updateAccountNetworkIntegration1013byIdAccount(
@@ -558,6 +690,7 @@ query ($id: ID!) {
       name
       networkProfiles {
         ... on NetworkIntegration1005 {
+          active
           networkId
           profiles {
             name
@@ -576,6 +709,22 @@ mutation createAccountNetworkIntegration1005 ($input: CreateAccountNetIntegratio
     account {
       _id
       name
+    }
+  }
+}
+`
+
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1005 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1005 {
+          active
+        }
+      }
     }
   }
 }
