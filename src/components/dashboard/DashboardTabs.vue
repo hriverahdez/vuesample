@@ -57,7 +57,6 @@
                           line-chart(
                             v-if="statsDataFormattedGetter"
                             :ytitle="statYText | capitalize"
-                            :colors="['#C9651B']"
                             :data="statsDataFormattedGetter[buttonSelectedGetter]"
                             :legend="false"
                             :discrete= "true"
@@ -69,8 +68,8 @@
                         dashboard-filters
                         line-chart(
                           v-if="statsDataFormattedGetter"
+                          legend="bottom"
                           :ytitle="statYText | capitalize"
-                          :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
                         )
                         dashboard-no-data-filter(v-else)
@@ -79,9 +78,9 @@
                     v-tab-item(id="tab-country")
                         dashboard-filters
                         line-chart(
+                          :legend="false"
                           v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
-                          :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           :discrete= "true"
                         )
@@ -91,9 +90,9 @@
                     v-tab-item(id="tab-format")
                         dashboard-filters
                         pie-chart(
+                          legend="bottom"
                           v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
-                          :colors="['#00A0D3', '#910287', '#00962B', '#FF982A', '#E4371E', '#1A237E']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter][0].data"
                         )
                         dashboard-no-data-filter(v-else)
@@ -103,15 +102,11 @@
                         dashboard-filters
                         column-chart(
                           v-if="statsDataFormattedGetter"
+                          legend="bottom"
                           :ytitle="statYText | capitalize"
-                          :colors="['#C9651B']"
                           :data="statsDataFormattedGetter[buttonSelectedGetter]"
                         )
                         dashboard-no-data-filter(v-else)
-
-                    v-tab-item(id="tab-country")
-                      v-card(flat)
-                      column-chart(:data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]")
 
                 dashboard-stat-buttons
 </template>
