@@ -197,6 +197,7 @@ export default {
       'editedAppIndexStatusAction',
       'selectedAppNetworkInDatatableAction',
       'selectedNetworkToManageAction',
+      'skipAppByIdQueryAction',
       'skipAppByIdAndNetworkQueryAction',
       'skipNetworkProfilesAction'
     ]),
@@ -220,6 +221,7 @@ export default {
     selectedCell (networkName, appName, appId) {
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
       this.appNetworkConfigDialogStatusAction(true)
+      this.skipAppByIdQueryAction(false)
       this.skipAppByIdAndNetworkQueryAction(false)
       this.$root.$emit('launchNetworkProfilesQuery', networkName.name)
     },
