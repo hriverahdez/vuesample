@@ -21,3 +21,12 @@ export const BANNER_POSITIONS = gql`
   }
 }
 `
+
+export const CONFIG_APP_NETWORK_FORM = gql`
+query ($_id: Int!) {
+  configAppNetworkForm (_id: $_id){
+    format
+    fields
+  }
+}
+`

@@ -199,6 +199,7 @@ export default {
       'selectedNetworkToManageAction',
       'skipAppByIdQueryAction',
       'skipAppByIdAndNetworkQueryAction',
+      'skipAppNetworkFormFieldsAction',
       'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
@@ -221,6 +222,7 @@ export default {
     selectedCell (networkName, appName, appId) {
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
       this.appNetworkConfigDialogStatusAction(true)
+      this.skipAppNetworkFormFieldsAction(false)
       this.skipAppByIdQueryAction(false)
       this.skipAppByIdAndNetworkQueryAction(false)
       this.$root.$emit('launchNetworkProfilesQuery', networkName.name)

@@ -47,7 +47,6 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log(data)
         this.appByIdDataAction(data.appById)
         this.skipAppByIdQueryAction(true)
       },

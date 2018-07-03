@@ -48,10 +48,10 @@ export default {
     accountMixin,
     appMixin,
     configMixin
-  ]
-  // updated () {
-  //   this.$apollo.queries.appByIdNetworkProfile.refetch()
-  // }
+  ],
+  updated () {
+    this.$apollo.queries.appByIdNetworkProfile.refetch()
+  }
 }
 </script>
 
