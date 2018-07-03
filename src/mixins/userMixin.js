@@ -11,8 +11,8 @@ const userMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log('GET_USERS')
-        console.log(data)
+        // console.log('GET_USERS')
+        // console.log(data)
         this.usersDataAction(data.users)
         this.skipAdminUsersQueryAction(true)
       },

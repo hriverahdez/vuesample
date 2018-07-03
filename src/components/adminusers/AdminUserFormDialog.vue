@@ -272,7 +272,8 @@
         'userDialogStatusAction',
         'setUserEditedIndexStatusAction',
         'userSchemaAction',
-        'usersDataAction'
+        'usersDataAction',
+        'skipQueryAccountsAction'
       ]),
       addAccountToUserList (e) {
         /* if (this.userAccounts.length) {
@@ -324,8 +325,11 @@
       createDinamicRole (index, account) {
         console.log(index + '-' + account)
       }
+    },
+    mounted () {
+      // this.skipQueryAccountsAction(false)
     }
-}
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -17,7 +17,7 @@ import LoaderComponent from '@/components/LoaderComponent'
 import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
 // Vuex imports
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -30,10 +30,14 @@ export default {
       loaderStatus: 'accountsLoaderStatusGetter'
     })
   },
+  methods: {
+    ...mapActions([
+      'skipQueryAccountsAction'
+    ])
+  },
   mixins: [accountMixin, appMixin],
   mounted () {
-    this.$apollo.queries.accounts.skip = false
-    // this.$apollo.queries.user.refetch()
+    this.this.skipQueryAccountsAction(false)
   }
 }
 </script>

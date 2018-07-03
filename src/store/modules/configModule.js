@@ -73,8 +73,6 @@ const getters = {
     return state.networkIdFilters
   },
   rolesAdminGetter (state) {
-    console.log('entro getter roles')
-    console.log(state.rolesAdmin)
     return state.rolesAdmin
   },
   skipAppNetworkFormFieldsGetter (state) {
@@ -147,7 +145,6 @@ const mutations = {
     state.skipAppNetworkFormFields = status
   },
   [SKIP_QUERY_ROLES_ADMIN] (state, skip) {
-    console.log(skip)
     state.skipRolesAdmin = skip
   }
 }

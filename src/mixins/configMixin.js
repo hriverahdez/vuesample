@@ -61,7 +61,6 @@ const configMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log('GET_ROLES_ADMIN ')
         this.rolesAdminAction(data.config.availableRolesAdmin)
         this.skipQueryRolesAdminAction(true)
       },

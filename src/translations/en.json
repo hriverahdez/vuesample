@@ -15,8 +15,8 @@
       "new_success": "New account created"
     },
     "admin_users_view": {
-      "user": "User",
-      "users": "Users",
+      "user": "Account",
+      "users": "Accounts",
       "admin_users_title": "Users list",
       "alert_message": "No users available",
       "edit_user": "Edit user",
@@ -117,7 +117,8 @@
     },
     "floating_btn": {
       "new_app": "New app",
-      "new_account": "New account"
+      "new_account": "New account",
+      "new_user": "New user"
     },
     "footer": {
       "copyright": "© 2018 Fibonad - All rights reserved"

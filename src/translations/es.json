@@ -15,8 +15,8 @@
       "new_success": "Nueva cuenta creada"
     },
     "admin_users_view": {
-      "user": "Usuario",
-      "users": "Usuarios",
+      "user": "Cuenta",
+      "users": "Cuentas",
       "admin_users_title": "Listado de usuarios",
       "alert_message": "Ningún usuario disponible",
       "edit_user": "Editar usuario",
@@ -116,7 +116,8 @@
     },
     "floating_btn": {
       "new_app": "Crear app",
-      "new_account": "Crear cuenta"
+      "new_account": "Crear cuenta",
+      "new_user": "Crear usuario"
     },
     "footer": {
       "copyright": "© 2018 Fibonad - Todos los derechos reservados"
