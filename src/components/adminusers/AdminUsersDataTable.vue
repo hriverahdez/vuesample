@@ -3,7 +3,7 @@
         v-container
             v-layout(wrap xs12 class="card__row-title")
                 v-flex(xs8)
-                    v-card-title(class="title headings--text") {{ $t('admin_users_view.admin_users_title' )}} {{ $store.state.configModule.rolesAdmin }}
+                    v-card-title(class="title headings--text") {{ $t('admin_users_view.admin_users_title' )}}
                 v-flex(xs4)
                     v-text-field(
                     append-icon="search"
@@ -29,7 +29,7 @@
                     v-badge(:color="colorStatus(props.item.isAdmin)")
                         span(slot="badge").badge {{ textStatus(props.item.isAdmin) }}
                 td.justify-center
-                    v-btn(icon @click="editUserDialog(props.item)").mx-0
+                    v-btn(icon @click.stop="editUserDialog(props.item)").mx-0
                         v-icon(color="primary") edit
                     v-btn(icon @click="").mx-0
                         v-icon(color="blue") clear
@@ -93,13 +93,16 @@ export default {
       return (status) ? 'green' : 'red'
     },
     ...mapMutations(['USER_DATA_CRUD']),
+    sendActiveInactiveUserEvent (user) {
+      // console.log('active/inactive', user)
+      this.$root.$emit('changeActiveStatusUser', user)
+    },
     sendDeleteUserEvent (user) {
-      // console.log(user)
+      // console.log('delete', user)
       this.$root.$emit('deleteUser', user)
     },
     // Show edit account dialog
     editUserDialog (user) {
-      // console.log(user)
       this.setUserEditedIndexStatusAction(this.users.indexOf(user))
       this.editedUser = Object.assign({}, user)
       this.USER_DATA_CRUD(this.editedUser)

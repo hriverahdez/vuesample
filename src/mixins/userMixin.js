@@ -74,7 +74,6 @@ const userMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log('userByToken')
         // si me viene un user -> autologin
         // vamos a consultar en graphQL por los datos de usuario
         this.skipUserByTokenAction(true)
@@ -119,10 +118,6 @@ const userMixin = {
       this.email = email
       this.$apollo.queries.user.skip = false
       this.$apollo.queries.user.refetch()
-    },
-    queryUserByToken () {
-      this.$apollo.queries.userByToken.skip = false
-      this.$apollo.queries.userByToken.refetch()
     },
     login (data) {
       if (typeof data === 'undefined' && typeof localStorage.getItem('rememberMe') !== 'undefined' &&

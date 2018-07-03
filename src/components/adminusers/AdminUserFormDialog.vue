@@ -63,14 +63,14 @@
                                     :value="!userData"
                                     hide-details
                                     )
-                                h2(v-if="$store.state.userModule.userCRUD && !$store.state.userModule.userCRUD.isAdmin") {{ $t('admin_users_view.accounts')}}
+                                h2(v-if="$store.state.userModule.userCRUD && !$store.state.userModule.userCRUD.isAdmin") {{ $t('admin_users_view.users')}}
                                 v-flex()
                                     v-select(
                                     v-model="userCrudAccountsSelect"
                                     :items="accountsDataGetter"
                                     item-text="name"
                                     item-value="_id"
-                                    :label="this.$t('admin_users_view.account')"
+                                    :label="this.$t('admin_users_view.user')"
                                     multiple
                                     autocomplete
                                     clearable
@@ -190,16 +190,16 @@
       // Change switch text label
       check () {
         if (this.userData.length && this.userData.isActive) {
-            return 'Yes'
+          return 'Yes'
         } else {
-            return 'No'
+          return 'No'
         }
       },
       checkAdmin () {
         if (this.userData.length && this.userData.isAdmin) {
-            return 'Yes'
+          return 'Yes'
         } else {
-            return 'No'
+          return 'No'
         }
       },
       // Form button title
@@ -284,9 +284,9 @@
       // Choose between create or edit user
       userEventHandler () {
         if (this.userEditedIndex === -1) {
-            this.sendCreateUserEvent()
+          this.sendCreateUserEvent()
         } else {
-            this.sendEditUserEvent()
+          this.sendEditUserEvent()
         }
       },
       // Close dialog layer
@@ -300,15 +300,15 @@
             isActive: true,
             isAdmin: false,
             password: ''
-            })
+          })
         }, 300)
       },
       getAccountNameFromId (id) {
         let name = ''
         this.accountsDataGetter.forEach((account) => {
-            if (account._id === id) {
-              name = account.name
-            }
+          if (account._id === id) {
+            name = account.name
+          }
         })
 
         return name

@@ -37,15 +37,13 @@ export default {
   methods: {
     ...mapActions([
       'skipAdminUsersQueryAction',
-      'skipQueryRolesAdminAction'
+      'skipQueryRolesAdminAction',
+      'skipA'
     ])
   },
   mounted () {
-    console.log('Admin user view')
     this.skipAdminUsersQueryAction(false)
-    // this.skipQueryUserByToken = true
-    // this.skipAdminUsersQuery = false
-    // this.skipQueryRolesAdminAction(false)
+    this.skipQueryRolesAdminAction(false)
   }
 }
 </script>
