@@ -76,7 +76,7 @@ const state = {
   removeAppPermissionInput: '',
   selectedAppNetworkInDatatable: {},
   selectedNetworkToManage: '',
-  // skipAppByIdQuery: true,
+  skipAppByIdQuery: true,
   skipAppByIdAndNetworkQuery: true
   // skipNetworkProfiles: true
 }

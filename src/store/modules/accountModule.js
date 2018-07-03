@@ -6,6 +6,7 @@ const ACCOUNT_DIALOG_STATUS = 'ACCOUNT_DIALOG_STATUS'
 // Loader control
 const ACCOUNTS_LOADER_STATUS = 'ACCOUNTS_LOADER_STATUS'
 const EDIT_INDEX_STATUS = 'EDIT_INDEX_STATUS'
+const SKIP_QUERY_ACCOUNTS = 'SKIP_QUERY_ACCOUNTS'
 
 const state = {
   accounts: [],
@@ -19,7 +20,8 @@ const state = {
   },
   accountsLoaderStatus: true,
   // Index element to know if its edited mode
-  editedIndex: -1
+  editedIndex: -1,
+  skipQueryAccounts: true
 }
 
 const getters = {
@@ -42,6 +44,9 @@ const getters = {
   },
   editedIndexGetter (state) {
     return state.editedIndex
+  },
+  skipQueryAccountsGetter (state) {
+    return state.skipQueryAccounts
   }
 }
 
@@ -60,6 +65,9 @@ const mutations = {
   },
   [EDIT_INDEX_STATUS] (state, indexValue) {
     state.editedIndex = indexValue
+  },
+  [SKIP_QUERY_ACCOUNTS] (state, status) {
+    state.skipQueryAccounts = status
   }
 }
 
@@ -78,6 +86,9 @@ const actions = {
   },
   editedIndexStatusAction ({commit}, indexValue) {
     commit(EDIT_INDEX_STATUS, indexValue)
+  },
+  skipQueryAccountsAction ({commit}, status) {
+    commit(SKIP_QUERY_ACCOUNTS, status)
   }
 }
 
