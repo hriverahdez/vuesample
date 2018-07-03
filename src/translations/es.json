@@ -173,6 +173,10 @@
           "publisher_id": {
             "label": "Id anunciante",
             "help_text": "From this page, select the \"Publisher ID\". Make sure you use the same account as you do for the \"Grant Access\" button above otherwise the access will not be granted.-PENDING"
+          },
+          "format_profile_text": {
+            "id": "From AdMob Monetize page, select \"All Apps\" in the left sidebar, then choose your app. Click \"View setup instructions\" and copy the App ID displayed in the instructions.-PENDING",
+            "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall.-PENDING"
           }
         },
         "adcolony1003": {
@@ -189,12 +193,22 @@
           "api_key": {
             "label": "Clave API",
             "help_text": "Your API key is found on the API keys tab of the UnityAds dashboard-PENDING"
+          },
+          "format_profile_text": {
+            "id": "From the UnityAds dashboard, choose your game. Your Game ID will be listed next to the platform.--PENDING",
+            "placementId": "From the UnityAds dashboard, choose your app and platform. Your \"format\" Integration ID will be listed here; it's typically called like the format name.-PENDING"
           }
         },
         "vungle1005": {
           "api_key": {
             "label": "Clave API",
             "help_text": "From the Vungle Details Dashboard, find your Reporting API key towards the bottom of the page. If you do not already have an API key, email Vungle at account-managers@vungle.com to request one.-PENDING"
+          },
+          "format_profile_text": {
+            "appId": "From the Vungle Details Dashboard, select your application. On the next page, find the Vungle Application ID in the Application Details column.-PENDING",
+            "placementId": "From the Vungle Details Dashboard, select your application, then click \"Add New Placement\". Create a placement, and after saving it, copy the auto-generated \"Reference ID\" here.-PENDING",
+            "formatPlacementId": "From the Vungle App list Dashboard, click in the configuration icon on the right. Click one placement and once you are into the placement's view, copy the id content in the url: http://...placements/XXXXXXXXXXXXXXXXX/details-PENDING",
+            "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall.-PENDING"
           }
         },
         "chartboost1007": {
@@ -205,6 +219,10 @@
           "user_signature": {
             "label": "Firma de usuario",
             "help_text": "From the API Explorer Page, select the User Signature-PENDING"
+          },
+          "format_profile_text": {
+            "appId": "You can find your game's App ID on its App Settings page on the Chartboost dashboard. See this Chartboost documentation for a screenshot.-PENDING",
+            "appSignature": "You can find your game's App Signature on its App Settings page on the Chartboost dashboard. See this Chartboost documentation for a screenshot.-PENDING"
           }
         },
         "applovin1008": {

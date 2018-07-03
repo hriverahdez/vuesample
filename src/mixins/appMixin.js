@@ -76,7 +76,7 @@ const appMixin = {
         this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile).then(() => {
           this.queryErrorAction(false)
         })
-        this.skipAppByIdAndNetworkQueryAction(true)
+        // this.skipAppByIdAndNetworkQueryAction(true)
       },
       error (error) {
         console.info(error)
