@@ -1,17 +1,10 @@
 const securityMixin = {
-  data: () => ({
-    accountIds: [],
-    email: '',
-    skipQuery: true,
-    skipQueryUserAccounts: true,
-    skipQueryUserByToken: true
-  }),
   methods: {
     isGranted (route, store) {
       if (route.meta.requiresAuth) {
         // si es admin - palante
         if (store.getters.userGetter.isAdmin) {
-          console.log('Es admin')
+          console.log('[isGranted] Es admin')
           return true
         }
 
@@ -19,10 +12,10 @@ const securityMixin = {
         let userRoles = store.getters.userAccountRoles
 
         if (userRoles.length > 0 && this.checkRolesInPath(route.meta.roles, userRoles)) { // route.meta.roles.includes(userRoles)) {
-          console.log('Autorizado')
+          console.log('[isGranted] Autorizado')
           return true
         } else {
-          console.log('No autorizado')
+          console.log('[isGranted] No autorizado')
           return false
         }
       }
@@ -31,7 +24,7 @@ const securityMixin = {
     },
     isGrantedComponent (roles, store) {
       if (store.getters.userGetter.isAdmin) {
-        console.log('Es admin')
+        console.log('[isGrantedComponent] Es admin')
         return true
       }
 
@@ -39,10 +32,10 @@ const securityMixin = {
       let userRoles = store.getters.userAccountRoles
 
       if (userRoles.length > 0 && this.checkRolesInPath(roles, userRoles)) { // route.meta.roles.includes(userRoles)) {
-        console.log('Autorizado')
+        console.log('[isGrantedComponent] Autorizado')
         return true
       } else {
-        console.log('No autorizado')
+        console.log('[isGrantedComponent] No autorizado')
         return false
       }
     },

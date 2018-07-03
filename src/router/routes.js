@@ -4,11 +4,12 @@ import Router from 'vue-router'
 // Routes
 import AccountsView from '@/router/views/Accounts-view'
 import AccountsSelectionView from '@/router/views/Accounts-selection-view'
+import AdminUsersView from '@/router/views/Admin-users-view'
 import AppsView from '@/router/views/Apps-view'
 import DashboardView from '@/router/views/Dashboard-view'
 import LoginView from '@/router/views/Login-view'
 import { store } from '@/store/store'
-import userMixin from '@/mixins/userMixin'
+// import userMixin from '@/mixins/userMixin'
 import securityMixin from '@/mixins/securityMixin'
 
 Vue.use(Router)
@@ -25,6 +26,12 @@ const router = new Router({
       path: '/panel/accounts',
       name: 'accounts',
       component: AccountsView,
+      meta: { requiresAuth: true, roles: ['ROLE_ADMIN'] }
+    },
+    {
+      path: '/panel/admin/users',
+      name: 'admin_users',
+      component: AdminUsersView,
       meta: { requiresAuth: true, roles: ['ROLE_ADMIN'] }
     },
     {
@@ -72,7 +79,7 @@ router.beforeEach((to, from, next) => {
   store.dispatch('setUserTokenChecking', false)
   if (!store.getters.isLogged && rememberMe && existToken) {
     store.dispatch('setUserTokenChecking', true)
-    userMixin.apollo.userByToken.skip = false
+    store.dispatch('skipUserByTokenAction', false)
   }
 
   // comprobamos a que ruta debe ir

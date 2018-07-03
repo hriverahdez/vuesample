@@ -14,6 +14,18 @@
       "new_account": "Nueva cuenta",
       "new_success": "Nueva cuenta creada"
     },
+    "admin_users_view": {
+      "user": "Usuario",
+      "users": "Usuarios",
+      "admin_users_title": "Listado de usuarios",
+      "alert_message": "Ningún usuario disponible",
+      "edit_user": "Editar usuario",
+      "edit_success": "Usuario editado",
+      "info_message": "No hay cuentas seleccionadas",
+      "new_user": "Nuevo usuario",
+      "new_success": "Nuevo usuario creado",
+      "roles": "Roles"
+    },
     "apps_view": {
       "alert_message": "Ninguna app disponible",
       "API_check_config": "API configurada",
