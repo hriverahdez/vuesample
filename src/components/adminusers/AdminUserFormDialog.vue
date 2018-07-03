@@ -271,8 +271,7 @@
       ...mapActions([
         'userDialogStatusAction',
         'setUserEditedIndexStatusAction',
-        'userSchemaAction',
-        'usersDataAction',
+        'userDataCrudAction',
         'skipQueryAccountsAction'
       ]),
       addAccountToUserList (e) {
@@ -295,7 +294,7 @@
         this.userDialogStatusAction(false)
         setTimeout(() => {
           this.setUserEditedIndexStatusAction(-1)
-          this.userSchemaAction({
+          this.userDataCrudAction({
             name: '',
             email: '',
             isActive: true,
