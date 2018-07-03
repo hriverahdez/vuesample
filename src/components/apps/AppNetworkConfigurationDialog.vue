@@ -142,13 +142,12 @@
                           v-model="switchStatus.status[index]"
                           hide-details
                         )
-                //     div(v-for="(formatField, index) in format.formatFields")
-                //       v-text-field(
-                //         :label="formatField.key"
-                //         :value="formatField.value"
-                //         @change="getNewValue($event, index, format.format)"
-                //         hide-details
-                //         )
+                    div(v-for="(field, index) in format.fields")
+                      v-text-field(
+                        :label="field"
+                        @change="getNewValue($event, index, format.format)"
+                        hide-details
+                        )
                 //       p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`) }}
 
                 // section(class="network-config-container__btn")
@@ -257,7 +256,8 @@ export default {
     ...mapActions([
       'appByIdAndNetworkDataAction',
       'appNetworkConfigDialogStatusAction',
-      'queryErrorAction'
+      'queryErrorAction',
+      'skipAppByIdAndNetworkQueryAction'
     ]),
     // Close dialog layer
     closeDialog () {

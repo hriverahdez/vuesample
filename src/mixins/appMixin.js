@@ -73,13 +73,15 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
+        console.log('entra query ok', this.appAndNetworkData.networkName.id)
         this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile).then(() => {
           this.queryErrorAction(false)
         })
-        this.skipAppByIdAndNetworkQueryAction(true)
+        // this.skipAppByIdAndNetworkQueryAction(true)
       },
       error (error) {
         console.info(error)
+        console.log('entra query error')
         this.appByIdAndNetworkDataAction({}).then(() => {
           this.queryErrorAction(true)
         })

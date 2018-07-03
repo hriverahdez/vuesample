@@ -189,6 +189,10 @@
         "api_key": {
           "label": "API key",
           "help_text": "Your API key is found on the API keys tab of the UnityAds dashboard"
+        },
+        "format_profile_text": {
+          "id": "From the UnityAds dashboard, choose your game. Your Game ID will be listed next to the platform.",
+          "placementId": "From the UnityAds dashboard, choose your app and platform. Your \"format\" Integration ID will be listed here; it's typically called like the format name."
         }
       },
       "vungle1005": {
