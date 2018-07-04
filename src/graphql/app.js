@@ -90,6 +90,17 @@ query ($_idAccount: ID!, $filter: [AppFilter]) {
 `
 
 // Mutations
+export const CREATE_APP_NETWORK = gql`
+  mutation createAppNetwork ($input: CreateAppNetworkInput!) {
+    createAppNetwork(idApp: "5b39cc099a5fd613464929ac",idAccount: "5b10f0d09a5fd6245f658384",idNetwork: 1003, input: $input) {
+      app {
+        _id
+        name
+      }
+    }
+  }
+`
+
 export const CREATE_NEW_APP = gql`
   mutation createApp($input: CreateAppInput!){
     createApp(input: $input) {

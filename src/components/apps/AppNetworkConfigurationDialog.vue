@@ -150,19 +150,18 @@
                         )
                       p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`) }}
 
-                // section(class="network-config-container__btn")
-                //   v-btn(
-                //     v-if="!queryError"
-                //     color="buttonColor"
-                //     class="white--text"
-                //     @click.native.stop="sendEditAppNetworkProfileEvent(app._id, app.networks[0].networkId, selected)"
-                //     ) {{ $t('buttons.edit') }}
-                //   v-btn(
-                //     v-else
-                //     color="buttonColor"
-                //     class="white--text"
-                //     @click.native.stop="closeDialog"
-                //     ) {{ $t('buttons.cancel') }}
+                section(class="network-config-container__btn")
+                  v-btn(
+                    color="buttonColor"
+                    class="white--text"
+                    flat
+                    @click.native.stop="closeDialog"
+                    ) {{ $t('buttons.cancel') }}
+                  v-btn(
+                    color="buttonColor"
+                    class="white--text"
+                    @click.native.stop="sendCreateAppNetworkProfileEvent"
+                    ) {{ $t('buttons.save') }}
 
 </template>
 
@@ -286,6 +285,11 @@ export default {
       } else {
         this.queryErrorAction(false)
       }
+    },
+    // Send event to create format data app-network
+    sendCreateAppNetworkProfileEvent () {
+      console.log('entra')
+      // this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.createInputVariables)
     }
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)
