@@ -82,73 +82,73 @@
                     @click.native.stop="closeDialog"
                     ) {{ $t('buttons.cancel') }}
 
-    // v-dialog(
-    //   v-else
-    //   v-model="$store.state.appModule.appNetworkConfigDialogStatus"
-    //   max-width="700"
-    //   light)
-    //   v-card
-    //     v-card-title(
-    //       class="formElementColor py-4 title white--text"
-    //       ) {{ $t('apps_view.network_configuration') }}
-    //     v-card-text
-    //       v-container(grid-list-md)
-    //         v-layout(wrap)
-    //           v-flex(xs12)
-    //             section(class="network-config-container")
-    //               div(class="network-config-container__data")
-    //                 div(class="network-config-container__data__network")
-    //                   span {{ $t('apps_view.network')}}:
-    //                   img(:src="imageSrc" class="network-logo")
-    //                   //- {{ selectedAppNetworkConfig.networkName }}
-    //                 div(class="network-config-container__data__app")
-    //                   span {{ $t('apps_view.app')}}:
-    //                   img(:src="app.icon" alt="" class="app-logo" v-if="app.icon")
-    //                   span {{ selectedAppNetworkConfig.appName }}
-    //                 div(class="network-config-container__data__platform")
-    //                   span {{ $t('apps_view.platform') }}:
-    //                   icon(v-if="app.platform === 'android'" name="android" color="gray" class="platform-icon")
-    //                   icon(v-if="app.platform === 'ios'" name="apple" color="gray" class="platform-icon")
-    //               div
-    //                 v-switch(
-    //                   light
-    //                   :label="check"
-    //                   v-model="configStatus"
-    //                   color="success"
-    //                   hide-details
-    //                 )
-    //             section(class="network-config-container__manage")
-    //               v-flex(xs7)
-    //                 v-select(
-    //                   :items="networkProfiles"
-    //                   item-text="name"
-    //                   item-value="name"
-    //                   :label="this.$t('apps_view.select_profile')"
-    //                   v-model="selected"
-    //                   required
-    //                 )
+    //- Empty form
+    v-dialog(
+      v-else
+      v-model="$store.state.appModule.appNetworkConfigDialogStatus"
+      max-width="700"
+      light)
+      v-card
+        v-card-title(
+          class="formElementColor py-4 title white--text"
+          ) {{ $t('apps_view.network_configuration') }}
+        v-card-text
+          v-container(grid-list-md)
+            v-layout(wrap)
+              v-flex(xs12)
+                section(class="network-config-container")
+                  div(class="network-config-container__data")
+                    div(class="network-config-container__data__network")
+                      span {{ $t('apps_view.network')}}:
+                      img(:src="imageSrc" class="network-logo")
+                      //- {{ selectedAppNetworkConfig.networkName }}
+                    div(class="network-config-container__data__app")
+                      span {{ $t('apps_view.app')}}:
+                      img(:src="app.icon" alt="" class="app-logo" v-if="app.icon")
+                      span {{ selectedAppNetworkConfig.appName }}
+                    div(class="network-config-container__data__platform")
+                      span {{ $t('apps_view.platform') }}:
+                      icon(v-if="app.platform === 'android'" name="android" color="gray" class="platform-icon")
+                      icon(v-if="app.platform === 'ios'" name="apple" color="gray" class="platform-icon")
+                  div
+                    v-switch(
+                      light
+                      :label="check"
+                      v-model="configStatus"
+                      color="success"
+                      hide-details
+                    )
+                section(class="network-config-container__manage")
+                  v-flex(xs7)
+                    v-select(
+                      :items="networkProfiles"
+                      item-text="name"
+                      item-value="name"
+                      :label="this.$t('apps_view.select_profile')"
+                      v-model="selected"
+                      required
+                    )
 
-    //             section(
-    //               class="network-config-container__formats-config")
-    //               h4 {{ $t('apps_view.format_config')}}
-    //               p {{ formatFields }}
-    //               div(:ref="`format${index}`" v-for="(format, index) in formatFields" v-if="formatFields" :key="index" class="network-config-container__formats-config__block")
-    //                 div(class="network-config-container__formats-config__header")
-    //                   div(class="network-config-container__formats-config__header__title") {{ format.format }}
-    //                   v-switch(
-    //                       light
-    //                       :label="check"
-    //                       color="success"
-    //                       v-model="switchStatus.status[index]"
-    //                       hide-details
-    //                     )
-    //                 div(v-for="(field, index) in format.fields")
-    //                   v-text-field(
-    //                     :label="field"
-    //                     @change="getNewValue($event, index, format.format)"
-    //                     hide-details
-    //                     )
-                //       p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`) }}
+                section(
+                  class="network-config-container__formats-config")
+                  h4 {{ $t('apps_view.format_config')}}
+                  div(:ref="`format${index}`" v-for="(format, index) in formatFields" v-if="formatFields" :key="index" class="network-config-container__formats-config__block")
+                    div(class="network-config-container__formats-config__header")
+                      div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format) }}
+                      v-switch(
+                          light
+                          :label="check"
+                          color="success"
+                          v-model="switchStatus.status[index]"
+                          hide-details
+                        )
+                    div(v-for="(field, index) in format.fields")
+                      v-text-field(
+                        :label="field"
+                        @change="getNewValue($event, index, format.format)"
+                        hide-details
+                        )
+                      p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`) }}
 
                 // section(class="network-config-container__btn")
                 //   v-btn(

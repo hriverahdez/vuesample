@@ -454,7 +454,8 @@ const accountMixin = {
                 api_key: input.input[0],
                 user_id: input.input[1]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1001 } }) => {
@@ -545,7 +546,8 @@ const accountMixin = {
                 default: true,
                 api_key: input.input[0]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1003 } }) => {
@@ -638,7 +640,8 @@ const accountMixin = {
                 default: true,
                 api_key: input.input[0]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1004 } }) => {
@@ -722,7 +725,8 @@ const accountMixin = {
                 default: true,
                 api_key: input.input[0]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1005 } }) => {
@@ -807,7 +811,8 @@ const accountMixin = {
                 user_id: input.input[0],
                 user_signature: input.input[1]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1007 } }) => {
@@ -899,7 +904,8 @@ const accountMixin = {
                 report_key: input.input[0],
                 sdk_key: input.input[1]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1008 } }) => {
@@ -1029,7 +1035,8 @@ const accountMixin = {
                 username: input.input[2],
                 password: input.input[3]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1012 } }) => {
@@ -1121,7 +1128,8 @@ const accountMixin = {
                 acountId: input.input[0],
                 token: input.input[1]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1013 } }) => {
@@ -1206,7 +1214,8 @@ const accountMixin = {
                 skey: input.input[0],
                 secret: input.input[1]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1014 } }) => {
@@ -1334,7 +1343,8 @@ const accountMixin = {
                 inventoryReport: input.input[1],
                 campaignReport: input.input[2]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1016 } }) => {
@@ -1426,7 +1436,8 @@ const accountMixin = {
                 username: input.input[0],
                 secret_key: input.input[1]
               }
-            ]
+            ],
+            active: true
           }
         },
         update: (store, { data: { createAccountNetworkIntegration1017 } }) => {
