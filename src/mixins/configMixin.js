@@ -84,6 +84,7 @@ const configMixin = {
   methods: {
     ...mapActions([
       'bannerPositionsDataAction',
+      'configAppNetworkFormFieldsAction',
       'dashboardFiltersAction',
       'rolesAdminAction',
       'skipQueryRolesAdminAction'
