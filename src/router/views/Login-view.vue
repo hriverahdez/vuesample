@@ -41,7 +41,6 @@
                         br
                         p.t2 {{ $t('login_view.not_register') }}&nbsp;
                             a(href="mailto:mediation@labcavegames.com") {{ $t('login_view.click_here') }}
-                        p {{ alertFlag }}
 </template>
 
 <script>
