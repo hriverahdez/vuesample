@@ -37,7 +37,7 @@ export default {
   },
   mixins: [accountMixin, appMixin],
   mounted () {
-    this.this.skipQueryAccountsAction(false)
+    this.skipQueryAccountsAction(false)
   }
 }
 </script>

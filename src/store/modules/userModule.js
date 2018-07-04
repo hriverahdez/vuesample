@@ -57,7 +57,6 @@ const getters = {
     return state.user
   },
   usersDataGetter (state) {
-    console.log('usersDataGetter')
     return state.users
   },
   userCrudGetter (state) {
