@@ -253,6 +253,15 @@ export default {
   height: 8px;
   border-radius: 50%;
 }
+// .red {
+//   background: repeating-linear-gradient(
+//     45deg,
+//     #ccc,
+//     #ccc 10px,
+//     #dbdbdb 10px,
+//     #dbdbdb 20px
+//   );
+// }
 .app-card {
   border-top: 3px solid #BDD0FB;
 }
