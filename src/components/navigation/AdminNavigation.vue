@@ -9,12 +9,11 @@
       width="275"
       )
       v-list(
-        v-if="checkIsGranted",
         dense
         )
         template(v-for='item in granted_items')
           v-list-group(
-            v-if='item.children',
+            v-if='item.children && checkIsGranted("group", item)',
             v-model='item.model',
             :prepend-icon="item.icon",
             class="white--text",
@@ -24,49 +23,18 @@
               v-list-tile-content
                 v-list-tile-title
                   | {{ $t(item.text) }}
-            v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
+            v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action" v-if="checkIsGranted('child', child)")
               v-list-tile-action(v-if='child.icon')
                 v-icon {{ child.icon }}
               v-list-tile-content
                 v-list-tile-title
                   | {{ $t(child.text) }}
-          v-list-tile(v-else, :key='item.text' router :to="item.action")
+          v-list-tile(v-else-if="checkIsGranted('normal', item)", :key='item.text' router :to="item.action")
             v-list-tile-action
               v-icon {{ item.icon }}
             v-list-tile-content
               v-list-tile-title
                   | {{ $t(item.text) }}
-
-      v-list(
-        v-else,
-        dense
-        )
-        template(v-for='item in none_granted_items')
-          v-list-group(
-            v-if='item.children',
-            v-model='item.model',
-            :prepend-icon="item.icon",
-            class="white--text",
-            :key='item.text'
-            )
-            v-list-tile(slot='activator')
-              v-list-tile-content
-                v-list-tile-title
-                  | {{ $t(item.text) }}
-            v-list-tile(v-for='(child, i) in item.children', :key='i' router :to="child.action")
-              v-list-tile-action(v-if='child.icon')
-                v-icon {{ child.icon }}
-              v-list-tile-content
-                v-list-tile-title
-                  | {{ $t(child.text) }}
-          v-list-tile(v-else, :key='item.text' router :to="item.action")
-            v-list-tile-action
-              v-icon {{ item.icon }}
-            v-list-tile-content
-              v-list-tile-title
-                  | {{ $t(item.text) }}
-
-
 
     v-toolbar(
       color='toolbar',
@@ -111,6 +79,10 @@ export default {
   data () {
     return {
       drawer: null,
+      /* NOTA
+      * Para SECURIZAR una sección se puede hacer por grupo o por children item, poner una clave "roles" que será un array
+      * de perfiles que pueden acceder a la seccion u opción de grupo, si el user no tiene ese rol,no podrá entrar
+      */
       granted_items: [
         {
           'icon': 'monetization_on',
@@ -119,7 +91,11 @@ export default {
           children: [
             { text: 'navigation.dashboard', action: '/panel' },
             // { text: 'navigation.waterfall_rules', action: '#' },
-            { text: 'navigation.apps', action: '/panel/apps' }
+            {
+              text: 'navigation.apps',
+              action: '/panel/apps',
+              roles: ['ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTIACCOUNT_MANAGER'] // roles a nivel item
+            }
           ]
         },
         // {
@@ -153,7 +129,8 @@ export default {
             // { text: 'navigation.roles', action: '#' },
             { text: 'navigation.accounts', action: '/panel/accounts' },
             { text: 'navigation.users', action: '/panel/admin/users' }
-          ]
+          ],
+          roles: ['ROLE_ADMIN'] // roles a nivel grupal
         }
       ],
       none_granted_items: [
@@ -180,12 +157,15 @@ export default {
     ...mapGetters({
       userData: 'userGetter',
       userAccountName: 'userActiveAccountNameGetter'
-    }),
-    checkIsGranted () {
-      return this.isGrantedComponent(['ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTIACCOUNT_MANAGER'], this.$store)
-    }
+    })
   },
   methods: {
+    checkIsGranted (from, element) {
+      if (typeof element.roles !== 'undefined' && element.roles.length > 0) {
+        return this.isGrantedComponent(element.roles, this.$store)
+      }
+      return true
+    },
     selectedLanguage (lang) {
       if (lang === 'Spanish') {
         this.$store.dispatch('browserLangUpdate', 'es')
