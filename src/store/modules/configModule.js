@@ -76,7 +76,7 @@ const getters = {
     return state.rolesAdmin
   },
   skipAppNetworkFormFieldsGetter (state) {
-    return state.skipAppNetworkFormField
+    return state.skipAppNetworkFormFields
   },
   skipQueryRolesAdminGetter (state) {
     return state.skipRolesAdmin
