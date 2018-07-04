@@ -11,7 +11,9 @@ const FORMAT_ID_FILTERS = 'FORMAT_ID_FILTERS'
 const NETWORKS_DATA = 'NETWORKS_DATA'
 const NETWORK_ID_FILTERS = 'NETWORK_ID_FILTERS'
 const REMOVE_FILTER_ITEM = 'REMOVE_FILTER_ITEM'
+const ROLES_ADMIN_DATA = 'ROLES_ADMIN_DATA'
 const SKIP_APP_NETWORK_FORM_FIELDS = 'SKIP_APP_NETWORK_FORM_FIELDS'
+const SKIP_QUERY_ROLES_ADMIN = 'SKIP_QUERY_ROLES_ADMIN'
 
 const state = {
   appFilters: [],
@@ -25,7 +27,9 @@ const state = {
   formatIdFilters: [],
   networkFilters: [],
   networkIdFilters: [],
-  skipAppNetworkFormFields: true
+  rolesAdmin: [],
+  skipAppNetworkFormFields: true,
+  skipRolesAdmin: true
 }
 
 const getters = {
@@ -68,8 +72,14 @@ const getters = {
   netwworkIdFiltersGetter (state) {
     return state.networkIdFilters
   },
+  rolesAdminGetter (state) {
+    return state.rolesAdmin
+  },
   skipAppNetworkFormFieldsGetter (state) {
-    return state.skipAppNetworkFormFields
+    return state.skipAppNetworkFormField
+  },
+  skipQueryRolesAdminGetter (state) {
+    return state.skipRolesAdmin
   }
 }
 
@@ -128,8 +138,14 @@ const mutations = {
     let items = state[filterType]
     items.splice(items.indexOf(item), 1)
   },
+  [ROLES_ADMIN_DATA] (state, roles) {
+    state.rolesAdmin = roles
+  },
   [SKIP_APP_NETWORK_FORM_FIELDS] (state, status) {
     state.skipAppNetworkFormFields = status
+  },
+  [SKIP_QUERY_ROLES_ADMIN] (state, skip) {
+    state.skipRolesAdmin = skip
   }
 }
 
@@ -173,8 +189,14 @@ const actions = {
   removeFilterItemAction ({commit}, {item, filterType}) {
     commit(REMOVE_FILTER_ITEM, {item, filterType})
   },
+  rolesAdminAction ({commit}, roles) {
+    commit(ROLES_ADMIN_DATA, roles)
+  },
   skipAppNetworkFormFieldsAction ({commit}, status) {
     commit(SKIP_APP_NETWORK_FORM_FIELDS, status)
+  },
+  skipQueryRolesAdminAction ({commit}, skip) {
+    commit(SKIP_QUERY_ROLES_ADMIN, skip)
   }
 }
 

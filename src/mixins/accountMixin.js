@@ -62,17 +62,17 @@ const accountMixin = {
         uri: URI
       },
       skip () {
-        return this.skipAccounts
+        return this.skipQueryAccountsGetter
       },
       loadingKey: 'loading',
       update (data) {
         this.accountsDataAction(data.accounts).then(() => {
           this.accountsLoaderStatusAction(false)
         })
-        this.skipAccounts = true
+        this.skipQueryAccountsAction(true)
       },
       error () {
-        this.skipAccounts = true
+        this.skipQueryAccountsAction(true)
       }
     },
     // ADMOB QUERY
@@ -325,7 +325,8 @@ const accountMixin = {
     ...mapGetters({
       accountId: this.activeAccount,
       selectedNetworkId: 'selectedNetworkIdToManageGetter',
-      selectedNetworkName: 'selectedNetworkToManageGetter'
+      selectedNetworkName: 'selectedNetworkToManageGetter',
+      skipQueryAccountsGetter: 'skipQueryAccountsGetter'
     })
   },
   methods: {
@@ -336,7 +337,8 @@ const accountMixin = {
       'accountSchemaAction',
       'appManageNetworkProfileDialogStatusAction',
       'editedIndexStatusAction',
-      'networkProfilesDataAction'
+      'networkProfilesDataAction',
+      'skipQueryAccountsAction'
     ]),
     ...mapMutations(['SET_ALERT_MESSAGE']),
     // Create account mutation

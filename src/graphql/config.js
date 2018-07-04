@@ -14,6 +14,14 @@ export const GET_DATA_FILTERS = gql`
 }
 `
 
+export const GET_ROLES_ADMIN = gql`
+{
+ config {
+    availableRolesAdmin
+ }
+}
+`
+
 export const BANNER_POSITIONS = gql`
 {
   config {

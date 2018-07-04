@@ -1,8 +1,10 @@
 import {
   BANNER_POSITIONS,
   CONFIG_APP_NETWORK_FORM,
-  GET_DATA_FILTERS
+  GET_DATA_FILTERS,
+  GET_ROLES_ADMIN
 } from '@/graphql/config'
+
 import { mapActions, mapGetters } from 'vuex'
 
 const URI = 'config'
@@ -51,20 +53,39 @@ const configMixin = {
         console.info(error)
         this.skipAppNetworkFormFieldsAction(true)
       }
+    },
+    rolesAdmin: {
+      query: GET_ROLES_ADMIN,
+      context: {
+        uri: URI
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.rolesAdminAction(data.config.availableRolesAdmin)
+        this.skipQueryRolesAdminAction(true)
+      },
+      // Deshabilitamos la query,para lanzarla cuando queramos
+      skip () {
+        return this.skipQueryRolesAdminGetter
+      },
+      error () {
+        this.skipQueryRolesAdminAction(true)
+      }
     }
   },
   computed: {
     ...mapGetters({
       skipAppNetworkFormFields: 'skipAppNetworkFormFieldsGetter',
-      selectedNetwork: 'selectedAppNetworkInDatatableGetter'
+      selectedNetwork: 'selectedAppNetworkInDatatableGetter',
+      skipQueryRolesAdminGetter: 'skipQueryRolesAdminGetter'
     })
   },
   methods: {
     ...mapActions([
       'bannerPositionsDataAction',
-      'configAppNetworkFormFieldsAction',
       'dashboardFiltersAction',
-      'skipAppNetworkFormFieldsAction'
+      'rolesAdminAction',
+      'skipQueryRolesAdminAction'
     ])
   }
 }

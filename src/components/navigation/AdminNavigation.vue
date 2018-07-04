@@ -151,7 +151,8 @@ export default {
           children: [
             // { text: 'navigation.users', action: '#' },
             // { text: 'navigation.roles', action: '#' },
-            { text: 'navigation.accounts', action: '/panel/accounts' }
+            { text: 'navigation.accounts', action: '/panel/accounts' },
+            { text: 'navigation.users', action: '/panel/admin/users' }
           ]
         }
       ],

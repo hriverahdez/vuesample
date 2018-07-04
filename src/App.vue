@@ -5,6 +5,7 @@
       v-container(grid-list-xl text-xs-center align-content-center class="view__container")
         router-view
         account-dialog(v-if="$store.state.accountModule.accountDialogStatus")
+        admin-user-form-dialog(v-if="$store.state.userModule.userDialogStatus")
         app-dialog(v-if="$store.state.appModule.appDialogStatus")
         dialog-alert
     v-layout(class="floating-button-container" v-if="checkIfVisibleDependingOnRoute()")
@@ -18,6 +19,7 @@
 // Component imports
 import AccountDialog from '@/components/accounts/AccountFormDialog'
 import AdminNavigation from '@/components/navigation/AdminNavigation'
+import AdminUserFormDialog from '@/components/adminusers/AdminUserFormDialog'
 import AppDialog from '@/components/apps/AppFormDialog'
 import DialogAlert from '@/components/DialogAlert'
 import FloatingButton from '@/components/FloatingButton'
@@ -29,6 +31,7 @@ export default {
   components: {
     AccountDialog,
     AdminNavigation,
+    AdminUserFormDialog,
     AppDialog,
     DialogAlert,
     FloatingButton

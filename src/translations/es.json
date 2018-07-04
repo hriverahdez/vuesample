@@ -14,6 +14,18 @@
       "new_account": "Nueva cuenta",
       "new_success": "Nueva cuenta creada"
     },
+    "admin_users_view": {
+      "user": "Cuenta",
+      "users": "Cuentas",
+      "admin_users_title": "Listado de usuarios",
+      "alert_message": "Ningún usuario disponible",
+      "edit_user": "Editar usuario",
+      "edit_success": "Usuario editado",
+      "info_message": "No hay cuentas seleccionadas",
+      "new_user": "Nuevo usuario",
+      "new_success": "Nuevo usuario creado",
+      "roles": "Roles"
+    },
     "apps_view": {
       "alert_message": "Ninguna app disponible",
       "API_check_config": "API configurada",
@@ -104,7 +116,8 @@
     },
     "floating_btn": {
       "new_app": "Crear app",
-      "new_account": "Crear cuenta"
+      "new_account": "Crear cuenta",
+      "new_user": "Crear usuario"
     },
     "footer": {
       "copyright": "© 2018 Fibonad - Todos los derechos reservados"
@@ -158,170 +171,190 @@
       "waterfall_rules": "Reglas de cascada"
     },
     "networks_info": {
-      "networks_info": {
-        "mobusi1001": {
-          "api_key": {
-            "label": "clave API",
-            "help_text": ""
-          },
-          "user_id": {
-            "label": "Firma de usuario",
-            "help_text": ""
-          }
-        },
-        "admob1002": {
-          "publisher_id": {
-            "label": "Id anunciante",
-            "help_text": "From this page, select the \"Publisher ID\". Make sure you use the same account as you do for the \"Grant Access\" button above otherwise the access will not be granted.-PENDING"
-          },
-          "format_profile_text": {
-            "id": "From AdMob Monetize page, select \"All Apps\" in the left sidebar, then choose your app. Click \"View setup instructions\" and copy the App ID displayed in the instructions.-PENDING",
-            "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall.-PENDING"
-          }
-        },
-        "adcolony1003": {
-          "api_key": {
-            "label": "Clave API",
-            "help_text": "Your API key will be labeled as \"Read-Only API Key\" on this page-PENDING"
-          },
-          "format_profile_text": {
-            "id": "From the AdColony dashboard, choose your app. Select an existing Zone to view its ID, or create a new zone by choosing \"Setup New Ad Zone\" and selecting the \"Interstitial\" zone type.-PENDING",
-            "appId": "From the AdColony dashboard, choose your app. Your App ID will be labeled as \"AdColony App ID\" on this page.-PENDING"
-          }
-        },
-        "unityads1004": {
-          "api_key": {
-            "label": "Clave API",
-            "help_text": "Your API key is found on the API keys tab of the UnityAds dashboard-PENDING"
-          },
-          "format_profile_text": {
-            "id": "From the UnityAds dashboard, choose your game. Your Game ID will be listed next to the platform.--PENDING",
-            "placementId": "From the UnityAds dashboard, choose your app and platform. Your \"format\" Integration ID will be listed here; it's typically called like the format name.-PENDING"
-          }
-        },
-        "vungle1005": {
-          "api_key": {
-            "label": "Clave API",
-            "help_text": "From the Vungle Details Dashboard, find your Reporting API key towards the bottom of the page. If you do not already have an API key, email Vungle at account-managers@vungle.com to request one.-PENDING"
-          },
-          "format_profile_text": {
-            "appId": "From the Vungle Details Dashboard, select your application. On the next page, find the Vungle Application ID in the Application Details column.-PENDING",
-            "placementId": "From the Vungle Details Dashboard, select your application, then click \"Add New Placement\". Create a placement, and after saving it, copy the auto-generated \"Reference ID\" here.-PENDING",
-            "formatPlacementId": "From the Vungle App list Dashboard, click in the configuration icon on the right. Click one placement and once you are into the placement's view, copy the id content in the url: http://...placements/XXXXXXXXXXXXXXXXX/details-PENDING",
-            "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall.-PENDING"
-          }
-        },
-        "chartboost1007": {
-          "user_id": {
-            "label": "ID de usuario",
-            "help_text": "From the API Explorer Page, select the User ID-PENDING"
-          },
-          "user_signature": {
-            "label": "Firma de usuario",
-            "help_text": "From the API Explorer Page, select the User Signature-PENDING"
-          },
-          "format_profile_text": {
-            "appId": "You can find your game's App ID on its App Settings page on the Chartboost dashboard. See this Chartboost documentation for a screenshot.-PENDING",
-            "appSignature": "You can find your game's App Signature on its App Settings page on the Chartboost dashboard. See this Chartboost documentation for a screenshot.-PENDING"
-          }
-        },
-        "applovin1008": {
-          "report_key": {
-            "label": "Clave de reporte",
-            "help_text": "From your Account page, choose \"Keys\" in the left sidebar, then select the Report Key. If you do not see the Report Key field, email support@applovin.com and request your reporting key.-PENDING"
-          },
-          "sdk_key": {
-            "label": "Clave SDK",
-            "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key.-PENDING"
-          }
-        },
-        "facebook1009": {
-          "access_token": {
-            "label": "Token de acceso",
-            "help_text": "Access tokens for all of your apps are listed here. You must be an administrator of the app to see them.-PENDING"
-          },
-          "app_id": {
-            "label": "Id de ap",
-            "help_text": "You can find your App ID on your app's settings page.-PENDING"
-          }
-        },
-        "inmobi1012": {
-          "account_id": {
-            "label": "ID de cuenta",
-            "help_text": "You can find your Account ID on your InMobi Dashboard. Click the disclosure triangle in the top right to reveal your Account ID.-PENDING"
-          },
-          "api_key": {
-            "label": "Clave API",
-            "help_text": "Email InMobi and request an API Key. Please mention that you need the API Key to use the Mobusi Mediation.-PENDING"
-          },
-          "username": {
-            "label": "Nombre de usuario",
-            "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature.-PENDING"
-          },
-          "password": {
-            "label": "Contraseña",
-            "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's Invite User feature.-PENDING"
-          }
-        },
-        "startapp1013": {
-          "account_id": {
-            "label": "ID de cuenta",
-            "help_text": "You can find your Account Id at the right top menu sidebar in this page.-PENDING"
-          },
-          "token": {
-            "label": "Token",
-            "help_text": ""
-          }
-        },
-        "mobvista1014": {
-          "skey": {
-            "label": "SKey",
-            "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Skey.-PENDING"
-          },
-          "secret": {
-            "label": "Secreto",
-            "help_text": "From the Account page, lock for the \"Reporting API\" section and you can find your Secret after validating with your password a security popup alert.-PENDING"
-          }
-        },
-        "hyprmx1015": {
-          "help_text": "This network does not require any data for integration.-PENDING"
-        },
-        "mopub1016": {
-          "api_key": {
-            "label": "Clave de API",
-            "help_text": "From the Reports page, check \"Enable data access through API\". Then click the \"View API Access Details\" link to reveal your API Key.-PENDING"
-          },
-          "inventory_report": {
-            "label": "Reporte de inventario",
-            "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Inventory Report ID.-PENDING"
-          },
-          "campaign_report": {
-            "label": "Reporte de campaña",
-            "help_text": "From the Reports page, click the \"View API Access Details\" link to reveal your Campaign Report ID.-PENDING"
-          }
-        },
-        "ironsource1017": {
-          "username": {
-            "label": "Nombre de usuario",
-            "help_text": "The login/email that is used to login to our ironSource account.-PENDING"
-          },
-          "secret_key": {
-            "label": "Clave secreta",
-            "help_text": "The secret key parameter is unique for your ironSource account. To retrieve it, click on your user profile on the top right corner of the screen, and select 'My Account'. You will find the secret key in the Reporting API section-PENDING"
-          }
-        }
+    "mobusi1001": {
+      "api_key": {
+        "label": "Api Key",
+        "help_text": ""
       },
-    "switch": {
-      "enabled": "Habilitado",
-      "disabled": "Deshabilitado",
-      "off": "Off",
-      "on": "On"
+      "user_id": {
+        "label": "User Signature",
+        "help_text": ""
+      }
     },
-    "validations": {
-      "no_data_available": "No hay resultados disponibles",
-      "length": "El campo debe tener entre {minLength} y {maxLength} caracteres",
-      "required": "Campo obligatorio",
-      "same_account_name": "El nombre de la cuenta ya existe"
+    "admob1002": {
+      "publisher_id": {
+        "label": "Publisher id",
+        "help_text": "From <a target='_blank' href='https://apps.admob.com/?pli=1#account/settings:view'>this page</a>, select the \"Publisher ID\". Make sure you use the same account as you do for the \"Grant Access\" button above otherwise the access will not be granted."
+      },
+      "format_profile_text": {
+        "id": "From <a target='_blank' href='https://apps.admob.com/?pli=1#monetize'>AdMob Monetize page</a>, select \"All Apps\" in the left sidebar, then choose your app. Create a new Ad unit for each format you want to config in the mediation panel. Copy the Ad unit ID displayed below the Ad unit name and set it here.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "adcolony1003": {
+      "api_key": {
+        "label": "API key",
+        "help_text": "Your API key will be labeled as \"Read-Only API Key\" on <a target='_blank' href='https://clients.adcolony.com/users/edit'>this page</a>."
+      },
+      "format_profile_text": {
+        "id": "From <a target='_blank' href='https://clients.adcolony.com/apps'>the AdColony dashboard</a>, choose your app. Select an existing Zone to view its ID, or create a new zone by choosing \"Setup New Ad Zone\" and selecting the \"Interstitial\" zone type.",
+        "appId": "From <a target='_blank' href='https://clients.adcolony.com/apps'>the AdColony dashboard</a>, choose your app. Your App ID will be labeled as \"AdColony App ID\" on this page.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "unityads1004": {
+      "api_key": {
+        "label": "API key",
+        "help_text": "Your API key is found on the API keys tab of the <a target=\"_blank\" href=\"https://dashboard.unityads.unity3d.com/\">UnityAds dashboard</a>"
+      },
+      "format_profile_text": {
+        "id": "From <a target='_blank' href='https://dashboard.unityads.unity3d.com/'>the UnityAds dashboard</a>, choose your game. Your Game ID will be listed next to the platform.",
+        "placementId": "From <a target='_blank' href='https://dashboard.unityads.unity3d.com/'>the UnityAds dashboard</a>, choose your app and platform. Your \"format\" Integration ID will be listed here; it's typically called like the format name.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "vungle1005": {
+      "api_key": {
+        "label": "Api key",
+        "help_text": "From the <a target=\"_blank\" href=\"https://dashboard.vungle.com/dashboard/accounts/details\">Vungle Details Dashboard</a>, find your Reporting API key towards the bottom of the page. If you do not already have an API key, email Vungle at <a href=\"mailto:account-managers@vungle.com?subject=API Key&amp;body=Can we get an API Key to use for Mobusi Mediation?\">account-managers@vungle.com</a> to request one."
+      },
+      "format_profile_text": {
+        "appId": "From the <a target='_blank' href='https://dashboard.vungle.com/dashboard/accounts/details'>Vungle Details Dashboard</a>, select your application. On the next page, find the Vungle Application ID in the Application Details column.",
+        "placementId": "From the <a target='_blank' href='https://dashboard.vungle.com/dashboard/accounts/details'>Vungle Details Dashboard</a>, select your application, then click \"Add New Placement\". Create a placement, and after saving it, copy the auto-generated \"Reference ID\" here.",
+        "formatPlacementId": "From the <a target='_blank' href='https://dashboard.vungle.com/dashboard/accounts/pub'>Vungle App list Dashboard</a>, click in the configuration icon on the right. Click one placement and once you are into the placement's view, copy the id content in the url: http://...placements/XXXXXXXXXXXXXXXXX/details.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "chartboost1007": {
+      "user_id": {
+        "label": "User ID",
+        "help_text": "From the <a target='_blank' href='https://dashboard.chartboost.com/tools/api'>API Explorer Page</a>, select the User ID."
+      },
+      "user_signature": {
+        "label": "User Signature",
+        "help_text": "From the <a target='_blank' href='https://dashboard.chartboost.com/tools/api'>API Explorer Page</a>, select the User Signature"
+      },
+      "format_profile_text": {
+        "appId": "You can find your game's App ID on its App Settings page on <a target='_blank' href='https://dashboard.chartboost.com/'>the Chartboost dashboard</a>. See <a target='_blank' href='https://answers.chartboost.com/hc/en-us/articles/201465075'>this Chartboost documentation for a screenshot</a>.",
+        "appSignature": "You can find your game's App Signature on its App Settings page on <a target='_blank' href='https://dashboard.chartboost.com/'>the Chartboost dashboard</a>. See <a target='_blank' href='https://answers.chartboost.com/hc/en-us/articles/201465075'>this Chartboost documentation for a screenshot</a>.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "applovin1008": {
+      "report_key": {
+        "label": "Report Key",
+        "help_text": "From your Account page, choose \"Keys\" in the left sidebar, then select the Report Key. If you do not see the Report Key field, email support@applovin.com and request your reporting key."
+      },
+      "sdk_key": {
+        "label": "SDK Key",
+        "help_text": "From your Account page choose \"Keys\" in the left sidebar, then select the SDK Key."
+      },
+      "format_profile_text": {
+        "bundle": "This field must takes the same value as the <b>SDK Key</b> value configured in the network profile section",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "facebook1009": {
+      "access_token": {
+        "label": "Access Token",
+        "help_text": "Access tokens for all of your apps are listed <a target='_blank' href='https://developers.facebook.com/tools/accesstoken/'>here</a>. You must be an administrator of the app to see them."
+      },
+      "app_id": {
+        "label": "App Id",
+        "help_text": "You can find your App ID on your app's <a target='_blank' href='https://developers.facebook.com/apps'>settings page</a>."
+      },
+      "format_profile_text": {
+        "placementId": "Find or create your format / Placement ID by choosing your app, selecting \"Audience Network\" in the left sidebar, then selecting the \"Placements\" tab at the top.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "inmobi1012": {
+      "account_id": {
+        "label": "Account ID",
+        "help_text": "You can find your Account ID on your <a target='_blank' href='https://www.inmobi.com/portal'>InMobi Dashboard</a>. Click the disclosure triangle in the top right to reveal your Account ID."
+      },
+      "api_key": {
+        "label": "Api Key",
+        "help_text": "<a href=\"mailto:helpdesk@inmobi.com?subject=Request for API Key to use Mobusi Mediation&amp;body=Hi, can we get an API key for use with Mobusi Mediation?\">Email InMobi</a> and request an API Key. Please mention that you need the API Key to use the Mobusi Mediation."
+      },
+      "username": {
+        "label": "Username",
+        "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's <a target='_blank' href='https://support.inmobi.com/monetize/getting-started/inviting-more-users-to-your-account/'>Invite User</a> feature."
+      },
+      "password": {
+        "label": "Password",
+        "help_text": "InMobi requires a username and password to access their API. If you would not like to provide your own username, you can create a new account that you give this panel access to with InMobi's <a target='_blank' href='https://support.inmobi.com/monetize/getting-started/inviting-more-users-to-your-account/'>Invite User</a> feature."
+      },
+      "format_profile_text": {
+        "id":           "",
+        "placementId":  "From <a target='_blank' href='https://www.inmobi.com/portal#properties/landing/'>InMobi Dashboard</a>, click \"Add an App\". Find your app, then choose the format (you want to configure) placement type. The placement ID will be an integer labeled \"ID\".",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "startapp1013": {
+      "account_id": {
+        "label": "Account ID",
+        "help_text": "You can find your Account Id at the right top menu sidebar in <a target='_blank' href=\"https://portal.startapp.com\">this page</a>."
+      },
+      "token": {
+        "label": "Token",
+        "help_text": ""
+      },
+      "format_profile_text": {
+        "appId": "From the <a target='_blank' href='https://portal.startapp.com/#/pub/applications'>Applications page</a>, find your App Id looking for the App ID column in the table.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "mobvista1014": {
+      "skey": {
+        "label": "SKey",
+        "help_text": "From the <a target=\"_blank\" href=\"https://www.mintegral.net/account\">Account page</a>, lock for the \"Reporting API\" section and you can find your Skey."
+      },
+      "secret": {
+        "label": "Secret",
+        "help_text": "From the <a target=\"_blank\" href=\"https://www.mintegral.net/account\">Account page</a>, lock for the \"Reporting API\" section and you can find your Secret after validating with your password a security popup alert."
+      },
+      "format_profile_text": {
+        "appId":        "From <a target='_blank' href='https://www.mintegral.net/app'>the Mobvista applications page</a>, look for your app in the list and copy the value in the column App Id.",
+        "id":           "",
+        "apiKey":       "To get your Api Key take a look at the <a target='_blank' href='http://cdn-adn.rayjump.com/cdn-adn/markdown/index.html?file=sdk_document_android_english'>document section</a> on Mobvista.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "hyprmx1015": {
+      "help_text": "This network does not require any data for integration."
+    },
+    "mopub1016": {
+      "api_key": {
+        "label": "Api key",
+        "help_text": "From the <a target=\"_blank\" href=\"https://app.mopub.com/reports/custom/\">Reports page</a>, check \"Enable data access through API\". Then click the \"View API Access Details\" link to reveal your API Key."
+      },
+      "inventory_report": {
+        "label": "Inventory report",
+        "help_text": "From the <a target=\"_blank\" href=\"https://app.mopub.com/reports/custom/\">Reports page</a>, click the \"View API Access Details\" link to reveal your Inventory Report ID."
+      },
+      "campaign_report": {
+        "label": "Campaign report",
+        "help_text": "From the <a target=\"_blank\" href=\"https://app.mopub.com/reports/custom/\">Reports page</a>, click the \"View API Access Details\" link to reveal your Campaign Report ID."
+      },
+      "format_profile_text": {
+        "id": "From the <a target=\"_blank\" href=\"https://app.mopub.com/apps\">Apps page</a>, click on your app name and look for your ad unit name (click on it) and copy the \"ad-unit?key\" param value from the browser address bar.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
+    },
+    "ironsource1017": {
+      "username": {
+        "label": "Username",
+        "help_text": "The login/email that is used to login to our ironSource account."
+      },
+      "secret_key": {
+        "label": "Secret key",
+        "help_text": "The secret key parameter is unique for your ironSource account. To retrieve it, click on your user profile on the top right corner of the screen, and select <a target=\"_blank\" href=\"https://platform.ironsrc.com/partners/account/generalInfo/\">'My Account'</a>. You will find the secret key in the Reporting API section."
+      },
+      "format_profile_text": {
+        "appId": "From the <a target=\"_blank\" href=\"https://platform.ironsrc.com/partners/applications\">Applications page</a>, edit the app in the list and get the \"App key\" value.",
+        "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
+      }
     }
   }
 }

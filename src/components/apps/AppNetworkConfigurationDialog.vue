@@ -66,7 +66,7 @@
                         @change="getNewValue($event, index, format.format)"
                         hide-details
                         )
-                      p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`) }}
+                      p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`)")
 
                 section(class="network-config-container__btn")
                   v-btn(
