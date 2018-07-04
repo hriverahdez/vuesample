@@ -131,7 +131,7 @@
 
                 section(
                   class="network-config-container__formats-config")
-                  h4 {{ $t('apps_view.format_config')}}
+                  h4 {{ $t('apps_view.format_config')}} lololo
                   div(:ref="`format${index}`" v-for="(format, index) in formatFields" v-if="formatFields" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
                       div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format) }}
@@ -288,8 +288,8 @@ export default {
     },
     // Send event to create format data app-network
     sendCreateAppNetworkProfileEvent () {
-      console.log('entra')
-      // this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.createInputVariables)
+      console.log('entra emit')
+      this.$root.$emit('createAppNetworkProfile')
     }
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)

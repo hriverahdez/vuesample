@@ -46,6 +46,7 @@ const configMixin = {
       },
       loadingKey: 'loading',
       update (data) {
+        console.log('entra config')
         this.configAppNetworkFormFieldsAction(data.configAppNetworkForm)
         this.skipAppNetworkFormFieldsAction(true)
       },

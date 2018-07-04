@@ -355,6 +355,10 @@ const appMixin = {
     this.$root.$on('createApp', (name, platform, bundle, description, bannerPosition, icon) => {
       this.createApp(name, platform, bundle, description, bannerPosition, icon)
     })
+    // Create format data in app-network-profile Dialog
+    this.$root.$on('createAppNetworkProfile', () => {
+      console.log('entra on')
+    })
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)
       this.appIdAction('')
