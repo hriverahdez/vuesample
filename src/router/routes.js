@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import AccountsView from '@/router/views/Accounts-view'
 import AccountsSelectionView from '@/router/views/Accounts-selection-view'
 import AdminUsersView from '@/router/views/Admin-users-view'
+import AppsAdmobOauth from '@/router/views/Apps-admobOauth-view'
 import AppsView from '@/router/views/Apps-view'
 import DashboardView from '@/router/views/Dashboard-view'
 import LoginView from '@/router/views/Login-view'
@@ -20,6 +21,12 @@ const router = new Router({
       path: '/panel',
       name: 'dashboard',
       component: DashboardView,
+      meta: { requiresAuth: true, roles: ['ROLE_USER', 'ROLE_STATS', 'ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTI_ACCOUNT_MANAGER', 'ROLE_BLIND'] }
+    },
+    {
+      path: '/panel/admobOauth',
+      name: 'admobOauth',
+      component: AppsAdmobOauth,
       meta: { requiresAuth: true, roles: ['ROLE_USER', 'ROLE_STATS', 'ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTI_ACCOUNT_MANAGER', 'ROLE_BLIND'] }
     },
     {
@@ -83,7 +90,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // comprobamos a que ruta debe ir
-  if (to.name !== 'login' && (to.name !== 'accounts_selection' || (to.name === 'accounts_selection' && !rememberMe)) && !store.getters.isLogged) {
+  if (to.name !== 'login' && (to.name !== 'accounts_selection' || (to.name === 'accounts_selection' && !rememberMe)) && !store.getters.isLogged && to.name !== 'admobOauth') {
     next('/panel/login')
   } else {
     if ((to.name === 'login' || !securityMixin.methods.isGranted(to, store)) && store.getters.isLogged) {

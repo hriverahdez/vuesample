@@ -184,6 +184,8 @@
         }
       },
       "admob1002": {
+        "button_grant": "Grant Access",
+        "button_revoke": "Revoke Access",
         "publisher_id": {
           "label": "Publisher id",
           "help_text": "From <a target='_blank' href='https://apps.admob.com/?pli=1#account/settings:view'>this page</a>, select the \"Publisher ID\". Make sure you use the same account as you do for the \"Grant Access\" button above otherwise the access will not be granted."
