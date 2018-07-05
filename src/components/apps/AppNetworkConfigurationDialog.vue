@@ -154,11 +154,15 @@
                       p(class="help-text" ) {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`) }}
 
                 section(class="network-config-container__btn")
+                  v-alert(v-model="alert" type="error" class="alert")
+                    span {{ $t('apps_view.alert_dialog_app_network') }}
+                  v-alert(v-model="fullFormEmptyMsg" type="error" class="alert")
+                    span {{ $t('apps_view.full_form_empty') }}
                   v-btn(
                     color="buttonColor"
                     class="white--text"
                     flat
-                    @click.native.stop="createInputNewFormatVariables"
+                    @click.native.stop="closeDialog"
                     ) {{ $t('buttons.cancel') }}
                   v-btn(
                     color="buttonColor"
@@ -180,6 +184,8 @@ export default {
   // },
   data () {
     return {
+      alert: false,
+      fullFormEmptyMsg: false,
       copyAppNetwork: false,
       configStatus: false,
       newInputValue: false,
@@ -268,7 +274,6 @@ export default {
       'skipAppByIdAndNetworkQueryAction'
     ]),
     createInputNewFormatVariables () {
-      console.log('entra', this.selected)
       let cloned = false
       let input = {}
 
@@ -286,6 +291,7 @@ export default {
           let object = {}
           object.format = item.format
           object.active = this.switchCreateFormatStatus.status[index] || false
+          object.premium = item.format.includes('premium')
           object.profile = this.selected
           object.formatFields = []
           item.fields.map((field, index2) => {
@@ -348,8 +354,39 @@ export default {
     },
     // Send event to create format data app-network
     sendCreateAppNetworkProfileEvent (appId, networkId) {
-      console.log('entra emit', appId, networkId)
-      this.$root.$emit('createAppNetworkProfile', appId, networkId)
+      this.alert = false
+      this.fullFormEmptyMsg = false
+
+      if (this.copyAppNetwork) {
+        let allEmpty = false
+        let countFields = 0
+        this.copyAppNetwork.formats.map((format) => {
+          let emptyField = 0
+          format.formatFields.map((field) => {
+            if (field.value === '') {
+              emptyField++
+              allEmpty++
+            }
+            countFields++
+          })
+          if (emptyField > 0 && emptyField !== format.formatFields.length) {
+            this.alert = true
+            return false
+          }
+        })
+        if (countFields === allEmpty) {
+          this.alert = false
+          this.fullFormEmptyMsg = true
+        }
+      } else {
+        this.alert = false
+        this.fullFormEmptyMsg = true
+      }
+
+      if (!this.alert && !this.fullFormEmptyMsg) {
+        console.log(appId, networkId, this.copyAppNetwork)
+        // this.$root.$emit('createAppNetworkProfile', appId, networkId)
+      }
     }
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)
@@ -371,6 +408,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.alert {
+  width: 100%;
+  text-align: center;
+}
 .network-config-container__data__app {
   display: flex;
   align-items: center;
@@ -445,6 +486,7 @@ export default {
 
 .network-config-container__btn {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
