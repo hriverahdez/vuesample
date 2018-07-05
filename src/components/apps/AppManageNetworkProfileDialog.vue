@@ -92,12 +92,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import querystring from 'querystring'
-
+import axios from 'axios'
 // Components
 // import DialogAlert from '@/components/DialogAlert'
 
 export default {
-  name: 'app-manage-network-profile-dialog',
+  name: 'AppManageNetworkProfileDialog',
   // components: {
   //   DialogAlert
   // },
@@ -184,14 +184,12 @@ export default {
       localStorage.setItem('admobProfile', this.selected.name)
       const apiParams = {
         client_id: '996847638432-f2caf55u0bac8anu2fkg3k8i0a2gar03.apps.googleusercontent.com',
-        redirect_uri: 'http://9a6b538c.ngrok.io/panel/admobOauth',
+        redirect_uri: 'http://panel.stage.do.linkitox.com/panel/admobOauth',
         scope: 'https://www.googleapis.com/auth/adsense.readonly',
         response_type: 'code',
         access_type: 'offline'
       }
       const url = `https://accounts.google.com/o/oauth2/v2/auth?${querystring.stringify(apiParams)}`
-      // const result = await apiRequest('https://accounts.google.com/o/oauth2/v2/auth',apiParams)
-      console.log('url a llamar', url)
       const w = 600
       const h = 600
       const left = (document.body.offsetWidth / 2) - (w / 2)
@@ -199,9 +197,16 @@ export default {
       window.open(url, 'Admob Oauth', 'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
     },
     revokeAdmobAccess () {
+      const url = `http://stage.do.linkitox.com/admob/revoke`
+      const params = {
+        admobAccount: localStorage.getItem('activeAccount'),
+        admobProfile: this.selected.name
+      }
+      axios.post(url, querystring.stringify(params)).then((response) => {
+        console.log('respuestaaar', response)
+      })
+        .catch((error) => console.log('error', error))
       console.log('revoking')
-      console.log('state', this.$store)
-      console.log('refresh token', JSON.parse(this.networkProfiles[0].button_grant).refresh_token)
     }
     // formatSelectedObject (e) {
     //   console.log('formateo', e)
@@ -264,5 +269,3 @@ export default {
   }
 }
 </style>
-
-

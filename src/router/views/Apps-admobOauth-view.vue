@@ -3,34 +3,27 @@
 <script>
 
 // Vuex imports
-import querystring from 'querystring'
 import axios from 'axios'
+import querystring from 'querystring'
 export default {
   mounted () {
-    console.log('mounted')
-    console.log('active account admob', localStorage.getItem('admobAccount'))
-    console.log('admob profile', localStorage.getItem('admobProfile'))
     this.endpointPost()
   },
   methods: {
     async endpointPost () {
-      console.log('active account admob', localStorage.getItem('admobAccount'))
-      console.log('admob profile', localStorage.getItem('admobProfile'))
-      console.log('doing get')
       const params = {
         code: this.$router.history.current.query.code,
-        account: localStorage.getItem('admobAccount'),
-        profile: localStorage.getItem('admobProfile')
+        admobAccount: localStorage.getItem('admobAccount'),
+        admobProfile: localStorage.getItem('admobProfile')
       }
       console.log('params to get', params)
-      const url = `http://139.59.191.152:8550/oauth2callback?${querystring.stringify(params)}`
-      axios.get(url).then((response) => {
-        console.log('respuestaaar', response)
+      const url = `http://stage.do.linkitox.com/admob/grant`
+      axios.post(url, querystring.stringify(params)).then((response) => {
         localStorage.removeItem('admobAccount')
         localStorage.removeItem('admobProfile')
+        window.close()
       })
         .catch((error) => console.log('error', error))
-      await setTimeout(() => window.close(), 10000)
     }
   }
 }
@@ -41,4 +34,3 @@ export default {
   border-top: 3px solid #BDD0FB;
 }
 </style>
-
