@@ -58,7 +58,7 @@
                 span(
                   class="app__text"
                   :data="props.item._id"
-                  ) {{ props.item._id }}
+                  ) {{ props.item.name }}
                 //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
@@ -94,7 +94,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB' }")
+            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB', 'red' : props.item.disabled}")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -267,6 +267,9 @@ export default {
   border-top: 3px solid #BDD0FB;
 }
 
+.red {
+  background: red;
+}
 .app-logo {
   display: block;
   width: 20px;
