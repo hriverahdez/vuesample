@@ -180,7 +180,7 @@ const appMixin = {
         icon: ''
       })
     },
-    createAppNetwork (appId, networkId) {
+    createAppNetwork (appId, networkId, input) {
       this.$apollo.mutate({
         mutation: CREATE_APP_NETWORK,
         context: {
@@ -190,22 +190,7 @@ const appMixin = {
           idApp: appId,
           idNetwork: parseInt(networkId),
           idAccount: this.accountId,
-          input: {
-            active: true,
-            profile: 'default',
-            formats: [{
-              format: 'interstitial',
-              active: true,
-              premium: false,
-              formatFields: [{
-                key: 'id',
-                value: 'Lemmyyyyyyyy'
-              }, {
-                key: 'appId',
-                value: 'Lemmyyyyyyyyy'
-              }]
-            }]
-          }
+          input
         },
         update: (store, { data: { createAppNetwork } }) => {
           console.log('update')
@@ -420,9 +405,8 @@ const appMixin = {
       this.createApp(name, platform, bundle, description, bannerPosition, icon)
     })
     // Create format data in app-network-profile Dialog
-    this.$root.$on('createAppNetworkProfile', (appId, networkId) => {
-      console.log('entra on', appId, networkId)
-      this.createAppNetwork(appId, networkId)
+    this.$root.$on('createAppNetworkProfile', (appId, networkId, input) => {
+      this.createAppNetwork(appId, networkId, input)
     })
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)

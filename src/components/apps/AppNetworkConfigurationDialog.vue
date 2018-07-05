@@ -292,7 +292,6 @@ export default {
           object.format = item.format
           object.active = this.switchCreateFormatStatus.status[index] || false
           object.premium = item.format.includes('premium')
-          object.profile = this.selected
           object.formatFields = []
           item.fields.map((field, index2) => {
             let subObject = {
@@ -321,6 +320,17 @@ export default {
           }
         })
       }
+
+
+      const otro = input.formats.filter((format) => {
+        console.log('format',format)
+        const p = format.formatFields.filter((field) => field.value  && field.key)
+        console.log('p', p)
+        return p.length !== 0
+      })
+
+      console.log(otro)
+
       this.copyAppNetwork = input
     },
     // Close dialog layer
@@ -384,8 +394,8 @@ export default {
       }
 
       if (!this.alert && !this.fullFormEmptyMsg) {
-        console.log(appId, networkId, this.copyAppNetwork)
-        // this.$root.$emit('createAppNetworkProfile', appId, networkId)
+        console.log('llamada')
+        // this.$root.$emit('createAppNetworkProfile', appId, networkId, this.copyAppNetwork)
       }
     }
     // sendDeleteAppEvent () {

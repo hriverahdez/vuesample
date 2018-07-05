@@ -16,6 +16,7 @@ export const GET_ACCOUNTS = gql`
   }
 }
 `
+
 /* ------------------------- ADMOB --------------------------- */
 
 // Queries
