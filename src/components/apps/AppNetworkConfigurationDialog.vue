@@ -115,6 +115,7 @@
                       light
                       :label="check"
                       v-model="switchCreateStatus"
+                      @change="createInputNewFormatVariables"
                       color="success"
                       hide-details
                     )
@@ -125,6 +126,7 @@
                       item-text="name"
                       item-value="name"
                       :label="this.$t('apps_view.select_profile')"
+                      @input="createInputNewFormatVariables"
                       v-model="selected"
                       required
                     )
@@ -243,89 +245,6 @@ export default {
       }
       return input
     },
-    // createInputNewFormatVariables2 () {
-    //   console.log('entra2')
-    //   let cloned = false
-    //   let input = {}
-    //   console.log('entra2', cloned, input)
-    //   if (this.copyAppNetwork) {
-    //     input = this.copyAppNetwork
-    //     cloned = true
-    //   }
-    //   console.log('entra2', cloned, input)
-      // const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
-      // let cloneFormats = JSON.parse(JSON.stringify(this.formatFields), omitTypename)
-
-      // input['active'] = this.switchCreateStatus
-      // input['profile'] = this.selected
-      // input['formats'] = []
-
-      // if (!cloned) {
-      //   this.formatFields.map((item, index) => {
-      //     let object = {}
-      //     object.format = item.format
-      //     object.active = this.switchCreateFormatStatus.status[index] || false
-      //     object.profile = this.selected
-      //     object.formatFields = []
-      //     item.fields.map((field, index2) => {
-      //       let subObject = {
-      //         key: '',
-      //         value: ''
-      //       }
-            // if(typeof this.newInputValue.format !== 'undefined' && item.format===this.newInputValue.format && index2===this.newInputValue.index){
-            //   subObject = {
-            //     key: this.newInputValue.label,
-            //     value: this.newInputValue.value
-            //   }
-    //         // }
-    //         object.formatFields.push(subObject)
-    //       })
-    //       input['formats'].push(object)
-    //     })
-    //   } else {
-    //     input['formats'].map((item, index) => {
-    //       if (typeof this.newInputValue.format !== 'undefined' && item.format === this.newInputValue.format) { // && index2 === this.newInputValue.index) {
-    //         item.fields[this.newInputValue.index].value = this.newInputValue.value
-    //       }
-    //     })
-    //   }
-    //   this.copyAppNetwork = input
-
-    //   return input
-    // },
-    // Se utiliza para obtener el input del formulario de creación de formatos
-    // createInputNewFormatVariables () {
-    //   let input = {}
-    //   const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
-    //   let cloneFormats = JSON.parse(JSON.stringify(this.formatFields), omitTypename)
-
-    //   input['active'] = this.switchCreateStatus
-    //   input['profile'] = this.selected
-    //   input['formats'] = []
-      // input['switchs'] = this.switchStatus
-
-      // this.switchCreateFormatStatus.status.map((item, index) => {
-      //   input['formats'][index].active = item
-      // })
-
-    //   if (this.newInputValue) {
-    //     cloneFormats.map((item, index) => {
-    //       if (item.format === this.newInputValue.format) {
-    //         let list = []
-    //         let object = {}
-    //         let subObject = {}
-    //         object.format = item.format
-    //         object.formatFields = []
-    //         subObject.key = this.newInputValue.label
-    //         subObject.value = this.newInputValue.value
-    //         object.formatFields.push(subObject)
-    //         list.push(object)
-    //         input['formats'] = list
-    //       }
-    //     })
-    //   }
-    //   return input
-    // },
     nameAndIdNetworkFormatted () {
       return `${this.selectedAppNetworkConfig.networkName.name.toLowerCase()}${this.selectedAppNetworkConfig.networkName.id}`
     },
@@ -348,10 +267,8 @@ export default {
       'queryErrorAction',
       'skipAppByIdAndNetworkQueryAction'
     ]),
-    prueba () {
-      console.log('tgtgtgtgtg')
-    },
     createInputNewFormatVariables () {
+      console.log('entra', this.selected)
       let cloned = false
       let input = {}
 
