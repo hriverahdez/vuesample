@@ -221,6 +221,7 @@ export default {
     // Send data to show the app-network configuration corresponding dialog from datatable cell
     selectedCell (networkName, appName, appId) {
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
+      this.selectedNetworkToManageAction(networkName)
       this.appNetworkConfigDialogStatusAction(true)
       this.skipAppNetworkFormFieldsAction(false)
       this.skipAppByIdQueryAction(false)

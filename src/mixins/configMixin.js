@@ -46,7 +46,6 @@ const configMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log('entra config')
         this.configAppNetworkFormFieldsAction(data.configAppNetworkForm)
         this.skipAppNetworkFormFieldsAction(true)
       },
@@ -87,6 +86,7 @@ const configMixin = {
       'configAppNetworkFormFieldsAction',
       'dashboardFiltersAction',
       'rolesAdminAction',
+      'skipAppNetworkFormFieldsAction',
       'skipQueryRolesAdminAction'
     ])
   }

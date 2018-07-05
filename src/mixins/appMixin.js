@@ -3,6 +3,7 @@ import {
   APP_DATA_BY_ID_AND_NETWORK,
   APPS_IDS_AND_NAMES_BY_ACCOUNT_ID,
   APPS_DATA,
+  CREATE_APP_NETWORK,
   CREATE_NEW_APP,
   DELETE_APP,
   ENABLE_DISABLE_APP,
@@ -178,6 +179,69 @@ const appMixin = {
         banner_position: '',
         icon: ''
       })
+    },
+    createAppNetwork (appId, networkId) {
+      this.$apollo.mutate({
+        mutation: CREATE_APP_NETWORK,
+        context: {
+          uri: URI
+        },
+        variables: {
+          idApp: appId,
+          idNetwork: parseInt(networkId),
+          idAccount: this.accountId,
+          input: {
+            active: true,
+            profile: 'default',
+            formats: [{
+              format: 'interstitial',
+              active: true,
+              premium: false,
+              formatFields: [{
+                key: 'id',
+                value: 'Lemmyyyyyyyy'
+              }, {
+                key: 'appId',
+                value: 'Lemmyyyyyyyyy'
+              }]
+            }]
+          }
+        },
+        update: (store, { data: { createAppNetwork } }) => {
+          console.log('update')
+          // Read the data from our cache for this query.
+          // const data = store.readQuery({
+          //   query: APPS_DATA,
+          //   variables: { _idAccount: this.accountId }
+          // })
+          // Add our tag from the mutation to the end
+          // data.apps.push(createAppNetwork)
+          // Write our data back to the cache.
+          // store.writeQuery({
+          //   query: APPS_DATA,
+          //   data,
+          //   variables: { _idAccount: this.accountId }
+          // })
+        }
+      })
+      // .then(() => {
+      //   this.$apollo.queries.apps.refresh()
+      //   this.SET_ALERT_MESSAGE({
+      //     show: true,
+      //     type: 'success',
+      //     message: this.$t('apps_view.new_success'),
+      //     buttonText: this.$t('buttons.close')
+      //   })
+      // })
+      // this.appDialogStatusAction(false)
+      // this.appSchemaAction({
+      //   name: '',
+      //   platform: '',
+      //   bundle: '',
+      //   description: '',
+      //   banner_position: '',
+      //   icon: ''
+      // })
     },
     // Delete App mutation
     deleteApp (app) {
@@ -356,8 +420,9 @@ const appMixin = {
       this.createApp(name, platform, bundle, description, bannerPosition, icon)
     })
     // Create format data in app-network-profile Dialog
-    this.$root.$on('createAppNetworkProfile', () => {
-      console.log('entra on')
+    this.$root.$on('createAppNetworkProfile', (appId, networkId) => {
+      console.log('entra on', appId, networkId)
+      this.createAppNetwork(appId, networkId)
     })
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)
