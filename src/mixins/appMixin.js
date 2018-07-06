@@ -339,14 +339,6 @@ const appMixin = {
           })
         }
       })
-      .then(() => {
-        this.SET_ALERT_MESSAGE({
-          show: true,
-          type: 'success',
-          message: this.$t('apps_view.updated_app_status'),
-          buttonText: this.$t('buttons.close')
-        })
-      })
     },
     updateAppNetwork (appId, networkId, profile, input) {
       this.$apollo.mutate({
