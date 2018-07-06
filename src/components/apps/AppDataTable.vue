@@ -50,7 +50,7 @@
                   )
 
         template(slot="items" slot-scope="props")
-            td(class="text-xs-left app")
+            td(class="text-xs-left app" :class="{'red': props.item.disabled }")
               div(class="app-container")
                 img(:src="props.item.icon" class="app-logo")
                 icon(v-if="props.item.platform === 'android'" name="android" color="gray")
@@ -58,7 +58,7 @@
                 span(
                   class="app__text"
                   :data="props.item._id"
-                  ) {{ props.item._id }}
+                  ) {{ props.item.name }}
                 //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
@@ -94,7 +94,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB' }")
+            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB', 'red' : network.name === 'ADMOB'}")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -138,8 +138,45 @@ export default {
       // networks: 'networksIdsAndNamesGetter',
       networkIds: 'networkIdsGetter',
       networksInfo: 'networksInfoGetter',
-      networkProfile: 'networkProfilesDataGetter'
+      networkProfile: 'networkProfilesDataGetter',
+      networkProfilesStatus: 'networkProfilesStatusGetter'
     }),
+    probando () {
+      // Funcion para ordenar el nuevo objeto creado para la comparación
+      function compare (a, b) {
+        const networkIdA = a.networkId
+        const networkIdB = b.networkId
+
+        let comparison = 0
+        if (networkIdA > networkIdB) {
+          comparison = 1
+        } else if (networkIdA < networkIdB) {
+          comparison = -1
+        }
+        return comparison
+      }
+
+      if (this.networkProfilesStatus && this.networks && this.currentNetworksActive) {
+        // Clone el objeto para realizar operaciones
+        const clonedNetworkProfilesStatus = JSON.parse(JSON.stringify(this.networkProfilesStatus))
+
+        // Filtramos redes que no estan activas
+        let filteredNetworkProfilesStatus = clonedNetworkProfilesStatus.filter((item) => {
+          return this.currentNetworksActive.indexOf(item.networkId.toString()) > -1
+        })
+
+        const orderedNetworkProfilesStatus = filteredNetworkProfilesStatus.sort(compare)
+
+        for (let item in orderedNetworkProfilesStatus) {
+          if (this.networks) {
+            console.log(parseInt(this.networks[item].id), 'a')
+            console.log(orderedNetworkProfilesStatus[item].networkId, 'b')
+            orderedNetworkProfilesStatus[item].perrete = 'Lemmy'
+          }
+        }
+        return orderedNetworkProfilesStatus
+      }
+    },
     // Get cuurrent netqork actives
     currentNetworksActive () {
       if (this.networksInfo && this.networkIds) {
@@ -221,6 +258,7 @@ export default {
     // Send data to show the app-network configuration corresponding dialog from datatable cell
     selectedCell (networkName, appName, appId) {
       this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
+      this.selectedNetworkToManageAction(networkName)
       this.appNetworkConfigDialogStatusAction(true)
       this.skipAppNetworkFormFieldsAction(false)
       this.skipAppByIdQueryAction(false)
@@ -266,6 +304,9 @@ export default {
   border-top: 3px solid #BDD0FB;
 }
 
+.red {
+  background: red;
+}
 .app-logo {
   display: block;
   width: 20px;

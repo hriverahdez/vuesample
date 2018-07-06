@@ -12,6 +12,7 @@ import {
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1016,
   CREATE_ACCOUNT_NETWORK_INTEGRATION_1017,
   GET_ACCOUNTS,
+  GET_ACCOUNTS_STATUS,
   DELETE_ACCOUNT,
   DELETE_NETWORK_PROFILE,
   UPDATE_ACCOUNT,
@@ -73,6 +74,24 @@ const accountMixin = {
       },
       error () {
         this.skipQueryAccountsAction(true)
+      }
+    },
+    accountById: {
+      query: GET_ACCOUNTS_STATUS,
+      context: {
+        uri: URI
+      },
+      skip () {
+        return this.skipQueryAccountById
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.accountsByIdDataAction(data.accountById).then(() => {
+          this.skipQueryAccountByIdAction(true)
+        })
+      },
+      error () {
+        this.skipQueryAccountByIdAction(true)
       }
     },
     // ADMOB QUERY
@@ -326,11 +345,13 @@ const accountMixin = {
       accountId: this.activeAccount,
       selectedNetworkId: 'selectedNetworkIdToManageGetter',
       selectedNetworkName: 'selectedNetworkToManageGetter',
-      skipQueryAccountsGetter: 'skipQueryAccountsGetter'
+      skipQueryAccountsGetter: 'skipQueryAccountsGetter',
+      skipQueryAccountById: 'skipQueryAccountByIdGetter'
     })
   },
   methods: {
     ...mapActions([
+      'accountsByIdDataAction',
       'accountsDataAction',
       'accountDialogStatusAction',
       'accountsLoaderStatusAction',
@@ -338,7 +359,8 @@ const accountMixin = {
       'appManageNetworkProfileDialogStatusAction',
       'editedIndexStatusAction',
       'networkProfilesDataAction',
-      'skipQueryAccountsAction'
+      'skipQueryAccountsAction',
+      'skipQueryAccountByIdAction'
     ]),
     ...mapMutations(['SET_ALERT_MESSAGE']),
     // Create account mutation

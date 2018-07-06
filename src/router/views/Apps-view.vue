@@ -25,7 +25,7 @@ import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
 import configMixin from '@/mixins/configMixin'
 // Vuex imports
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'AppsView',
@@ -47,7 +47,19 @@ export default {
       loaderStatus: 'appsLoaderStatusGetter'
     })
   },
-
+  methods: {
+    ...mapActions([
+      'skipQueryAccountByIdAction'
+    ])
+  },
+  mixins: [
+    accountMixin,
+    appMixin,
+    configMixin
+  ],
+  mounted () {
+    this.skipQueryAccountByIdAction(false)
+  },
   updated () {
     this.$apollo.queries.appByIdNetworkProfile.refetch()
   }

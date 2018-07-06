@@ -28,6 +28,7 @@
     },
     "apps_view": {
       "alert_message": "No apps available",
+      "alert_dialog_app_network": "Some of your format fields are uncompleted, please check it",
       "API_check_config": "API check config",
       "API_failing": "API failing",
       "app": "App",
@@ -52,6 +53,7 @@
       "edit_success": "Edited app",
       "enable_disable_network": "Disable / enable:",
       "format_config": "Formats configuration",
+      "full_form_empty": "Please, fill one format at least",
       "icon_text": "Icon:",
       "manage_ad_placements": "Manage ad placements",
       "manage_network_info_text": "In this section you can manage the current integrated networks for your app and its profiless. (This will be the default list of networks you will see in the app creation & edition sections)",

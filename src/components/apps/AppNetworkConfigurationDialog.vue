@@ -114,7 +114,8 @@
                     v-switch(
                       light
                       :label="check"
-                      v-model="configStatus"
+                      v-model="switchCreateStatus"
+                      @change="createInputNewFormatVariables"
                       color="success"
                       hide-details
                     )
@@ -125,6 +126,7 @@
                       item-text="name"
                       item-value="name"
                       :label="this.$t('apps_view.select_profile')"
+                      @input="createInputNewFormatVariables"
                       v-model="selected"
                       required
                     )
@@ -132,25 +134,30 @@
                 section(
                   class="network-config-container__formats-config")
                   h4 {{ $t('apps_view.format_config')}} lololo
-                  div(:ref="`format${index}`" v-for="(format, index) in formatFields" v-if="formatFields" :key="index" class="network-config-container__formats-config__block")
+                  div(v-for="(format, index) in formatFields" v-if="formatFields" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
                       div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format) }}
                       v-switch(
                           light
                           :label="check"
                           color="success"
-                          v-model="switchStatus.status[index]"
+                          v-model="switchCreateFormatStatus.status[index]"
+                          @change="createInputNewFormatVariables"
                           hide-details
                         )
                     div(v-for="(field, index) in format.fields")
                       v-text-field(
                         :label="field"
-                        @change="getNewValue($event, index, format.format)"
+                        @change="getNewValue($event, index, format.format, field)"
                         hide-details
                         )
-                      p(class="help-text") {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`) }}
+                      p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`)")
 
                 section(class="network-config-container__btn")
+                  v-alert(v-model="alert" type="error" class="alert")
+                    span {{ $t('apps_view.alert_dialog_app_network') }}
+                  v-alert(v-model="fullFormEmptyMsg" type="error" class="alert")
+                    span {{ $t('apps_view.full_form_empty') }}
                   v-btn(
                     color="buttonColor"
                     class="white--text"
@@ -160,7 +167,7 @@
                   v-btn(
                     color="buttonColor"
                     class="white--text"
-                    @click.native.stop="sendCreateAppNetworkProfileEvent"
+                    @click.native.stop="sendCreateAppNetworkProfileEvent(app._id, selectednetwork.id)"
                     ) {{ $t('buttons.save') }}
 
 </template>
@@ -177,9 +184,16 @@ export default {
   // },
   data () {
     return {
+      alert: false,
+      fullFormEmptyMsg: false,
+      copyAppNetwork: false,
       configStatus: false,
       newInputValue: false,
+      switchCreateStatus: false,
       switchStatus: {
+        status: []
+      },
+      switchCreateFormatStatus: {
         status: []
       },
       selected: 'default',
@@ -202,7 +216,8 @@ export default {
       networkProfiles: 'networkProfilesListGetter',
       networkStatus: 'networkStatusGetter',
       queryError: 'queryErrorGetter',
-      selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter'
+      selectedAppNetworkConfig: 'selectedAppNetworkInDatatableGetter',
+      selectednetwork: 'selectedNetworkToManageGetter'
       // skippedQuery: 'skipAppByIdQueryGetter'
     }),
     createInputVariables () {
@@ -271,6 +286,56 @@ export default {
       'queryErrorAction',
       'skipAppByIdAndNetworkQueryAction'
     ]),
+    createInputNewFormatVariables () {
+      let cloned = false
+      let input = {}
+
+      if (this.copyAppNetwork) {
+        input = this.copyAppNetwork
+        cloned = true
+      }
+
+      input['active'] = this.switchCreateStatus
+      input['profile'] = this.selected
+
+      if (!cloned) {
+        input['formats'] = []
+        this.formatFields.map((item, index) => {
+          let object = {}
+          object.format = item.format
+          object.active = this.switchCreateFormatStatus.status[index] || false
+          object.premium = item.format.includes('premium')
+          object.formatFields = []
+          item.fields.map((field, index2) => {
+            let subObject = {
+              key: '',
+              value: ''
+            }
+            if (typeof this.newInputValue.format !== 'undefined' && item.format === this.newInputValue.format && index2 === this.newInputValue.index) {
+              subObject = {
+                key: this.newInputValue.label,
+                value: this.newInputValue.value
+              }
+            }
+            object.formatFields.push(subObject)
+          })
+          input['formats'].push(object)
+        })
+      } else {
+        this.switchCreateFormatStatus.status.map((status, index) => {
+          input['formats'][index].active = status
+        })
+
+        input['formats'].map((item, index) => {
+          if (typeof this.newInputValue.format !== 'undefined' && item.format === this.newInputValue.format) { // && index2 === this.newInputValue.index) {
+            item.formatFields[this.newInputValue.index].value = this.newInputValue.value
+            item.formatFields[this.newInputValue.index].key = this.newInputValue.label
+          }
+        })
+      }
+
+      this.copyAppNetwork = input
+    },
     // Close dialog layer
     closeDialog () {
       this.appNetworkConfigDialogStatusAction(false)
@@ -288,8 +353,9 @@ export default {
       }
     },
     // Get values from input texts
-    getNewValue (value, index, format) {
-      this.newInputValue = { value, index, format }
+    getNewValue (value, index, format, label) {
+      this.newInputValue = { value, index, format, label }
+      this.createInputNewFormatVariables()
     },
     // Send event to update app-network
     sendEditAppNetworkProfileEvent (appId, networkId, profile) {
@@ -299,10 +365,48 @@ export default {
         this.queryErrorAction(false)
       }
     },
+    filterFormats (formats) {
+      return formats.filter((format) =>
+          format.formatFields.filter((field) =>
+            field.value !== '' && field.key !== ''
+          ).length === format.formatFields.length
+        )
+    },
     // Send event to create format data app-network
-    sendCreateAppNetworkProfileEvent () {
-      console.log('entra emit')
-      this.$root.$emit('createAppNetworkProfile')
+    sendCreateAppNetworkProfileEvent (appId, networkId) {
+      this.alert = false
+      this.fullFormEmptyMsg = false
+
+      if (this.copyAppNetwork) {
+        let allEmpty = false
+        let countFields = 0
+        this.copyAppNetwork.formats.map((format) => {
+          let emptyField = 0
+          format.formatFields.map((field) => {
+            if (field.value === '') {
+              emptyField++
+              allEmpty++
+            }
+            countFields++
+          })
+          if (emptyField > 0 && emptyField !== format.formatFields.length) {
+            this.alert = true
+            return false
+          }
+        })
+        if (countFields === allEmpty) {
+          this.alert = false
+          this.fullFormEmptyMsg = true
+        }
+      } else {
+        this.alert = false
+        this.fullFormEmptyMsg = true
+      }
+
+      if (!this.alert && !this.fullFormEmptyMsg) {
+        this.copyAppNetwork.formats = this.filterFormats(this.copyAppNetwork.formats)
+        this.$root.$emit('createAppNetworkProfile', appId, networkId, this.copyAppNetwork)
+      }
     }
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)
@@ -313,6 +417,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.alert {
+  width: 100%;
+  text-align: center;
+}
 .network-config-container__data__app {
   display: flex;
   align-items: center;
@@ -387,6 +495,7 @@ export default {
 
 .network-config-container__btn {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
