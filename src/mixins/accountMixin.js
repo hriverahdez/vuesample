@@ -540,7 +540,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusAdmob } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesAdmobQuery = false
           this.$apollo.queries.networkProfilesAdmob.refetch()
           // Read the data from our cache for this query.
@@ -590,10 +591,6 @@ const accountMixin = {
               id: this.accountId
             }
           })
-          // Add our tag from the mutation to the end
-          // let profiles = data.accountById.networkProfiles.find(e => e.profiles)
-          // profiles.push(createAccountNetworkIntegration1003)
-          // Write our data back to the cache.
           store.writeQuery({
             query: NETWORK_PROFILES_ADCOLONY,
             data,
@@ -604,19 +601,12 @@ const accountMixin = {
         }
       })
       .then(() => {
-        // this.editedIndexStatusAction(-1)
         this.SET_ALERT_MESSAGE({
           show: true,
           type: 'success',
           message: this.$t('apps_view.new_profile_created'),
           buttonText: this.$t('buttons.close')
         })
-        // this.appManageNetworkProfileDialogStatusAction(false)
-        // this.accountSchemaAction({
-        //   name: '',
-        //   description: '',
-        //   disabled: ''
-        // })
       })
     },
     updateAccountNetworkIntegrationStatusAdcolony (status, networkId) {
@@ -633,7 +623,6 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusAdcolony } }) => {
-          console.log('update', status, networkId)
           // Actualizamos las queries correspondiente
           this.skipQueryAccountByIdAction(false)
           this.$apollo.queries.accountById.refetch()
@@ -721,7 +710,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusUnityads } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesUnityadsQuery = false
           this.$apollo.queries.networkProfilesUnityads.refetch()
           // Read the data from our cache for this query.
@@ -806,7 +796,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusVungle } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesVungleQuery = false
           this.$apollo.queries.networkProfilesVungle.refetch()
           // Read the data from our cache for this query.
@@ -899,7 +890,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusChartboost } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesChartboostQuery = false
           this.$apollo.queries.networkProfilesChartboost.refetch()
           // Read the data from our cache for this query.
@@ -992,8 +984,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusApplovin } }) => {
-          console.log('update', status, networkId)
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesApplovinQuery = false
           this.$apollo.queries.networkProfilesApplovin.refetch()
           // Read the data from our cache for this query.
@@ -1123,7 +1115,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusInmobi } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesInmobiQuery = false
           this.$apollo.queries.networkProfilesInmobi.refetch()
           // Read the data from our cache for this query.
@@ -1209,7 +1202,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusStartapp } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesStartappQuery = false
           this.$apollo.queries.networkProfilesStartapp.refetch()
           // Read the data from our cache for this query.
@@ -1302,7 +1296,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusMobvista } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesMobvistaQuery = false
           this.$apollo.queries.networkProfilesMobvista.refetch()
           // Read the data from our cache for this query.
@@ -1431,7 +1426,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusMopub } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesMopubQuery = false
           this.$apollo.queries.networkProfilesMopub.refetch()
           // Read the data from our cache for this query.
@@ -1524,7 +1520,8 @@ const accountMixin = {
           }
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusIronsource } }) => {
-          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesIronsourceQuery = false
           this.$apollo.queries.networkProfilesIronsource.refetch()
           // Read the data from our cache for this query.

@@ -146,7 +146,6 @@ export default {
         let clonedNetworks = JSON.parse(JSON.stringify(this.networks))
 
         clonedNetworks.map((network) => {
-          console.log(network)
           this.networkProfilesStatus.map((networkItem) => {
             if (parseInt(network.id) === networkItem.networkId) {
               network.active = networkItem.active || false
