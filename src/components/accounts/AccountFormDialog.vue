@@ -55,7 +55,7 @@ import { mapGetters, mapActions } from 'vuex'
 import DialogAlert from '@/components/DialogAlert'
 
 export default {
-  name: 'account-dialog',
+  name: 'AccountDialog',
   components: {
     DialogAlert
   },
@@ -163,5 +163,3 @@ export default {
   }
 }
 </style>
-
-

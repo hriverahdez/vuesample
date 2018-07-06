@@ -41,7 +41,7 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
-  name: 'accounts-data-table',
+  name: 'AccountsDataTable',
   data: () => ({
     headers: [
       {
@@ -100,5 +100,3 @@ export default {
     }
 }
 </style>
-
-

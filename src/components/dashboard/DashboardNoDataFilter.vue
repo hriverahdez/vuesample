@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'dashboard-no-data-filter'
+  name: 'DashboardNoDataFilter'
 }
 </script>
 
@@ -22,5 +22,3 @@ export default {
   }
 }
 </style>
-
-

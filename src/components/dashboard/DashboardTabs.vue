@@ -121,7 +121,13 @@ import DashboardStatButtons from '@/components/dashboard/DashboardStatButtons'
 // import DialogAlert from '@/components/DialogAlert'
 
 export default {
-  name: 'dashboard-tabs',
+  name: 'DashboardTabs',
+  components: {
+    DashboardFilters,
+    DashboardNoDataFilter,
+    DashboardStatButtons
+    // DialogAlert
+  },
   data: () => ({
     prueba: {'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5},
     selectDateDialog: false,
@@ -193,12 +199,6 @@ export default {
     // }
     // ]
   }),
-  components: {
-    DashboardFilters,
-    DashboardNoDataFilter,
-    DashboardStatButtons
-    // DialogAlert
-  },
   computed: {
     ...mapGetters([
       'groupByGetter',
@@ -244,6 +244,12 @@ export default {
     startDateText () {
       return this.dateGetter.startDate
     }
+  },
+  mounted () {
+    this.$root.$on('sendDateToRoot', (date) => {
+      this.$refs['dateRange'].startDate = date
+      this.$refs['dateRange'].endDate = date
+    })
   },
   methods: {
     ...mapActions([
@@ -305,13 +311,8 @@ export default {
         this.datatableGroupByAction(e.target.text.toUpperCase())
       }, 240)
     }
-  },
-  mounted () {
-    this.$root.$on('sendDateToRoot', (date) => {
-      this.$refs['dateRange'].startDate = date
-      this.$refs['dateRange'].endDate = date
-    })
   }
+
 }
 </script>
 
@@ -376,7 +377,3 @@ export default {
   color: rgba(0,0,0,0.54)!important;
 }
 </style>
-
-
-
-

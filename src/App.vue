@@ -36,6 +36,12 @@ export default {
     DialogAlert,
     FloatingButton
   },
+  mixins: [ securityMixin ],
+  computed: {
+    checkIsGranted () {
+      return this.isGrantedComponent(['ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTIACCOUNT_MANAGER'], this.$store)
+    }
+  },
   methods: {
     checkIfVisibleDependingOnRoute () {
       if (this.$route.name === 'login' || this.$route.name === 'accounts_selection') {
@@ -44,13 +50,7 @@ export default {
         return true
       }
     }
-  },
-  computed: {
-    checkIsGranted () {
-      return this.isGrantedComponent(['ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTIACCOUNT_MANAGER'], this.$store)
-    }
-  },
-  mixins: [ securityMixin ]
+  }
 }
 </script>
 

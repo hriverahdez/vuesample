@@ -110,7 +110,7 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
-  name: 'apps-data-table',
+  name: 'AppsDataTable',
   data: () => ({
     // appMenuOptions: [
     //   'apps_view.app_edit',
@@ -441,8 +441,4 @@ export default {
   background: rgba(0,0,0,0.12);
 }
 
-
-
 </style>
-
-

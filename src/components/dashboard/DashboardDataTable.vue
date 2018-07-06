@@ -32,7 +32,6 @@
           td.text-xs-left {{ props.item.money | currency | noneValueCharacter }}
           td.text-xs-left {{ props.item.ecpm | currency | noneValueCharacter }}
 
-
         template(slot="no-data")
             v-alert(
             :value="true"
@@ -55,7 +54,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'dashboard-data-table',
+  name: 'DashboardDataTable',
   data: () => ({
     pagination: {
       sortBy: 'groupBy',
@@ -208,5 +207,3 @@ export default {
   }
  }
 </style>
-
-

@@ -16,6 +16,7 @@ export default {
         admobAccount: localStorage.getItem('admobAccount'),
         admobProfile: localStorage.getItem('admobProfile')
       }
+      // TO DO Poner una espera activa mientras se carga la página
       console.log('params to get', params)
       const url = `http://stage.do.linkitox.com/admob/grant`
       axios.post(url, querystring.stringify(params)).then((response) => {

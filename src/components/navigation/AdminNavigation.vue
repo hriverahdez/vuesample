@@ -66,7 +66,6 @@
               v-icon {{ item.icon }}
             v-list-tile-content {{ $t(item.text) }}
 
-
 </template>
 
 <script>
@@ -76,6 +75,8 @@ import { mapGetters } from 'vuex'
 import securityMixin from '@/mixins/securityMixin'
 
 export default {
+  mixins: [ securityMixin ],
+
   data () {
     return {
       drawer: null,
@@ -176,8 +177,7 @@ export default {
       }
       this.$store.dispatch('getWords')
     }
-  },
-  mixins: [ securityMixin ]
+  }
 }
 </script>
 
@@ -255,4 +255,3 @@ export default {
   }
 
 </style>
-
