@@ -151,7 +151,7 @@
                         @change="getNewValue($event, index, format.format, field)"
                         hide-details
                         )
-                      p(class="help-text" ) {{ $t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`) }}
+                      p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`)")
 
                 section(class="network-config-container__btn")
                   v-alert(v-model="alert" type="error" class="alert")
@@ -321,16 +321,6 @@ export default {
         })
       }
 
-
-      const otro = input.formats.filter((format) => {
-        console.log('format',format)
-        const p = format.formatFields.filter((field) => field.value  && field.key)
-        console.log('p', p)
-        return p.length !== 0
-      })
-
-      console.log(otro)
-
       this.copyAppNetwork = input
     },
     // Close dialog layer
@@ -361,6 +351,13 @@ export default {
       } else {
         this.queryErrorAction(false)
       }
+    },
+    filterFormats (formats) {
+      return formats.filter((format) =>
+          format.formatFields.filter((field) =>
+            field.value !== '' && field.key !== ''
+          ).length === format.formatFields.length
+        )
     },
     // Send event to create format data app-network
     sendCreateAppNetworkProfileEvent (appId, networkId) {
@@ -394,8 +391,8 @@ export default {
       }
 
       if (!this.alert && !this.fullFormEmptyMsg) {
-        console.log('llamada')
-        // this.$root.$emit('createAppNetworkProfile', appId, networkId, this.copyAppNetwork)
+        this.copyAppNetwork.formats = this.filterFormats(this.copyAppNetwork.formats)
+        this.$root.$emit('createAppNetworkProfile', appId, networkId, this.copyAppNetwork)
       }
     }
     // sendDeleteAppEvent () {

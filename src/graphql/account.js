@@ -17,6 +17,20 @@ export const GET_ACCOUNTS = gql`
 }
 `
 
+export const GET_ACCOUNTS_STATUS = gql`
+{
+  accountById(_id:"5b10f0d09a5fd6245f658384") {
+    _id
+    name
+    disabled
+    networkProfiles {
+      active
+      networkId
+    }
+  }
+}
+`
+
 /* ------------------------- ADMOB --------------------------- */
 
 // Queries

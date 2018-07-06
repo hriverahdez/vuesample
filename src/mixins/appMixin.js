@@ -193,7 +193,6 @@ const appMixin = {
           input
         },
         update: (store, { data: { createAppNetwork } }) => {
-          console.log('update')
           // Read the data from our cache for this query.
           // const data = store.readQuery({
           //   query: APPS_DATA,
