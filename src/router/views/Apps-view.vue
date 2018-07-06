@@ -47,21 +47,16 @@ export default {
       loaderStatus: 'appsLoaderStatusGetter'
     })
   },
-  methods: {
-    ...mapActions([
-      'skipQueryAccountByIdAction'
-    ])
-  },
-  mixins: [
-    accountMixin,
-    appMixin,
-    configMixin
-  ],
   mounted () {
     this.skipQueryAccountByIdAction(false)
   },
   updated () {
     this.$apollo.queries.appByIdNetworkProfile.refetch()
+  },
+  methods: {
+    ...mapActions([
+      'skipQueryAccountByIdAction'
+    ])
   }
 }
 </script>
