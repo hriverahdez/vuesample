@@ -94,7 +94,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="(network, index) in networks" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB', 'red' : network.name === 'ADMOB'}")
+            td(v-for="(network, index) in createdNetworksObject" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB', 'red' : (props.item.disabled || network.active === false) }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -141,40 +141,20 @@ export default {
       networkProfile: 'networkProfilesDataGetter',
       networkProfilesStatus: 'networkProfilesStatusGetter'
     }),
-    probando () {
-      // Funcion para ordenar el nuevo objeto creado para la comparación
-      function compare (a, b) {
-        const networkIdA = a.networkId
-        const networkIdB = b.networkId
+    createdNetworksObject () {
+      if (this.networks && this.networkProfilesStatus) {
+        let clonedNetworks = JSON.parse(JSON.stringify(this.networks))
 
-        let comparison = 0
-        if (networkIdA > networkIdB) {
-          comparison = 1
-        } else if (networkIdA < networkIdB) {
-          comparison = -1
-        }
-        return comparison
-      }
-
-      if (this.networkProfilesStatus && this.networks && this.currentNetworksActive) {
-        // Clone el objeto para realizar operaciones
-        const clonedNetworkProfilesStatus = JSON.parse(JSON.stringify(this.networkProfilesStatus))
-
-        // Filtramos redes que no estan activas
-        let filteredNetworkProfilesStatus = clonedNetworkProfilesStatus.filter((item) => {
-          return this.currentNetworksActive.indexOf(item.networkId.toString()) > -1
+        clonedNetworks.map((network) => {
+          console.log(network)
+          this.networkProfilesStatus.map((networkItem) => {
+            if (parseInt(network.id) === networkItem.networkId) {
+              network.active = networkItem.active || false
+            }
+          })
         })
 
-        const orderedNetworkProfilesStatus = filteredNetworkProfilesStatus.sort(compare)
-
-        for (let item in orderedNetworkProfilesStatus) {
-          if (this.networks) {
-            console.log(parseInt(this.networks[item].id), 'a')
-            console.log(orderedNetworkProfilesStatus[item].networkId, 'b')
-            orderedNetworkProfilesStatus[item].perrete = 'Lemmy'
-          }
-        }
-        return orderedNetworkProfilesStatus
+        return clonedNetworks
       }
     },
     // Get cuurrent netqork actives
@@ -196,8 +176,7 @@ export default {
           {
             text: 'Name',
             align: 'left',
-            value: 'name',
-            color: 'red'
+            value: 'name'
           }
         ]
         this.currentNetworksActive.map((network) => {
@@ -221,6 +200,11 @@ export default {
           networks.push(newObject)
         })
         return networks
+      }
+    },
+    networkObjectForDataTableHeaders () {
+      if (this.createdNetworkObject) {
+        return this.createdNetworkObject.filter(item => item.name)
       }
     }
   },

@@ -81,6 +81,11 @@ const accountMixin = {
       context: {
         uri: URI
       },
+      variables () {
+        return {
+          _id: this.accountId
+        }
+      },
       skip () {
         return this.skipQueryAccountById
       },
@@ -629,7 +634,9 @@ const accountMixin = {
         },
         update: (store, { data: { updateAccountNetworkIntegrationStatusAdcolony } }) => {
           console.log('update', status, networkId)
-          // Actualizamos la query correspondiente
+          // Actualizamos las queries correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
           this.skipNetworkProfilesAdcolonyQuery = false
           this.$apollo.queries.networkProfilesAdcolony.refetch()
           // Read the data from our cache for this query.
