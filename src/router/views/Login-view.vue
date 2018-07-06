@@ -49,7 +49,7 @@
   import { mapGetters, mapActions, mapMutations } from 'vuex'
 
   export default {
-    name: 'login-view',
+    name: 'LoginView',
     mixins: [userMixin],
     data: () => ({
       alertFlag: false,

@@ -178,7 +178,7 @@ import { mapGetters, mapActions } from 'vuex'
 // import DialogAlert from '@/components/DialogAlert'
 
 export default {
-  name: 'app-network-configuration-dialog',
+  name: 'AppNetworkConfigurationDialog',
   // components: {
   //   DialogAlert
   // },
@@ -206,15 +206,7 @@ export default {
   //     default: false
   //   }
   // },
-  watch: {
-    // remove_permission (val) {
-    //   if (val === this.randomNumber.toString()) {
-    //     this.valid = true
-    //   } else {
-    //     this.valid = false
-    //   }
-    // }
-  },
+
   computed: {
     ...mapGetters({
       app: 'appByIdDataGetter',
@@ -265,6 +257,27 @@ export default {
     imageSrc () {
       return require(`../../assets/networks/${this.selectedAppNetworkConfig.networkName.id}.png`)
     }
+  },
+  watch: {
+    // remove_permission (val) {
+    //   if (val === this.randomNumber.toString()) {
+    //     this.valid = true
+    //   } else {
+    //     this.valid = false
+    //   }
+    // }
+  },
+  mounted () {
+    // Asignamos el valor que viene por defecto de las queries a los switches (activo/inactivo)
+    this.configStatus = this.networkStatus
+    if (this.formats) {
+      this.formats.map((item) => {
+        this.switchStatus.status.push(item.active)
+      })
+    }
+  },
+  beforeDestroy () {
+    this.appByIdAndNetworkDataAction({})
   },
   methods: {
     ...mapActions([
@@ -398,19 +411,8 @@ export default {
     // sendDeleteAppEvent () {
     //   this.$root.$emit('deleteApp', this.appId)
     // }
-  },
-  mounted () {
-    // Asignamos el valor que viene por defecto de las queries a los switches (activo/inactivo)
-    this.configStatus = this.networkStatus
-    if (this.formats) {
-      this.formats.map((item) => {
-        this.switchStatus.status.push(item.active)
-      })
-    }
-  },
-  beforeDestroy () {
-    this.appByIdAndNetworkDataAction({})
   }
+
 }
 </script>
 
@@ -501,5 +503,3 @@ export default {
   margin-top: 10px;
 }
 </style>
-
-

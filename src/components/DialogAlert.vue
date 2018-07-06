@@ -23,7 +23,7 @@
 import { mapMutations } from 'vuex'
 
 export default {
-  name: 'dialog-alert',
+  name: 'DialogAlert',
   methods: {
     ...mapMutations(['CLOSE_ALERT_MESSAGE'])
   }
@@ -38,4 +38,3 @@ export default {
       padding: 10px;
   }
 </style>
-

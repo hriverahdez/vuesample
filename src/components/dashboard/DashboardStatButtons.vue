@@ -17,7 +17,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'dashboard-stat-buttons',
+  name: 'DashboardStatButtons',
   data: () => ({
     activeButtonIndex: 0,
     buttons: [
@@ -91,6 +91,3 @@ export default {
     }
 }
 </style>
-
-
-

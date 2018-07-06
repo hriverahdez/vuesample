@@ -8,7 +8,7 @@
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
-                div(class="card-text-form__msg" class="teal white--text") 
+                div(class="card-text-form__msg" class="teal white--text")
                   span {{ $t('apps_view.remove_app_message', {number: randomNumber}) }}
                 v-text-field(
                   label="Number"
@@ -38,22 +38,13 @@ import { mapActions, mapGetters } from 'vuex'
 import DialogAlert from '@/components/DialogAlert'
 
 export default {
-  name: 'app-remove-dialog',
+  name: 'AppRemoveDialog',
   components: {
     DialogAlert
   },
   data () {
     return {
       valid: false
-    }
-  },
-  watch: {
-    remove_permission (val) {
-      if (val === this.randomNumber.toString()) {
-        this.valid = true
-      } else {
-        this.valid = false
-      }
     }
   },
   computed: {
@@ -65,6 +56,16 @@ export default {
       return Math.floor(Math.random() * 100000000)
     }
   },
+  watch: {
+    remove_permission (val) {
+      if (val === this.randomNumber.toString()) {
+        this.valid = true
+      } else {
+        this.valid = false
+      }
+    }
+  },
+
   methods: {
     ...mapActions([
       'appRemoveDialogStatusAction',
@@ -97,5 +98,3 @@ export default {
   background: olive;
 }
 </style>
-
-

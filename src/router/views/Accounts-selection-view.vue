@@ -31,7 +31,7 @@
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    name: 'account-selection-view',
+    name: 'AccountSelectionView',
     mixins: [userMixin],
     data: () => ({
       valid: true,
@@ -47,6 +47,9 @@
         getUserAccounts: 'userAccounts'
       })
     },
+    mounted () {
+      this.skipQueryUserAccounts = false
+    },
     methods: {
       ...mapActions(['setActiveUserAccountAction']),
       submit () {
@@ -55,10 +58,8 @@
           this.$router.push({ name: 'dashboard' })
         }
       }
-    },
-    mounted () {
-      this.skipQueryUserAccounts = false
     }
+
   }
 </script>
 

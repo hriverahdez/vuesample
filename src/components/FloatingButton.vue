@@ -48,12 +48,11 @@
 
 </template>
 
-
 <script>
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'floating-button',
+  name: 'FloatingButton',
   data: () => ({
     top: false,
     right: true,
@@ -105,5 +104,3 @@ export default {
   border-radius: 4px;
 }
 </style>
-
-

@@ -13,8 +13,6 @@
           app-manage-network-profile-dialog(v-if="$store.state.appModule.appManageNetworkProfileDialogStatus")
 </template>
 
-
-
 <script>
 // Components imports
 import AppsDataTable from '@/components/apps/AppDataTable'
@@ -30,7 +28,7 @@ import configMixin from '@/mixins/configMixin'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'apps-view',
+  name: 'AppsView',
   components: {
     AppsDataTable,
     AppManageNetworkProfileDialog,
@@ -38,6 +36,11 @@ export default {
     AppRemoveDialog,
     LoaderComponent
   },
+  mixins: [
+    accountMixin,
+    appMixin,
+    configMixin
+  ],
   computed: {
     ...mapGetters({
       appsDataTable: 'appsDataGetter',
@@ -62,9 +65,3 @@ export default {
   }
 }
 </script>
-
-
-
-
-
-

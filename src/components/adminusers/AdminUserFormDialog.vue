@@ -134,7 +134,7 @@
   import DialogAlert from '@/components/DialogAlert'
 
   export default {
-    name: 'admin-user-dialog',
+    name: 'AdminUserDialog',
     components: {
       DialogAlert
     },
@@ -267,6 +267,9 @@
         return this.userData.password === this.repeatPassword
       }
     },
+    mounted () {
+      // this.skipQueryAccountsAction(false)
+    },
     methods: {
       ...mapActions([
         'userDialogStatusAction',
@@ -324,10 +327,8 @@
       createDinamicRole (index, account) {
         console.log(index + '-' + account)
       }
-    },
-    mounted () {
-      // this.skipQueryAccountsAction(false)
     }
+
   }
 </script>
 
