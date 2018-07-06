@@ -11,12 +11,13 @@
 import {mapGetters} from 'vuex'
 
 export default {
-  mounted () {
-    this.$store.dispatch('getWords')
-  },
   computed: {
     ...mapGetters(['getWords'])
   },
+  mounted () {
+    this.$store.dispatch('getWords')
+  },
+
   methods: {
     cambiarIdioma () {
       if (this.$i18n.locale === 'en') {
@@ -28,4 +29,3 @@ export default {
   }
 }
 </script>
-

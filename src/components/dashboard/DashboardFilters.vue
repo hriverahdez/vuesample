@@ -146,11 +146,26 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: 'dashboard-filters',
+  name: 'DashboardFilters',
   data () {
     return {
       valid: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      appNames: 'appNamesGetter',
+      apps: 'appFiltersGetter',
+      appsIdAndName: 'appIdAndNameGetter',
+      config: 'dashboardFiltersGetter',
+      countries: 'countryFiltersGetter',
+      formats: 'formatFiltersGetter',
+      formatsToFilters: 'formatsIdsAndNamesGetter',
+      networks: 'networkFiltersGetter',
+      networksToFilters: 'networksKeysGetter',
+      networkNames: 'networksIdsAndNamesGetter',
+      formatsArray: 'formatsArrayForDashboardFiltersGetter'
+    })
   },
   watch: {
     apps (val) {
@@ -170,21 +185,7 @@ export default {
       this.addNetworkToList()
     }
   },
-  computed: {
-    ...mapGetters({
-      appNames: 'appNamesGetter',
-      apps: 'appFiltersGetter',
-      appsIdAndName: 'appIdAndNameGetter',
-      config: 'dashboardFiltersGetter',
-      countries: 'countryFiltersGetter',
-      formats: 'formatFiltersGetter',
-      formatsToFilters: 'formatsIdsAndNamesGetter',
-      networks: 'networkFiltersGetter',
-      networksToFilters: 'networksKeysGetter',
-      networkNames: 'networksIdsAndNamesGetter',
-      formatsArray: 'formatsArrayForDashboardFiltersGetter'
-    })
-  },
+
   methods: {
     ...mapActions([
       'appFiltersAction',
@@ -358,13 +359,3 @@ export default {
 }
 
 </style>
-
-
-
-
-
-
-
-
-
-

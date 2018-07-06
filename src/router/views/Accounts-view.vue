@@ -24,21 +24,22 @@ export default {
     AccountsDataTable,
     LoaderComponent
   },
+  mixins: [accountMixin, appMixin],
   computed: {
     ...mapGetters({
       accountsDataTable: 'accountsDataGetter',
       loaderStatus: 'accountsLoaderStatusGetter'
     })
   },
+  mounted () {
+    this.skipQueryAccountsAction(false)
+  },
   methods: {
     ...mapActions([
       'skipQueryAccountsAction'
     ])
-  },
-  mixins: [accountMixin, appMixin],
-  mounted () {
-    this.skipQueryAccountsAction(false)
   }
+
 }
 </script>
 
@@ -47,4 +48,3 @@ export default {
   border-top: 3px solid #BDD0FB;
 }
 </style>
-

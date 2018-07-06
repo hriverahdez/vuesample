@@ -28,23 +28,24 @@ export default {
     AdminUsersDataTable,
     LoaderComponent
   },
+  mixins: [accountMixin, configMixin, userMixin, appMixin],
   computed: {
     ...mapGetters({
       adminUsersDataTable: 'usersDataGetter'
     })
   },
-  mixins: [accountMixin, configMixin, userMixin, appMixin],
+  mounted () {
+    this.skipAdminUsersQueryAction(false)
+    this.skipQueryRolesAdminAction(false)
+    this.$apollo.queries.accounts.skip = false
+  },
   methods: {
     ...mapActions([
       'skipAdminUsersQueryAction',
       'skipQueryRolesAdminAction',
       'skipA'
     ])
-  },
-  mounted () {
-    this.skipAdminUsersQueryAction(false)
-    this.skipQueryRolesAdminAction(false)
-    this.$apollo.queries.accounts.skip = false
   }
+
 }
 </script>

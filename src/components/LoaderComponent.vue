@@ -9,13 +9,12 @@
 
 <script>
 export default {
-  name: 'loader-component',
+  name: 'LoaderComponent',
   data: () => ({
     dialog: true
   })
 }
 </script>
-
 
 <style lang="scss">
 .loading {
@@ -30,5 +29,3 @@ export default {
   color: white;
 }
 </style>
-
-

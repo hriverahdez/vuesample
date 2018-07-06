@@ -12,7 +12,6 @@
             dashboard-data-table
 </template>
 
-
 <script>
 import { mapGetters } from 'vuex'
 
@@ -27,29 +26,28 @@ import DashboardTabs from '@/components/dashboard/DashboardTabs'
 import LoaderComponent from '@/components/LoaderComponent'
 
 export default {
-  name: 'dashboard-view',
+  name: 'DashboardView',
+  components: {
+    DashboardDataTable,
+    DashboardTabs,
+    LoaderComponent
+  },
+  mixins: [accountMixin, appMixin, configMixin, reportMixin],
+
   computed: {
     ...mapGetters({
       // date: 'dateGetter',
       dashboardDatatableData: 'dashboardDatatableDataWithFormattedLabelGetter'
       // loaderStatus: 'dashboardLoaderStatusGetter'
     })
-  },
-  components: {
-    DashboardDataTable,
-    DashboardTabs,
-    LoaderComponent
-  },
+  }
+
   // methods: {
   //   ...mapActions(['skipDashboardDataQueryAction', 'skipDatatableDataQueryAction'])
   // },
-  mixins: [accountMixin, appMixin, configMixin, reportMixin]
   // created () {
   //   this.skipDashboardDataQueryAction(false)
   //   this.skipDatatableDataQueryAction(false)
   // }
 }
 </script>
-
-
-

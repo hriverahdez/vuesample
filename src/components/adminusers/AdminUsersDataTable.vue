@@ -47,7 +47,7 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
-  name: 'admin-users-data-table',
+  name: 'AdminUsersDataTable',
   data: () => ({
     headers: [
       {
