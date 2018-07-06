@@ -49,13 +49,15 @@ export default {
   },
   mounted () {
     this.skipQueryAccountByIdAction(false)
+    this.skipQueryGetNetworksProfilesAction(false)
   },
   updated () {
     this.$apollo.queries.appByIdNetworkProfile.refetch()
   },
   methods: {
     ...mapActions([
-      'skipQueryAccountByIdAction'
+      'skipQueryAccountByIdAction',
+      'skipQueryGetNetworksProfilesAction'
     ])
   }
 }
