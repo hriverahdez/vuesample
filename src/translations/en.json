@@ -68,6 +68,7 @@
       "profile_name": "Profile name",
       "remove_app": "Remove app",
       "remove_app_message": "Write {number} in the text field ",
+      "remove_profile": "Remove profile",
       "select_platform": "Select platform",
       "select_profile": "Select profile",
       "updated_network_profile": "Network profile editted",

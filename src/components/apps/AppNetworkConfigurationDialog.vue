@@ -360,6 +360,7 @@ export default {
     // Send event to update app-network
     sendEditAppNetworkProfileEvent (appId, networkId, profile) {
       if (!this.queryError) {
+        this.createInputVariables.formats = this.filterFormats(this.createInputVariables.formats)
         this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.createInputVariables)
       } else {
         this.queryErrorAction(false)

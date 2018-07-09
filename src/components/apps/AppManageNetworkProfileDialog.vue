@@ -68,14 +68,14 @@
                       :value="selected[key]"
                       :ref="`inputText${index}`"
                       )
-                    p {{ field.help_text }}
+                    p(v-html="field.help_text")
 
         v-card-actions
           v-btn(
             class="white--text"
             color="buttonColor"
             @click.native="sendRemoveNetworkProfileEvent"
-            ) {{ $t('buttons.remove_network') }}
+            ) {{ $t('apps_view.remove_profile') }}
           v-spacer
           v-btn(
             class="white--text"
