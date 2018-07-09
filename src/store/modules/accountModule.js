@@ -60,6 +60,19 @@ const getters = {
   getNetworksProfilesGetter (state) {
     return state.getNetworksProfiles
   },
+  getNetworksProfilesLengthGetter (state, getters) {
+    if (getters.getNetworksProfilesGetter.networkProfiles) {
+      let networkProfiles = getters.getNetworksProfilesGetter.networkProfiles
+      let newNetworksArray = []
+      networkProfiles.map((network) => {
+        let newNetworksObject = {}
+        newNetworksObject.networkId = network.networkId
+        newNetworksObject.numberOfProfiles = network.profiles.length
+        newNetworksArray.push(newNetworksObject)
+      })
+      return newNetworksArray
+    }
+  },
   networkProfilesStatusGetter (state, getters) {
     if (getters.accountByIdGetter) {
       return getters.accountByIdGetter.networkProfiles

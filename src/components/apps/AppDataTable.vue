@@ -50,7 +50,7 @@
                   )
 
         template(slot="items" slot-scope="props")
-            td(class="text-xs-left app" :class="{'red': props.item.disabled }")
+            td(class="text-xs-left app" :class="{'disabled': props.item.disabled }")
               div(class="app-container")
                 img(:src="props.item.icon" class="app-logo")
                 icon(v-if="props.item.platform === 'android'" name="android" color="gray")
@@ -94,7 +94,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="(network, index) in createdNetworksObject" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB', 'red' : (props.item.disabled || network.active === false) }")
+            td(v-for="(network, index) in createdNetworksObject" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB', 'disabled' : (props.item.disabled || network.active === false), 'no-profiles-length' : !network.numberOfProfiles }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -136,19 +136,25 @@ export default {
     ...mapGetters({
       apps: 'appsDataGetter',
       // networks: 'networksIdsAndNamesGetter',
+      networkProfilesLength: 'getNetworksProfilesLengthGetter',
       networkIds: 'networkIdsGetter',
       networksInfo: 'networksInfoGetter',
       networkProfile: 'networkProfilesDataGetter',
       networkProfilesStatus: 'networkProfilesStatusGetter'
     }),
     createdNetworksObject () {
-      if (this.networks && this.networkProfilesStatus) {
+      if (this.networks && this.networkProfilesStatus && this.networkProfilesLength) {
         let clonedNetworks = JSON.parse(JSON.stringify(this.networks))
 
         clonedNetworks.map((network) => {
           this.networkProfilesStatus.map((networkItem) => {
             if (parseInt(network.id) === networkItem.networkId) {
               network.active = networkItem.active || false
+            }
+          })
+          this.networkProfilesLength.map((networkItem) => {
+            if (parseInt(network.id) === networkItem.networkId) {
+              network.numberOfProfiles = networkItem.numberOfProfiles || false
             }
           })
         })
@@ -274,21 +280,8 @@ export default {
   height: 8px;
   border-radius: 50%;
 }
-// .red {
-//   background: repeating-linear-gradient(
-//     45deg,
-//     #ccc,
-//     #ccc 10px,
-//     #dbdbdb 10px,
-//     #dbdbdb 20px
-//   );
-// }
 .app-card {
   border-top: 3px solid #BDD0FB;
-}
-
-.red {
-  background: red;
 }
 .app-logo {
   display: block;
@@ -401,6 +394,21 @@ export default {
   }
 }
 
+.disabled {
+  background: repeating-linear-gradient(
+    45deg,
+    #fff,
+    #fff 10px,
+    #F9DAE6 10px,
+    #F9DAE6 20px
+  )!important;
+  pointer-events: none;
+}
+
+.app.disabled {
+  pointer-events: all;
+}
+
 .help-colors {
   height: 100%;
   display: flex;
@@ -450,6 +458,17 @@ export default {
       }
     }
   }
+}
+
+.no-profiles-length {
+  background: repeating-linear-gradient(
+    45deg,
+    #EAEAEA,
+    #EAEAEA 10px,
+    #F9DAE6 10px,
+    #F9DAE6 20px
+  )!important;
+  pointer-events: none;
 }
 
 .search-field {
