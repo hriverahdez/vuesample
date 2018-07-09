@@ -80,6 +80,7 @@
           v-btn(
             class="white--text"
             color="buttonColor"
+            flat
             @click.native="closeDialog"
             ) {{ $t('buttons.cancel') }}
           v-btn(
@@ -171,8 +172,9 @@ export default {
     },
     // Remove network profile
     sendRemoveNetworkProfileEvent () {
-      this.$root.$emit('removeNetworkProfile', this.selected.name, this.selectednetworkId)
-      this.selected = ''
+      console.log('entra delete')
+      // this.$root.$emit('removeNetworkProfile', this.selected.name, this.selectednetworkId)
+      // this.selected = ''
     },
     // Edit profile on click button
     showInputToCreateNewProfile () {

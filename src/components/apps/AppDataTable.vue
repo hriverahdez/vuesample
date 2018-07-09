@@ -58,7 +58,7 @@
                 span(
                   class="app__text"
                   :data="props.item._id"
-                  ) {{ props.item._id }}
+                  ) {{ props.item.name }}
                 //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
