@@ -11,7 +11,7 @@
                 div(class="card-text-form__msg" class="teal white--text")
                   span {{ $t('apps_view.remove_app_message', {number: randomNumber}) }}
                 v-text-field(
-                  label="Number"
+                  label="Write the number"
                   v-model="$store.state.appModule.removeAppPermissionInput"
                   class="formElementColor--text"
                   hide-details

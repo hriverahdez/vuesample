@@ -46,7 +46,7 @@
                   class="switch"
                   @change="toggleEnableDisableNetwork(networkProfile.active, props.header.text, networkProfile.networkId)"
                   :value="true"
-                  :input-value="networkProfile.active"
+                  :input-value="checkIfItsEnableNetwork(props.header.text)"
                   )
 
         template(slot="items" slot-scope="props")
@@ -94,7 +94,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="(network, index) in createdNetworksObject" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB', 'disabled' : (props.item.disabled || network.active === false), 'no-profiles-length' : !network.numberOfProfiles }")
+            td(v-for="(network, index) in createdNetworksObject" :key="index" :class="{ 'padding-scroll': network.name === 'ADMOB', 'disabled' : (props.item.disabled || network.active === false), 'no-profiles-length' : !network.numberOfProfiles }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -229,9 +229,23 @@ export default {
       'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
+    // Sirvaepara ver si la la red esta habilitada y pintarlo en la cabecera de la tabla
+    checkIfItsEnableNetwork (networkName) {
+      if (this.createdNetworksObject) {
+        let finalValue = ''
+        this.createdNetworksObject.map((network) => {
+          if (network.name === networkName) {
+            finalValue = network.active
+          }
+        })
+        return finalValue
+      }
+    },
     // Obtenemos el estado de red en la cabecera de la tabla de apps (enble/disable)
     getNetworkStatus (networkName) {
-      this.$root.$emit('launchNetworkProfilesQuery', networkName)
+      setTimeout(() => {
+        this.$root.$emit('launchNetworkProfilesQuery', networkName)
+      }, 1000)
     },
     showDeleteDialog (app) {
       this.appRemoveDialogStatusAction(true)
@@ -272,6 +286,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.app__text {
+  opacity: 1!important;
+}
 @mixin help-text-content {
   content: '';
   display: inline-block;
@@ -469,6 +486,10 @@ export default {
     #F9DAE6 20px
   )!important;
   pointer-events: none;
+   -webkit-animation: fadeInFromNone 0.5s ease-out;
+    -moz-animation: fadeInFromNone 0.5s ease-out;
+    -o-animation: fadeInFromNone 0.5s ease-out;
+    animation: fadeInFromNone 0.5s ease-out;
 }
 
 .search-field {
