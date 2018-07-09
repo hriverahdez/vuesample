@@ -100,6 +100,9 @@ $data-table-heading-text = white
     background-color: white!important
     color: text_color
 
+    tr
+        height: 52px
+
     tr:hover
         background: datatable_row_hover
 
@@ -122,13 +125,16 @@ $data-table-heading-text = white
 
     .datatable
         color: text_color
+
+        td
+            height: 52px;
+            // border-bottom: 1px solid green
         th
             background-color: datatable_header_color_type2
 
         th:first-of-type
             position: absolute
             width: datatable_padding
-            height: 36px
             display: flex
             align-items: center
 

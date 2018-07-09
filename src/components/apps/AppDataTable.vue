@@ -58,7 +58,7 @@
                 span(
                   class="app__text"
                   :data="props.item._id"
-                  ) {{ props.item.name }}
+                  ) {{ props.item._id }}
                 //- Apps menu
                 v-menu(offset-y bottom class="app-column-menu")
                   a(slot="activator" class="activator")
@@ -297,6 +297,16 @@ export default {
   height: 8px;
   border-radius: 50%;
 }
+td {
+  border-bottom: 1px solid rgba(0,0,0,0.12)!important;
+}
+/deep/ table > thead > tr:nth-child(1) > th.column.sortable.active.asc.text-xs-left {
+  border-bottom: 1px solid rgba(0,0,0,0.12)!important;
+}
+/deep/ table > tbody > tr:nth-child(1) > td.text-xs-left.app {
+  border-bottom: none;
+  height: 53px;
+}
 .app-card {
   border-top: 3px solid #BDD0FB;
 }
@@ -346,9 +356,9 @@ export default {
     }
   }
 
-  tr:nth-child(1) > .app {
-    border-bottom: none;
-  }
+  // tr:nth-child(1) > .app {
+  //   border-bottom: none;
+  // }
   .padding-scroll {
     padding-left: 335px!important;
   }
