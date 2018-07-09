@@ -410,7 +410,6 @@ const appMixin = {
       this.enableDisableApp(_id, platform, !status)
     })
     this.$root.$on('updateAppNetworkProfile', (appId, networkId, profile, input) => {
-      console.log(input)
       this.updateAppNetwork(appId, networkId, profile, input)
     })
   },
