@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-dialog(v-model="$store.state.appModule.appRemoveDialogStatus" max-width="500px" light)
+    v-dialog(v-model="$store.state.removeDialogModule.removeDialogStatus" max-width="500px" light)
       v-card
         v-card-title(
           class="formElementColor py-4 title white--text"
@@ -12,7 +12,7 @@
                   span {{ $t('apps_view.remove_app_message', {number: randomNumber}) }}
                 v-text-field(
                   label="Write the number"
-                  v-model="$store.state.appModule.removeAppPermissionInput"
+                  v-model="$store.state.removeDialogModule.inputValue"
                   class="formElementColor--text"
                   hide-details
                   required
@@ -35,13 +35,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 // Components
-// import DialogAlert from '@/components/DialogAlert'
+import DialogAlert from '@/components/DialogAlert'
 
 export default {
   name: 'AppRemoveDialog',
-  // components: {
-  //   DialogAlert
-  // },
+  components: {
+    DialogAlert
+  },
   data () {
     return {
       valid: false
@@ -49,15 +49,24 @@ export default {
   },
   computed: {
     ...mapGetters({
-      appId: 'appIdGetter',
-      remove_permission: 'removeAppPermissionInputGetter'
+      // appId: 'appIdGetter',
+      // remove_permission: 'removeAppPermissionInputGetter'
+      dataToSendOnEmit: 'removeDialogDataGetter',
+      inputValue: 'inputValueGetter'
     }),
     randomNumber () {
       return Math.floor(Math.random() * 100000000)
     }
   },
   watch: {
-    remove_permission (val) {
+    // remove_permission (val) {
+    //   if (val === this.randomNumber.toString()) {
+    //     this.valid = true
+    //   } else {
+    //     this.valid = false
+    //   }
+    // }
+    inputValue (val) {
       if (val === this.randomNumber.toString()) {
         this.valid = true
       } else {
@@ -68,16 +77,21 @@ export default {
 
   methods: {
     ...mapActions([
-      'appRemoveDialogStatusAction',
-      'removeAppPermissionInputAction'
+      // 'appRemoveDialogStatusAction',
+      // 'removeAppPermissionInputAction',
+      'inputValueAction',
+      'removeDialogStatusAction'
     ]),
     // Close dialog layer
     closeDialog () {
-      this.appRemoveDialogStatusAction(false)
-      this.removeAppPermissionInputAction('')
+      // this.appRemoveDialogStatusAction(false)
+      // this.removeAppPermissionInputAction('')
+      this.removeDialogStatusAction(false)
+      this.inputValueAction('')
     },
     sendDeleteAppEvent () {
-      this.$root.$emit('deleteApp', this.appId)
+      // this.$root.$emit('deleteApp', this.appId)
+      this.$root.$emit('removeNetworkProfile', this.dataToSendOnEmit)
     }
   }
 }

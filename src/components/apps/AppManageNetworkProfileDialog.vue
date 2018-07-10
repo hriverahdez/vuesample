@@ -74,7 +74,7 @@
           v-btn(
             class="white--text"
             color="buttonColor"
-            @click.native="sendRemoveNetworkProfileEvent"
+            @click.native="showRemoveDialog"
             ) {{ $t('apps_view.remove_profile') }}
           v-spacer
           v-btn(
@@ -150,7 +150,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'appManageNetworkProfileDialogStatusAction'
+      'appManageNetworkProfileDialogStatusAction',
+      'removeDialogDataAction',
+      'removeDialogStatusAction'
     ]),
     // Close dialog layer
     closeDialog () {
@@ -171,15 +173,24 @@ export default {
       }
     },
     // Remove network profile
-    sendRemoveNetworkProfileEvent () {
-      console.log('entra delete')
-      // this.$root.$emit('removeNetworkProfile', this.selected.name, this.selectednetworkId)
-      // this.selected = ''
-    },
+    // sendRemoveNetworkProfileEvent () {
+    //   this.$root.$emit('removeNetworkProfile', this.selected.name, this.selectednetworkId)
+    //   this.selected = ''
+    // },
     // Edit profile on click button
     showInputToCreateNewProfile () {
       this.newProfileModeActive = true
       this.form.input = []
+    },
+    // Función para mostrar el cuestionario de eliminación
+    showRemoveDialog () {
+      // Actulización de la variable para mostrar el cuestionario
+      this.removeDialogStatusAction(true)
+      // Envío de datos necesarios para elimnar
+      this.removeDialogDataAction([this.selected.name, this.selectednetworkId])
+      .then(() => {
+        this.selected = ''
+      })
     },
     grantAdmobAccess () {
       localStorage.setItem('admobAccount', localStorage.getItem('activeAccount'))

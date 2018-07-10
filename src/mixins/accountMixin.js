@@ -389,7 +389,9 @@ const accountMixin = {
       'appManageNetworkProfileDialogStatusAction',
       'editedIndexStatusAction',
       'getNetworksProfilesAction',
+      'inputValueAction',
       'networkProfilesDataAction',
+      'removeDialogStatusAction',
       'skipQueryAccountsAction',
       'skipQueryAccountByIdAction',
       'skipQueryGetNetworksProfilesAction'
@@ -1636,6 +1638,16 @@ const accountMixin = {
           })
         }
       })
+      .then(() => {
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.delete_profile'),
+          buttonText: this.$t('buttons.close')
+        })
+        this.removeDialogStatusAction(false)
+        this.inputValueAction('')
+      })
     },
     removeNetworkProfile1004 (profileName, selectedNetworkId, skipVar, queryName) {
       this.$apollo.mutate({
@@ -2667,7 +2679,9 @@ const accountMixin = {
       this[currentNetwork](profileName, edittedValue, selected)
     })
     // Remove network profile
-    this.$root.$on('removeNetworkProfile', (profileName, selectedNetworkId) => {
+    this.$root.$on('removeNetworkProfile', (data) => {
+      let profileName = data[0]
+      let selectedNetworkId = data[1]
       let name = this.selectedNetworkName
       let formattedName = this.selectedNetworkName.charAt(0).toUpperCase() + this.selectedNetworkName.slice(1).toLowerCase()
       let skipVar = `skipNetworkProfiles${formattedName}Query`

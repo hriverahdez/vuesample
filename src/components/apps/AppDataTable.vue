@@ -247,6 +247,7 @@ export default {
         this.$root.$emit('launchNetworkProfilesQuery', networkName)
       }, 1000)
     },
+    // Lanzamos el dialog para eliminar la app
     showDeleteDialog (app) {
       this.appRemoveDialogStatusAction(true)
       .then(() => this.appIdAction(app._id))

@@ -9,6 +9,7 @@
           apps-data-table
             loader-component
           app-remove-dialog(v-if="$store.state.appModule.appRemoveDialogStatus")
+          remove-dialog-component(v-if="$store.state.removeDialogModule.removeDialogStatus")
           app-network-configuration-dialog(v-if="$store.state.appModule.appNetworkConfigDialogStatus")
           app-manage-network-profile-dialog(v-if="$store.state.appModule.appManageNetworkProfileDialogStatus")
 </template>
@@ -20,6 +21,7 @@ import AppManageNetworkProfileDialog from '@/components/apps/AppManageNetworkPro
 import AppNetworkConfigurationDialog from '@/components/apps/AppNetworkConfigurationDialog'
 import AppRemoveDialog from '@/components/apps/AppRemoveDialog'
 import LoaderComponent from '@/components/LoaderComponent'
+import RemoveDialogComponent from '@/components/RemoveDialogComponent'
 // Mixins imports
 import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
@@ -34,7 +36,8 @@ export default {
     AppManageNetworkProfileDialog,
     AppNetworkConfigurationDialog,
     AppRemoveDialog,
-    LoaderComponent
+    LoaderComponent,
+    RemoveDialogComponent
   },
   mixins: [
     accountMixin,

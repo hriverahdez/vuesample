@@ -49,6 +49,7 @@
       "updated_app_status": "Changed app status",
       "create_new_app": "New app",
       "delete_app": "Deleted app succesfully",
+      "delete_profile": "Deleted profile succesfully",
       "edit_app": "Edit app",
       "edit_success": "Edited app",
       "enable_disable_network": "Disable / enable:",
