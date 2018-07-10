@@ -71,6 +71,10 @@
                       p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`)")
 
                 section(class="network-config-container__btn")
+                  v-alert(v-model="alert" type="error" class="alert")
+                    span {{ $t('apps_view.alert_dialog_app_network') }}
+                  v-alert(v-model="fullFormEmptyMsg" type="error" class="alert")
+                    span {{ $t('apps_view.full_form_empty') }}
                   v-btn(
                     color="buttonColor"
                     flat
@@ -372,7 +376,7 @@ export default {
     },
     // Send event to update app-network
     sendEditAppNetworkProfileEvent (appId, networkId, profile) {
-      if (!this.queryError) {
+      if (!this.queryError && this.validateForm()) {
         this.copyAppNetwork.formats = this.filterFormats(this.copyAppNetwork.formats)
         this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.copyAppNetwork)
       } else {
@@ -386,8 +390,7 @@ export default {
           ).length === format.formatFields.length
         )
     },
-    // Send event to create format data app-network
-    sendCreateAppNetworkProfileEvent (appId, networkId) {
+    validateForm () {
       this.alert = false
       this.fullFormEmptyMsg = false
 
@@ -417,7 +420,11 @@ export default {
         this.fullFormEmptyMsg = true
       }
 
-      if (!this.alert && !this.fullFormEmptyMsg) {
+      return !this.alert && !this.fullFormEmptyMsg
+    },
+    // Send event to create format data app-network
+    sendCreateAppNetworkProfileEvent (appId, networkId) {
+      if (this.validateForm()) {
         this.copyAppNetwork.formats = this.filterFormats(this.copyAppNetwork.formats)
         this.$root.$emit('createAppNetworkProfile', appId, networkId, this.copyAppNetwork)
       }

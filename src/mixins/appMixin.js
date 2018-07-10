@@ -120,6 +120,7 @@ const appMixin = {
       'appDialogStatusAction',
       'appIdAction',
       'appsNamesAndIdsAction',
+      'appNetworkConfigDialogStatusAction',
       // 'appRemoveDialogStatusAction',
       'appSchemaAction',
       'appsLoaderStatusAction',
@@ -219,6 +220,7 @@ const appMixin = {
           message: this.$t('apps_view.new_success'),
           buttonText: this.$t('buttons.close')
         })
+        this.appNetworkConfigDialogStatusAction(false)
       })
       // this.appDialogStatusAction(false)
       // this.appSchemaAction({
