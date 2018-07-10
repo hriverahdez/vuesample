@@ -80,7 +80,7 @@
                   v-btn(
                     color="buttonColor"
                     class="white--text"
-                    @click.native.stop="sendEditAppNetworkProfileEvent(app._id, app.networks[0].networkId, selected)"
+                    @click.native.stop="sendEditAppNetworkProfileEvent(app._id, selectednetwork.id, selected)"
                     :disabled="disabledButton"
                     ) {{ $t('buttons.edit') }}
 
@@ -248,6 +248,8 @@ export default {
     setTimeout(() => {
       if (this.networkStatus) {
         this.configStatus = this.networkStatus
+      } else {
+        this.configStatus = this.selectednetwork.active
       }
       // Asignamos el valor que viene por defecto de las queries a los switches (activo/inactivo)
       if (this.formats) {

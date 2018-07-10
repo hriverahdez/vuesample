@@ -74,6 +74,7 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
+        console.log(data)
         this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile).then(() => {
           this.queryErrorAction(false)
         })
@@ -210,15 +211,15 @@ const appMixin = {
           // })
         }
       })
-      // .then(() => {
-      //   this.$apollo.queries.apps.refresh()
-      //   this.SET_ALERT_MESSAGE({
-      //     show: true,
-      //     type: 'success',
-      //     message: this.$t('apps_view.new_success'),
-      //     buttonText: this.$t('buttons.close')
-      //   })
-      // })
+      .then(() => {
+        this.$apollo.queries.apps.refresh()
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.new_success'),
+          buttonText: this.$t('buttons.close')
+        })
+      })
       // this.appDialogStatusAction(false)
       // this.appSchemaAction({
       //   name: '',
