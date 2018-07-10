@@ -1,18 +1,18 @@
 <template lang="pug">
-    v-dialog(v-model="$store.state.appModule.appRemoveDialogStatus" max-width="500px" light)
+    v-dialog(v-model="$store.state.removeDialogModule.removeDialogStatus" max-width="500px" light)
       v-card
         v-card-title(
           class="formElementColor py-4 title white--text"
-          ) {{ $t('apps_view.remove_app') }}
+          ) {{ $t(headerText) }}
         v-card-text(class="card-text-form")
           v-container(grid-list-md)
             v-layout(wrap)
               v-flex(xs12)
                 div(class="card-text-form__msg" class="teal white--text")
-                  span {{ $t('apps_view.remove_app_message', {number: randomNumber}) }}
+                  span {{ $t('remove_component.text', {number: randomNumber}) }}
                 v-text-field(
                   label="Write the number"
-                  v-model="$store.state.appModule.removeAppPermissionInput"
+                  v-model="$store.state.removeDialogModule.inputValue"
                   class="formElementColor--text"
                   hide-details
                   required
@@ -38,7 +38,7 @@ import { mapActions, mapGetters } from 'vuex'
 // import DialogAlert from '@/components/DialogAlert'
 
 export default {
-  name: 'AppRemoveDialog',
+  name: 'RemoveDialog',
   // components: {
   //   DialogAlert
   // },
@@ -49,15 +49,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      appId: 'appIdGetter',
-      remove_permission: 'removeAppPermissionInputGetter'
+      dataToSendOnEmit: 'removeDialogDataGetter',
+      headerText: 'headerTextGetter',
+      inputValue: 'inputValueGetter',
+      nameOfTheEventToEmit: 'nameOfTheEventToEmitGetter'
     }),
     randomNumber () {
       return Math.floor(Math.random() * 100000000)
     }
   },
   watch: {
-    remove_permission (val) {
+    inputValue (val) {
       if (val === this.randomNumber.toString()) {
         this.valid = true
       } else {
@@ -68,16 +70,16 @@ export default {
 
   methods: {
     ...mapActions([
-      'appRemoveDialogStatusAction',
-      'removeAppPermissionInputAction'
+      'inputValueAction',
+      'removeDialogStatusAction'
     ]),
-    // Close dialog layer
+    // Cerramos la capa del dialog
     closeDialog () {
-      this.appRemoveDialogStatusAction(false)
-      this.removeAppPermissionInputAction('')
+      this.removeDialogStatusAction(false)
+      this.inputValueAction('')
     },
     sendDeleteAppEvent () {
-      this.$root.$emit('deleteApp', this.appId)
+      this.$root.$emit(this.nameOfTheEventToEmit, this.dataToSendOnEmit)
     }
   }
 }

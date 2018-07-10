@@ -18,9 +18,11 @@
                       v-if="newProfileModeActive"
                       :label="$t('apps_view.profile_name')"
                       v-model="profileName"
+                      @change="enableButton"
                       )
                     v-select(
                       v-else
+                      @change="enableButton"
                       :items="networkProfiles"
                       :label="this.$t('apps_view.select_profile')"
                       item-text="name"
@@ -68,24 +70,27 @@
                       :value="selected[key]"
                       :ref="`inputText${index}`"
                       )
-                    p {{ field.help_text }}
+                    p(v-html="field.help_text")
 
         v-card-actions
           v-btn(
             class="white--text"
             color="buttonColor"
-            @click.native="sendRemoveNetworkProfileEvent"
-            ) {{ $t('buttons.remove_network') }}
+            @click.native="showRemoveDialog"
+            :disabled="disabledButton"
+            ) {{ $t('apps_view.remove_profile') }}
           v-spacer
           v-btn(
             class="white--text"
             color="buttonColor"
+            flat
             @click.native="closeDialog"
             ) {{ $t('buttons.cancel') }}
           v-btn(
             class="white--text"
             color="buttonColor"
             @click="handleButtonAction"
+            :disabled="disabledButton"
             ) {{ newProfileModeActive ? $t('buttons.create') : $t('buttons.edit') }}
 </template>
 
@@ -104,6 +109,7 @@ export default {
   data () {
     return {
       edittedValue: {},
+      disabledButton: true,
       form: {
         input: []
       },
@@ -149,11 +155,18 @@ export default {
   },
   methods: {
     ...mapActions([
-      'appManageNetworkProfileDialogStatusAction'
+      'appManageNetworkProfileDialogStatusAction',
+      'headerTextAction',
+      'nameOfTheEventToEmitAction',
+      'removeDialogDataAction',
+      'removeDialogStatusAction'
     ]),
     // Close dialog layer
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
+    },
+    enableButton () {
+      this.disabledButton = false
     },
     getNewEdittedValue (e, index) {
       this.edittedValue[index] = e
@@ -170,14 +183,29 @@ export default {
       }
     },
     // Remove network profile
-    sendRemoveNetworkProfileEvent () {
-      this.$root.$emit('removeNetworkProfile', this.selected.name, this.selectednetworkId)
-      this.selected = ''
-    },
+    // sendRemoveNetworkProfileEvent () {
+    //   this.$root.$emit('removeNetworkProfile', this.selected.name, this.selectednetworkId)
+    //   this.selected = ''
+    // },
     // Edit profile on click button
     showInputToCreateNewProfile () {
       this.newProfileModeActive = true
       this.form.input = []
+    },
+    // Función para mostrar el cuestionario de eliminación
+    showRemoveDialog () {
+      // Actulización de la variable para mostrar el cuestionario
+      this.removeDialogStatusAction(true)
+      // Enviamo al store el nombre del evento que queremos ejecutar
+      this.nameOfTheEventToEmitAction('removeNetworkProfile')
+      // Enviamos el texto de la cabecera
+      this.headerTextAction('apps_view.remove_profile')
+      // Envío de datos necesarios para elimnar
+      this.removeDialogDataAction([this.selected.name, this.selectednetworkId])
+      .then(() => {
+        // Reseteamos el input
+        this.selected = ''
+      })
     },
     grantAdmobAccess () {
       localStorage.setItem('admobAccount', localStorage.getItem('activeAccount'))

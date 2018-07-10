@@ -1,7 +1,7 @@
 <template lang="pug">
-    //- Exist formats
+    //- Formulario de edición
     v-dialog(
-      v-if="formats"
+      v-if="formats && networkStatus"
       v-model="$store.state.appModule.appNetworkConfigDialogStatus"
       max-width="700"
       light)
@@ -30,8 +30,9 @@
                   div
                     v-switch(
                       light
-                      :label="check"
+                      :label="checkNetworkStatus"
                       v-model="configStatus"
+                      @change="createInputNewFormatVariables"
                       color="success"
                       hide-details
                     )
@@ -49,40 +50,45 @@
                 section(
                   class="network-config-container__formats-config")
                   h4 {{ $t('apps_view.format_config')}}
-                  div(:ref="`format${index}`" v-for="(format, index) in formats" v-if="formats" :key="index" class="network-config-container__formats-config__block")
+                  div(:ref="`format${index}`" v-for="(format, index) in formats" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
                       div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format)}}
                       v-switch(
                           light
-                          :label="check"
+                          :label="checkFormatStatus(index)"
                           color="success"
                           v-model="switchStatus.status[index]"
+                          @change="createInputNewFormatVariables"
                           hide-details
                         )
                     div(v-for="(formatField, index) in format.formatFields")
                       v-text-field(
                         :label="formatField.key"
                         :value="formatField.value"
-                        @change="getNewValue($event, index, format.format)"
+                        @change="getNewValue($event, index, format.format, formatField.key, format.premium)"
                         hide-details
                         )
                       p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`)")
 
                 section(class="network-config-container__btn")
+                  v-alert(v-model="alert" type="error" class="alert")
+                    span {{ $t('apps_view.alert_dialog_app_network') }}
+                  v-alert(v-model="fullFormEmptyMsg" type="error" class="alert")
+                    span {{ $t('apps_view.full_form_empty') }}
                   v-btn(
-                    v-if="!queryError"
                     color="buttonColor"
-                    class="white--text"
-                    @click.native.stop="sendEditAppNetworkProfileEvent(app._id, app.networks[0].networkId, selected)"
-                    ) {{ $t('buttons.edit') }}
-                  v-btn(
-                    v-else
-                    color="buttonColor"
+                    flat
                     class="white--text"
                     @click.native.stop="closeDialog"
                     ) {{ $t('buttons.cancel') }}
+                  v-btn(
+                    color="buttonColor"
+                    class="white--text"
+                    @click.native.stop="sendEditAppNetworkProfileEvent(app._id, selectednetwork.id, selected)"
+                    :disabled="disabledButton"
+                    ) {{ $t('buttons.edit') }}
 
-    //- Empty form
+    //- Formulario de creación
     v-dialog(
       v-else
       v-model="$store.state.appModule.appNetworkConfigDialogStatus"
@@ -113,8 +119,8 @@
                   div
                     v-switch(
                       light
-                      :label="check"
-                      v-model="switchCreateStatus"
+                      :label="checkNetworkStatus"
+                      v-model="configStatus"
                       @change="createInputNewFormatVariables"
                       color="success"
                       hide-details
@@ -133,15 +139,15 @@
 
                 section(
                   class="network-config-container__formats-config")
-                  h4 {{ $t('apps_view.format_config')}} lololo
+                  h4 {{ $t('apps_view.format_config')}}
                   div(v-for="(format, index) in formatFields" v-if="formatFields" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
                       div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format) }}
                       v-switch(
                           light
-                          :label="check"
+                          :label="checkFormatStatus(index)"
                           color="success"
-                          v-model="switchCreateFormatStatus.status[index]"
+                          v-model="switchStatus.status[index]"
                           @change="createInputNewFormatVariables"
                           hide-details
                         )
@@ -168,6 +174,7 @@
                     color="buttonColor"
                     class="white--text"
                     @click.native.stop="sendCreateAppNetworkProfileEvent(app._id, selectednetwork.id)"
+                    :disabled="disabledButton"
                     ) {{ $t('buttons.save') }}
 
 </template>
@@ -188,12 +195,9 @@ export default {
       fullFormEmptyMsg: false,
       copyAppNetwork: false,
       configStatus: false,
+      disabledButton: true,
       newInputValue: false,
-      switchCreateStatus: false,
       switchStatus: {
-        status: []
-      },
-      switchCreateFormatStatus: {
         status: []
       },
       selected: 'default',
@@ -220,34 +224,11 @@ export default {
       selectednetwork: 'selectedNetworkToManageGetter'
       // skippedQuery: 'skipAppByIdQueryGetter'
     }),
-    createInputVariables () {
-      let input = {}
-      const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
-      let cloneFormats = JSON.parse(JSON.stringify(this.formats), omitTypename)
-
-      input['active'] = this.configStatus
-      input['profile'] = this.selected
-      input['formats'] = cloneFormats
-      // input['switchs'] = this.switchStatus
-
-      this.switchStatus.status.map((item, index) => {
-        input['formats'][index].active = item
-      })
-
-      if (this.newInputValue) {
-        input['formats'].map((item, index) => {
-          if (item.format === this.newInputValue.format) {
-            item.formatFields[this.newInputValue.index].value = this.newInputValue.value
-          }
-        })
-      }
-      return input
-    },
     nameAndIdNetworkFormatted () {
       return `${this.selectedAppNetworkConfig.networkName.name.toLowerCase()}${this.selectedAppNetworkConfig.networkName.id}`
     },
-    // Change switch text label
-    check () {
+    // Obtenemos el estado del switch de network para la etiqueta
+    checkNetworkStatus () {
       if (this.configStatus) {
         return this.$t('switch.on')
       } else {
@@ -268,13 +249,19 @@ export default {
     // }
   },
   mounted () {
-    // Asignamos el valor que viene por defecto de las queries a los switches (activo/inactivo)
-    this.configStatus = this.networkStatus
-    if (this.formats) {
-      this.formats.map((item) => {
-        this.switchStatus.status.push(item.active)
-      })
-    }
+    setTimeout(() => {
+      if (this.networkStatus) {
+        this.configStatus = this.networkStatus
+      } else {
+        this.configStatus = this.selectednetwork.active
+      }
+      // Asignamos el valor que viene por defecto de las queries a los switches (activo/inactivo)
+      if (this.formats) {
+        this.formats.map((item) => {
+          this.switchStatus.status.push(item.active)
+        })
+      }
+    }, 300)
   },
   beforeDestroy () {
     this.appByIdAndNetworkDataAction({})
@@ -286,55 +273,81 @@ export default {
       'queryErrorAction',
       'skipAppByIdAndNetworkQueryAction'
     ]),
+    // Obtenemos el estado del switch de formato para etiqutarlo
+    checkFormatStatus (index) {
+      if (this.switchStatus.status[index]) {
+        return this.$t('switch.on')
+      } else {
+        return this.$t('switch.off')
+      }
+    },
     createInputNewFormatVariables () {
       let cloned = false
       let input = {}
+
+      this.disabledButton = false
 
       if (this.copyAppNetwork) {
         input = this.copyAppNetwork
         cloned = true
       }
 
-      input['active'] = this.switchCreateStatus
+      input['active'] = this.configStatus
       input['profile'] = this.selected
 
       if (!cloned) {
-        input['formats'] = []
-        this.formatFields.map((item, index) => {
-          let object = {}
-          object.format = item.format
-          object.active = this.switchCreateFormatStatus.status[index] || false
-          object.premium = item.format.includes('premium')
-          object.formatFields = []
-          item.fields.map((field, index2) => {
-            let subObject = {
-              key: '',
-              value: ''
-            }
-            if (typeof this.newInputValue.format !== 'undefined' && item.format === this.newInputValue.format && index2 === this.newInputValue.index) {
-              subObject = {
-                key: this.newInputValue.label,
-                value: this.newInputValue.value
+        // creación
+        if (this.queryError) {
+          input['formats'] = []
+          this.formatFields.map((item, index) => {
+            let object = {}
+            let fixedFormatName = item.format.split('_premium')[0]
+            object.format = fixedFormatName
+            object.active = this.switchStatus.status[index] || false
+            object.premium = item.format.includes('premium')
+            object.formatFields = []
+            item.fields.map((field, index2) => {
+              let subObject = {
+                key: '',
+                value: ''
               }
-            }
-            object.formatFields.push(subObject)
+              if (typeof this.newInputValue.format !== 'undefined' && fixedFormatName === this.newInputValue.format && index2 === this.newInputValue.index && this.newInputValue.premium === item.format.includes('premium')) {
+                subObject = {
+                  key: this.newInputValue.label,
+                  value: this.newInputValue.value
+                }
+              }
+              object.formatFields.push(subObject)
+            })
+            input['formats'].push(object)
           })
-          input['formats'].push(object)
-        })
+        } else {
+          // Edicion
+          const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
+          let cloneFormats = JSON.parse(JSON.stringify(this.formats), omitTypename)
+          input['formats'] = cloneFormats
+          input = this.setNetworkFormatFieldValues(input)
+        }
       } else {
-        this.switchCreateFormatStatus.status.map((status, index) => {
-          input['formats'][index].active = status
-        })
-
-        input['formats'].map((item, index) => {
-          if (typeof this.newInputValue.format !== 'undefined' && item.format === this.newInputValue.format) { // && index2 === this.newInputValue.index) {
-            item.formatFields[this.newInputValue.index].value = this.newInputValue.value
-            item.formatFields[this.newInputValue.index].key = this.newInputValue.label
-          }
-        })
+        input = this.setNetworkFormatFieldValues(input)
       }
 
       this.copyAppNetwork = input
+    },
+    setNetworkFormatFieldValues (input) {
+      if (this.switchStatus) {
+        this.switchStatus.status.map((status, index) => {
+          input['formats'][index].active = status
+        })
+      }
+
+      input['formats'].map((item, index) => {
+        if (typeof this.newInputValue.format !== 'undefined' && item.format === this.newInputValue.format && this.newInputValue.premium === item.premium) {
+          item.formatFields[this.newInputValue.index].value = this.newInputValue.value
+          item.formatFields[this.newInputValue.index].key = this.newInputValue.label
+        }
+      })
+      return input
     },
     // Close dialog layer
     closeDialog () {
@@ -353,14 +366,19 @@ export default {
       }
     },
     // Get values from input texts
-    getNewValue (value, index, format, label) {
-      this.newInputValue = { value, index, format, label }
+    getNewValue (value, index, format, label, premium) {
+      if (!premium) {
+        premium = format.includes('_premium')
+        format = format.split('_premium')[0]
+      }
+      this.newInputValue = { value, index, format, label, premium }
       this.createInputNewFormatVariables()
     },
     // Send event to update app-network
     sendEditAppNetworkProfileEvent (appId, networkId, profile) {
-      if (!this.queryError) {
-        this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.createInputVariables)
+      if (!this.queryError && this.validateForm()) {
+        this.copyAppNetwork.formats = this.filterFormats(this.copyAppNetwork.formats)
+        this.$root.$emit('updateAppNetworkProfile', appId, networkId, profile, this.copyAppNetwork)
       } else {
         this.queryErrorAction(false)
       }
@@ -372,8 +390,7 @@ export default {
           ).length === format.formatFields.length
         )
     },
-    // Send event to create format data app-network
-    sendCreateAppNetworkProfileEvent (appId, networkId) {
+    validateForm () {
       this.alert = false
       this.fullFormEmptyMsg = false
 
@@ -403,7 +420,11 @@ export default {
         this.fullFormEmptyMsg = true
       }
 
-      if (!this.alert && !this.fullFormEmptyMsg) {
+      return !this.alert && !this.fullFormEmptyMsg
+    },
+    // Send event to create format data app-network
+    sendCreateAppNetworkProfileEvent (appId, networkId) {
+      if (this.validateForm()) {
         this.copyAppNetwork.formats = this.filterFormats(this.copyAppNetwork.formats)
         this.$root.$emit('createAppNetworkProfile', appId, networkId, this.copyAppNetwork)
       }

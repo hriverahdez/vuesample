@@ -37,12 +37,12 @@
             //- v-icon(dark pink) remove_circle
             span.speed-dial__label  {{ $t('floating_btn.new_account')}}
 
-        v-btn(
-        dark
-        color="buttonColor"
-        @click="showCreateNewUserDialog"
-        class="speed-dial__button"
-        )
+        // v-btn(
+        // dark
+        // color="buttonColor"
+        // @click="showCreateNewUserDialog"
+        // class="speed-dial__button"
+        // )
             //- v-icon(dark pink) remove_circle
             span.speed-dial__label  {{ $t('floating_btn.new_user')}}
 

@@ -31,6 +31,129 @@ query ($_id: ID!) {
 }
 `
 
+export const GET_NETWORKS_PROFILES = gql`
+query ($_id: ID!) {
+  accountById(_id: $_id) {
+    _id
+    name
+    networkProfiles {
+      ... on NetworkIntegration1001 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1002 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1003 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1004 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1005 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1007 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1008 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1009 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1012 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1013 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1014 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1015 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1016 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+      ... on NetworkIntegration1017 {
+        active
+        networkId
+        profiles {
+          name
+          default
+        }
+      }
+    }
+  }
+}
+`
+
 /* ------------------------- ADMOB --------------------------- */
 
 // Queries

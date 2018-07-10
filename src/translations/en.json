@@ -35,7 +35,7 @@
       "app_delete": "Delete",
       "app_description": "Description",
       "app_edit": "Edit",
-      "app_enable_disable": "Enable / disable:",
+      "app_enable_disable": "Disable / enable:",
       "app_name": "App name",
       "app_search": "App search",
       "app_URL": "App URL",
@@ -49,6 +49,7 @@
       "updated_app_status": "Changed app status",
       "create_new_app": "New app",
       "delete_app": "Deleted app succesfully",
+      "delete_profile": "Deleted profile succesfully",
       "edit_app": "Edit app",
       "edit_success": "Edited app",
       "enable_disable_network": "Disable / enable:",
@@ -68,6 +69,7 @@
       "profile_name": "Profile name",
       "remove_app": "Remove app",
       "remove_app_message": "Write {number} in the text field ",
+      "remove_profile": "Remove profile",
       "select_platform": "Select platform",
       "select_profile": "Select profile",
       "updated_network_profile": "Network profile editted",
@@ -362,6 +364,9 @@
           "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
         }
       }
+    },
+    "remove_component": {
+      "text": "Write {number} in the text field "
     },
     "switch": {
       "enabled": "Enabled",

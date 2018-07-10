@@ -38,7 +38,10 @@
                 @click.native.stop="showManageNetworkProfiles(props.header.text)"
                 class="header-tile"
                 ) {{ $t('apps_view.manage_network_profiles')}}
-              v-list-tile(@click.native.stop="" class="header-tile") {{ $t('apps_view.enable_disable_network')}}
+              v-list-tile(
+                v-if="checkIfShowSwichInOrderOfNumberOfProfiles(props.header.text)"
+                @click.native.stop=""
+                class="header-tile") {{ $t('apps_view.enable_disable_network')}}
                 v-switch(
                   light
                   color="success"
@@ -46,11 +49,11 @@
                   class="switch"
                   @change="toggleEnableDisableNetwork(networkProfile.active, props.header.text, networkProfile.networkId)"
                   :value="true"
-                  :input-value="networkProfile.active"
+                  :input-value="checkIfItsEnableNetwork(props.header.text)"
                   )
 
         template(slot="items" slot-scope="props")
-            td(class="text-xs-left app" :class="{'red': props.item.disabled }")
+            td(class="text-xs-left app" :class="{'disabled': props.item.disabled }")
               div(class="app-container")
                 img(:src="props.item.icon" class="app-logo")
                 icon(v-if="props.item.platform === 'android'" name="android" color="gray")
@@ -70,7 +73,7 @@
                     ) {{ $t('apps_view.app_edit') }}
                     v-list-tile(
                       class="app-column-menu__list__item"
-                      @click.native="showDeleteDialog(props.item)"
+                      @click.native="showRemoveDialog(props.item)"
                     ) {{ $t('apps_view.app_delete') }}
                     v-list-tile(
                       class="app-column-menu__list__item"
@@ -94,7 +97,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
-            td(v-for="(network, index) in createdNetworksObject" v-bind:class="{ 'padding-scroll': network.name === 'ADMOB', 'red' : (props.item.disabled || network.active === false) }")
+            td(v-for="(network, index) in createdNetworksObject" :key="index" :class="{ 'padding-scroll': network.name === 'ADMOB', 'disabled' : (props.item.disabled || network.active === false), 'no-profiles-length' : !network.numberOfProfiles }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
 
@@ -136,20 +139,25 @@ export default {
     ...mapGetters({
       apps: 'appsDataGetter',
       // networks: 'networksIdsAndNamesGetter',
+      networkProfilesLength: 'getNetworksProfilesLengthGetter',
       networkIds: 'networkIdsGetter',
       networksInfo: 'networksInfoGetter',
       networkProfile: 'networkProfilesDataGetter',
       networkProfilesStatus: 'networkProfilesStatusGetter'
     }),
     createdNetworksObject () {
-      if (this.networks && this.networkProfilesStatus) {
+      if (this.networks && this.networkProfilesStatus && this.networkProfilesLength) {
         let clonedNetworks = JSON.parse(JSON.stringify(this.networks))
 
         clonedNetworks.map((network) => {
-          console.log(network)
           this.networkProfilesStatus.map((networkItem) => {
             if (parseInt(network.id) === networkItem.networkId) {
               network.active = networkItem.active || false
+            }
+          })
+          this.networkProfilesLength.map((networkItem) => {
+            if (parseInt(network.id) === networkItem.networkId) {
+              network.numberOfProfiles = networkItem.numberOfProfiles || false
             }
           })
         })
@@ -213,9 +221,13 @@ export default {
       'appDialogStatusAction',
       'appManageNetworkProfileDialogStatusAction',
       'appNetworkConfigDialogStatusAction',
-      'appRemoveDialogStatusAction',
+      // 'appRemoveDialogStatusAction',
       'appIdAction',
       'editedAppIndexStatusAction',
+      'headerTextAction',
+      'nameOfTheEventToEmitAction',
+      'removeDialogDataAction',
+      'removeDialogStatusAction',
       'selectedAppNetworkInDatatableAction',
       'selectedNetworkToManageAction',
       'skipAppByIdQueryAction',
@@ -224,13 +236,52 @@ export default {
       'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
+    // Sirve para ver si la la red esta habilitada y pintarlo en la cabecera de la tabla
+    checkIfItsEnableNetwork (networkName) {
+      if (this.createdNetworksObject) {
+        let finalValue = ''
+        this.createdNetworksObject.map((network) => {
+          if (network.name === networkName) {
+            finalValue = network.active
+          }
+        })
+        return finalValue
+      }
+    },
+    // Muestra/oculta switch en función del número de perfiles
+    checkIfShowSwichInOrderOfNumberOfProfiles (networkName) {
+      let showSwitch = false
+      if (this.createdNetworksObject) {
+        this.createdNetworksObject.map((network) => {
+          if (network.name === networkName && network.numberOfProfiles > 0) {
+            showSwitch = true
+            return false
+          }
+        })
+      }
+      return showSwitch
+    },
     // Obtenemos el estado de red en la cabecera de la tabla de apps (enble/disable)
     getNetworkStatus (networkName) {
-      this.$root.$emit('launchNetworkProfilesQuery', networkName)
+      setTimeout(() => {
+        this.$root.$emit('launchNetworkProfilesQuery', networkName)
+      }, 1000)
     },
-    showDeleteDialog (app) {
-      this.appRemoveDialogStatusAction(true)
-      .then(() => this.appIdAction(app._id))
+    // Lanzamos el dialog para eliminar la app
+    // showDeleteDialog (app) {
+    //   this.appRemoveDialogStatusAction(true)
+    //   .then(() => this.appIdAction(app._id))
+    // },
+    // Función para mostrar el cuestionario de eliminación
+    showRemoveDialog (app) {
+      // Actulización de la variable para mostrar el cuestionario
+      this.removeDialogStatusAction(true)
+      // Enviamo al store el nombre del evento que queremos ejecutar
+      this.nameOfTheEventToEmitAction('deleteApp')
+      // Enviamos el texto de la cabecera
+      this.headerTextAction('apps_view.remove_app')
+      // Envío de datos necesarios para elimnar
+      this.removeDialogDataAction(app._id)
     },
     // Show edit app dialog
     showEditAppDialog (app) {
@@ -267,6 +318,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.app__text {
+  opacity: 1!important;
+}
 @mixin help-text-content {
   content: '';
   display: inline-block;
@@ -275,21 +329,18 @@ export default {
   height: 8px;
   border-radius: 50%;
 }
-// .red {
-//   background: repeating-linear-gradient(
-//     45deg,
-//     #ccc,
-//     #ccc 10px,
-//     #dbdbdb 10px,
-//     #dbdbdb 20px
-//   );
-// }
+td {
+  border-bottom: 1px solid rgba(0,0,0,0.12)!important;
+}
+/deep/ table > thead > tr:nth-child(1) > th.column.sortable.active.asc.text-xs-left {
+  border-bottom: 1px solid rgba(0,0,0,0.12)!important;
+}
+/deep/ table > tbody > tr:nth-child(1) > td.text-xs-left.app {
+  border-bottom: none;
+  height: 53px;
+}
 .app-card {
   border-top: 3px solid #BDD0FB;
-}
-
-.red {
-  background: red;
 }
 .app-logo {
   display: block;
@@ -337,9 +388,9 @@ export default {
     }
   }
 
-  tr:nth-child(1) > .app {
-    border-bottom: none;
-  }
+  // tr:nth-child(1) > .app {
+  //   border-bottom: none;
+  // }
   .padding-scroll {
     padding-left: 335px!important;
   }
@@ -402,6 +453,21 @@ export default {
   }
 }
 
+.disabled {
+  background: repeating-linear-gradient(
+    45deg,
+    #fff,
+    #fff 10px,
+    #F9DAE6 10px,
+    #F9DAE6 20px
+  )!important;
+  pointer-events: none;
+}
+
+.app.disabled {
+  pointer-events: all;
+}
+
 .help-colors {
   height: 100%;
   display: flex;
@@ -451,6 +517,21 @@ export default {
       }
     }
   }
+}
+
+.no-profiles-length {
+  background: repeating-linear-gradient(
+    45deg,
+    #fff,
+    #fff 10px,
+    #EAEAEA  10px,
+    #EAEAEA  20px
+  )!important;
+  pointer-events: none;
+  // -webkit-animation: fadeInFromNone 0.5s ease-out;
+  // -moz-animation: fadeInFromNone 0.5s ease-out;
+  // -o-animation: fadeInFromNone 0.5s ease-out;
+  // animation: fadeInFromNone 0.5s ease-out;
 }
 
 .search-field {

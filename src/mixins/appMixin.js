@@ -74,10 +74,11 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
+        console.log(data)
         this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile).then(() => {
           this.queryErrorAction(false)
         })
-        // this.skipAppByIdAndNetworkQueryAction(true)
+        this.skipAppByIdAndNetworkQueryAction(true)
       },
       error (error) {
         console.info(error)
@@ -119,12 +120,15 @@ const appMixin = {
       'appDialogStatusAction',
       'appIdAction',
       'appsNamesAndIdsAction',
-      'appRemoveDialogStatusAction',
+      'appNetworkConfigDialogStatusAction',
+      // 'appRemoveDialogStatusAction',
       'appSchemaAction',
       'appsLoaderStatusAction',
       'editedAppIndexStatusAction',
+      'inputValueAction',
       'queryErrorAction',
-      'removeAppPermissionInputAction',
+      'removeDialogStatusAction',
+      // 'removeAppPermissionInputAction',
       'skipAppByIdQueryAction',
       'skipAppByIdAndNetworkQueryAction'
     ]),
@@ -208,15 +212,16 @@ const appMixin = {
           // })
         }
       })
-      // .then(() => {
-      //   this.$apollo.queries.apps.refresh()
-      //   this.SET_ALERT_MESSAGE({
-      //     show: true,
-      //     type: 'success',
-      //     message: this.$t('apps_view.new_success'),
-      //     buttonText: this.$t('buttons.close')
-      //   })
-      // })
+      .then(() => {
+        this.$apollo.queries.apps.refresh()
+        this.SET_ALERT_MESSAGE({
+          show: true,
+          type: 'success',
+          message: this.$t('apps_view.new_success'),
+          buttonText: this.$t('buttons.close')
+        })
+        this.appNetworkConfigDialogStatusAction(false)
+      })
       // this.appDialogStatusAction(false)
       // this.appSchemaAction({
       //   name: '',
@@ -258,8 +263,10 @@ const appMixin = {
           message: this.$t('apps_view.delete_app'),
           buttonText: this.$t('buttons.close')
         })
-        this.appRemoveDialogStatusAction(false)
-        this.removeAppPermissionInputAction('')
+        // this.appRemoveDialogStatusAction(false)
+        // this.removeAppPermissionInputAction('')
+        this.removeDialogStatusAction(false)
+        this.inputValueAction('')
       })
     },
     editApp (id, name, platform, bundle, description, bannerPosition, icon) {
@@ -339,14 +346,6 @@ const appMixin = {
           })
         }
       })
-      .then(() => {
-        this.SET_ALERT_MESSAGE({
-          show: true,
-          type: 'success',
-          message: this.$t('apps_view.updated_app_status'),
-          buttonText: this.$t('buttons.close')
-        })
-      })
     },
     updateAppNetwork (appId, networkId, profile, input) {
       this.$apollo.mutate({
@@ -409,7 +408,8 @@ const appMixin = {
     })
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)
-      this.appIdAction('')
+      // this.appIdAction('')
+      this.inputValueAction('')
     })
     this.$root.$on('editApp', (id, name, platform, bundle, description, bannerPosition, icon) => {
       this.editApp(id, name, platform, bundle, description, bannerPosition, icon)
@@ -418,7 +418,6 @@ const appMixin = {
       this.enableDisableApp(_id, platform, !status)
     })
     this.$root.$on('updateAppNetworkProfile', (appId, networkId, profile, input) => {
-      console.log(input)
       this.updateAppNetwork(appId, networkId, profile, input)
     })
   },

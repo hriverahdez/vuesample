@@ -8,7 +8,8 @@
           //-   v-breadcrumbs-item {{ $t('dashboard_view.apps') }}
           apps-data-table
             loader-component
-          app-remove-dialog(v-if="$store.state.appModule.appRemoveDialogStatus")
+          //- app-remove-dialog(v-if="$store.state.appModule.appRemoveDialogStatus")
+          remove-dialog-component(v-if="$store.state.removeDialogModule.removeDialogStatus")
           app-network-configuration-dialog(v-if="$store.state.appModule.appNetworkConfigDialogStatus")
           app-manage-network-profile-dialog(v-if="$store.state.appModule.appManageNetworkProfileDialogStatus")
 </template>
@@ -18,8 +19,9 @@
 import AppsDataTable from '@/components/apps/AppDataTable'
 import AppManageNetworkProfileDialog from '@/components/apps/AppManageNetworkProfileDialog'
 import AppNetworkConfigurationDialog from '@/components/apps/AppNetworkConfigurationDialog'
-import AppRemoveDialog from '@/components/apps/AppRemoveDialog'
+// import AppRemoveDialog from '@/components/apps/AppRemoveDialog'
 import LoaderComponent from '@/components/LoaderComponent'
+import RemoveDialogComponent from '@/components/RemoveDialogComponent'
 // Mixins imports
 import accountMixin from '@/mixins/accountMixin'
 import appMixin from '@/mixins/appMixin'
@@ -33,8 +35,9 @@ export default {
     AppsDataTable,
     AppManageNetworkProfileDialog,
     AppNetworkConfigurationDialog,
-    AppRemoveDialog,
-    LoaderComponent
+    // AppRemoveDialog,
+    LoaderComponent,
+    RemoveDialogComponent
   },
   mixins: [
     accountMixin,
@@ -49,13 +52,15 @@ export default {
   },
   mounted () {
     this.skipQueryAccountByIdAction(false)
+    this.skipQueryGetNetworksProfilesAction(false)
   },
   updated () {
     this.$apollo.queries.appByIdNetworkProfile.refetch()
   },
   methods: {
     ...mapActions([
-      'skipQueryAccountByIdAction'
+      'skipQueryAccountByIdAction',
+      'skipQueryGetNetworksProfilesAction'
     ])
   }
 }
