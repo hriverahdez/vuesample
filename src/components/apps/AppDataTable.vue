@@ -250,11 +250,9 @@ export default {
     },
     // Muestra/oculta switch en función del número de perfiles
     checkIfShowSwichInOrderOfNumberOfProfiles (networkName) {
-      console.log(networkName)
       let showSwitch = false
       if (this.createdNetworksObject) {
         this.createdNetworksObject.map((network) => {
-          console.log(network.name, networkName, network.numberOfProfiles)
           if (network.name === networkName && network.numberOfProfiles > 0) {
             showSwitch = true
             return false

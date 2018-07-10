@@ -18,9 +18,11 @@
                       v-if="newProfileModeActive"
                       :label="$t('apps_view.profile_name')"
                       v-model="profileName"
+                      @change="enableButton"
                       )
                     v-select(
                       v-else
+                      @change="enableButton"
                       :items="networkProfiles"
                       :label="this.$t('apps_view.select_profile')"
                       item-text="name"
@@ -75,6 +77,7 @@
             class="white--text"
             color="buttonColor"
             @click.native="showRemoveDialog"
+            :disabled="disabledButton"
             ) {{ $t('apps_view.remove_profile') }}
           v-spacer
           v-btn(
@@ -87,6 +90,7 @@
             class="white--text"
             color="buttonColor"
             @click="handleButtonAction"
+            :disabled="disabledButton"
             ) {{ newProfileModeActive ? $t('buttons.create') : $t('buttons.edit') }}
 </template>
 
@@ -105,6 +109,7 @@ export default {
   data () {
     return {
       edittedValue: {},
+      disabledButton: true,
       form: {
         input: []
       },
@@ -159,6 +164,9 @@ export default {
     // Close dialog layer
     closeDialog () {
       this.appManageNetworkProfileDialogStatusAction(false)
+    },
+    enableButton () {
+      this.disabledButton = false
     },
     getNewEdittedValue (e, index) {
       this.edittedValue[index] = e
