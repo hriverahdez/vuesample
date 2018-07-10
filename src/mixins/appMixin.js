@@ -119,12 +119,14 @@ const appMixin = {
       'appDialogStatusAction',
       'appIdAction',
       'appsNamesAndIdsAction',
-      'appRemoveDialogStatusAction',
+      // 'appRemoveDialogStatusAction',
       'appSchemaAction',
       'appsLoaderStatusAction',
       'editedAppIndexStatusAction',
+      'inputValueAction',
       'queryErrorAction',
-      'removeAppPermissionInputAction',
+      'removeDialogStatusAction',
+      // 'removeAppPermissionInputAction',
       'skipAppByIdQueryAction',
       'skipAppByIdAndNetworkQueryAction'
     ]),
@@ -258,8 +260,10 @@ const appMixin = {
           message: this.$t('apps_view.delete_app'),
           buttonText: this.$t('buttons.close')
         })
-        this.appRemoveDialogStatusAction(false)
-        this.removeAppPermissionInputAction('')
+        // this.appRemoveDialogStatusAction(false)
+        // this.removeAppPermissionInputAction('')
+        this.removeDialogStatusAction(false)
+        this.inputValueAction('')
       })
     },
     editApp (id, name, platform, bundle, description, bannerPosition, icon) {
@@ -401,7 +405,8 @@ const appMixin = {
     })
     this.$root.$on('deleteApp', (app) => {
       this.deleteApp(app)
-      this.appIdAction('')
+      // this.appIdAction('')
+      this.inputValueAction('')
     })
     this.$root.$on('editApp', (id, name, platform, bundle, description, bannerPosition, icon) => {
       this.editApp(id, name, platform, bundle, description, bannerPosition, icon)

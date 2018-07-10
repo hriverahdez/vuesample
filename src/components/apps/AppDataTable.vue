@@ -70,7 +70,7 @@
                     ) {{ $t('apps_view.app_edit') }}
                     v-list-tile(
                       class="app-column-menu__list__item"
-                      @click.native="showDeleteDialog(props.item)"
+                      @click.native="showRemoveDialog(props.item)"
                     ) {{ $t('apps_view.app_delete') }}
                     v-list-tile(
                       class="app-column-menu__list__item"
@@ -218,9 +218,13 @@ export default {
       'appDialogStatusAction',
       'appManageNetworkProfileDialogStatusAction',
       'appNetworkConfigDialogStatusAction',
-      'appRemoveDialogStatusAction',
+      // 'appRemoveDialogStatusAction',
       'appIdAction',
       'editedAppIndexStatusAction',
+      'headerTextAction',
+      'nameOfTheEventToEmitAction',
+      'removeDialogDataAction',
+      'removeDialogStatusAction',
       'selectedAppNetworkInDatatableAction',
       'selectedNetworkToManageAction',
       'skipAppByIdQueryAction',
@@ -248,9 +252,20 @@ export default {
       }, 1000)
     },
     // Lanzamos el dialog para eliminar la app
-    showDeleteDialog (app) {
-      this.appRemoveDialogStatusAction(true)
-      .then(() => this.appIdAction(app._id))
+    // showDeleteDialog (app) {
+    //   this.appRemoveDialogStatusAction(true)
+    //   .then(() => this.appIdAction(app._id))
+    // },
+    // Función para mostrar el cuestionario de eliminación
+    showRemoveDialog (app) {
+      // Actulización de la variable para mostrar el cuestionario
+      this.removeDialogStatusAction(true)
+      // Enviamo al store el nombre del evento que queremos ejecutar
+      this.nameOfTheEventToEmitAction('deleteApp')
+      // Enviamos el texto de la cabecera
+      this.headerTextAction('apps_view.remove_app')
+      // Envío de datos necesarios para elimnar
+      this.removeDialogDataAction(app._id)
     },
     // Show edit app dialog
     showEditAppDialog (app) {

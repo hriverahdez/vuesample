@@ -365,6 +365,9 @@
         }
       }
     },
+    "remove_component": {
+      "text": "Write {number} in the text field "
+    },
     "switch": {
       "enabled": "Enabled",
       "disabled": "Disabled",

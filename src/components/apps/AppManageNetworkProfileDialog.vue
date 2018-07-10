@@ -151,6 +151,8 @@ export default {
   methods: {
     ...mapActions([
       'appManageNetworkProfileDialogStatusAction',
+      'headerTextAction',
+      'nameOfTheEventToEmitAction',
       'removeDialogDataAction',
       'removeDialogStatusAction'
     ]),
@@ -186,9 +188,14 @@ export default {
     showRemoveDialog () {
       // Actulización de la variable para mostrar el cuestionario
       this.removeDialogStatusAction(true)
+      // Enviamo al store el nombre del evento que queremos ejecutar
+      this.nameOfTheEventToEmitAction('removeNetworkProfile')
+      // Enviamos el texto de la cabecera
+      this.headerTextAction('apps_view.remove_profile')
       // Envío de datos necesarios para elimnar
       this.removeDialogDataAction([this.selected.name, this.selectednetworkId])
       .then(() => {
+        // Reseteamos el input
         this.selected = ''
       })
     },
