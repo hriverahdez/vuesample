@@ -38,7 +38,10 @@
                 @click.native.stop="showManageNetworkProfiles(props.header.text)"
                 class="header-tile"
                 ) {{ $t('apps_view.manage_network_profiles')}}
-              v-list-tile(@click.native.stop="" class="header-tile") {{ $t('apps_view.enable_disable_network')}}
+              v-list-tile(
+                v-if="checkIfShowSwichInOrderOfNumberOfProfiles(props.header.text)"
+                @click.native.stop=""
+                class="header-tile") {{ $t('apps_view.enable_disable_network')}}
                 v-switch(
                   light
                   color="success"
@@ -233,7 +236,7 @@ export default {
       'skipNetworkProfilesAction'
     ]),
     ...mapMutations(['APP_DATA']),
-    // Sirvaepara ver si la la red esta habilitada y pintarlo en la cabecera de la tabla
+    // Sirve para ver si la la red esta habilitada y pintarlo en la cabecera de la tabla
     checkIfItsEnableNetwork (networkName) {
       if (this.createdNetworksObject) {
         let finalValue = ''
@@ -244,6 +247,21 @@ export default {
         })
         return finalValue
       }
+    },
+    // Muestra/oculta switch en función del número de perfiles
+    checkIfShowSwichInOrderOfNumberOfProfiles (networkName) {
+      console.log(networkName)
+      let showSwitch = false
+      if (this.createdNetworksObject) {
+        this.createdNetworksObject.map((network) => {
+          console.log(network.name, networkName, network.numberOfProfiles)
+          if (network.name === networkName && network.numberOfProfiles > 0) {
+            showSwitch = true
+            return false
+          }
+        })
+      }
+      return showSwitch
     },
     // Obtenemos el estado de red en la cabecera de la tabla de apps (enble/disable)
     getNetworkStatus (networkName) {
@@ -506,16 +524,16 @@ td {
 .no-profiles-length {
   background: repeating-linear-gradient(
     45deg,
-    #EAEAEA,
-    #EAEAEA 10px,
-    #F9DAE6 10px,
-    #F9DAE6 20px
+    #fff,
+    #fff 10px,
+    #EAEAEA  10px,
+    #EAEAEA  20px
   )!important;
   pointer-events: none;
-   -webkit-animation: fadeInFromNone 0.5s ease-out;
-    -moz-animation: fadeInFromNone 0.5s ease-out;
-    -o-animation: fadeInFromNone 0.5s ease-out;
-    animation: fadeInFromNone 0.5s ease-out;
+  // -webkit-animation: fadeInFromNone 0.5s ease-out;
+  // -moz-animation: fadeInFromNone 0.5s ease-out;
+  // -o-animation: fadeInFromNone 0.5s ease-out;
+  // animation: fadeInFromNone 0.5s ease-out;
 }
 
 .search-field {
