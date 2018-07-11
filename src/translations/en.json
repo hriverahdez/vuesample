@@ -276,6 +276,7 @@
         },
         "format_profile_text": {
           "placementId": "Find or create your format / Placement ID by choosing your app, selecting \"Audience Network\" in the left sidebar, then selecting the \"Placements\" tab at the top.",
+          "position": "Set the ad position on the screen (select custom to set the position in code).",
           "ecpm": "Set a decimal value for this format and it will be use in the algorithm to create the networks/formats eCPM ordered waterfall."
         }
       },

@@ -125,7 +125,9 @@
                       color="success"
                       hide-details
                     )
-                section(class="network-config-container__manage")
+                section(
+                  v-if="selectednetwork.id !== '1009'"
+                  class="network-config-container__manage")
                   v-flex(xs7)
                     v-select(
                       :items="networkProfiles"
@@ -136,10 +138,37 @@
                       v-model="selected"
                       required
                     )
+                //- Sección especial para la configuración de Facebook
+                section(
+                  v-else
+                  class="facebook-config-container")
+                  v-flex(xs8)
+                    v-text-field(
+                      :label="$t('apps_view.profile_name')"
+                      v-model="facebookProfileName"
+                      )
+                  v-flex(xs2 offset-xs1)
+                    v-btn(
+                        class="white--text"
+                        color="buttonColor"
+                        @click.native="showInputToCreateNewProfile"
+                    ) {{ $t('buttons.save') }}
+                v-form(class="facebook__form" ref="form")
+                  div(
+                    v-for="(field, key, index) in networksInfo['1009'].params_by_network"
+                    :key="index"
+                    class="input"
+                    )
+                    v-text-field(
+                      :label="field.label"
+                      :ref="`inputText${index}`"
+                      v-model="facebookForm.input[index]"
+                      )
+                    p(v-html="field.help_text")
 
                 section(
                   class="network-config-container__formats-config")
-                  h4 {{ $t('apps_view.format_config')}} Creación
+                  h4 {{ $t('apps_view.format_config')}}
                   div(v-for="(format, index) in formatFields" v-if="formatFields" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
                       div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format) }}
@@ -200,6 +229,10 @@ export default {
         // Comprobamos si es un número entre 0 y 999999999
         (v) => (!isNaN(v) && v > 0) || this.$t('validations.must_be_a_number', {minLength: 1, maxLength: 9999999999})
       ],
+      facebookProfileName: '',
+      facebookForm: {
+        input: []
+      },
       fullFormEmptyMsg: false,
       newInputValue: false,
       switchStatus: {
@@ -226,6 +259,7 @@ export default {
       formats: 'formatsSelectedAppAndNetworkGetter',
       formatFields: 'configAppNetworkFormFieldsGetter',
       formatTypes: 'formatsIdsAndNamesGetter',
+      networksInfo: 'networksInfoGetter',
       networkProfiles: 'networkProfilesListGetter',
       networkStatus: 'networkStatusGetter',
       queryError: 'queryErrorGetter',
@@ -450,6 +484,24 @@ export default {
 .alert {
   width: 100%;
   text-align: center;
+}
+
+.facebook-config-container {
+  display: flex;
+  align-items: center;
+}
+
+.facebook__form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid rgba(0,0,0,0.54);
+  padding: 0 40px;
+  margin-bottom: 20px;
+
+  .input {
+    width: 100%;
+  }
 }
 .network-config-container__data__app {
   display: flex;
