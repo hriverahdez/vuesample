@@ -264,6 +264,7 @@ export default {
     },
     // Obtenemos el estado de red en la cabecera de la tabla de apps (enble/disable)
     getNetworkStatus (networkName) {
+      console.log('getNetworkStatus', networkName)
       setTimeout(() => {
         this.$root.$emit('launchNetworkProfilesQuery', networkName)
       }, 1000)
@@ -313,6 +314,7 @@ export default {
     },
     // Enable/disable network status
     toggleEnableDisableNetwork (status, networkName, networkId) {
+      console.log(status, networkName, networkId)
       this.$root.$emit('enableDisableNetwork', status, networkName, networkId)
     }
   }
