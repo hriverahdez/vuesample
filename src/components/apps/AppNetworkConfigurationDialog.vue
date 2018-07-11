@@ -64,9 +64,9 @@
                     div(v-for="(formatField, index) in format.formatFields")
                       v-text-field(
                         :label="formatField.key"
+                        :rules="formatField.key === 'ecpm' ? ecpmRules : []"
                         :value="formatField.value"
                         @change="getNewValue($event, index, format.format, formatField.key, format.premium)"
-                        hide-details
                         )
                       p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`)")
 
@@ -139,7 +139,7 @@
 
                 section(
                   class="network-config-container__formats-config")
-                  h4 {{ $t('apps_view.format_config')}}
+                  h4 {{ $t('apps_view.format_config')}} Creación
                   div(v-for="(format, index) in formatFields" v-if="formatFields" :key="index" class="network-config-container__formats-config__block")
                     div(class="network-config-container__formats-config__header")
                       div(class="network-config-container__formats-config__header__title") {{ getFormatLabel(format.format) }}
@@ -154,8 +154,8 @@
                     div(v-for="(field, index) in format.fields")
                       v-text-field(
                         :label="field"
+                        :rules="field === 'ecpm' ? ecpmRules : []"
                         @change="getNewValue($event, index, format.format, field)"
-                        hide-details
                         )
                       p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`)")
 
@@ -192,16 +192,25 @@ export default {
   data () {
     return {
       alert: false,
-      fullFormEmptyMsg: false,
       copyAppNetwork: false,
       configStatus: false,
       disabledButton: true,
+      // Variable utilizada para la validación del campo input de ecpm
+      ecpmRules: [
+        // Comprobamos si es un número entre 0 y 999999999
+        (v) => (!isNaN(v) && v > 0) || this.$t('validations.must_be_a_number', {minLength: 1, maxLength: 9999999999})
+      ],
+      fullFormEmptyMsg: false,
       newInputValue: false,
       switchStatus: {
         status: []
       },
       selected: 'default',
-      valid: false
+      valid: false,
+      // Variable utilizada para la validación de los campos input a excepción de ecpm
+      validationRules: [
+        (v) => !!v || this.$t('validations.required')
+      ]
     }
   },
   // props: {
@@ -365,7 +374,7 @@ export default {
         return label
       }
     },
-    // Get values from input texts
+    // Obtiene el valor introducido en los campos input
     getNewValue (value, index, format, label, premium) {
       if (!premium) {
         premium = format.includes('_premium')
@@ -521,6 +530,6 @@ export default {
 }
 
 .help-text {
-  margin-top: 10px;
+  margin-top: -5px;
 }
 </style>

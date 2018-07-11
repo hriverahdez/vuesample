@@ -74,7 +74,6 @@ const appMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log(data)
         this.appByIdAndNetworkDataAction(data.appByIdNetworkProfile).then(() => {
           this.queryErrorAction(false)
         })
@@ -217,7 +216,7 @@ const appMixin = {
         this.SET_ALERT_MESSAGE({
           show: true,
           type: 'success',
-          message: this.$t('apps_view.new_success'),
+          message: this.$t('apps_view.new_format_configurated'),
           buttonText: this.$t('buttons.close')
         })
         this.appNetworkConfigDialogStatusAction(false)
@@ -367,9 +366,6 @@ const appMixin = {
           })
           data.apps.map((item) => {
             if (item._id === appId) {
-              console.log(item)
-              console.log('--------------------')
-              console.log(input)
               item.networks[0].formats = input
             }
           })

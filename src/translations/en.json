@@ -46,7 +46,6 @@
       "apps_title": "Apps list",
       "banner_position": "Banner position",
       "bundle_identifier": "Bundle identifier",
-      "updated_app_status": "Changed app status",
       "create_new_app": "New app",
       "delete_app": "Deleted app succesfully",
       "delete_profile": "Deleted profile succesfully",
@@ -54,6 +53,7 @@
       "edit_success": "Edited app",
       "enable_disable_network": "Disable / enable:",
       "format_config": "Formats configuration",
+      "format_edited_succesfully": "Format edited succesfully",
       "full_form_empty": "Please, fill one format at least",
       "icon_text": "Icon:",
       "manage_ad_placements": "Manage ad placements",
@@ -62,6 +62,7 @@
       "network": "Network",
       "network_configuration": "Network configuration",
       "new_app": "New app",
+      "new_format_configurated": "New format configurated",
       "new_success": "New app created",
       "new_profile": "New profile",
       "new_profile_created": "New profile created",
@@ -72,6 +73,7 @@
       "remove_profile": "Remove profile",
       "select_platform": "Select platform",
       "select_profile": "Select profile",
+      "updated_app_status": "Changed app status",
       "updated_network_profile": "Network profile editted",
       "waterfall_debugger": "Waterfall debugger"
     },
@@ -377,6 +379,7 @@
     "validations": {
       "no_data_available": "No data available",
       "length": "The field must have between {minLength} and {maxLength} characters",
+      "must_be_a_number": "Must be a number between {minLength} and {maxLength}",
       "required": "Required field",
       "same_account_name": "Account name already exists"
     }

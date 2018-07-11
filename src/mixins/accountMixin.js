@@ -158,7 +158,6 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log(data)
         this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
