@@ -35,6 +35,7 @@
               icon(name="cog" class="cog-icon")
             v-list(class="apps-view-list")
               v-list-tile(
+                v-if="props.header.text != 'FACEBOOK'"
                 @click.native.stop="showManageNetworkProfiles(props.header.text)"
                 class="header-tile"
                 ) {{ $t('apps_view.manage_network_profiles')}}

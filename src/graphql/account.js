@@ -384,6 +384,28 @@ mutation updateAccountNetworkIntegration1007byIdAccount ($_idAccount: ID!, $_pro
   }
 }
 `
+/* ------------------------- FACEBOOK --------------------------- */
+// Query
+export const NETWORK_PROFILES_FACEBOOK = gql`
+query ($id: ID!) {
+  accountById(_id: $id) {
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1009 {
+          active
+          networkId
+          profiles {
+            name
+            default
+            access_token
+            app_id
+        }
+      }
+    }
+  }
+ }
+`
 
 /* ------------------------- INMOBI --------------------------- */
 // Query

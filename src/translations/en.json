@@ -74,6 +74,7 @@
       "select_platform": "Select platform",
       "select_profile": "Select profile",
       "updated_app_status": "Changed app status",
+      "updated_format": "Updated format succesfully",
       "updated_network_profile": "Network profile editted",
       "waterfall_debugger": "Waterfall debugger"
     },

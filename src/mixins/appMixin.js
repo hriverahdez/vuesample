@@ -381,7 +381,7 @@ const appMixin = {
         this.SET_ALERT_MESSAGE({
           show: true,
           type: 'success',
-          message: this.$t('apps_view.edit_success'),
+          message: this.$t('apps_view.updated_format'),
           buttonText: this.$t('buttons.close')
         })
         this.appDialogStatusAction(false)

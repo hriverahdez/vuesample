@@ -21,6 +21,7 @@ import {
   NETWORK_PROFILES_ADMOB,
   NETWORK_PROFILES_APPLOVIN,
   NETWORK_PROFILES_CHARTBOOST,
+  NETWORK_PROFILES_FACEBOOK,
   NETWORK_PROFILES_INMOBI,
   NETWORK_PROFILES_IRONSOURCE,
   NETWORK_PROFILES_MOBUSI,
@@ -199,6 +200,25 @@ const accountMixin = {
         this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
+    // FACEBOOK QUERY
+    networkProfilesFacebook: {
+      query: NETWORK_PROFILES_FACEBOOK,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          id: this.accountId
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesFacebookQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
+      }
+    },
     // INMOBI QUERY
     networkProfilesInmobi: {
       query: NETWORK_PROFILES_INMOBI,
@@ -332,7 +352,7 @@ const accountMixin = {
         this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
-    // UNITYADS QUERY
+    // VUNGLE QUERY
     networkProfilesVungle: {
       query: NETWORK_PROFILES_VUNGLE,
       context: {
