@@ -15,7 +15,7 @@
                 div(class="manage-network__container__actions-row")
                   v-flex(xs8)
                     v-text-field(
-                      v-if="newProfileModeActive"
+                      v-if="newProfileModeActive || this.selectednetworkId === '1009'"
                       :label="$t('apps_view.profile_name')"
                       v-model="profileName"
                       @change="enableButton"
@@ -31,6 +31,7 @@
                     )
                   v-flex(xs2 offset-xs1)
                     v-btn(
+                        v-if="this.selectednetworkId !== '1009'"
                         class="white--text"
                         color="buttonColor"
                         @click.native="showInputToCreateNewProfile"
@@ -74,6 +75,7 @@
 
         v-card-actions
           v-btn(
+            v-if="this.selectednetworkId !== '1009'"
             class="white--text"
             color="buttonColor"
             @click.native="showRemoveDialog"
@@ -91,7 +93,7 @@
             color="buttonColor"
             @click="handleButtonAction"
             :disabled="disabledButton"
-            ) {{ newProfileModeActive ? $t('buttons.create') : $t('buttons.edit') }}
+            ) {{ newProfileModeActive || this.selectednetworkId === '1009'? $t('buttons.save') : $t('buttons.edit') }}
 </template>
 
 <script>

@@ -98,6 +98,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
+            //- Celdas de la tabla
             td(v-for="(network, index) in createdNetworksObject" :key="index" :class="{ 'padding-scroll': network.name === 'ADMOB', 'disabled' : (props.item.disabled || network.active === false), 'no-profiles-length' : !network.numberOfProfiles }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
@@ -264,7 +265,6 @@ export default {
     },
     // Obtenemos el estado de red en la cabecera de la tabla de apps (enble/disable)
     getNetworkStatus (networkName) {
-      console.log('getNetworkStatus', networkName)
       setTimeout(() => {
         this.$root.$emit('launchNetworkProfilesQuery', networkName)
       }, 1000)
@@ -294,16 +294,24 @@ export default {
     },
     // Send data to show the app-network configuration corresponding dialog from datatable cell
     selectedCell (networkName, appName, appId) {
-      this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
-      this.selectedNetworkToManageAction(networkName)
-      this.appNetworkConfigDialogStatusAction(true)
-      this.skipAppNetworkFormFieldsAction(false)
-      this.skipAppByIdQueryAction(false)
-      this.skipAppByIdAndNetworkQueryAction(false)
-      this.$root.$emit('launchNetworkProfilesQuery', networkName.name)
+      // Si es facebook tiene que mostrar un dialog diferente
+      if (networkName.name === 'FACEBOOK') {
+        console.log('facebook')
+        this.showManageNetworkProfiles(networkName.name)
+      } else {
+        console.log('otra red')
+        this.selectedAppNetworkInDatatableAction({networkName, appName, appId})
+        this.selectedNetworkToManageAction(networkName)
+        this.appNetworkConfigDialogStatusAction(true)
+        this.skipAppNetworkFormFieldsAction(false)
+        this.skipAppByIdQueryAction(false)
+        this.skipAppByIdAndNetworkQueryAction(false)
+        this.$root.$emit('launchNetworkProfilesQuery', networkName.name)
+      }
     },
      // Show the corresponding network profile dialog from datatable header
     showManageNetworkProfiles (networkName) {
+      console.log('manage', networkName)
       this.appManageNetworkProfileDialogStatusAction(true)
       this.selectedNetworkToManageAction(networkName)
       this.$root.$emit('launchNetworkProfilesQuery', networkName)
