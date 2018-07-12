@@ -157,7 +157,6 @@ const actions = {
     commit(APP_DATA, filters)
   },
   appIdsFiltersAction ({commit}, filters) {
-    console.log(filters)
     commit(APP_ID_FILTERS, filters)
   },
   bannerPositionsDataAction ({commit}, position) {
