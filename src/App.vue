@@ -42,6 +42,9 @@ export default {
       return this.isGrantedComponent(['ROLE_ADMIN', 'ROLE_ACCOUNT_MANAGER', 'ROLE_MULTIACCOUNT_MANAGER'], this.$store)
     }
   },
+  mounted () {
+    console.log('entra app', process.env.API_BASE_URL)
+  },
   methods: {
     checkIfVisibleDependingOnRoute () {
       if (this.$route.name === 'login' || this.$route.name === 'accounts_selection') {
