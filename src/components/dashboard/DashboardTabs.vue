@@ -267,6 +267,11 @@ export default {
       return this.dateGetter.startDate
     }
   },
+  // watch: {
+  //   statsDataFormattedGetter () {
+  //     this.clonningObjectForStats()
+  //   }
+  // },
   mounted () {
     this.$root.$on('sendDateToRoot', (date) => {
       this.$refs['dateRange'].startDate = date
