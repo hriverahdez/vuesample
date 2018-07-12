@@ -68,7 +68,7 @@ xhr.addEventListener("readystatechange", function () {
         drawStat(id, parsed.data.stats, column);
     }
 });
-xhr.open("POST", "http://stage.do.linkitox.com/public/graphql/report");
+xhr.open("POST", "http://qa.stage.do.linkitox.com/public/graphql/report");
 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 xhr.setRequestHeader("Cache-Control", "no-cache");
 xhr.setRequestHeader("Postman-Token", "06890c47-9dc2-44f2-bb84-1db9f512fb0d");
