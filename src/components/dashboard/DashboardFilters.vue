@@ -275,7 +275,7 @@ export default {
       // App
       let appIds = []
       this.appsIdAndName.map((app, index) => {
-        if (app.name === this.apps[index]) {
+        if (this.apps.includes(app.name)) {
           appIds.push(app.id)
         }
       })

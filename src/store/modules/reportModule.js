@@ -115,6 +115,7 @@ const getters = {
   },
   datatableTotalsDataGetter (state, getters) {
     if (getters.datatableDataGetter) {
+      state.datatableTotals = []
       state.datatableTotals.push(state.datatableData.total)
     }
     return state.datatableTotals

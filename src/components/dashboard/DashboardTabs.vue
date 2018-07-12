@@ -57,7 +57,9 @@
                           line-chart(
                             v-if="statsDataFormattedGetter"
                             :ytitle="statYText | capitalize"
-                            :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                            :suffix="checkSymbolType"
+                            thousands="."
+                            :data=" clonningObjectForStats"
                             :legend="false"
                             :discrete= "true"
                           )
@@ -129,7 +131,7 @@ export default {
     // DialogAlert
   },
   data: () => ({
-    prueba: {'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5},
+    // prueba: {'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5},
     selectDateDialog: false,
     dateRangeOptions: {
       startDate: format(subDays(new Date(), 30), 'YYYY-MM-DD'),
@@ -208,6 +210,26 @@ export default {
       'buttonSelectedGetter',
       'rangeGetter'
     ]),
+    // Asignamos el simbolo correspondiente a las gráficas en función del botón clicado
+    checkSymbolType () {
+      console.log(this.buttonSelectedGetter)
+      return (this.buttonSelectedGetter === 'money' || this.buttonSelectedGetter === 'ecpm') ? '$' : this.buttonSelectedGetter === 'ctr' ? '%' : null
+    },
+    // Clonamos el objeto para modificar decimales en las stats
+    clonningObjectForStats () {
+      // Guardamos el objeto en una variable nueva para clonarlo
+      let object = this.statsDataFormattedGetter[this.buttonSelectedGetter][0].data
+      // Clonamos el objeto para manipularlo
+      let clonedObject = JSON.parse(JSON.stringify(object))
+
+      // Recorremos el objeto para dejar solo dos decimales
+      for (let value in clonedObject) {
+        // clonedObject[value] = clonedObject[value].toLocaleString('es')
+        clonedObject[value] = Math.round(clonedObject[value] * 100) / 100
+      }
+      // Retornamos el objeto clonado
+      return clonedObject
+    },
     statYText () {
       if (this.buttonSelectedGetter) {
         switch (this.buttonSelectedGetter) {
@@ -245,6 +267,11 @@ export default {
       return this.dateGetter.startDate
     }
   },
+  // watch: {
+  //   statsDataFormattedGetter () {
+  //     this.clonningObjectForStats()
+  //   }
+  // },
   mounted () {
     this.$root.$on('sendDateToRoot', (date) => {
       this.$refs['dateRange'].startDate = date
