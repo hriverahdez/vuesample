@@ -7,11 +7,6 @@
         v-card-text(class="card__text__form")
           v-container(grid-list-md class="manage-network__container")
             v-layout(wrap)
-              v-select(
-                :items="['hola', 'adios']"
-                outline
-                label="Box style"
-              )
               v-flex(xs12)
                 div(class="manage-network__container__text-info")
                   p {{ $t('apps_view.manage_network_info_text')}}
