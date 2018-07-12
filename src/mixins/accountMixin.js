@@ -21,6 +21,7 @@ import {
   NETWORK_PROFILES_ADMOB,
   NETWORK_PROFILES_APPLOVIN,
   NETWORK_PROFILES_CHARTBOOST,
+  NETWORK_PROFILES_FACEBOOK,
   NETWORK_PROFILES_INMOBI,
   NETWORK_PROFILES_IRONSOURCE,
   NETWORK_PROFILES_MOBUSI,
@@ -35,6 +36,7 @@ import {
   UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1005,
   UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1007,
   UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1008,
+  UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1009,
   UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1012,
   UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1013,
   UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1014,
@@ -158,7 +160,6 @@ const accountMixin = {
       },
       loadingKey: 'loading',
       update (data) {
-        console.log(data)
         this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
@@ -194,6 +195,25 @@ const accountMixin = {
       },
       skip () {
         return this.skipNetworkProfilesChartboostQuery
+      },
+      loadingKey: 'loading',
+      update (data) {
+        this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
+      }
+    },
+    // FACEBOOK QUERY
+    networkProfilesFacebook: {
+      query: NETWORK_PROFILES_FACEBOOK,
+      context: {
+        uri: URI
+      },
+      variables () {
+        return {
+          id: this.accountId
+        }
+      },
+      skip () {
+        return this.skipNetworkProfilesFacebookQuery
       },
       loadingKey: 'loading',
       update (data) {
@@ -333,7 +353,7 @@ const accountMixin = {
         this.networkProfilesDataAction(data.accountById.networkProfiles.find(e => e.profiles))
       }
     },
-    // UNITYADS QUERY
+    // VUNGLE QUERY
     networkProfilesVungle: {
       query: NETWORK_PROFILES_VUNGLE,
       context: {
@@ -360,6 +380,7 @@ const accountMixin = {
       skipNetworkProfilesAdcolonyQuery: true,
       skipNetworkProfilesApplovinQuery: true,
       skipNetworkProfilesChartboostQuery: true,
+      skipNetworkProfilesFacebookQuery: true,
       skipNetworkProfilesInmobiQuery: true,
       skipNetworkProfilesIronsourceQuery: true,
       skipNetworkProfilesMobusiQuery: true,
@@ -1035,41 +1056,42 @@ const accountMixin = {
         }
       })
     },
-    // updateAccountNetworkIntegrationStatusFacebook (status, networkId) {
-    //   this.$apollo.mutate({
-    //     mutation: UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1009,
-    //     context: {
-    //       uri: URI
-    //     },
-    //     variables: {
-    //       _idAccount: this.accountId,
-    //       _idNetwork: networkId,
-    //       input: {
-    //         active: status
-    //       }
-    //     },
-    //     update: (store, { data: { updateAccountNetworkIntegrationStatusFacebook } }) => {
-    //       console.log('update', status, networkId)
-    //       // Actualizamos la query correspondiente
-    //       this.skipNetworkProfilesFacebookQuery = false
-    //       this.$apollo.queries.networkProfilesFacebook.refetch()
-    //       // Read the data from our cache for this query.
-    //       const data = store.readQuery({
-    //         query: NETWORK_PROFILES_FACEBOOK,
-    //         variables: {
-    //           id: this.accountId
-    //         }
-    //       })
-    //       store.writeQuery({
-    //         query: NETWORK_PROFILES_FACEBOOK,
-    //         data,
-    //         variables: {
-    //           id: this.accountId
-    //         }
-    //       })
-    //     }
-    //   })
-    // },
+    updateAccountNetworkIntegrationStatusFacebook (status, networkId) {
+      this.$apollo.mutate({
+        mutation: UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1009,
+        context: {
+          uri: URI
+        },
+        variables: {
+          _idAccount: this.accountId,
+          _idNetwork: networkId,
+          input: {
+            active: status
+          }
+        },
+        update: (store, { data: { updateAccountNetworkIntegrationStatusFacebook } }) => {
+          // Actualizamos la query correspondiente
+          this.skipQueryAccountByIdAction(false)
+          this.$apollo.queries.accountById.refetch()
+          this.skipNetworkProfilesFacebookQuery = false
+          this.$apollo.queries.networkProfilesFacebook.refetch()
+          // Read the data from our cache for this query.
+          const data = store.readQuery({
+            query: NETWORK_PROFILES_FACEBOOK,
+            variables: {
+              id: this.accountId
+            }
+          })
+          store.writeQuery({
+            query: NETWORK_PROFILES_FACEBOOK,
+            data,
+            variables: {
+              id: this.accountId
+            }
+          })
+        }
+      })
+    },
     createAccountNetworkIntegration1012 (profileName, input) {
       this.$apollo.mutate({
         mutation: CREATE_ACCOUNT_NETWORK_INTEGRATION_1012,

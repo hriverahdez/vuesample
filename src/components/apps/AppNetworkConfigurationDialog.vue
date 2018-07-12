@@ -64,9 +64,9 @@
                     div(v-for="(formatField, index) in format.formatFields")
                       v-text-field(
                         :label="formatField.key"
+                        :rules="formatField.key === 'ecpm' ? ecpmRules : []"
                         :value="formatField.value"
                         @change="getNewValue($event, index, format.format, formatField.key, format.premium)"
-                        hide-details
                         )
                       p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${formatField.key}`)")
 
@@ -125,7 +125,9 @@
                       color="success"
                       hide-details
                     )
-                section(class="network-config-container__manage")
+                section(
+                  v-if="selectednetwork.id !== '1009'"
+                  class="network-config-container__manage")
                   v-flex(xs7)
                     v-select(
                       :items="networkProfiles"
@@ -136,6 +138,33 @@
                       v-model="selected"
                       required
                     )
+                //- Sección especial para la configuración de Facebook
+                section(
+                  v-else
+                  class="facebook-config-container")
+                  v-flex(xs8)
+                    v-text-field(
+                      :label="$t('apps_view.profile_name')"
+                      v-model="facebookProfileName"
+                      )
+                  v-flex(xs2 offset-xs1)
+                    v-btn(
+                        class="white--text"
+                        color="buttonColor"
+                        @click.native="showInputToCreateNewProfile"
+                    ) {{ $t('buttons.save') }}
+                v-form(class="facebook__form" ref="form")
+                  div(
+                    v-for="(field, key, index) in networksInfo['1009'].params_by_network"
+                    :key="index"
+                    class="input"
+                    )
+                    v-text-field(
+                      :label="field.label"
+                      :ref="`inputText${index}`"
+                      v-model="facebookForm.input[index]"
+                      )
+                    p(v-html="field.help_text")
 
                 section(
                   class="network-config-container__formats-config")
@@ -154,8 +183,8 @@
                     div(v-for="(field, index) in format.fields")
                       v-text-field(
                         :label="field"
+                        :rules="field === 'ecpm' ? ecpmRules : []"
                         @change="getNewValue($event, index, format.format, field)"
-                        hide-details
                         )
                       p(class="help-text" v-html="$t(`networks_info.${nameAndIdNetworkFormatted}.format_profile_text.${field}`)")
 
@@ -192,16 +221,29 @@ export default {
   data () {
     return {
       alert: false,
-      fullFormEmptyMsg: false,
       copyAppNetwork: false,
       configStatus: false,
       disabledButton: true,
+      // Variable utilizada para la validación del campo input de ecpm
+      ecpmRules: [
+        // Comprobamos si es un número entre 0 y 999999999
+        (v) => (!isNaN(v) && v > 0) || this.$t('validations.must_be_a_number', {minLength: 1, maxLength: 9999999999})
+      ],
+      facebookProfileName: '',
+      facebookForm: {
+        input: []
+      },
+      fullFormEmptyMsg: false,
       newInputValue: false,
       switchStatus: {
         status: []
       },
       selected: 'default',
-      valid: false
+      valid: false,
+      // Variable utilizada para la validación de los campos input a excepción de ecpm
+      validationRules: [
+        (v) => !!v || this.$t('validations.required')
+      ]
     }
   },
   // props: {
@@ -217,6 +259,7 @@ export default {
       formats: 'formatsSelectedAppAndNetworkGetter',
       formatFields: 'configAppNetworkFormFieldsGetter',
       formatTypes: 'formatsIdsAndNamesGetter',
+      networksInfo: 'networksInfoGetter',
       networkProfiles: 'networkProfilesListGetter',
       networkStatus: 'networkStatusGetter',
       queryError: 'queryErrorGetter',
@@ -365,7 +408,7 @@ export default {
         return label
       }
     },
-    // Get values from input texts
+    // Obtiene el valor introducido en los campos input
     getNewValue (value, index, format, label, premium) {
       if (!premium) {
         premium = format.includes('_premium')
@@ -441,6 +484,24 @@ export default {
 .alert {
   width: 100%;
   text-align: center;
+}
+
+.facebook-config-container {
+  display: flex;
+  align-items: center;
+}
+
+.facebook__form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid rgba(0,0,0,0.54);
+  padding: 0 40px;
+  margin-bottom: 20px;
+
+  .input {
+    width: 100%;
+  }
 }
 .network-config-container__data__app {
   display: flex;
@@ -521,6 +582,6 @@ export default {
 }
 
 .help-text {
-  margin-top: 10px;
+  margin-top: -5px;
 }
 </style>

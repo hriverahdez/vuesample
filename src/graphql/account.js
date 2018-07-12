@@ -384,6 +384,54 @@ mutation updateAccountNetworkIntegration1007byIdAccount ($_idAccount: ID!, $_pro
   }
 }
 `
+/* ------------------------- FACEBOOK --------------------------- */
+// Query
+export const NETWORK_PROFILES_FACEBOOK = gql`
+query ($id: ID!) {
+  accountById(_id: $id) {
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1009 {
+          active
+          networkId
+          profiles {
+            name
+            default
+            access_token
+            app_id
+        }
+      }
+    }
+  }
+ }
+`
+// Mutations
+export const CREATE_ACCOUNT_NETWORK_INTEGRATION_1009 = gql`
+mutation createAccountNetworkIntegration1009 ($input: CreateAccountNetIntegration1009Input!){
+  createAccountNetworkIntegration1009(input: $input) {
+    account {
+      _id
+      name
+    }
+  }
+}
+`
+export const UPDATE_ACCOUNT_NETWORK_INTEGRATION_STATUS_1009 = gql`
+mutation updateAccountNetworkIntegrationStatus ($_idAccount: ID!, $_idNetwork: Int!, $input: updateAccountNetworkIntegrationStatusInput!) {
+  updateAccountNetworkIntegrationStatus(_idAccount: $_idAccount, _idNetwork: $_idNetwork, input:$input) {
+    account{
+      _id
+      name
+      networkProfiles {
+        ... on NetworkIntegration1009 {
+          active
+        }
+      }
+    }
+  }
+}
+`
 
 /* ------------------------- INMOBI --------------------------- */
 // Query

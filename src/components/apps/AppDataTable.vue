@@ -35,6 +35,7 @@
               icon(name="cog" class="cog-icon")
             v-list(class="apps-view-list")
               v-list-tile(
+                v-if="props.header.text != 'FACEBOOK'"
                 @click.native.stop="showManageNetworkProfiles(props.header.text)"
                 class="header-tile"
                 ) {{ $t('apps_view.manage_network_profiles')}}
@@ -97,6 +98,7 @@
                     //   @click.native.stop=""
                     // ) {{ $t('apps_view.waterfall_debugger') }}
 
+            // Celdas de la tabla
             td(v-for="(network, index) in createdNetworksObject" :key="index" :class="{ 'padding-scroll': network.name === 'ADMOB', 'disabled' : (props.item.disabled || network.active === false), 'no-profiles-length' : !network.numberOfProfiles }")
               div(class="network-item-container" @click.stop="selectedCell(network, props.item.name, props.item._id)")
                 icon(name="cog" slot="activator" class="cog-icon")
@@ -312,6 +314,7 @@ export default {
     },
     // Enable/disable network status
     toggleEnableDisableNetwork (status, networkName, networkId) {
+      console.log(status, networkName, networkId)
       this.$root.$emit('enableDisableNetwork', status, networkName, networkId)
     }
   }
