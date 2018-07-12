@@ -25,12 +25,12 @@
           td(class="text-xs-left clicked-cell" @click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
           //- td.text-xs-left {{ props.item.requests }}
           td.text-xs-left(v-if="showDAU") DAU
-          td.text-xs-left {{ props.item.imp | currency('', 0) |  noneValueCharacter }}
+          td.text-xs-left {{ props.item.imp | currency('', 0, { thousandsSeparator: '.' }) |  noneValueCharacter }}
           //- td.text-xs-left {{ props.item.fillRate }}
-          td.text-xs-left {{ props.item.click | currency('', 0) | noneValueCharacter }}
+          td.text-xs-left {{ props.item.click | currency('', 0, { thousandsSeparator: '.' }) | noneValueCharacter }}
           td.text-xs-left {{ props.item.ctr | percentageFormat | noneValueCharacter }}
-          td.text-xs-left {{ props.item.money | currency | noneValueCharacter }}
-          td.text-xs-left {{ props.item.ecpm | currency | noneValueCharacter }}
+          td.text-xs-left {{ props.item.money | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
+          td.text-xs-left {{ props.item.ecpm | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
 
         template(slot="no-data")
             v-alert(
@@ -41,12 +41,12 @@
         template(slot="footer" v-if="datatableTotals[0]")
           td.text-xs-left TOTAL
           //- td.text-xs-left {{ datatableTotals[0].req }}
-          td.text-xs-left {{ datatableTotals[0].imp | currency('', 0) | noneValueCharacter }}
+          td.text-xs-left {{ datatableTotals[0].imp | currency('', 0,  { thousandsSeparator: '.' }) | noneValueCharacter }}
           //- td.text-xs-left {{ datatableTotals[0].fillRate }}
-          td.text-xs-left {{ datatableTotals[0].click | currency('', 0) | noneValueCharacter }}
+          td.text-xs-left {{ datatableTotals[0].click | currency('', 0, { thousandsSeparator: '.' }) | noneValueCharacter }}
           td.text-xs-left {{ datatableTotals[0].ctr | percentageFormat | noneValueCharacter }}
-          td.text-xs-left {{ datatableTotals[0].money | currency | noneValueCharacter }}
-          td.text-xs-left {{ datatableTotals[0].ecpm | currency | noneValueCharacter }}
+          td.text-xs-left {{ datatableTotals[0].money | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
+          td.text-xs-left {{ datatableTotals[0].ecpm | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
 
 </template>
 
