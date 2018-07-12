@@ -212,7 +212,7 @@ export default {
       localStorage.setItem('admobProfile', this.selected.name)
       const apiParams = {
         client_id: '996847638432-f2caf55u0bac8anu2fkg3k8i0a2gar03.apps.googleusercontent.com',
-        redirect_uri: 'http://panel.stage.do.linkitox.com/panel/admobOauth',
+        redirect_uri: 'http://qa.panel.stage.do.linkitox.com/panel/admobOauth',
         scope: 'https://www.googleapis.com/auth/adsense.readonly',
         response_type: 'code',
         access_type: 'offline'
@@ -225,7 +225,7 @@ export default {
       window.open(url, 'Admob Oauth', 'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
     },
     revokeAdmobAccess () {
-      const url = `http://stage.do.linkitox.com/admob/revoke`
+      const url = `http://qa.stage.do.linkitox.com/admob/revoke`
       const params = {
         admobAccount: localStorage.getItem('activeAccount'),
         admobProfile: this.selected.name
