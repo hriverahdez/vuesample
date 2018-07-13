@@ -12,11 +12,10 @@
         tr
           th(
             v-for="header in props.headers"
-            :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
+            :class="['column sortable', 'text-xs-left', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
             @click="changeSort(header.value)"
-          )
+          ) {{ getHeaderText(header.text) }}
             v-icon(small) arrow_upward
-            | {{ header.text }}
 
       //- Items de la tabla
       template(slot="items" slot-scope="props")
@@ -63,7 +62,7 @@ export default {
     },
     headers: [
       {
-        text: 'groupBy',
+        text: 'Grouped by',
         align: 'left',
         value: 'formattedLabel'
       },
@@ -121,6 +120,10 @@ export default {
         this.pagination.sortBy = column
         this.pagination.descending = false
       }
+    },
+    // Se utiliza para asignar el nombre de las cabeceras de la tabla. Muestra el tipo de agrupación en el literal
+    getHeaderText (headerText) {
+      return headerText === 'Grouped by' ? `${headerText} ${this.datatableGroupBy.toLowerCase()}` : headerText
     },
     selectTableItem (item, index) {
       let originalGroupedByValue = this.datatableGroupBy
