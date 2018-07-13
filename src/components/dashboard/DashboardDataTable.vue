@@ -1,52 +1,52 @@
 <template lang="pug">
   section
     v-data-table(
-        :headers="showDAU ? headersWithDAU : headers"
-        :items="datatableData"
-        :search="search"
-        :class="['column sortable', pagination.descending ? 'desc' : 'asc']"
-        hide-actions
-        item-key="text"
-        class="elevation-1 dashboard-datatable"
-        )
+      :headers="headers"
+      :items="datatableData"
+      :pagination.sync="pagination"
+      class="elevation-1 dashboard-datatable"
+      hide-actions
+    )
+      //- Slot para las cabeceras
+      template(slot="headers" slot-scope="props")
+        tr
+          th(
+            v-for="header in props.headers"
+            :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
+            @click="changeSort(header.value)"
+          )
+            v-icon(small) arrow_upward
+            | {{ header.text }}
 
-        // template(slot="headers" slot-scope="props")
-        //   tr
-        //     th(
-        //       v-for="header in props.headers"
-        //       :key="header.text"
-        //       align="left"
-        //       @click="changeSort(header.value)"
-        //       :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
-        //       ) {{ header.text === "groupBy" ? `Group by ${datatableGroupBy.toLowerCase()}` : header.text }}
-        //       v-icon(small) arrow_upward
+      //- Items de la tabla
+      template(slot="items" slot-scope="props")
+        td(class="text-xs-left clicked-cell" @click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
+        //- td.text-xs-left {{ props.item.requests }}
+        td.text-xs-left(v-if="showDAU") DAU
+        td.text-xs-left {{ props.item.imp | currency('', 0, { thousandsSeparator: '.' }) |  noneValueCharacter }}
+        //- td.text-xs-left {{ props.item.fillRate }}
+        td.text-xs-left {{ props.item.click | currency('', 0, { thousandsSeparator: '.' }) | noneValueCharacter }}
+        td.text-xs-left {{ props.item.ctr | percentageFormat | noneValueCharacter }}
+        td.text-xs-left {{ props.item.money | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
+        td.text-xs-left {{ props.item.ecpm | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
 
-        template(slot="items" slot-scope="props")
-          td(class="text-xs-left clicked-cell" @click="selectTableItem(props.item, props.index)") {{ props.item.formattedLabel }}
-          //- td.text-xs-left {{ props.item.requests }}
-          td.text-xs-left(v-if="showDAU") DAU
-          td.text-xs-left {{ props.item.imp | currency('', 0, { thousandsSeparator: '.' }) |  noneValueCharacter }}
-          //- td.text-xs-left {{ props.item.fillRate }}
-          td.text-xs-left {{ props.item.click | currency('', 0, { thousandsSeparator: '.' }) | noneValueCharacter }}
-          td.text-xs-left {{ props.item.ctr | percentageFormat | noneValueCharacter }}
-          td.text-xs-left {{ props.item.money | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
-          td.text-xs-left {{ props.item.ecpm | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
+      //- Estado tabla son datos
+      template(slot="no-data")
+          v-alert(
+          :value="true"
+          color="error"
+          icon="warning") {{ $t('validations.no_data_available')}}
 
-        template(slot="no-data")
-            v-alert(
-            :value="true"
-            color="error"
-            icon="warning") {{ $t('validations.no_data_available')}}
-
-        template(slot="footer" v-if="datatableTotals[0]")
-          td.text-xs-left TOTAL
-          //- td.text-xs-left {{ datatableTotals[0].req }}
-          td.text-xs-left {{ datatableTotals[0].imp | currency('', 0,  { thousandsSeparator: '.' }) | noneValueCharacter }}
-          //- td.text-xs-left {{ datatableTotals[0].fillRate }}
-          td.text-xs-left {{ datatableTotals[0].click | currency('', 0, { thousandsSeparator: '.' }) | noneValueCharacter }}
-          td.text-xs-left {{ datatableTotals[0].ctr | percentageFormat | noneValueCharacter }}
-          td.text-xs-left {{ datatableTotals[0].money | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
-          td.text-xs-left {{ datatableTotals[0].ecpm | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
+      //- Footer con totales en la tabla
+      template(slot="footer" v-if="datatableTotals[0]")
+        td.text-xs-left TOTAL
+        //- td.text-xs-left {{ datatableTotals[0].req }}
+        td.text-xs-left {{ datatableTotals[0].imp | currency('', 0,  { thousandsSeparator: '.' }) | noneValueCharacter }}
+        //- td.text-xs-left {{ datatableTotals[0].fillRate }}
+        td.text-xs-left {{ datatableTotals[0].click | currency('', 0, { thousandsSeparator: '.' }) | noneValueCharacter }}
+        td.text-xs-left {{ datatableTotals[0].ctr | percentageFormat | noneValueCharacter }}
+        td.text-xs-left {{ datatableTotals[0].money | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
+        td.text-xs-left {{ datatableTotals[0].ecpm | currency('$', 2, { thousandsSeparator: '.', decimalSeparator: ',', symbolOnLeft: false }) | noneValueCharacter }}
 
 </template>
 
@@ -57,38 +57,40 @@ export default {
   name: 'DashboardDataTable',
   data: () => ({
     pagination: {
-      sortBy: 'groupBy',
-      descending: true
+      sortBy: 'formattedLabel',
+      descending: true,
+      rowsPerPage: -1
     },
     headers: [
       {
         text: 'groupBy',
         align: 'left',
-        value: 'date'
+        value: 'formattedLabel'
       },
       // { text: 'Request', value: 'request' },
-      { text: 'Impressions', value: 'impressions' },
+      { text: 'Impressions', value: 'imp' },
       // { text: 'Fill rate', value: 'rate' },
-      { text: 'Clicks', value: 'clicks' },
+      { text: 'Clicks', value: 'click' },
       { text: 'CTR', value: 'ctr' },
-      { text: 'Revenue', value: 'revenue' },
+      { text: 'Revenue', value: 'money' },
       { text: 'eCPM', value: 'ecpm' }
+
     ],
-    headersWithDAU: [
-      {
-        text: 'Group by date',
-        align: 'left',
-        value: 'date'
-      },
-      { text: 'Request', value: 'request' },
-      { text: 'DAU', value: 'DAU' },
-      { text: 'Impressions', value: 'impressions' },
-      { text: 'Fill rate', value: 'rate' },
-      { text: 'Clicks', value: 'clicks' },
-      { text: 'CTR', value: 'ctr' },
-      { text: 'Revenue', value: 'revenue' },
-      { text: 'eCPM', value: 'ecpm' }
-    ],
+    // headersWithDAU: [
+    //   {
+    //     text: 'Group by date',
+    //     align: 'left',
+    //     value: 'date'
+    //   },
+    //   { text: 'Request', value: 'request' },
+    //   { text: 'DAU', value: 'DAU' },
+    //   { text: 'Impressions', value: 'imp' },
+    //   { text: 'Fill rate', value: 'fillrate' },
+    //   { text: 'Clicks', value: 'click' },
+    //   { text: 'CTR', value: 'ctr' },
+    //   { text: 'Revenue', value: 'revenue' },
+    //   { text: 'eCPM', value: 'ecpm' }
+    // ],
     search: ''
   }),
   computed: {
@@ -111,34 +113,11 @@ export default {
       'groupByVarDataAction',
       'rangeAction'
     ]),
-    // Show correct formatted label data depending on groupedby type
-    // formatDataLabelDependingOnGroupedby (item) {
-    //   if (this.groupedBy === 'DATE') {
-    //     return item.label
-    //   } else if (this.groupedBy === 'APP') {
-    //     for (let i = 0; i < this.apps.length; i++) {
-    //       if (item.label === this.apps[i].id) {
-    //         return this.apps[i].name
-    //       }
-    //     }
-    //   } else if (this.groupedBy === 'NETWORK') {
-    //     for (let key in this.networks) {
-    //       if (item.label === this.networks[key]) {
-    //         return key
-    //       }
-    //     }
-    //   } else {
-    //     return item.label
-    //   }
-    // },
     // Change current tab and filters when clicked data table row
     changeSort (column) {
       if (this.pagination.sortBy === column) {
-        console.log('entra')
         this.pagination.descending = !this.pagination.descending
-        console.log(this.pagination.descending)
       } else {
-        console.log('entra2')
         this.pagination.sortBy = column
         this.pagination.descending = false
       }
