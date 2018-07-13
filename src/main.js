@@ -90,7 +90,7 @@ Vue.filter('noneValueCharacter', (val) => {
 
 Vue.filter('percentageFormat', function (val) {
   if (val) {
-    return `${val.toFixed(2)}%`
+    return `${val.toFixed(2).replace('.', ',')}%`
   } else {
     return false
   }

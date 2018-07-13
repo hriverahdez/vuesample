@@ -59,7 +59,8 @@
                             :ytitle="statYText | capitalize"
                             :suffix="checkSymbolType"
                             thousands="."
-                            :data=" clonningObjectForStats"
+                            decimal=","
+                            :data="clonningObjectForStats"
                             :legend="false"
                             :discrete= "true"
                           )
@@ -72,7 +73,10 @@
                           v-if="statsDataFormattedGetter"
                           legend="bottom"
                           :ytitle="statYText | capitalize"
-                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                          :suffix="checkSymbolType"
+                          thousands="."
+                          decimal=","
+                          :data="clonningObjectForStats"
                         )
                         dashboard-no-data-filter(v-else)
 
@@ -83,8 +87,11 @@
                           :legend="false"
                           v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
-                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
                           :discrete= "true"
+                          :suffix="checkSymbolType"
+                          thousands="."
+                          decimal=","
+                          :data="clonningObjectForStats"
                         )
                         dashboard-no-data-filter(v-else)
 
@@ -95,7 +102,10 @@
                           legend="bottom"
                           v-if="statsDataFormattedGetter"
                           :ytitle="statYText | capitalize"
-                          :data="statsDataFormattedGetter[buttonSelectedGetter][0].data"
+                          :suffix="checkSymbolType"
+                          thousands="."
+                          decimal=","
+                          :data="clonningObjectForPieStats"
                         )
                         dashboard-no-data-filter(v-else)
 
@@ -106,7 +116,10 @@
                           v-if="statsDataFormattedGetter"
                           legend="bottom"
                           :ytitle="statYText | capitalize"
-                          :data="statsDataFormattedGetter[buttonSelectedGetter]"
+                          :suffix="checkSymbolType"
+                          thousands="."
+                          decimal=","
+                          :data="clonningObjectForStats"
                         )
                         dashboard-no-data-filter(v-else)
 
@@ -212,16 +225,29 @@ export default {
     ]),
     // Asignamos el simbolo correspondiente a las gráficas en función del botón clicado
     checkSymbolType () {
-      console.log(this.buttonSelectedGetter)
       return (this.buttonSelectedGetter === 'money' || this.buttonSelectedGetter === 'ecpm') ? '$' : this.buttonSelectedGetter === 'ctr' ? '%' : null
     },
     // Clonamos el objeto para modificar decimales en las stats
     clonningObjectForStats () {
       // Guardamos el objeto en una variable nueva para clonarlo
+      let object = this.statsDataFormattedGetter[this.buttonSelectedGetter]
+      // Clonamos el objeto para manipularlo
+      let clonedObject = JSON.parse(JSON.stringify(object))
+      // Recorremos el objeto para dejar solo dos decimales
+      clonedObject.map((item) => {
+        for (let value in item.data) {
+          item.data[value] = Math.round(item.data[value] * 100) / 100
+        }
+      })
+      // Retornamos el objeto clonado
+      return clonedObject
+    },
+    // Si la gráfica es de tipo pie-chart, hace falta otro taratamiento en los datos
+    clonningObjectForPieStats () {
+      // Guardamos el objeto en una variable nueva para clonarlo
       let object = this.statsDataFormattedGetter[this.buttonSelectedGetter][0].data
       // Clonamos el objeto para manipularlo
       let clonedObject = JSON.parse(JSON.stringify(object))
-
       // Recorremos el objeto para dejar solo dos decimales
       for (let value in clonedObject) {
         // clonedObject[value] = clonedObject[value].toLocaleString('es')
@@ -308,6 +334,11 @@ export default {
         this.selectDateDialog = false
       })
     },
+    // Asignamos el simbolo correspondiente a las gráficas en función del botón clicado
+    // checkSymbolType () {
+    //   console.log(this.buttonSelectedGetter, (this.buttonSelectedGetter === 'money' || this.buttonSelectedGetter === 'ecpm') ? '$' : this.buttonSelectedGetter === 'ctr' ? '%' : null)
+    //   return (this.buttonSelectedGetter === 'money' || this.buttonSelectedGetter === 'ecpm') ? '$' : this.buttonSelectedGetter === 'ctr' ? '%' : null
+    // },
     // Close dialog without apply selection
     exitDialogWithoutSelectRangeOfDates () {
       // Resume  query
