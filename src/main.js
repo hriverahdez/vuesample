@@ -38,7 +38,7 @@ Vue.component('icon', Icon)
 Vue.use(Vue2Filters)
 
 // Apollo config
-const host = process.env.API_BASE_URL
+const host = `${process.env.API_BASE_URL}/public/graphql`
 
 const introspectionQueryResultData = require('./fragmentTypes.json')
 

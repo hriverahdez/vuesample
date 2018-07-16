@@ -18,7 +18,7 @@ export default {
       }
       // TO DO Poner una espera activa mientras se carga la página
       console.log('params to get', params)
-      const url = `http://stage.do.linkitox.com/admob/grant`
+      const url = `${process.env.API_BASE_URL}/admob/grant`
       axios.post(url, querystring.stringify(params)).then((response) => {
         localStorage.removeItem('admobAccount')
         localStorage.removeItem('admobProfile')

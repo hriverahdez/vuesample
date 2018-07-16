@@ -28,7 +28,7 @@ export default {
       context.commit('browserLangUpdate', lang)
     },
     getWords (context) {
-      return axios.get(`http://stage.do.linkitox.com/i18n-messages/${context.state.browserLang}`)
+      return axios.get(`${process.env.API_BASE_URL}/i18n-messages/${context.state.browserLang}`)
         .then(response => {
           context.commit('ADD_WORDS', response.data[`${context.state.browserLang}`])
         })
