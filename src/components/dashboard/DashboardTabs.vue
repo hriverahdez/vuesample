@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-container(class="stats-container")
+    v-container(class="stats-container" v-if="dashboardDatatableDataWithFormattedLabelGetter.length")
         v-layout(row wrap stats-container__layout)
             v-flex(xs12 pa-0)
                 //- v-subheader {{ `${$t('dashboard_view.grouped_by')} ${groupedByGetter} `}}
@@ -144,6 +144,7 @@ export default {
     // DialogAlert
   },
   data: () => ({
+    prueba: false,
     // prueba: {'2017-05-13': 2, '2017-05-14': 5, '2017-05-15': 5},
     selectDateDialog: false,
     dateRangeOptions: {
@@ -217,6 +218,7 @@ export default {
   computed: {
     ...mapGetters([
       'groupByGetter',
+      'dashboardDatatableDataWithFormattedLabelGetter',
       'dateGetter',
       'statsDataFormattedGetter',
       // 'statsDataFormattedWithoutNameGetter',

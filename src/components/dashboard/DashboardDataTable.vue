@@ -1,6 +1,7 @@
 <template lang="pug">
   section
     v-data-table(
+      v-if="datatableData.length"
       :headers="headers"
       :items="datatableData"
       :pagination.sync="pagination"

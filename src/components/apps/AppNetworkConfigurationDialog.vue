@@ -1,6 +1,7 @@
 <template lang="pug">
     //- Formulario de edición
     v-dialog(
+      scrollable
       v-if="formats && networkStatus"
       v-model="$store.state.appModule.appNetworkConfigDialogStatus"
       max-width="700"
