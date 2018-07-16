@@ -185,7 +185,13 @@ export default {
       this.addNetworkToList()
     }
   },
-
+  mounted () {
+    // Resetea el valor de los inputs
+    this.addAppToList()
+    this.addCountryToList()
+    this.addFormatToList()
+    this.addNetworkToList()
+  },
   methods: {
     ...mapActions([
       'appFiltersAction',
@@ -204,9 +210,9 @@ export default {
     // Push selected apps to apps list
     addAppToList () {
       if (this.apps.length) {
-        this.$refs['appSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.apps')} (${this.apps.length}) lololo`
+        this.$refs['appSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.apps')} (${this.apps.length})`
       } else {
-        this.$refs['appSelect'].$el.children[1].children[0].innerText = 'lololo'
+        this.$refs['appSelect'].$el.children[1].children[0].innerText = ''
         this.appIdsFiltersAction([])
       }
     },

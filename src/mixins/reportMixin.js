@@ -34,7 +34,6 @@ const reportMixin = {
       // },
       loadingKey: 'loading',
       update (data) {
-        console.log('networkStats ok')
         this.statsDataAction(data.networkStats).then(() => {
           // Loader control
           // this.dashboardLoaderStatusAction(false)
@@ -69,7 +68,6 @@ const reportMixin = {
       // },
       loadingKey: 'loading',
       update (data) {
-        console.log('DatatableData ok')
         this.datatableDataAction(data.networkStats)
         // Stop Query
         // this.skipDatatableDataQueryAction(true)
