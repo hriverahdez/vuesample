@@ -1,7 +1,7 @@
 <template lang="pug">
     v-container.dashboard__section
         v-layout(wrap).card__row-title
-          template(v-if="$apollo.queries.networkStats.loading && $apollo.queries.datatableData.loading && $apollo.queries.filters.loading")
+          template(v-if="$apollo.queries.networkStats.loading || $apollo.queries.datatableData.loading || $apollo.queries.filters.loading")
             loader-component
           v-flex(xs12 v-else)
             //- v-breadcrumbs(divider="/" large)
@@ -40,6 +40,9 @@ export default {
       dashboardDatatableData: 'dashboardDatatableDataWithFormattedLabelGetter'
       // loaderStatus: 'dashboardLoaderStatusGetter'
     })
+  },
+  mounted () {
+    console.log(this.$apollo.queries.networkStats.loading && this.$apollo.queries.datatableData.loading && this.$apollo.queries.filters.loading)
   }
 
   // methods: {

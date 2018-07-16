@@ -1280,7 +1280,7 @@ const state = {
     {id: '1013', name: 'STARTAPP'},
     {id: '1005', name: 'VUNGLE'}
   ],
-  urlLogin: 'http://stage.do.linkitox.com/api/token'
+  urlLogin: `${process.env.API_BASE_URL}/api/token`
 }
 
 const getters = {

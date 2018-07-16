@@ -204,9 +204,9 @@ export default {
     // Push selected apps to apps list
     addAppToList () {
       if (this.apps.length) {
-        this.$refs['appSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.apps')} (${this.apps.length})`
+        this.$refs['appSelect'].$el.children[1].children[0].innerText = `${this.$t('dashboard_view.apps')} (${this.apps.length}) lololo`
       } else {
-        this.$refs['appSelect'].$el.children[1].children[0].innerText = ''
+        this.$refs['appSelect'].$el.children[1].children[0].innerText = 'lololo'
         this.appIdsFiltersAction([])
       }
     },
