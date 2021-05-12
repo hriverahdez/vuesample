@@ -15,7 +15,7 @@
     "apollo-client": "^2.2.8",
     "apollo-link-http": "^1.5.4",
     "axios": "^0.18.0",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "date-fns": "^1.29.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.1",
